@@ -1,0 +1,53 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "MVR Data Science User Guide"
+  author: 
+    - Michael Dougherty, Geographer
+    - Barrie Chileen Martinez, Geographer
+  date: "3/24/2026"
+  repo-url: https://github.com/MVR-GIS/MVR-User-Guide
+  page-navigation: false
+  search: true
+
+  chapters:
+    - index.qmd
+    - part: Git Repos
+      chapters:
+        - gpg-commit-signing.qmd
+        - create-repo.qmd
+    - part: "R Projects"
+      chapters:
+        - ROracle-setup.qmd
+        - Deploy-shiny.qmd
+    - part: "AI Workflows"
+      chapters:
+        - ai-workflows.qmd
+    - part: "Data Governance"
+      chapters:
+        - dbt-setup.qmd      
+  appendices:
+    - references.qmd
+
+sidebar:
+  style: "docked"
+  background: light
+page-footer:
+  left: "Made with love by USACE"
+  background: light
+
+bibliography: [references.bib]
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    respect-user-color-scheme: true
+    highlight-style: pygments
+    code-copy: true
+
+editor: source
+

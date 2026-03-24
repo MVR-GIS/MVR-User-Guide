@@ -1,0 +1,5 @@
+# Preface {.unnumbered}
+
+The purpose of this guide is to coordinate the data science efforts of the Rock Island District of the U.S. Army Corps of Engineers. We have established these best practice guidelines to streamline onboarding of new data scientists, promote consistency across projects, and ensure the quality and reproducibility of our work.
+
+

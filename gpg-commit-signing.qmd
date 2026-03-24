@@ -1,0 +1,218 @@
+---
+engine: markdown
+execute:
+  eval: false
+---
+
+# GPG Commit Signing
+
+## Introduction
+Using GPG to sign commits provides crucial benefits related to security, trust, and accountability by cryptographically verifying the author's identity and ensuring the code's integrity.
+
+The primary benefits include:
+
+- **Authenticity and Identity Verification:** It proves that a commit actually originated from you rather than someone spoofing your name and email address. In standard Git, anyone can change their local configuration to pretend to be another developer.
+- **Tamper-Evidence:** A GPG signature ensures that the commit’s contents (the code changes, message, and metadata) have not been altered since it was signed. If a single bit is changed, the cryptographic hash will no longer match the signature.
+- **"Verified" Status on Platforms:** Major hosting services like GitHub, GitLab, and Bitbucket display a green "Verified" badge next to signed commits, which builds trust with maintainers and collaborators.
+- **Audit Trails and Compliance:** For organizations with strict security or legal requirements, signed commits provide an immutable, auditable trail of who authorized specific changes to the codebase.
+- **Protection Against Infrastructure Compromise:** If a Git server itself is compromised, GPG signatures remain valid because they were created locally with your private key, allowing others to verify that the historical code is still legitimate.
+- **Enforcement of Security Policies:** Repository administrators can enable branch protection rules that reject unsigned commits, ensuring that only verified contributions enter critical branches. 
+
+## GnuPG
+[GnuPG: gpg](https://gnupg.org/index.html) version 2.x is installed along with [`Git for Windows`](https://gitforwindows.org/), so there is no need to install it separately. All of the following command can be run in the Git bash terminal available in RStudio, Positron, VS Code, etc.  
+
+If you plan to use the utilities distributed with git at the Windows command prompt, you must add the ensure that the Git usr/bin (i.e., C:\Program Files\Git\usr\bin) directory is included Environment Variables PATH.  
+
+For complete documentation see the [GNU Privacy Handbook](https://gnupg.org/gph/en/manual.html).
+ 
+```{bash}
+# Which gpg executable is currently being used?
+where gpg
+
+# What version is being used?
+gpg --version
+
+# Where are keys being stored?
+gpg --list-secret-keys --keyid-format=long
+```
+
+
+* Recent versions of `Git` have will have `gpg` version 2.x in the `C:\Program Files\Git\usr\bin` directory. 
+* Add this folder to `Path` environment variable for your account. 
+* After making this path change, reopen your IDE (PyCharm, RStudio), and run the above commands again to confirm gpg is using the specified gpg version. 
+
+## Set git default editor
+Change git's default editor from `vim` to `nano`. 
+```{bash}
+git config --global core.editor "nano"
+```
+
+## Generating a new GPG key
+[Generating a new GPG key](https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key)
+* Open a shell/terminal window in your current working directory (root of git repo) and run the following commands: 
+
+```{bash}
+# Generate a GPG key using version 1 syntax
+gpg --gen-key
+```
+
+```{bash}
+# List the GPG keys on the current cumputer
+gpg --list-secret-keys --keyid-format=long
+```
+
+```{bash}
+# --list-secret-keys output:
+D:\Workspace\rarr>gpg --list-secret-keys --keyid-format=long
+/c/Users/B5PMMMPD/.gnupg/pubring.gpg
+------------------------------------
+sec   2048R/B68FE334FA0C2722 2022-03-04
+uid                          Michael Dougherty <mike.p.doc.71@gmail.com>
+ssb   2048R/91484B4037C3D166 2022-03-04
+```
+
+* In the example above, the `<key id>` that you will use in the next step is: `B68FE334FA0C2722`
+* In the example above, this key can be referenced using its `uid`: `mike.p.doc.71@gmail.com` 
+
+## Set Git to use this signing key
+[Telling Git about your signing key](https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key)
+
+```{bash}
+# Set user name and email
+git config --global user.name "Your Name"
+git config --global user.email you@example.com
+
+# Set signing key on the current computer
+git config --global user.signingkey <key id>
+
+# Set git to sign all commits on the current computer
+git config --global commit.gpgsign true
+```
+
+## Set the trust level of this key
+The following commands will set the computer's GPG trust database. 
+```{bash}
+git config --global gpg.program "C:\Program Files\Git\usr\bin\gpg.exe"
+
+# At the gpg prompt, enter the `trust` command to set the trust level
+gpg> trust
+
+# Follow the prompts to set "ultimate" trust level for this key.
+# Save your changes
+gpg> save
+# Quit without saving changes
+gpg> quit
+```
+
+
+## Test your new signing key
+```{bash}
+# in a git repo
+touch test.txt
+git add test.txt
+git commit -m "test signed commits"
+```
+
+```{bash}
+# View signatures of each commit
+git log --show-signature
+```
+
+
+## Export public GPG keys
+[Export GPG key](https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key)
+
+```{bash}
+# List the GPG public keys on the current computer
+gpg --list-public-keys --keyid-format=long
+
+# List the GPG secret keys on the current computer
+gpg --list-secret-keys --keyid-format=long
+
+# Prints the GPG public key, in ASCII armor format
+gpg --armor --export <key>
+```
+
+* Copy your GPG public key, beginning with `-----BEGIN PGP PUBLIC KEY BLOCK-----` and ending with `-----END PGP PUBLIC KEY BLOCK-----`. 
+* Copy this text to your encrypted password database. 
+* Save the database.
+
+
+## Export your GPG private key for use on another computer
+[Import your GPG key on another computer](https://www.garrickadenbuie.com/blog/signed-verified-git-commits-keybase-rstudio/#import-your-gpg-key-on-another-computer)
+
+```{bash}
+# From the first computer where you generated the GPG key, export the 
+# ASCII armored private key
+gpg --armor --export-secret-keys <key> 
+```
+
+* Copy your GPG private key, beginning with `-----BEGIN PGP PRIVATE KEY BLOCK-----` and ending with `-----END PGP PRIVATE KEY BLOCK-----`. 
+* Add the exported text of the GPG private key to your secure password database.
+* Save the database.
+* This will allow you to install this GPG private key on any other computers you use. 
+
+
+## Adding a new GPG public key to your GitHub account
+[Adding a new GPG key to your GitHub account](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-new-gpg-key-to-your-github-account)
+
+* Add the GPG public key to GitHub. 
+
+## Check your signed commit
+[Check your signed commit](https://www.garrickadenbuie.com/blog/signed-verified-git-commits-keybase-rstudio/)
+
+```{bash}
+# in a git repo
+touch test.txt
+git add test.txt
+git commit -m "test signed commits"
+```
+
+
+
+## Import your GPG public and private key on another computer
+* On another computer, open your secure password database. 
+* Copy the public key text to a temp file named `mykey_pub.txt` in your shell's current working directory.
+* Copy the private key text to a temp file named `mykey_sec.txt` in your shell's current working directory.
+
+```{bash}
+# Import the GPG public key
+gpg --import mykey_pub.txt
+
+# Check that the GPG public key imported correctly
+gpg --list-public-keys --keyid-format=long
+
+# Import the GPG private key
+gpg --allow-secret-key-import --import mykey_sec.txt
+
+# Check that the GPG private key imported correctly
+gpg --list-secret-keys --keyid-format=long 
+```
+
+* If the key imports are successful, delete these temporary files to ensure the security of your private key. 
+
+
+## Set Git to use this signing key
+[Telling Git about your signing key](https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key)
+
+```{bash}
+# Set user name and email
+git config --global user.name "Your Name"
+git config --global user.email you@example.com
+
+# Set signing key
+git config --global user.signingkey <key>
+
+# Set git to sign all commits
+git config --global commit.gpgsign true
+```
+
+## Set the trust level of this key
+The following commands will set the computer's GPG trust database. 
+```{bash}
+gpg --edit-key mike.p.doc.71@gmail.com
+
+# At the gpg prompt, enter the `trust` command to set the trust level
+gpg> trust
+gpg> save
+```
