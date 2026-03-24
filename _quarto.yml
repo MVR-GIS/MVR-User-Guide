@@ -46,8 +46,9 @@ format:
       light: flatly
       dark: darkly
     respect-user-color-scheme: true
-    highlight-style: pygments
-    code-copy: true
+    highlight-style:
+      light: arrow
+      dark: arrow-dark
 
 editor: source
 

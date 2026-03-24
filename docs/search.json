@@ -36,7 +36,7 @@
     "href": "gpg-commit-signing.html#gnupg",
     "title": "1  GPG Commit Signing",
     "section": "1.2 GnuPG",
-    "text": "1.2 GnuPG\nGnuPG: gpg version 2.x is installed along with Git for Windows, so there is no need to install it separately. All of the following command can be run in the Git bash terminal available in RStudio, Positron, VS Code, etc.\nIf you plan to use the utilities distributed with git at the Windows command prompt, you must add the ensure that the Git usr/bin (i.e., C:Files) directory is included Environment Variables PATH.\nFor complete documentation see the GNU Privacy Handbook.\n# Which gpg executable is currently being used?\nwhere gpg\n\n# What version is being used?\ngpg --version\n\n# Where are keys being stored?\ngpg --list-secret-keys --keyid-format=long\n\nRecent versions of Git have will have gpg version 2.x in the C:\\Program Files\\Git\\usr\\bin directory.\nAdd this folder to Path environment variable for your account.\nAfter making this path change, reopen your IDE (PyCharm, RStudio), and run the above commands again to confirm gpg is using the specified gpg version.",
+    "text": "1.2 GnuPG\nGnuPG: gpg version 2.x is installed along with Git for Windows, so there is no need to install it separately. All of the following command can be run in the Git bash terminal available in RStudio, Positron, VS Code, etc.\nIf you plan to use the utilities distributed with git at the Windows command prompt, you must add the ensure that the Git usr/bin (i.e., C:Files) directory is included Environment Variables PATH.\nFor complete documentation see the GNU Privacy Handbook.\n\n# Which gpg executable is currently being used?\nwhere gpg\n\n# What version is being used?\ngpg --version\n\n# Where are keys being stored?\ngpg --list-secret-keys --keyid-format=long\n\n\nRecent versions of Git have will have gpg version 2.x in the C:\\Program Files\\Git\\usr\\bin directory.\nAdd this folder to Path environment variable for your account.\nAfter making this path change, reopen your IDE (PyCharm, RStudio), and run the above commands again to confirm gpg is using the specified gpg version.",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>GPG Commit Signing</span>"
@@ -47,7 +47,7 @@
     "href": "gpg-commit-signing.html#set-git-default-editor",
     "title": "1  GPG Commit Signing",
     "section": "1.3 Set git default editor",
-    "text": "1.3 Set git default editor\nChange git’s default editor from vim to nano.\ngit config --global core.editor \"nano\"",
+    "text": "1.3 Set git default editor\nChange git’s default editor from vim to nano.\n\ngit config --global core.editor \"nano\"",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>GPG Commit Signing</span>"
@@ -58,7 +58,7 @@
     "href": "gpg-commit-signing.html#generating-a-new-gpg-key",
     "title": "1  GPG Commit Signing",
     "section": "1.4 Generating a new GPG key",
-    "text": "1.4 Generating a new GPG key\nGenerating a new GPG key * Open a shell/terminal window in your current working directory (root of git repo) and run the following commands:\n# Generate a GPG key using version 1 syntax\ngpg --gen-key\n# List the GPG keys on the current cumputer\ngpg --list-secret-keys --keyid-format=long\n# --list-secret-keys output:\nD:\\Workspace\\rarr&gt;gpg --list-secret-keys --keyid-format=long\n/c/Users/B5PMMMPD/.gnupg/pubring.gpg\n------------------------------------\nsec   2048R/B68FE334FA0C2722 2022-03-04\nuid                          Michael Dougherty &lt;mike.p.doc.71@gmail.com&gt;\nssb   2048R/91484B4037C3D166 2022-03-04\n\nIn the example above, the &lt;key id&gt; that you will use in the next step is: B68FE334FA0C2722\nIn the example above, this key can be referenced using its uid: mike.p.doc.71@gmail.com",
+    "text": "1.4 Generating a new GPG key\nGenerating a new GPG key * Open a shell/terminal window in your current working directory (root of git repo) and run the following commands:\n\n# Generate a GPG key using version 1 syntax\ngpg --gen-key\n\n\n# List the GPG keys on the current cumputer\ngpg --list-secret-keys --keyid-format=long\n\n\n# --list-secret-keys output:\nD:\\Workspace\\rarr&gt;gpg --list-secret-keys --keyid-format=long\n/c/Users/B5PMMMPD/.gnupg/pubring.gpg\n------------------------------------\nsec   2048R/B68FE334FA0C2722 2022-03-04\nuid                          Michael Dougherty &lt;mike.p.doc.71@gmail.com&gt;\nssb   2048R/91484B4037C3D166 2022-03-04\n\n\nIn the example above, the &lt;key id&gt; that you will use in the next step is: B68FE334FA0C2722\nIn the example above, this key can be referenced using its uid: mike.p.doc.71@gmail.com",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>GPG Commit Signing</span>"
@@ -69,7 +69,7 @@
     "href": "gpg-commit-signing.html#set-git-to-use-this-signing-key",
     "title": "1  GPG Commit Signing",
     "section": "1.5 Set Git to use this signing key",
-    "text": "1.5 Set Git to use this signing key\nTelling Git about your signing key\n# Set user name and email\ngit config --global user.name \"Your Name\"\ngit config --global user.email you@example.com\n\n# Set signing key on the current computer\ngit config --global user.signingkey &lt;key id&gt;\n\n# Set git to sign all commits on the current computer\ngit config --global commit.gpgsign true",
+    "text": "1.5 Set Git to use this signing key\nTelling Git about your signing key\n\n# Set user name and email\ngit config --global user.name \"Your Name\"\ngit config --global user.email you@example.com\n\n# Set signing key on the current computer\ngit config --global user.signingkey &lt;key id&gt;\n\n# Set git to sign all commits on the current computer\ngit config --global commit.gpgsign true",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>GPG Commit Signing</span>"
@@ -80,7 +80,7 @@
     "href": "gpg-commit-signing.html#set-the-trust-level-of-this-key",
     "title": "1  GPG Commit Signing",
     "section": "1.6 Set the trust level of this key",
-    "text": "1.6 Set the trust level of this key\nThe following commands will set the computer’s GPG trust database.\ngit config --global gpg.program \"C:\\Program Files\\Git\\usr\\bin\\gpg.exe\"\n\n# At the gpg prompt, enter the `trust` command to set the trust level\ngpg&gt; trust\n\n# Follow the prompts to set \"ultimate\" trust level for this key.\n# Save your changes\ngpg&gt; save\n# Quit without saving changes\ngpg&gt; quit",
+    "text": "1.6 Set the trust level of this key\nThe following commands will set the computer’s GPG trust database.\n\ngit config --global gpg.program \"C:\\Program Files\\Git\\usr\\bin\\gpg.exe\"\n\n# At the gpg prompt, enter the `trust` command to set the trust level\ngpg&gt; trust\n\n# Follow the prompts to set \"ultimate\" trust level for this key.\n# Save your changes\ngpg&gt; save\n# Quit without saving changes\ngpg&gt; quit",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>GPG Commit Signing</span>"
@@ -91,7 +91,7 @@
     "href": "gpg-commit-signing.html#test-your-new-signing-key",
     "title": "1  GPG Commit Signing",
     "section": "1.7 Test your new signing key",
-    "text": "1.7 Test your new signing key\n# in a git repo\ntouch test.txt\ngit add test.txt\ngit commit -m \"test signed commits\"\n# View signatures of each commit\ngit log --show-signature",
+    "text": "1.7 Test your new signing key\n\n# in a git repo\ntouch test.txt\ngit add test.txt\ngit commit -m \"test signed commits\"\n\n\n# View signatures of each commit\ngit log --show-signature",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>GPG Commit Signing</span>"
@@ -102,7 +102,7 @@
     "href": "gpg-commit-signing.html#export-public-gpg-keys",
     "title": "1  GPG Commit Signing",
     "section": "1.8 Export public GPG keys",
-    "text": "1.8 Export public GPG keys\nExport GPG key\n# List the GPG public keys on the current computer\ngpg --list-public-keys --keyid-format=long\n\n# List the GPG secret keys on the current computer\ngpg --list-secret-keys --keyid-format=long\n\n# Prints the GPG public key, in ASCII armor format\ngpg --armor --export &lt;key&gt;\n\nCopy your GPG public key, beginning with -----BEGIN PGP PUBLIC KEY BLOCK----- and ending with -----END PGP PUBLIC KEY BLOCK-----.\nCopy this text to your encrypted password database.\nSave the database.",
+    "text": "1.8 Export public GPG keys\nExport GPG key\n\n# List the GPG public keys on the current computer\ngpg --list-public-keys --keyid-format=long\n\n# List the GPG secret keys on the current computer\ngpg --list-secret-keys --keyid-format=long\n\n# Prints the GPG public key, in ASCII armor format\ngpg --armor --export &lt;key&gt;\n\n\nCopy your GPG public key, beginning with -----BEGIN PGP PUBLIC KEY BLOCK----- and ending with -----END PGP PUBLIC KEY BLOCK-----.\nCopy this text to your encrypted password database.\nSave the database.",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>GPG Commit Signing</span>"
@@ -113,7 +113,7 @@
     "href": "gpg-commit-signing.html#export-your-gpg-private-key-for-use-on-another-computer",
     "title": "1  GPG Commit Signing",
     "section": "1.9 Export your GPG private key for use on another computer",
-    "text": "1.9 Export your GPG private key for use on another computer\nImport your GPG key on another computer\n# From the first computer where you generated the GPG key, export the \n# ASCII armored private key\ngpg --armor --export-secret-keys &lt;key&gt; \n\nCopy your GPG private key, beginning with -----BEGIN PGP PRIVATE KEY BLOCK----- and ending with -----END PGP PRIVATE KEY BLOCK-----.\nAdd the exported text of the GPG private key to your secure password database.\nSave the database.\nThis will allow you to install this GPG private key on any other computers you use.",
+    "text": "1.9 Export your GPG private key for use on another computer\nImport your GPG key on another computer\n\n# From the first computer where you generated the GPG key, export the \n# ASCII armored private key\ngpg --armor --export-secret-keys &lt;key&gt; \n\n\nCopy your GPG private key, beginning with -----BEGIN PGP PRIVATE KEY BLOCK----- and ending with -----END PGP PRIVATE KEY BLOCK-----.\nAdd the exported text of the GPG private key to your secure password database.\nSave the database.\nThis will allow you to install this GPG private key on any other computers you use.",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>GPG Commit Signing</span>"
@@ -135,7 +135,7 @@
     "href": "gpg-commit-signing.html#check-your-signed-commit",
     "title": "1  GPG Commit Signing",
     "section": "1.11 Check your signed commit",
-    "text": "1.11 Check your signed commit\nCheck your signed commit\n# in a git repo\ntouch test.txt\ngit add test.txt\ngit commit -m \"test signed commits\"",
+    "text": "1.11 Check your signed commit\nCheck your signed commit\n\n# in a git repo\ntouch test.txt\ngit add test.txt\ngit commit -m \"test signed commits\"",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>GPG Commit Signing</span>"
@@ -146,7 +146,7 @@
     "href": "gpg-commit-signing.html#import-your-gpg-public-and-private-key-on-another-computer",
     "title": "1  GPG Commit Signing",
     "section": "1.12 Import your GPG public and private key on another computer",
-    "text": "1.12 Import your GPG public and private key on another computer\n\nOn another computer, open your secure password database.\nCopy the public key text to a temp file named mykey_pub.txt in your shell’s current working directory.\nCopy the private key text to a temp file named mykey_sec.txt in your shell’s current working directory.\n\n# Import the GPG public key\ngpg --import mykey_pub.txt\n\n# Check that the GPG public key imported correctly\ngpg --list-public-keys --keyid-format=long\n\n# Import the GPG private key\ngpg --allow-secret-key-import --import mykey_sec.txt\n\n# Check that the GPG private key imported correctly\ngpg --list-secret-keys --keyid-format=long \n\nIf the key imports are successful, delete these temporary files to ensure the security of your private key.",
+    "text": "1.12 Import your GPG public and private key on another computer\n\nOn another computer, open your secure password database.\nCopy the public key text to a temp file named mykey_pub.txt in your shell’s current working directory.\nCopy the private key text to a temp file named mykey_sec.txt in your shell’s current working directory.\n\n\n# Import the GPG public key\ngpg --import mykey_pub.txt\n\n# Check that the GPG public key imported correctly\ngpg --list-public-keys --keyid-format=long\n\n# Import the GPG private key\ngpg --allow-secret-key-import --import mykey_sec.txt\n\n# Check that the GPG private key imported correctly\ngpg --list-secret-keys --keyid-format=long \n\n\nIf the key imports are successful, delete these temporary files to ensure the security of your private key.",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>GPG Commit Signing</span>"
@@ -157,7 +157,7 @@
     "href": "gpg-commit-signing.html#set-git-to-use-this-signing-key-1",
     "title": "1  GPG Commit Signing",
     "section": "1.13 Set Git to use this signing key",
-    "text": "1.13 Set Git to use this signing key\nTelling Git about your signing key\n# Set user name and email\ngit config --global user.name \"Your Name\"\ngit config --global user.email you@example.com\n\n# Set signing key\ngit config --global user.signingkey &lt;key&gt;\n\n# Set git to sign all commits\ngit config --global commit.gpgsign true",
+    "text": "1.13 Set Git to use this signing key\nTelling Git about your signing key\n\n# Set user name and email\ngit config --global user.name \"Your Name\"\ngit config --global user.email you@example.com\n\n# Set signing key\ngit config --global user.signingkey &lt;key&gt;\n\n# Set git to sign all commits\ngit config --global commit.gpgsign true",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>GPG Commit Signing</span>"
@@ -168,7 +168,7 @@
     "href": "gpg-commit-signing.html#set-the-trust-level-of-this-key-1",
     "title": "1  GPG Commit Signing",
     "section": "1.14 Set the trust level of this key",
-    "text": "1.14 Set the trust level of this key\nThe following commands will set the computer’s GPG trust database.\ngpg --edit-key mike.p.doc.71@gmail.com\n\n# At the gpg prompt, enter the `trust` command to set the trust level\ngpg&gt; trust\ngpg&gt; save",
+    "text": "1.14 Set the trust level of this key\nThe following commands will set the computer’s GPG trust database.\n\ngpg --edit-key mike.p.doc.71@gmail.com\n\n# At the gpg prompt, enter the `trust` command to set the trust level\ngpg&gt; trust\ngpg&gt; save",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>GPG Commit Signing</span>"

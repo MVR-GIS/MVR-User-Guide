@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -36,14 +71,12 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-236d90495073fb2ac8939117e3e83141.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-236d90495073fb2ac8939117e3e83141.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-236d90495073fb2ac8939117e3e83141.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet" class="quarto-color-scheme-extra">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-abbaddc78a91c2c86c782e6c44273c4f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-f8fe001071cf452883221d77a9f15022.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-abbaddc78a91c2c86c782e6c44273c4f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ebb666066fb3dee4da325ffea571fb1c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-1acc84bfd2cc654eab74dc4f739794ef.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-ebb666066fb3dee4da325ffea571fb1c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -455,14 +488,16 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="https://gnupg.org/index.html">GnuPG: gpg</a> version 2.x is installed along with <a href="https://gitforwindows.org/"><code>Git for Windows</code></a>, so there is no need to install it separately. All of the following command can be run in the Git bash terminal available in RStudio, Positron, VS Code, etc.</p>
 <p>If you plan to use the utilities distributed with git at the Windows command prompt, you must add the ensure that the Git usr/bin (i.e., C:Files) directory is included Environment Variables PATH.</p>
 <p>For complete documentation see the <a href="https://gnupg.org/gph/en/manual.html">GNU Privacy Handbook</a>.</p>
-<pre class="{bash}"><code># Which gpg executable is currently being used?
-where gpg
-
-# What version is being used?
-gpg --version
-
-# Where are keys being stored?
-gpg --list-secret-keys --keyid-format=long</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Which gpg executable is currently being used?</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">where</span> gpg</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># What version is being used?</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--version</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Where are keys being stored?</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--list-secret-keys</span> <span class="at">--keyid-format</span><span class="op">=</span>long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
 <li>Recent versions of <code>Git</code> have will have <code>gpg</code> version 2.x in the <code>C:\Program Files\Git\usr\bin</code> directory.</li>
 <li>Add this folder to <code>Path</code> environment variable for your account.</li>
@@ -472,22 +507,30 @@ gpg --list-secret-keys --keyid-format=long</code></pre>
 <section id="set-git-default-editor" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="set-git-default-editor"><span class="header-section-number">1.3</span> Set git default editor</h2>
 <p>Change git’s default editor from <code>vim</code> to <code>nano</code>.</p>
-<pre class="{bash}"><code>git config --global core.editor "nano"</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> core.editor <span class="st">"nano"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="generating-a-new-gpg-key" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="generating-a-new-gpg-key"><span class="header-section-number">1.4</span> Generating a new GPG key</h2>
 <p><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key">Generating a new GPG key</a> * Open a shell/terminal window in your current working directory (root of git repo) and run the following commands:</p>
-<pre class="{bash}"><code># Generate a GPG key using version 1 syntax
-gpg --gen-key</code></pre>
-<pre class="{bash}"><code># List the GPG keys on the current cumputer
-gpg --list-secret-keys --keyid-format=long</code></pre>
-<pre class="{bash}"><code># --list-secret-keys output:
-D:\Workspace\rarr&gt;gpg --list-secret-keys --keyid-format=long
-/c/Users/B5PMMMPD/.gnupg/pubring.gpg
-------------------------------------
-sec   2048R/B68FE334FA0C2722 2022-03-04
-uid                          Michael Dougherty &lt;mike.p.doc.71@gmail.com&gt;
-ssb   2048R/91484B4037C3D166 2022-03-04</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a GPG key using version 1 syntax</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--gen-key</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List the GPG keys on the current cumputer</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--list-secret-keys</span> <span class="at">--keyid-format</span><span class="op">=</span>long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --list-secret-keys output:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">D:\Workspace\rarr</span><span class="op">&gt;</span>gpg <span class="at">--list-secret-keys</span> <span class="at">--keyid-format</span><span class="op">=</span>long</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">/c/Users/B5PMMMPD/.gnupg/pubring.gpg</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">------------------------------------</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">sec</span>   2048R/B68FE334FA0C2722 2022-03-04</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">uid</span>                          Michael Dougherty <span class="op">&lt;</span>mike.p.doc.71@gmail.com<span class="op">&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">ssb</span>   2048R/91484B4037C3D166 2022-03-04</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
 <li>In the example above, the <code>&lt;key id&gt;</code> that you will use in the next step is: <code>B68FE334FA0C2722</code></li>
 <li>In the example above, this key can be referenced using its <code>uid</code>: <code>mike.p.doc.71@gmail.com</code></li>
@@ -496,50 +539,60 @@ ssb   2048R/91484B4037C3D166 2022-03-04</code></pre>
 <section id="set-git-to-use-this-signing-key" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="set-git-to-use-this-signing-key"><span class="header-section-number">1.5</span> Set Git to use this signing key</h2>
 <p><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key">Telling Git about your signing key</a></p>
-<pre class="{bash}"><code># Set user name and email
-git config --global user.name "Your Name"
-git config --global user.email you@example.com
-
-# Set signing key on the current computer
-git config --global user.signingkey &lt;key id&gt;
-
-# Set git to sign all commits on the current computer
-git config --global commit.gpgsign true</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set user name and email</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Name"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email you@example.com</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set signing key on the current computer</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.signingkey <span class="op">&lt;</span>key id<span class="op">&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Set git to sign all commits on the current computer</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> commit.gpgsign true</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="set-the-trust-level-of-this-key" class="level2" data-number="1.6">
 <h2 data-number="1.6" class="anchored" data-anchor-id="set-the-trust-level-of-this-key"><span class="header-section-number">1.6</span> Set the trust level of this key</h2>
 <p>The following commands will set the computer’s GPG trust database.</p>
-<pre class="{bash}"><code>git config --global gpg.program "C:\Program Files\Git\usr\bin\gpg.exe"
-
-# At the gpg prompt, enter the `trust` command to set the trust level
-gpg&gt; trust
-
-# Follow the prompts to set "ultimate" trust level for this key.
-# Save your changes
-gpg&gt; save
-# Quit without saving changes
-gpg&gt; quit</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> gpg.program <span class="st">"C:\Program Files\Git\usr\bin\gpg.exe"</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># At the gpg prompt, enter the `trust` command to set the trust level</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span><span class="op">&gt;</span> trust</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Follow the prompts to set "ultimate" trust level for this key.</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Save your changes</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span><span class="op">&gt;</span> save</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Quit without saving changes</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span><span class="op">&gt;</span> quit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="test-your-new-signing-key" class="level2" data-number="1.7">
 <h2 data-number="1.7" class="anchored" data-anchor-id="test-your-new-signing-key"><span class="header-section-number">1.7</span> Test your new signing key</h2>
-<pre class="{bash}"><code># in a git repo
-touch test.txt
-git add test.txt
-git commit -m "test signed commits"</code></pre>
-<pre class="{bash}"><code># View signatures of each commit
-git log --show-signature</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in a git repo</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> test.txt</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add test.txt</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"test signed commits"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View signatures of each commit</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--show-signature</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="export-public-gpg-keys" class="level2" data-number="1.8">
 <h2 data-number="1.8" class="anchored" data-anchor-id="export-public-gpg-keys"><span class="header-section-number">1.8</span> Export public GPG keys</h2>
 <p><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key">Export GPG key</a></p>
-<pre class="{bash}"><code># List the GPG public keys on the current computer
-gpg --list-public-keys --keyid-format=long
-
-# List the GPG secret keys on the current computer
-gpg --list-secret-keys --keyid-format=long
-
-# Prints the GPG public key, in ASCII armor format
-gpg --armor --export &lt;key&gt;</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List the GPG public keys on the current computer</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--list-public-keys</span> <span class="at">--keyid-format</span><span class="op">=</span>long</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List the GPG secret keys on the current computer</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--list-secret-keys</span> <span class="at">--keyid-format</span><span class="op">=</span>long</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints the GPG public key, in ASCII armor format</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--armor</span> <span class="at">--export</span> <span class="op">&lt;</span>key<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
 <li>Copy your GPG public key, beginning with <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> and ending with <code>-----END PGP PUBLIC KEY BLOCK-----</code>.</li>
 <li>Copy this text to your encrypted password database.</li>
@@ -549,9 +602,11 @@ gpg --armor --export &lt;key&gt;</code></pre>
 <section id="export-your-gpg-private-key-for-use-on-another-computer" class="level2" data-number="1.9">
 <h2 data-number="1.9" class="anchored" data-anchor-id="export-your-gpg-private-key-for-use-on-another-computer"><span class="header-section-number">1.9</span> Export your GPG private key for use on another computer</h2>
 <p><a href="https://www.garrickadenbuie.com/blog/signed-verified-git-commits-keybase-rstudio/#import-your-gpg-key-on-another-computer">Import your GPG key on another computer</a></p>
-<pre class="{bash}"><code># From the first computer where you generated the GPG key, export the 
-# ASCII armored private key
-gpg --armor --export-secret-keys &lt;key&gt; </code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From the first computer where you generated the GPG key, export the </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ASCII armored private key</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--armor</span> <span class="at">--export-secret-keys</span> <span class="op">&lt;</span>key<span class="op">&gt;</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
 <li>Copy your GPG private key, beginning with <code>-----BEGIN PGP PRIVATE KEY BLOCK-----</code> and ending with <code>-----END PGP PRIVATE KEY BLOCK-----</code>.</li>
 <li>Add the exported text of the GPG private key to your secure password database.</li>
@@ -569,10 +624,12 @@ gpg --armor --export-secret-keys &lt;key&gt; </code></pre>
 <section id="check-your-signed-commit" class="level2" data-number="1.11">
 <h2 data-number="1.11" class="anchored" data-anchor-id="check-your-signed-commit"><span class="header-section-number">1.11</span> Check your signed commit</h2>
 <p><a href="https://www.garrickadenbuie.com/blog/signed-verified-git-commits-keybase-rstudio/">Check your signed commit</a></p>
-<pre class="{bash}"><code># in a git repo
-touch test.txt
-git add test.txt
-git commit -m "test signed commits"</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in a git repo</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> test.txt</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add test.txt</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"test signed commits"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="import-your-gpg-public-and-private-key-on-another-computer" class="level2" data-number="1.12">
 <h2 data-number="1.12" class="anchored" data-anchor-id="import-your-gpg-public-and-private-key-on-another-computer"><span class="header-section-number">1.12</span> Import your GPG public and private key on another computer</h2>
@@ -581,17 +638,19 @@ git commit -m "test signed commits"</code></pre>
 <li>Copy the public key text to a temp file named <code>mykey_pub.txt</code> in your shell’s current working directory.</li>
 <li>Copy the private key text to a temp file named <code>mykey_sec.txt</code> in your shell’s current working directory.</li>
 </ul>
-<pre class="{bash}"><code># Import the GPG public key
-gpg --import mykey_pub.txt
-
-# Check that the GPG public key imported correctly
-gpg --list-public-keys --keyid-format=long
-
-# Import the GPG private key
-gpg --allow-secret-key-import --import mykey_sec.txt
-
-# Check that the GPG private key imported correctly
-gpg --list-secret-keys --keyid-format=long </code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the GPG public key</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--import</span> mykey_pub.txt</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that the GPG public key imported correctly</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--list-public-keys</span> <span class="at">--keyid-format</span><span class="op">=</span>long</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the GPG private key</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--allow-secret-key-import</span> <span class="at">--import</span> mykey_sec.txt</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that the GPG private key imported correctly</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--list-secret-keys</span> <span class="at">--keyid-format</span><span class="op">=</span>long </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
 <li>If the key imports are successful, delete these temporary files to ensure the security of your private key.</li>
 </ul>
@@ -599,24 +658,28 @@ gpg --list-secret-keys --keyid-format=long </code></pre>
 <section id="set-git-to-use-this-signing-key-1" class="level2" data-number="1.13">
 <h2 data-number="1.13" class="anchored" data-anchor-id="set-git-to-use-this-signing-key-1"><span class="header-section-number">1.13</span> Set Git to use this signing key</h2>
 <p><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key">Telling Git about your signing key</a></p>
-<pre class="{bash}"><code># Set user name and email
-git config --global user.name "Your Name"
-git config --global user.email you@example.com
-
-# Set signing key
-git config --global user.signingkey &lt;key&gt;
-
-# Set git to sign all commits
-git config --global commit.gpgsign true</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set user name and email</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Name"</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email you@example.com</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set signing key</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.signingkey <span class="op">&lt;</span>key<span class="op">&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Set git to sign all commits</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> commit.gpgsign true</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="set-the-trust-level-of-this-key-1" class="level2" data-number="1.14">
 <h2 data-number="1.14" class="anchored" data-anchor-id="set-the-trust-level-of-this-key-1"><span class="header-section-number">1.14</span> Set the trust level of this key</h2>
 <p>The following commands will set the computer’s GPG trust database.</p>
-<pre class="{bash}"><code>gpg --edit-key mike.p.doc.71@gmail.com
-
-# At the gpg prompt, enter the `trust` command to set the trust level
-gpg&gt; trust
-gpg&gt; save</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--edit-key</span> mike.p.doc.71@gmail.com</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># At the gpg prompt, enter the `trust` command to set the trust level</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span><span class="op">&gt;</span> trust</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span><span class="op">&gt;</span> save</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
