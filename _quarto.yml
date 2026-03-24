@@ -46,9 +46,7 @@ format:
       light: flatly
       dark: darkly
     respect-user-color-scheme: true
-    highlight-style:
-      light: arrow
-      dark: arrow-dark
+    highlight-style: arrow
 
 editor: source
 
