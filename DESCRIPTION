@@ -1,0 +1,19 @@
+Package: MVR-USER-GUIDE
+Title: MVR Data Science User Guide
+Version: 2026.04.01
+Authors@R: c(
+    person("Barrie", "Chileen Martinez", , "barrie.chileen@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-6960-8167")),
+    person("Michael", "Dougherty", , "Michael.P.Dougherty@usace.army.mil", role = "ctb",
+           comment = c(ORCID = "0000-0002-1465-5927"))
+  )
+Description: The purpose of this guide is to coordinate the data science
+    efforts of the Rock Island District of the U.S. Army Corps of
+    Engineers. We have established these best practice guidelines to
+    streamline onboarding of new data scientists, promote consistency
+    across projects, and ensure the quality and reproducibility of our
+    work.
+License: LICENSE.md
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0

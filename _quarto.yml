@@ -1,6 +1,10 @@
 project:
   type: book
   output-dir: docs
+  render:
+    - "*.qmd"       # Render all QMDs in the root
+    - "!_dev/*"     # Explicitly exclude the dev folder (double-safety)
+    - "!README.md"  # Standard exclusion for info files
 
 book:
   title: "MVR Data Science User Guide"
@@ -16,20 +20,20 @@ book:
     - index.qmd
     - part: Git Repos
       chapters:
-        - gpg-commit-signing.qmd
-        - create-generic-python-repo.qmd
+        - repo-gpg-commit-signing.qmd
+        - repo-create-generic-python-repo.qmd
     - part: "R Projects"
       chapters:
-        - ROracle-setup.qmd
-        - Deploy-shiny.qmd
+        - r-ROracle-setup.qmd
+        - r-Deploy-shiny.qmd
     - part: "AI Workflows"
       chapters:
         - ai-workflows.qmd
     - part: "Data Governance"
       chapters:
-        - dbt-setup.qmd      
+        - gov-dbt-setup.qmd      
   appendices:
-    - references.qmd
+    - ref-references.qmd
 
 sidebar:
   style: "docked"
@@ -38,7 +42,7 @@ page-footer:
   left: "Made with love by USACE"
   background: light
 
-bibliography: [references.bib]
+bibliography: [ref-references.bib]
 
 format:
   html:
