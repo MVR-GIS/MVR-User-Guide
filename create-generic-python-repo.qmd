@@ -1,0 +1,12 @@
+# Create Generic Python Repo
+
+## Introduction
+This guide will describe how to start a new generic Python-based data science project. This will provide a home to store your workflow steps and manage the code for your project.
+
+**Key Steps**
+* Clone the template repo to your local computer.  
+* Update the Readme to describe your project. 
+
+## Prerequsites
+* IDE: VS Code
+* Python: 

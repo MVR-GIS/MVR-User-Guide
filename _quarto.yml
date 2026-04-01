@@ -17,7 +17,7 @@ book:
     - part: Git Repos
       chapters:
         - gpg-commit-signing.qmd
-        - create-repo.qmd
+        - create-generic-python-repo.qmd
     - part: "R Projects"
       chapters:
         - ROracle-setup.qmd

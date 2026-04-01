@@ -201,7 +201,7 @@ git config --global user.name "Your Name"
 git config --global user.email you@example.com
 
 # Set signing key
-git config --global user.signingkey <key>
+git config --global user.signingkey <key id>
 
 # Set git to sign all commits
 git config --global commit.gpgsign true
