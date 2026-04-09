@@ -484,6 +484,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
   <ul class="collapse">
   <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
+  <li><a href="#audience" id="toc-audience" class="nav-link" data-scroll-target="#audience">Audience</a></li>
   <li><a href="#sections" id="toc-sections" class="nav-link" data-scroll-target="#sections">Sections</a>
   <ul class="collapse">
   <li><a href="#git-repositories-repos" id="toc-git-repositories-repos" class="nav-link" data-scroll-target="#git-repositories-repos">Git Repositories (“repos”)</a></li>
@@ -492,7 +493,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#ai-workflows" id="toc-ai-workflows" class="nav-link" data-scroll-target="#ai-workflows">AI Workflows</a></li>
   <li><a href="#data-governance" id="toc-data-governance" class="nav-link" data-scroll-target="#data-governance">Data Governance</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
-  <li><a href="#foundary-workflows" id="toc-foundary-workflows" class="nav-link" data-scroll-target="#foundary-workflows">Foundary Workflows</a></li>
+  <li><a href="#foundry-workflows" id="toc-foundry-workflows" class="nav-link" data-scroll-target="#foundry-workflows">Foundry Workflows</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -538,31 +539,42 @@ ul.task-list li input[type="checkbox"] {
 <h1 class="unnumbered">Preface</h1>
 <section id="purpose" class="level2">
 <h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
-<p>The purpose of this guide is to coordinate the data science efforts of the Rock Island District of the U.S. Army Corps of Engineers. We have established these best practice guidelines to streamline onboarding of new data scientists, promote consistency across projects, and ensure the quality and reproducibility of our work. This discipline is rapidly evolving. This guide will not explain data science methods. This guide only documents the framework we have chosen to remove the pain-points for data scientists to implement their analyses.</p>
+<p>The purpose of this guide is to coordinate the data science efforts of the Rock Island District of the U.S. Army Corps of Engineers. We have established these best practice guidelines to streamline onboarding of new data scientists, promote consistency across projects, and ensure the quality and reproducibility of our work. This discipline is rapidly evolving and there are many new approaches that exist to solve any problem. This guide will not explain data science methods; the Internet is full of content that accomplishes that goal. This guide only documents the framework <strong>we have chosen</strong> to remove common pain-points that typically hinder data scientists from rapidly implementing their analyses.</p>
+</section>
+<section id="audience" class="level2">
+<h2 class="anchored" data-anchor-id="audience">Audience</h2>
+<p>This guide targets USACE geospatial data scientists.</p>
 </section>
 <section id="sections" class="level2">
 <h2 class="anchored" data-anchor-id="sections">Sections</h2>
 <p>This guide contains several broad sections describing a range of technologies commonly used in data science.</p>
 <section id="git-repositories-repos" class="level3">
 <h3 class="anchored" data-anchor-id="git-repositories-repos">Git Repositories (“repos”)</h3>
+<p>Git repos are where we keep and share our code, docs, and templates, with a clear history of what changed and why. They’re the backbone for collaboration (branching/PRs), traceability (commit history), and trust (things like GPG commit signing).</p>
 </section>
 <section id="r-projects" class="level3">
 <h3 class="anchored" data-anchor-id="r-projects">R Projects</h3>
+<p>R projects are how we keep an analysis “self-contained” so it can be opened and run reliably by someone else (or by you six months later). This section focuses on the practical tooling we actually use—RStudio/Positron setup, Oracle connectivity, deploying Shiny, and administering Posit Cloud.</p>
 </section>
 <section id="containers" class="level3">
 <h3 class="anchored" data-anchor-id="containers">Containers</h3>
+<p>Containers are lightweight, repeatable computing environments—great when you need the same toolchain everywhere without fighting dependencies. Here we focus on Podman as a practical way to package and run data science tooling in a consistent, reviewable way.</p>
 </section>
 <section id="ai-workflows" class="level3">
 <h3 class="anchored" data-anchor-id="ai-workflows">AI Workflows</h3>
+<p>AI can speed up drafting, coding, and analysis—but only if we use it in a controlled way. This section covers a workflow mindset: protect sensitive data, document what the tool did, and make outputs reviewable and reproducible (not magic).</p>
 </section>
 <section id="data-governance" class="level3">
 <h3 class="anchored" data-anchor-id="data-governance">Data Governance</h3>
+<p>Data governance is how we keep data usable and defensible: lineage, quality checks, access controls, and “where did this number come from?” documentation. Our focus here is on practical governance workflows, including dbt as a way to formalize transformations and testing.</p>
 </section>
 <section id="bibliography" class="level3">
 <h3 class="anchored" data-anchor-id="bibliography">Bibliography</h3>
+<p>If we’re going to standardize how we work, we need to standardize what we cite. This section covers how we manage sources (Zotero) so methods, decisions, and claims in our work are easy for reviewers to trace back to authoritative references.</p>
 </section>
-<section id="foundary-workflows" class="level3">
-<h3 class="anchored" data-anchor-id="foundary-workflows">Foundary Workflows</h3>
+<section id="foundry-workflows" class="level3">
+<h3 class="anchored" data-anchor-id="foundry-workflows">Foundry Workflows</h3>
+<p>Palantir Foundry (Army Vantage) workflows describe how to build, run, and operationalize pipelines and analytics inside the Army’s enterprise platform. Standard workflows matter because they make lineage, permissions, inputs/outputs, and review steps explicit—so results are easier to trust and easier to QA/QC.</p>
 
 
 </section>
