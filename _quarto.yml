@@ -7,31 +7,45 @@ project:
     - "!README.md"  # Standard exclusion for info files
 
 book:
-  title: "MVR Data Science User Guide"
+  title: "MVR Geospatial Data Science User Guide"
   author: 
     - Michael Dougherty, Geographer
     - Barrie Chileen Martinez, Geographer
-  date: "3/24/2026"
+  date: "4/9/2026"
   repo-url: https://github.com/MVR-GIS/MVR-User-Guide
   page-navigation: false
   search: true
 
   chapters:
     - index.qmd
-    - part: Git Repos
+    - part: "Git Repos"
       chapters:
         - repo-gpg-commit-signing.qmd
         - repo-create-generic-python-repo.qmd
+        - repo-create-arcgis-python-repo.qmd
+        - repo-create-r-repo.qmd
     - part: "R Projects"
       chapters:
+        - r-RStudio-getting-started.qmd
+        - r-Positron-getting-started.qmd
         - r-ROracle-setup.qmd
-        - r-Deploy-shiny.qmd
+        - r-deploy-shiny.qmd
+        - r-Posit-Cloud-admin.qmd
+    - part: "Containers"
+      chapters: 
+        - con-podman.qmd
     - part: "AI Workflows"
       chapters:
         - ai-workflows.qmd
     - part: "Data Governance"
       chapters:
-        - gov-dbt-setup.qmd      
+        - gov-dbt-setup.qmd
+    - part: "Bibliography"
+      chapters:
+        - bib-zotero.qmd
+    - part: "Foundry Workflows"
+      chapters:
+        - fnd-tag-documents.qmd
   appendices:
     - ref-references.qmd
 

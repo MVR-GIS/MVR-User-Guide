@@ -1,0 +1,11 @@
+# Positron Getting Started
+
+## What is Positron?
+
+## Install and Configure
+
+## Extensions
+The current USACE deployment of Positron via AppPortal prevents using the "Extensions" sidebar to search the Open VSXVS Code Extensions Marketplace. However, we are currently able to manually download and install extensions. See the [Positron Extensions](https://positron.posit.co/extensions.html) section of the Positron User Guide for the latest details. 
+
+### Install from Open VSX
+

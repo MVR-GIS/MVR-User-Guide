@@ -2,9 +2,29 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "MVR Data Science User Guide",
+    "title": "MVR Geospatial Data Science User Guide",
     "section": "",
-    "text": "Preface\nThe purpose of this guide is to coordinate the data science efforts of the Rock Island District of the U.S. Army Corps of Engineers. We have established these best practice guidelines to streamline onboarding of new data scientists, promote consistency across projects, and ensure the quality and reproducibility of our work.",
+    "text": "Preface",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#purpose",
+    "href": "index.html#purpose",
+    "title": "MVR Geospatial Data Science User Guide",
+    "section": "Purpose",
+    "text": "Purpose\nThe purpose of this guide is to coordinate the data science efforts of the Rock Island District of the U.S. Army Corps of Engineers. We have established these best practice guidelines to streamline onboarding of new data scientists, promote consistency across projects, and ensure the quality and reproducibility of our work. This discipline is rapidly evolving. This guide will not explain data science methods. This guide only documents the framework we have chosen to remove the pain-points for data scientists to implement their analyses.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#sections",
+    "href": "index.html#sections",
+    "title": "MVR Geospatial Data Science User Guide",
+    "section": "Sections",
+    "text": "Sections\nThis guide contains several broad sections describing a range of technologies commonly used in data science.\n\nGit Repositories (“repos”)\n\n\nR Projects\n\n\nContainers\n\n\nAI Workflows\n\n\nData Governance\n\n\nBibliography\n\n\nFoundary Workflows",
     "crumbs": [
       "Preface"
     ]
@@ -177,34 +197,89 @@
   {
     "objectID": "repo-create-generic-python-repo.html",
     "href": "repo-create-generic-python-repo.html",
-    "title": "2  Create Generic Python Repo",
+    "title": "2  Create Generic Python repo",
     "section": "",
     "text": "2.1 Introduction\nThis guide will describe how to start a new generic Python-based data science project. This will provide a home to store your workflow steps and manage the code for your project.\nKey Steps * Clone the template repo to your local computer.\n* Update the Readme to describe your project.",
     "crumbs": [
       "Git Repos",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create Generic Python Repo</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create Generic Python repo</span>"
     ]
   },
   {
     "objectID": "repo-create-generic-python-repo.html#prerequsites",
     "href": "repo-create-generic-python-repo.html#prerequsites",
-    "title": "2  Create Generic Python Repo",
+    "title": "2  Create Generic Python repo",
     "section": "2.2 Prerequsites",
     "text": "2.2 Prerequsites\n\nIDE: VS Code\nPython:",
     "crumbs": [
       "Git Repos",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create Generic Python Repo</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create Generic Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "r-Positron-getting-started.html",
+    "href": "r-Positron-getting-started.html",
+    "title": "6  Positron Getting Started",
+    "section": "",
+    "text": "6.1 What is Positron?",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Positron Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "r-Positron-getting-started.html#install-and-configure",
+    "href": "r-Positron-getting-started.html#install-and-configure",
+    "title": "6  Positron Getting Started",
+    "section": "6.2 Install and Configure",
+    "text": "6.2 Install and Configure",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Positron Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "r-Positron-getting-started.html#extensions",
+    "href": "r-Positron-getting-started.html#extensions",
+    "title": "6  Positron Getting Started",
+    "section": "6.3 Extensions",
+    "text": "6.3 Extensions\nThe current USACE deployment of Positron via AppPortal prevents using the “Extensions” sidebar to search the Open VSXVS Code Extensions Marketplace. However, we are currently able to manually download and install extensions. See the Positron Extensions section of the Positron User Guide for the latest details.\n\n6.3.1 Install from Open VSX",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Positron Getting Started</span>"
     ]
   },
   {
     "objectID": "ai-workflows.html",
     "href": "ai-workflows.html",
-    "title": "5  AI Workflows",
+    "title": "11  AI Workflows",
     "section": "",
     "text": "library(dplyr)\n\nWarning: package 'dplyr' was built under R version 4.5.3\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union",
     "crumbs": [
       "AI Workflows",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>AI Workflows</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>AI Workflows</span>"
+    ]
+  },
+  {
+    "objectID": "bib-zotero.html",
+    "href": "bib-zotero.html",
+    "title": "13  Zotero",
+    "section": "",
+    "text": "13.1 Groups\nZotero is a free, open-source reference management tool designed to help researchers collect, organize, annotate, cite, and share their work. * Zotero is available as a standalone desktop application for Windows, macOS, and Linux, with official mobile apps for iOS and Android. * Your library can be synchronized across devices (desktop, web, and mobile). * A free-tier Zotero account provides full access to all software features, with the only primary limitation being cloud storage for file attachments. * You can create Zotero Groups to collaborate on shared bibliographies with colleagues using the Web Library.",
+    "crumbs": [
+      "Bibliography",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Zotero</span>"
+    ]
+  },
+  {
+    "objectID": "bib-zotero.html#groups",
+    "href": "bib-zotero.html#groups",
+    "title": "13  Zotero",
+    "section": "",
+    "text": "3d_feature_extraction\nfluvialgeomorph\nhistoric_imagery\nmvr_archeology\nmvr_dredge_analysis\ntopobathy\nusace_ecomodeling",
+    "crumbs": [
+      "Bibliography",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Zotero</span>"
     ]
   }
 ]

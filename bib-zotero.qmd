@@ -1,0 +1,18 @@
+# Zotero
+Zotero is a free, open-source reference management tool designed to help researchers collect, organize, annotate, cite, and share their work. 
+* Zotero is available as a standalone desktop application for Windows, macOS, and Linux, with official mobile apps for iOS and Android. 
+* Your library can be synchronized across devices (desktop, web, and mobile). 
+* A free-tier Zotero account provides full access to all software features, with the only primary limitation being cloud storage for file attachments. 
+* You can create Zotero Groups to collaborate on shared bibliographies with colleagues using the Web Library. 
+
+
+## Groups  
+* [3d_feature_extraction](https://www.zotero.org/groups/5662622/3d_feature_extraction)
+* [fluvialgeomorph](https://www.zotero.org/groups/2590635/fluvialgeomorph)
+* [historic_imagery](https://www.zotero.org/groups/5683612/historic_imagery)
+* [mvr_archeology](https://www.zotero.org/groups/5574759/mvr_archeology)
+* [mvr_dredge_analysis](https://www.zotero.org/groups/5596755/mvr_dredge_analysis)
+* [topobathy](https://www.zotero.org/groups/4883413/topobathy)
+* [usace_ecomodeling](https://www.zotero.org/groups/4862069/usace_ecomodeling)
+
+

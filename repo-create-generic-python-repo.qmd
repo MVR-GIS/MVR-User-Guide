@@ -1,4 +1,4 @@
-# Create Generic Python Repo
+# Create Generic Python repo
 
 ## Introduction
 This guide will describe how to start a new generic Python-based data science project. This will provide a home to store your workflow steps and manage the code for your project.
