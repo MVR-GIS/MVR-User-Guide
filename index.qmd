@@ -1,7 +1,10 @@
 # Preface {.unnumbered}
 
 ## Purpose
-The purpose of this guide is to coordinate the data science efforts of the Rock Island District of the U.S. Army Corps of Engineers. We have established these best practice guidelines to streamline onboarding of new data scientists, promote consistency across projects, and ensure the quality and reproducibility of our work. This discipline is rapidly evolving. This guide will not explain data science methods. This guide only documents the framework we have chosen to remove the pain-points for data scientists to implement their analyses. 
+The purpose of this guide is to coordinate the data science efforts of the Rock Island District of the U.S. Army Corps of Engineers. We have established these best practice guidelines to streamline onboarding of new data scientists, promote consistency across projects, and ensure the quality and reproducibility of our work. This discipline is rapidly evolving and there are many new approaches that exist to solve any problem. This guide will not explain data science methods; the Internet is full of content that accomplishes that goal. This guide only documents the framework **we have chosen** to remove common pain-points that typically hinder data scientists from rapidly implementing their analyses. 
+
+## Audience
+This guide targets USACE geospatial data scientists. 
 
 ## Sections
 This guide contains several broad sections describing a range of technologies commonly used in data science. 
