@@ -1,0 +1,90 @@
+# Open Source Software
+This is a list of the open source software that USACE geospatial data scientists depends on. All of this software is best of breed software that can be used at no cost and no proprietary lock-in. Use this page to explore options for skill development on your projects. 
+
+**Status Check** (USACE users only):
+  - Check the latest scanned versions here: [https://finder.nosc.usace.army.mil/code_scan_tracker](https://finder.nosc.usace.army.mil/code_scan_tracker)
+  - Check the latest version for installation: [app-portal.usace.army.mil](https://app-portal.usace.army.mil/)
+
+## Miniforge
+  - Definition: A lightweight Python environment. 
+  - Purpose: Provide a lightweight Python environment for non-geospatial projects.
+  - Audience: Data scientists who need to quickly bootstrap Python. 
+  - URL: [conda-forge.org](https://conda-forge.org/)
+
+## Node.js
+  - Definition: 
+  - Purpose: Build javascript-based full-stack web applications. 
+  - Audience: 
+  - URL: [nodejs.org](https://nodejs.org/)
+
+## pgAdmin
+  - Definition: 
+  - Purpose: Administer and develop with PostgreSQL databases. 
+  - Audience: 
+  - URL: [www.pgadmin.org](https://www.pgadmin.org/)
+
+## Podman Desktop
+  - Definition: 
+  - Purpose: Build and deploy apps in Linux containers.
+  - Audience: 
+  - URL: [podman.io](https://podman.io/)
+
+## Positron
+  - Definition: 
+  - Purpose: VS Code-based Integrated Development Environment (IDE) for data scientists that develop with R, Python, and more. 
+  - Audience: 
+  - URL: [positron.posit.co](https://positron.posit.co/)
+
+## PostgreSQL
+  - Definition: 
+  - Purpose: The world's most advanced open source relational database.
+  - Audience: 
+  - URL: [www.postgresql.org](https://www.postgresql.org/)
+
+## Protege Desktop
+  - Definition: 
+  - Purpose: Tools for developing ontologies for knowledge-based applications. 
+  - Audience: 
+  - URL: [app-portal.usace.army.mil](https://app-portal.usace.army.mil/)
+
+## QGIS
+  - Definition: The open source GIS platform.
+  - Purpose: For GIS projects and analysis without the proprietary overhead. 
+  - Audience: GUI for casual GIS users. Tools for advanced analysts.  
+  - URL: [qgis.org](https://qgis.org/)
+
+## Quarto
+  - Definition: 
+  - Purpose: 
+  - Audience: 
+  - URL: []()
+
+## R
+  - Definition: 
+  - Purpose: 
+  - Audience: 
+  - URL: []()
+
+## RStudio Desktop
+  - Definition: 
+  - Purpose: 
+  - Audience: 
+  - URL: []()
+
+## RTools
+  - Definition: 
+  - Purpose: 
+  - Audience: 
+  - URL: []()
+
+## Shiny Server
+  - Definition: 
+  - Purpose: 
+  - Audience: 
+  - URL: []()
+
+## Zotero
+  - Definition: 
+  - Purpose: 
+  - Audience: 
+  - URL: []()

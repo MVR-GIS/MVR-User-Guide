@@ -39,6 +39,7 @@ book:
         - ai-workflows.qmd
     - part: "Data Governance"
       chapters:
+        - gov-open-source-software.qmd
         - gov-dbt-setup.qmd
     - part: "Bibliography"
       chapters:
