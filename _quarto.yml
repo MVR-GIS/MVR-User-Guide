@@ -41,6 +41,7 @@ book:
       chapters:
         - gov-open-source-software.qmd
         - gov-dbt-setup.qmd
+        - gov-sbom.qmd
     - part: "Bibliography"
       chapters:
         - bib-zotero.qmd
