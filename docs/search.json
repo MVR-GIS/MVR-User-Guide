@@ -253,7 +253,7 @@
     "href": "r-Positron-getting-started.html#extensions",
     "title": "6  Positron Getting Started",
     "section": "6.3 Extensions",
-    "text": "6.3 Extensions\nThe current USACE deployment of Positron via AppPortal prevents using the “Extensions” sidebar to search the Open VSXVS Code Extensions Marketplace. However, we are currently able to manually download and install extensions. See the Positron Extensions section of the Positron User Guide for the latest details.\n\n6.3.1 Install from Open VSX",
+    "text": "6.3 Extensions\nThe current USACE deployment of Positron via AppPortal prevents using the “Extensions” sidebar to search the Open VSXVS Code Extensions Marketplace. However, we are currently able to manually download and install extensions. See the Positron Extensions section of the Positron User Guide for the latest details.\n\nInstall from Open VSX",
     "crumbs": [
       "R Projects",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Positron Getting Started</span>"
@@ -271,25 +271,135 @@
     ]
   },
   {
+    "objectID": "gov-open-source-software.html",
+    "href": "gov-open-source-software.html",
+    "title": "12  Open Source Software",
+    "section": "",
+    "text": "12.1 Languages\nThis is a list of the open source software that USACE geospatial data scientists depend on. All of this software is best-of-breed and can be used at no cost with no proprietary lock-in. Use this page to explore options for skill development on your projects.",
+    "crumbs": [
+      "Data Governance",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Open Source Software</span>"
+    ]
+  },
+  {
+    "objectID": "gov-open-source-software.html#languages",
+    "href": "gov-open-source-software.html#languages",
+    "title": "12  Open Source Software",
+    "section": "",
+    "text": "Miniforge\n\nDefinition: A lightweight conda distribution that installs only the conda package manager and the conda-forge channel by default.\nPurpose: Bootstrap a minimal, reproducible Python environment for non-geospatial projects without the overhead of a full Anaconda installation.\nAudience: Data scientists who need to quickly set up a clean Python environment.\nURL: conda-forge.org\n\n\n\nNode.js\n\nDefinition: A cross-platform JavaScript runtime built on Chrome’s V8 engine that executes JavaScript outside a browser.\nPurpose: Build and run JavaScript-based full-stack web applications and developer tooling.\nAudience: Developers building web applications or working with JavaScript-based data visualization tools.\nURL: nodejs.org\n\n\n\nR\n\nDefinition: A language and environment for statistical computing and graphics, maintained by the R Core Team.\nPurpose: Perform statistical analysis, data manipulation, and visualization; author reproducible reports and Shiny applications.\nAudience: All USACE geospatial data scientists using R-based workflows.\nURL: r-project.org\n\n\n\nRTools\n\nDefinition: A collection of build tools required to compile R packages from source on Windows.\nPurpose: Install R packages that require compilation, including those with C, C++, or Fortran code.\nAudience: R users on Windows who need to build packages from source.\nURL: cran.r-project.org/bin/windows/Rtools",
+    "crumbs": [
+      "Data Governance",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Open Source Software</span>"
+    ]
+  },
+  {
+    "objectID": "gov-open-source-software.html#ides",
+    "href": "gov-open-source-software.html#ides",
+    "title": "12  Open Source Software",
+    "section": "12.2 IDEs",
+    "text": "12.2 IDEs\n\nPositron\n\nDefinition: A VS Code-based integrated development environment (IDE) designed specifically for data science workflows.\nPurpose: Write, run, and debug R and Python code in a unified IDE with first-class support for both languages.\nAudience: Data scientists who work across R and Python and want a modern, extensible IDE.\nURL: positron.posit.co\n\n\n\nRStudio Desktop\n\nDefinition: An open source IDE built for the R language, produced by Posit.\nPurpose: Write and execute R code, manage projects, and author Quarto and R Markdown documents in a dedicated R environment.\nAudience: Data scientists primarily working in R who prefer a purpose-built R IDE.\nURL: posit.co/products/open-source/rstudio\n\n\n\nVS Code\n\nDefinition: A source-available code editor produced by Microsoft, built on the MIT-licensed Code - OSS project, with broad language and extension support.\nPurpose: Write, debug, and manage code across multiple languages using a lightweight, highly extensible editor with a large extension ecosystem.\nAudience: Developers and data scientists who need a general-purpose editor that supports Python, JavaScript, R, and other languages beyond what Positron or RStudio cover.\nURL: code.visualstudio.com",
+    "crumbs": [
+      "Data Governance",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Open Source Software</span>"
+    ]
+  },
+  {
+    "objectID": "gov-open-source-software.html#version-control",
+    "href": "gov-open-source-software.html#version-control",
+    "title": "12  Open Source Software",
+    "section": "12.3 Version Control",
+    "text": "12.3 Version Control\n\nGit for Windows\n\nDefinition: A Windows port of the Git distributed version control system, bundled with Git Bash, Git GUI, and Git Credential Manager.\nPurpose: Track code changes, manage branches, sign commits, and collaborate on repositories hosted on GitHub or other Git platforms.\nAudience: All USACE geospatial data scientists who maintain code in Git repositories.\nURL: gitforwindows.org",
+    "crumbs": [
+      "Data Governance",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Open Source Software</span>"
+    ]
+  },
+  {
+    "objectID": "gov-open-source-software.html#databases",
+    "href": "gov-open-source-software.html#databases",
+    "title": "12  Open Source Software",
+    "section": "12.4 Databases",
+    "text": "12.4 Databases\n\npgAdmin\n\nDefinition: An open source administration and development platform for PostgreSQL databases.\nPurpose: Administer PostgreSQL servers, design schemas, write and run SQL queries, and inspect database objects through a graphical interface.\nAudience: Data scientists and database administrators who work with PostgreSQL.\nURL: pgadmin.org\n\n\n\nPostgreSQL\n\nDefinition: An open source object-relational database system with over 35 years of active development.\nPurpose: Store, query, and manage structured geospatial and tabular data using SQL; extend with PostGIS for spatial data support.\nAudience: Data scientists and analysts who need a robust, production-grade relational database.\nURL: postgresql.org",
+    "crumbs": [
+      "Data Governance",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Open Source Software</span>"
+    ]
+  },
+  {
+    "objectID": "gov-open-source-software.html#containers",
+    "href": "gov-open-source-software.html#containers",
+    "title": "12  Open Source Software",
+    "section": "12.5 Containers",
+    "text": "12.5 Containers\n\nPodman Desktop\n\nDefinition: An open source, daemonless container engine and desktop GUI for building and running OCI containers.\nPurpose: Build and deploy data science applications and toolchains inside Linux containers without requiring root privileges.\nAudience: Data scientists who need reproducible, portable computing environments that work consistently across machines.\nURL: podman.io",
+    "crumbs": [
+      "Data Governance",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Open Source Software</span>"
+    ]
+  },
+  {
+    "objectID": "gov-open-source-software.html#gis",
+    "href": "gov-open-source-software.html#gis",
+    "title": "12  Open Source Software",
+    "section": "12.6 GIS",
+    "text": "12.6 GIS\n\nQGIS\n\nDefinition: An open source geographic information system (GIS) platform for viewing, editing, and analyzing spatial data.\nPurpose: Perform GIS analysis, visualize spatial datasets, and build map products without proprietary software overhead.\nAudience: GIS analysts who need a full-featured desktop GIS, and advanced analysts who use the QGIS Python API for scripting.\nURL: qgis.org",
+    "crumbs": [
+      "Data Governance",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Open Source Software</span>"
+    ]
+  },
+  {
+    "objectID": "gov-open-source-software.html#publishing-sharing",
+    "href": "gov-open-source-software.html#publishing-sharing",
+    "title": "12  Open Source Software",
+    "section": "12.7 Publishing & Sharing",
+    "text": "12.7 Publishing & Sharing\n\nQuarto\n\nDefinition: An open source technical publishing system that supports Python, R, Julia, and JavaScript.\nPurpose: Author reproducible reports, books, websites, and presentations that weave together prose, code, and output in a single document.\nAudience: All USACE geospatial data scientists who produce technical documents or share analytical results.\nURL: quarto.org\n\n\n\nShiny Server\n\nDefinition: An open source server platform for hosting Shiny web applications built in R.\nPurpose: Self-host and share interactive Shiny applications on an internal or public web server without a commercial SaaS platform.\nAudience: Data scientists who need to deploy Shiny apps on infrastructure they control.\nURL: posit.co/products/open-source/shinyserver\n\n\n\nZotero\n\nDefinition: A free, open source reference management tool for collecting, organizing, citing, and sharing research sources.\nPurpose: Manage bibliographic references and generate citations for technical reports and Quarto documents.\nAudience: All USACE geospatial data scientists who cite methods, data sources, or standards in their work.\nURL: zotero.org",
+    "crumbs": [
+      "Data Governance",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Open Source Software</span>"
+    ]
+  },
+  {
+    "objectID": "gov-open-source-software.html#knowledge-representation",
+    "href": "gov-open-source-software.html#knowledge-representation",
+    "title": "12  Open Source Software",
+    "section": "12.8 Knowledge Representation",
+    "text": "12.8 Knowledge Representation\n\nProtege Desktop\n\nDefinition: A free, open source ontology editor developed at Stanford University with full support for OWL 2 and description logic reasoners.\nPurpose: Develop and maintain ontologies for knowledge representation, semantic data integration, and knowledge-based applications.\nAudience: Data scientists and knowledge engineers working on semantic data modeling or Army Vantage ontology workflows.\nURL: protege.stanford.edu | Install via app-portal.usace.army.mil",
+    "crumbs": [
+      "Data Governance",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Open Source Software</span>"
+    ]
+  },
+  {
     "objectID": "bib-zotero.html",
     "href": "bib-zotero.html",
-    "title": "13  Zotero",
+    "title": "15  Zotero",
     "section": "",
-    "text": "13.1 Groups\nZotero is a free, open-source reference management tool designed to help researchers collect, organize, annotate, cite, and share their work. * Zotero is available as a standalone desktop application for Windows, macOS, and Linux, with official mobile apps for iOS and Android. * Your library can be synchronized across devices (desktop, web, and mobile). * A free-tier Zotero account provides full access to all software features, with the only primary limitation being cloud storage for file attachments. * You can create Zotero Groups to collaborate on shared bibliographies with colleagues using the Web Library.",
+    "text": "15.1 Groups\nZotero is a free, open-source reference management tool designed to help researchers collect, organize, annotate, cite, and share their work. * Zotero is available as a standalone desktop application for Windows, macOS, and Linux, with official mobile apps for iOS and Android. * Your library can be synchronized across devices (desktop, web, and mobile). * A free-tier Zotero account provides full access to all software features, with the only primary limitation being cloud storage for file attachments. * You can create Zotero Groups to collaborate on shared bibliographies with colleagues using the Web Library.",
     "crumbs": [
       "Bibliography",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Zotero</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Zotero</span>"
     ]
   },
   {
     "objectID": "bib-zotero.html#groups",
     "href": "bib-zotero.html#groups",
-    "title": "13  Zotero",
+    "title": "15  Zotero",
     "section": "",
     "text": "3d_feature_extraction\nfluvialgeomorph\nhistoric_imagery\nmvr_archeology\nmvr_dredge_analysis\ntopobathy\nusace_ecomodeling",
     "crumbs": [
       "Bibliography",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Zotero</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Zotero</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunking.html",
+    "href": "fnd-chunking.html",
+    "title": "17  Chunking",
+    "section": "",
+    "text": "17.1 Need",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Chunking</span>"
     ]
   }
 ]

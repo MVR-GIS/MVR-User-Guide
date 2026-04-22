@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Create R repo – MVR Geospatial Data Science User Guide</title>
+<title>12&nbsp; Open Source Software – MVR Geospatial Data Science User Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -255,7 +255,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./repo-gpg-commit-signing.html">Git Repos</a></li><li class="breadcrumb-item"><a href="./repo-create-r-repo.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Create R repo</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./gov-open-source-software.html">Data Governance</a></li><li class="breadcrumb-item"><a href="./gov-open-source-software.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Open Source Software</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -319,7 +319,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./repo-create-r-repo.html" class="sidebar-item-text sidebar-link active">
+  <a href="./repo-create-r-repo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Create R repo</span></span></a>
   </div>
 </li>
@@ -411,7 +411,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./gov-open-source-software.html" class="sidebar-item-text sidebar-link">
+  <a href="./gov-open-source-software.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Open Source Software</span></span></a>
   </div>
 </li>
@@ -491,16 +491,61 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#languages" id="toc-languages" class="nav-link active" data-scroll-target="#languages"><span class="header-section-number">12.1</span> Languages</a>
+  <ul class="collapse">
+  <li><a href="#miniforge" id="toc-miniforge" class="nav-link" data-scroll-target="#miniforge">Miniforge</a></li>
+  <li><a href="#node.js" id="toc-node.js" class="nav-link" data-scroll-target="#node.js">Node.js</a></li>
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
+  <li><a href="#rtools" id="toc-rtools" class="nav-link" data-scroll-target="#rtools">RTools</a></li>
+  </ul></li>
+  <li><a href="#ides" id="toc-ides" class="nav-link" data-scroll-target="#ides"><span class="header-section-number">12.2</span> IDEs</a>
+  <ul class="collapse">
+  <li><a href="#positron" id="toc-positron" class="nav-link" data-scroll-target="#positron">Positron</a></li>
+  <li><a href="#rstudio-desktop" id="toc-rstudio-desktop" class="nav-link" data-scroll-target="#rstudio-desktop">RStudio Desktop</a></li>
+  <li><a href="#vs-code" id="toc-vs-code" class="nav-link" data-scroll-target="#vs-code">VS Code</a></li>
+  </ul></li>
+  <li><a href="#version-control" id="toc-version-control" class="nav-link" data-scroll-target="#version-control"><span class="header-section-number">12.3</span> Version Control</a>
+  <ul class="collapse">
+  <li><a href="#git-for-windows" id="toc-git-for-windows" class="nav-link" data-scroll-target="#git-for-windows">Git for Windows</a></li>
+  </ul></li>
+  <li><a href="#databases" id="toc-databases" class="nav-link" data-scroll-target="#databases"><span class="header-section-number">12.4</span> Databases</a>
+  <ul class="collapse">
+  <li><a href="#pgadmin" id="toc-pgadmin" class="nav-link" data-scroll-target="#pgadmin">pgAdmin</a></li>
+  <li><a href="#postgresql" id="toc-postgresql" class="nav-link" data-scroll-target="#postgresql">PostgreSQL</a></li>
+  </ul></li>
+  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers"><span class="header-section-number">12.5</span> Containers</a>
+  <ul class="collapse">
+  <li><a href="#podman-desktop" id="toc-podman-desktop" class="nav-link" data-scroll-target="#podman-desktop">Podman Desktop</a></li>
+  </ul></li>
+  <li><a href="#gis" id="toc-gis" class="nav-link" data-scroll-target="#gis"><span class="header-section-number">12.6</span> GIS</a>
+  <ul class="collapse">
+  <li><a href="#qgis" id="toc-qgis" class="nav-link" data-scroll-target="#qgis">QGIS</a></li>
+  </ul></li>
+  <li><a href="#publishing-sharing" id="toc-publishing-sharing" class="nav-link" data-scroll-target="#publishing-sharing"><span class="header-section-number">12.7</span> Publishing &amp; Sharing</a>
+  <ul class="collapse">
+  <li><a href="#quarto" id="toc-quarto" class="nav-link" data-scroll-target="#quarto">Quarto</a></li>
+  <li><a href="#shiny-server" id="toc-shiny-server" class="nav-link" data-scroll-target="#shiny-server">Shiny Server</a></li>
+  <li><a href="#zotero" id="toc-zotero" class="nav-link" data-scroll-target="#zotero">Zotero</a></li>
+  </ul></li>
+  <li><a href="#knowledge-representation" id="toc-knowledge-representation" class="nav-link" data-scroll-target="#knowledge-representation"><span class="header-section-number">12.8</span> Knowledge Representation</a>
+  <ul class="collapse">
+  <li><a href="#protege-desktop" id="toc-protege-desktop" class="nav-link" data-scroll-target="#protege-desktop">Protege Desktop</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./repo-gpg-commit-signing.html">Git Repos</a></li><li class="breadcrumb-item"><a href="./repo-create-r-repo.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Create R repo</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./gov-open-source-software.html">Data Governance</a></li><li class="breadcrumb-item"><a href="./gov-open-source-software.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Open Source Software</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Create R repo</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Open Source Software</span></h1>
 </div>
 
 
@@ -517,8 +562,193 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>This is a list of the open source software that USACE geospatial data scientists depend on. All of this software is best-of-breed and can be used at no cost with no proprietary lock-in. Use this page to explore options for skill development on your projects.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Status Check (USACE users only)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Check the latest scanned versions: <a href="https://finder.nosc.usace.army.mil/code_scan_tracker">finder.nosc.usace.army.mil/code_scan_tracker</a></li>
+<li>Install approved versions via the USACE App Portal: <a href="https://app-portal.usace.army.mil/">app-portal.usace.army.mil</a></li>
+</ul>
+</div>
+</div>
+<section id="languages" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="languages"><span class="header-section-number">12.1</span> Languages</h2>
+<section id="miniforge" class="level3">
+<h3 class="anchored" data-anchor-id="miniforge">Miniforge</h3>
+<ul>
+<li><strong>Definition:</strong> A lightweight conda distribution that installs only the conda package manager and the conda-forge channel by default.</li>
+<li><strong>Purpose:</strong> Bootstrap a minimal, reproducible Python environment for non-geospatial projects without the overhead of a full Anaconda installation.</li>
+<li><strong>Audience:</strong> Data scientists who need to quickly set up a clean Python environment.</li>
+<li><strong>URL:</strong> <a href="https://conda-forge.org/">conda-forge.org</a></li>
+</ul>
+</section>
+<section id="node.js" class="level3">
+<h3 class="anchored" data-anchor-id="node.js">Node.js</h3>
+<ul>
+<li><strong>Definition:</strong> A cross-platform JavaScript runtime built on Chrome’s V8 engine that executes JavaScript outside a browser.</li>
+<li><strong>Purpose:</strong> Build and run JavaScript-based full-stack web applications and developer tooling.</li>
+<li><strong>Audience:</strong> Developers building web applications or working with JavaScript-based data visualization tools.</li>
+<li><strong>URL:</strong> <a href="https://nodejs.org/">nodejs.org</a></li>
+</ul>
+</section>
+<section id="r" class="level3">
+<h3 class="anchored" data-anchor-id="r">R</h3>
+<ul>
+<li><strong>Definition:</strong> A language and environment for statistical computing and graphics, maintained by the R Core Team.</li>
+<li><strong>Purpose:</strong> Perform statistical analysis, data manipulation, and visualization; author reproducible reports and Shiny applications.</li>
+<li><strong>Audience:</strong> All USACE geospatial data scientists using R-based workflows.</li>
+<li><strong>URL:</strong> <a href="https://www.r-project.org/">r-project.org</a></li>
+</ul>
+</section>
+<section id="rtools" class="level3">
+<h3 class="anchored" data-anchor-id="rtools">RTools</h3>
+<ul>
+<li><strong>Definition:</strong> A collection of build tools required to compile R packages from source on Windows.</li>
+<li><strong>Purpose:</strong> Install R packages that require compilation, including those with C, C++, or Fortran code.</li>
+<li><strong>Audience:</strong> R users on Windows who need to build packages from source.</li>
+<li><strong>URL:</strong> <a href="https://cran.r-project.org/bin/windows/Rtools/">cran.r-project.org/bin/windows/Rtools</a></li>
+</ul>
+</section>
+</section>
+<section id="ides" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="ides"><span class="header-section-number">12.2</span> IDEs</h2>
+<section id="positron" class="level3">
+<h3 class="anchored" data-anchor-id="positron">Positron</h3>
+<ul>
+<li><strong>Definition:</strong> A VS Code-based integrated development environment (IDE) designed specifically for data science workflows.</li>
+<li><strong>Purpose:</strong> Write, run, and debug R and Python code in a unified IDE with first-class support for both languages.</li>
+<li><strong>Audience:</strong> Data scientists who work across R and Python and want a modern, extensible IDE.</li>
+<li><strong>URL:</strong> <a href="https://positron.posit.co/">positron.posit.co</a></li>
+</ul>
+</section>
+<section id="rstudio-desktop" class="level3">
+<h3 class="anchored" data-anchor-id="rstudio-desktop">RStudio Desktop</h3>
+<ul>
+<li><strong>Definition:</strong> An open source IDE built for the R language, produced by Posit.</li>
+<li><strong>Purpose:</strong> Write and execute R code, manage projects, and author Quarto and R Markdown documents in a dedicated R environment.</li>
+<li><strong>Audience:</strong> Data scientists primarily working in R who prefer a purpose-built R IDE.</li>
+<li><strong>URL:</strong> <a href="https://posit.co/products/open-source/rstudio/">posit.co/products/open-source/rstudio</a></li>
+</ul>
+</section>
+<section id="vs-code" class="level3">
+<h3 class="anchored" data-anchor-id="vs-code">VS Code</h3>
+<ul>
+<li><strong>Definition:</strong> A source-available code editor produced by Microsoft, built on the MIT-licensed Code - OSS project, with broad language and extension support.</li>
+<li><strong>Purpose:</strong> Write, debug, and manage code across multiple languages using a lightweight, highly extensible editor with a large extension ecosystem.</li>
+<li><strong>Audience:</strong> Developers and data scientists who need a general-purpose editor that supports Python, JavaScript, R, and other languages beyond what Positron or RStudio cover.</li>
+<li><strong>URL:</strong> <a href="https://code.visualstudio.com/">code.visualstudio.com</a></li>
+</ul>
+</section>
+</section>
+<section id="version-control" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="version-control"><span class="header-section-number">12.3</span> Version Control</h2>
+<section id="git-for-windows" class="level3">
+<h3 class="anchored" data-anchor-id="git-for-windows">Git for Windows</h3>
+<ul>
+<li><strong>Definition:</strong> A Windows port of the Git distributed version control system, bundled with Git Bash, Git GUI, and Git Credential Manager.</li>
+<li><strong>Purpose:</strong> Track code changes, manage branches, sign commits, and collaborate on repositories hosted on GitHub or other Git platforms.</li>
+<li><strong>Audience:</strong> All USACE geospatial data scientists who maintain code in Git repositories.</li>
+<li><strong>URL:</strong> <a href="https://gitforwindows.org/">gitforwindows.org</a></li>
+</ul>
+</section>
+</section>
+<section id="databases" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="databases"><span class="header-section-number">12.4</span> Databases</h2>
+<section id="pgadmin" class="level3">
+<h3 class="anchored" data-anchor-id="pgadmin">pgAdmin</h3>
+<ul>
+<li><strong>Definition:</strong> An open source administration and development platform for PostgreSQL databases.</li>
+<li><strong>Purpose:</strong> Administer PostgreSQL servers, design schemas, write and run SQL queries, and inspect database objects through a graphical interface.</li>
+<li><strong>Audience:</strong> Data scientists and database administrators who work with PostgreSQL.</li>
+<li><strong>URL:</strong> <a href="https://www.pgadmin.org/">pgadmin.org</a></li>
+</ul>
+</section>
+<section id="postgresql" class="level3">
+<h3 class="anchored" data-anchor-id="postgresql">PostgreSQL</h3>
+<ul>
+<li><strong>Definition:</strong> An open source object-relational database system with over 35 years of active development.</li>
+<li><strong>Purpose:</strong> Store, query, and manage structured geospatial and tabular data using SQL; extend with PostGIS for spatial data support.</li>
+<li><strong>Audience:</strong> Data scientists and analysts who need a robust, production-grade relational database.</li>
+<li><strong>URL:</strong> <a href="https://www.postgresql.org/">postgresql.org</a></li>
+</ul>
+</section>
+</section>
+<section id="containers" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="containers"><span class="header-section-number">12.5</span> Containers</h2>
+<section id="podman-desktop" class="level3">
+<h3 class="anchored" data-anchor-id="podman-desktop">Podman Desktop</h3>
+<ul>
+<li><strong>Definition:</strong> An open source, daemonless container engine and desktop GUI for building and running OCI containers.</li>
+<li><strong>Purpose:</strong> Build and deploy data science applications and toolchains inside Linux containers without requiring root privileges.</li>
+<li><strong>Audience:</strong> Data scientists who need reproducible, portable computing environments that work consistently across machines.</li>
+<li><strong>URL:</strong> <a href="https://podman.io/">podman.io</a></li>
+</ul>
+</section>
+</section>
+<section id="gis" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="gis"><span class="header-section-number">12.6</span> GIS</h2>
+<section id="qgis" class="level3">
+<h3 class="anchored" data-anchor-id="qgis">QGIS</h3>
+<ul>
+<li><strong>Definition:</strong> An open source geographic information system (GIS) platform for viewing, editing, and analyzing spatial data.</li>
+<li><strong>Purpose:</strong> Perform GIS analysis, visualize spatial datasets, and build map products without proprietary software overhead.</li>
+<li><strong>Audience:</strong> GIS analysts who need a full-featured desktop GIS, and advanced analysts who use the QGIS Python API for scripting.</li>
+<li><strong>URL:</strong> <a href="https://qgis.org/">qgis.org</a></li>
+</ul>
+</section>
+</section>
+<section id="publishing-sharing" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="publishing-sharing"><span class="header-section-number">12.7</span> Publishing &amp; Sharing</h2>
+<section id="quarto" class="level3">
+<h3 class="anchored" data-anchor-id="quarto">Quarto</h3>
+<ul>
+<li><strong>Definition:</strong> An open source technical publishing system that supports Python, R, Julia, and JavaScript.</li>
+<li><strong>Purpose:</strong> Author reproducible reports, books, websites, and presentations that weave together prose, code, and output in a single document.</li>
+<li><strong>Audience:</strong> All USACE geospatial data scientists who produce technical documents or share analytical results.</li>
+<li><strong>URL:</strong> <a href="https://quarto.org/">quarto.org</a></li>
+</ul>
+</section>
+<section id="shiny-server" class="level3">
+<h3 class="anchored" data-anchor-id="shiny-server">Shiny Server</h3>
+<ul>
+<li><strong>Definition:</strong> An open source server platform for hosting Shiny web applications built in R.</li>
+<li><strong>Purpose:</strong> Self-host and share interactive Shiny applications on an internal or public web server without a commercial SaaS platform.</li>
+<li><strong>Audience:</strong> Data scientists who need to deploy Shiny apps on infrastructure they control.</li>
+<li><strong>URL:</strong> <a href="https://posit.co/products/open-source/shinyserver/">posit.co/products/open-source/shinyserver</a></li>
+</ul>
+</section>
+<section id="zotero" class="level3">
+<h3 class="anchored" data-anchor-id="zotero">Zotero</h3>
+<ul>
+<li><strong>Definition:</strong> A free, open source reference management tool for collecting, organizing, citing, and sharing research sources.</li>
+<li><strong>Purpose:</strong> Manage bibliographic references and generate citations for technical reports and Quarto documents.</li>
+<li><strong>Audience:</strong> All USACE geospatial data scientists who cite methods, data sources, or standards in their work.</li>
+<li><strong>URL:</strong> <a href="https://www.zotero.org/">zotero.org</a></li>
+</ul>
+</section>
+</section>
+<section id="knowledge-representation" class="level2" data-number="12.8">
+<h2 data-number="12.8" class="anchored" data-anchor-id="knowledge-representation"><span class="header-section-number">12.8</span> Knowledge Representation</h2>
+<section id="protege-desktop" class="level3">
+<h3 class="anchored" data-anchor-id="protege-desktop">Protege Desktop</h3>
+<ul>
+<li><strong>Definition:</strong> A free, open source ontology editor developed at Stanford University with full support for OWL 2 and description logic reasoners.</li>
+<li><strong>Purpose:</strong> Develop and maintain ontologies for knowledge representation, semantic data integration, and knowledge-based applications.</li>
+<li><strong>Audience:</strong> Data scientists and knowledge engineers working on semantic data modeling or Army Vantage ontology workflows.</li>
+<li><strong>URL:</strong> <a href="https://protege.stanford.edu/">protege.stanford.edu</a> | Install via <a href="https://app-portal.usace.army.mil/">app-portal.usace.army.mil</a></li>
+</ul>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

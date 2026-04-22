@@ -1,90 +1,204 @@
 # Open Source Software
-This is a list of the open source software that USACE geospatial data scientists depends on. All of this software is best of breed software that can be used at no cost and no proprietary lock-in. Use this page to explore options for skill development on your projects. 
 
-**Status Check** (USACE users only):
-  - Check the latest scanned versions here: [https://finder.nosc.usace.army.mil/code_scan_tracker](https://finder.nosc.usace.army.mil/code_scan_tracker)
-  - Check the latest version for installation: [app-portal.usace.army.mil](https://app-portal.usace.army.mil/)
+This is a list of the open source software that USACE geospatial data
+scientists depend on. All of this software is best-of-breed and can be
+used at no cost with no proprietary lock-in. Use this page to explore
+options for skill development on your projects.
 
-## Miniforge
-  - Definition: A lightweight Python environment. 
-  - Purpose: Provide a lightweight Python environment for non-geospatial projects.
-  - Audience: Data scientists who need to quickly bootstrap Python. 
-  - URL: [conda-forge.org](https://conda-forge.org/)
+::: {.callout-note}
+## Status Check (USACE users only)
 
-## Node.js
-  - Definition: 
-  - Purpose: Build javascript-based full-stack web applications. 
-  - Audience: 
-  - URL: [nodejs.org](https://nodejs.org/)
+- Check the latest scanned versions:
+  [finder.nosc.usace.army.mil/code_scan_tracker](https://finder.nosc.usace.army.mil/code_scan_tracker)
+- Install approved versions via the USACE App Portal:
+  [app-portal.usace.army.mil](https://app-portal.usace.army.mil/)
+:::
 
-## pgAdmin
-  - Definition: 
-  - Purpose: Administer and develop with PostgreSQL databases. 
-  - Audience: 
-  - URL: [www.pgadmin.org](https://www.pgadmin.org/)
+## Languages
 
-## Podman Desktop
-  - Definition: 
-  - Purpose: Build and deploy apps in Linux containers.
-  - Audience: 
-  - URL: [podman.io](https://podman.io/)
+### Miniforge
 
-## Positron
-  - Definition: 
-  - Purpose: VS Code-based Integrated Development Environment (IDE) for data scientists that develop with R, Python, and more. 
-  - Audience: 
-  - URL: [positron.posit.co](https://positron.posit.co/)
+- **Definition:** A lightweight conda distribution that installs only
+  the conda package manager and the conda-forge channel by default.
+- **Purpose:** Bootstrap a minimal, reproducible Python environment for
+  non-geospatial projects without the overhead of a full Anaconda
+  installation.
+- **Audience:** Data scientists who need to quickly set up a clean
+  Python environment.
+- **URL:** [conda-forge.org](https://conda-forge.org/)
 
-## PostgreSQL
-  - Definition: 
-  - Purpose: The world's most advanced open source relational database.
-  - Audience: 
-  - URL: [www.postgresql.org](https://www.postgresql.org/)
+### Node.js
 
-## Protege Desktop
-  - Definition: 
-  - Purpose: Tools for developing ontologies for knowledge-based applications. 
-  - Audience: 
-  - URL: [app-portal.usace.army.mil](https://app-portal.usace.army.mil/)
+- **Definition:** A cross-platform JavaScript runtime built on Chrome's
+  V8 engine that executes JavaScript outside a browser.
+- **Purpose:** Build and run JavaScript-based full-stack web
+  applications and developer tooling.
+- **Audience:** Developers building web applications or working with
+  JavaScript-based data visualization tools.
+- **URL:** [nodejs.org](https://nodejs.org/)
 
-## QGIS
-  - Definition: The open source GIS platform.
-  - Purpose: For GIS projects and analysis without the proprietary overhead. 
-  - Audience: GUI for casual GIS users. Tools for advanced analysts.  
-  - URL: [qgis.org](https://qgis.org/)
+### R
 
-## Quarto
-  - Definition: 
-  - Purpose: 
-  - Audience: 
-  - URL: []()
+- **Definition:** A language and environment for statistical computing
+  and graphics, maintained by the R Core Team.
+- **Purpose:** Perform statistical analysis, data manipulation, and
+  visualization; author reproducible reports and Shiny applications.
+- **Audience:** All USACE geospatial data scientists using R-based
+  workflows.
+- **URL:** [r-project.org](https://www.r-project.org/)
 
-## R
-  - Definition: 
-  - Purpose: 
-  - Audience: 
-  - URL: []()
+### RTools
 
-## RStudio Desktop
-  - Definition: 
-  - Purpose: 
-  - Audience: 
-  - URL: []()
+- **Definition:** A collection of build tools required to compile R
+  packages from source on Windows.
+- **Purpose:** Install R packages that require compilation, including
+  those with C, C++, or Fortran code.
+- **Audience:** R users on Windows who need to build packages from
+  source.
+- **URL:**
+  [cran.r-project.org/bin/windows/Rtools](https://cran.r-project.org/bin/windows/Rtools/)
 
-## RTools
-  - Definition: 
-  - Purpose: 
-  - Audience: 
-  - URL: []()
+## IDEs
 
-## Shiny Server
-  - Definition: 
-  - Purpose: 
-  - Audience: 
-  - URL: []()
+### Positron
 
-## Zotero
-  - Definition: 
-  - Purpose: 
-  - Audience: 
-  - URL: []()
+- **Definition:** A VS Code-based integrated development environment
+  (IDE) designed specifically for data science workflows.
+- **Purpose:** Write, run, and debug R and Python code in a unified IDE
+  with first-class support for both languages.
+- **Audience:** Data scientists who work across R and Python and want a
+  modern, extensible IDE.
+- **URL:** [positron.posit.co](https://positron.posit.co/)
+
+### RStudio Desktop
+
+- **Definition:** An open source IDE built for the R language, produced
+  by Posit.
+- **Purpose:** Write and execute R code, manage projects, and author
+  Quarto and R Markdown documents in a dedicated R environment.
+- **Audience:** Data scientists primarily working in R who prefer a
+  purpose-built R IDE.
+- **URL:**
+  [posit.co/products/open-source/rstudio](https://posit.co/products/open-source/rstudio/)
+
+### VS Code
+
+- **Definition:** A source-available code editor produced by Microsoft,
+  built on the MIT-licensed Code - OSS project, with broad language and
+  extension support.
+- **Purpose:** Write, debug, and manage code across multiple languages
+  using a lightweight, highly extensible editor with a large extension
+  ecosystem.
+- **Audience:** Developers and data scientists who need a general-purpose
+  editor that supports Python, JavaScript, R, and other languages beyond
+  what Positron or RStudio cover.
+- **URL:** [code.visualstudio.com](https://code.visualstudio.com/)
+
+## Version Control
+
+### Git for Windows
+
+- **Definition:** A Windows port of the Git distributed version control
+  system, bundled with Git Bash, Git GUI, and Git Credential Manager.
+- **Purpose:** Track code changes, manage branches, sign commits, and
+  collaborate on repositories hosted on GitHub or other Git platforms.
+- **Audience:** All USACE geospatial data scientists who maintain code
+  in Git repositories.
+- **URL:** [gitforwindows.org](https://gitforwindows.org/)
+
+## Databases
+
+### pgAdmin
+
+- **Definition:** An open source administration and development platform
+  for PostgreSQL databases.
+- **Purpose:** Administer PostgreSQL servers, design schemas, write and
+  run SQL queries, and inspect database objects through a graphical
+  interface.
+- **Audience:** Data scientists and database administrators who work
+  with PostgreSQL.
+- **URL:** [pgadmin.org](https://www.pgadmin.org/)
+
+### PostgreSQL
+
+- **Definition:** An open source object-relational database system with
+  over 35 years of active development.
+- **Purpose:** Store, query, and manage structured geospatial and
+  tabular data using SQL; extend with PostGIS for spatial data support.
+- **Audience:** Data scientists and analysts who need a robust,
+  production-grade relational database.
+- **URL:** [postgresql.org](https://www.postgresql.org/)
+
+## Containers
+
+### Podman Desktop
+
+- **Definition:** An open source, daemonless container engine and
+  desktop GUI for building and running OCI containers.
+- **Purpose:** Build and deploy data science applications and toolchains
+  inside Linux containers without requiring root privileges.
+- **Audience:** Data scientists who need reproducible, portable
+  computing environments that work consistently across machines.
+- **URL:** [podman.io](https://podman.io/)
+
+## GIS
+
+### QGIS
+
+- **Definition:** An open source geographic information system (GIS)
+  platform for viewing, editing, and analyzing spatial data.
+- **Purpose:** Perform GIS analysis, visualize spatial datasets, and
+  build map products without proprietary software overhead.
+- **Audience:** GIS analysts who need a full-featured desktop GIS, and
+  advanced analysts who use the QGIS Python API for scripting.
+- **URL:** [qgis.org](https://qgis.org/)
+
+## Publishing & Sharing
+
+### Quarto
+
+- **Definition:** An open source technical publishing system that
+  supports Python, R, Julia, and JavaScript.
+- **Purpose:** Author reproducible reports, books, websites, and
+  presentations that weave together prose, code, and output in a single
+  document.
+- **Audience:** All USACE geospatial data scientists who produce
+  technical documents or share analytical results.
+- **URL:** [quarto.org](https://quarto.org/)
+
+### Shiny Server
+
+- **Definition:** An open source server platform for hosting Shiny web
+  applications built in R.
+- **Purpose:** Self-host and share interactive Shiny applications on an
+  internal or public web server without a commercial SaaS platform.
+- **Audience:** Data scientists who need to deploy Shiny apps on
+  infrastructure they control.
+- **URL:**
+  [posit.co/products/open-source/shinyserver](https://posit.co/products/open-source/shinyserver/)
+
+### Zotero
+
+- **Definition:** A free, open source reference management tool for
+  collecting, organizing, citing, and sharing research sources.
+- **Purpose:** Manage bibliographic references and generate citations
+  for technical reports and Quarto documents.
+- **Audience:** All USACE geospatial data scientists who cite methods,
+  data sources, or standards in their work.
+- **URL:** [zotero.org](https://www.zotero.org/)
+
+## Knowledge Representation
+
+### Protege Desktop
+
+- **Definition:** A free, open source ontology editor developed at
+  Stanford University with full support for OWL 2 and description logic
+  reasoners.
+- **Purpose:** Develop and maintain ontologies for knowledge
+  representation, semantic data integration, and knowledge-based
+  applications.
+- **Audience:** Data scientists and knowledge engineers working on
+  semantic data modeling or Army Vantage ontology workflows.
+- **URL:** [protege.stanford.edu](https://protege.stanford.edu/) |
+  Install via [app-portal.usace.army.mil](https://app-portal.usace.army.mil/)
+  

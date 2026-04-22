@@ -63,6 +63,8 @@ bibliography: [ref-references.bib]
 
 format:
   html:
+    number-sections: true
+    number-depth: 2
     theme:
       light: flatly
       dark: darkly
@@ -70,4 +72,3 @@ format:
     highlight-style: arrow
 
 editor: source
-
