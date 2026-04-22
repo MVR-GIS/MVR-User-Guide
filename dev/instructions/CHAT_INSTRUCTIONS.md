@@ -7,7 +7,7 @@ In your first message, specify the target GitHub repository and direct the assis
 
 Suggested prompt template:
 
-> Target repo: OWNER/REPO  
+> Target repo: MVR-GIS/MVR-User-Guide  
 > Read `dev/instructions/CHAT_INSTRUCTIONS.md` and follow the instruction modules listed under **Selected instruction modules (read in order)**.
 
 ## Instruction model used here (base + overlays)

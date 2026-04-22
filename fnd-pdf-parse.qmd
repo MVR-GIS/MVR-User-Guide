@@ -1,0 +1,82 @@
+# Parsing PDFs for AI Workflows
+
+## Concepts
+
+### Why we parse PDFs (not just “extract text”)
+For enterprise AI-assisted workflows (e.g., **RAG** — Retrieval-Augmented Generation, also called **AI-assisted document retrieval** or an **enterprise knowledge base**), we typically retrieve *small, relevant portions* of documents rather than sending entire documents into a model.
+
+If we only extract raw text, we lose context that auditors and reviewers need:
+
+- **Where did this statement come from?** (document identity, page number, section)
+- **What is the original source?** (file path, file hash, last modified time)
+- **What kind of content is it?** (title, paragraph, header/footer, table)
+- **Can we reconstruct the evidence trail?** (traceability from chunk → element → PDF)
+
+Parsing is the step where we convert PDFs into **structured elements** (text blocks + rich metadata) so downstream chunking can preserve **source provenance**.
+
+### What we mean by “elements”
+An *element* is a unit of extracted content that retains document-aware structure. Depending on the PDF, elements may include:
+
+- titles / headings
+- narrative paragraphs
+- lists / bullets
+- tables (sometimes)
+- headers / footers (often noise, but still identifiable)
+
+In this workflow, elements are the **atomic units** we later group into **semantic chunks**.
+
+### Provenance and audit trail requirements (USACE context)
+In a government review environment, AI-assisted outputs must be defensible. That means every downstream record (chunks, embeddings, search hits, citations) must retain enough metadata to support:
+
+- **traceability:** “show me the exact PDF and page this came from”
+- **review:** “is this claim supported by the source?”
+- **validation:** “did we ingest the correct version of the document?”
+- **auditability:** “what processing steps were applied, by what tool versions, and when?”
+
+**Guiding principle:** If two documents have identical text but different origins (different file, version, date), they must not be treated as the same evidence.
+
+---
+
+## Workflow overview
+
+We will:
+
+1. **Discover** PDFs in nested folders on a local filesystem.
+2. **Capture file-level provenance** (path, size, modified time, hashes).
+3. **Parse** PDFs into structured elements using `unstructured`.
+4. **Persist** parsed outputs to a platform-neutral format (JSONL), preserving metadata.
+5. **Verify** parsing quality and metadata completeness before chunking.
+
+---
+
+## Prerequisites
+
+### Execution environment
+- Python 3.10+ recommended (pin a version for reproducibility).
+- Offline-friendly execution (no cloud APIs required for parsing).
+
+### Python packages
+At minimum:
+
+- `unstructured[pdf]`
+- `pandas`
+
+Optional but recommended:
+
+- `pyarrow` (for later Parquet export)
+- `tqdm` (progress bars)
+
+### Installation (example)
+Create and activate a virtual environment, then install dependencies:
+
+```bash
+python -m venv .venv
+# Windows PowerShell:
+# .\.venv\Scripts\Activate.ps1
+# macOS/Linux:
+# source .venv/bin/activate
+
+python -m pip install --upgrade pip
+python -m pip install "unstructured[pdf]" pandas tqdm
+```
+
