@@ -27,7 +27,8 @@ attachment::create_dependencies_file(
 
 
 ## Specify Chat Instructions
-reproducibleai::use_instructions(c("chat-manual", "goals", "r-package", "user-manual"))
+reproducibleai::use_instructions(
+  c("chat-manual", "goals", "quarto-book", "user-manual"))
 
 ## Start new chat prompt text:
 # This session will be based on the `MVR-GIS/MVR-User-Guide`

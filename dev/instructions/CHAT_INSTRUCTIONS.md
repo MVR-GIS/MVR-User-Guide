@@ -22,14 +22,14 @@ Overlays are intended to be **thin** and should not duplicate the base modules.
 Selected recipe (R syntax):
 
 ```r
-c("chat-manual", "goals", "r-package", "user-manual")
+c("chat-manual", "goals", "quarto-book", "user-manual")
 ```
 
 Selected modules (tokens, in order):
 
 - chat-manual
 - goals
-- r-package
+- quarto-book
 - user-manual
 
 ## Selected instruction modules (read in order)
@@ -37,7 +37,7 @@ Read these files in order:
 
 1. `dev/instructions/chat-manual.md`
 2. `dev/instructions/goals.md`
-3. `dev/instructions/r-package.md`
+3. `dev/instructions/quarto-book.md`
 4. `dev/instructions/user-manual.md`
 
 ## If the assistant cannot read repository files
