@@ -1,2 +1,2 @@
-## Software Bill of Materials (SBOM)
+# Software Bill of Materials (SBOM)
 

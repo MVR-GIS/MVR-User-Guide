@@ -48,6 +48,7 @@ book:
     - part: "Foundry Workflows"
       chapters:
         - fnd-tag-documents.qmd
+        - fnd-chunking.qmd
   appendices:
     - ref-references.qmd
 
