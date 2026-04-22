@@ -1,12 +1,193 @@
-# Create Generic Python repo
+# Create a Generic Python Repo
 
 ## Introduction
-This guide will describe how to start a new generic Python-based data science project. This will provide a home to store your workflow steps and manage the code for your project.
 
-**Key Steps**
-* Clone the template repo to your local computer.  
-* Update the Readme to describe your project. 
+This chapter shows how to start a new **lightweight** Python data science analysis project using the approved MVR-GIS template repository:
 
-## Prerequsites
-* IDE: VS Code
-* Python: 
+- Template repo: `MVR-GIS/repo-generic-python`
+- IDE: VS Code
+- Environment manager: Miniforge (conda-forge) + mamba
+- Dependency spec: `environment.yml`
+- Reproducibility model: **one environment per repository**
+- Default environment name: `analysis`
+- Notebooks: first-class workflow (similar to R Markdown-style analysis)
+
+This chapter is intentionally lightweight. Heavyweight geospatial stacks (ArcGIS Pro / arcpy, GDAL-heavy workflows, etc.) are covered in a separate chapter: `repo-create-arcgis-python-repo.qmd`.
+
+## Key steps (overview)
+
+1. Create a new repository from the MVR-GIS template.
+2. Clone your new repository to your computer.
+3. Create the `analysis` environment from `environment.yml`.
+4. Open the repo in VS Code and select the correct Python interpreter.
+5. Verify you can run Python, import pandas, and (optionally) run notebooks.
+
+## Prerequisites
+
+### Access
+- GitHub access (to create a repository in the approved location)
+- Network access that allows conda-forge package downloads (proxy/cert configuration may be required in some environments)
+
+### Software (Windows, USACE GFE)
+- VS Code installed using your organization’s approved method
+- Git installed using your organization’s approved method
+- Miniforge installed (per-user install is recommended and does not require admin rights)
+
+### Verify Git
+Open a terminal and run:
+
+    git --version
+
+### Verify Miniforge + mamba
+After installing Miniforge, verify:
+
+    conda --version
+    mamba --version
+
+If `mamba` is not available, install it into `base`:
+
+    conda install -n base mamba -c conda-forge
+    mamba --version
+
+### VS Code extensions
+Install these extensions:
+- Python (Microsoft)
+- Jupyter (Microsoft) (recommended if you will use notebooks)
+
+## Step 1 — Create a new repository from the template
+
+1. In GitHub, open the template repository: `MVR-GIS/repo-generic-python`.
+2. Click **Use this template**.
+3. Create your new repository:
+   - Owner: `MVR-GIS` (or your approved org/user location)
+   - Repository name: choose a descriptive name (example: `my-analysis-project`)
+   - Visibility: choose per project needs (public or private)
+4. After GitHub creates your new repository, copy its clone URL (HTTPS).
+
+## Step 2 — Clone your new repository
+
+1. Open a terminal (PowerShell recommended), or open **Miniforge Prompt** if conda is not on PATH.
+2. Navigate to where you store projects:
+
+    cd ~/Documents
+
+3. Clone your new repository (replace with your repo name):
+
+    git clone https://github.com/MVR-GIS/<YOUR-NEW-REPO>.git
+
+4. Move into the project directory:
+
+    cd <YOUR-NEW-REPO>
+
+## Step 3 — Create the per-project environment (`analysis`)
+
+This template uses a repository-local `environment.yml` file to define the environment. The environment name is standardized as `analysis` to simplify onboarding.
+
+From the repository root:
+
+    mamba env create -f environment.yml
+
+## Step 4 — Activate the environment and verify Python
+
+Activate the environment:
+
+    conda activate analysis
+
+Verify Python runs:
+
+    python --version
+
+Verify pandas imports:
+
+    python -c "import pandas as pd; print(pd.__version__)"
+
+## Step 5 — Open the project in VS Code
+
+From the repo root:
+
+    code .
+
+## Step 6 — Configure VS Code to use the `analysis` interpreter
+
+1. In VS Code, open the Command Palette (Ctrl+Shift+P).
+2. Run: Python: Select Interpreter
+3. Choose the interpreter for the conda environment named `analysis`.
+
+Optional verification (in a VS Code terminal):
+
+    python -c "import sys; print(sys.executable)"
+
+## Step 7 — Notebook workflow (recommended)
+
+This template includes a `notebooks/` directory. To start a notebook-based analysis workflow:
+
+1. Open a notebook in `notebooks/` (or create a new one).
+2. When prompted for a kernel, select the Python kernel from the `analysis` environment.
+3. Run a simple cell to confirm the kernel works (example):
+
+    import pandas as pd
+    pd.__version__
+
+If the kernel list does not show `analysis`, re-check:
+- the selected interpreter (Step 6)
+- that you created the environment successfully (Step 3)
+- that the Jupyter extension is installed
+
+## Daily workflow (what to do each work session)
+
+1. Pull the latest changes:
+
+    git pull
+
+2. Activate the environment:
+
+    conda activate analysis
+
+3. Open VS Code:
+
+    code .
+
+If `environment.yml` changed, update your environment:
+
+    mamba env update -f environment.yml --prune
+
+## Project structure (template expectation)
+
+- `notebooks/` — Jupyter notebooks (analysis + narrative)
+- `src/` — reusable Python code (helpers, functions, modules)
+- `data/` — data (follow your project’s data policy)
+- `outputs/` — figures/tables/results produced by analysis
+
+Recommendation:
+- Keep notebooks focused on analysis and narrative.
+- Move reusable logic into `src/` as it stabilizes.
+
+## Troubleshooting
+
+### VS Code is using the wrong interpreter
+Symptoms:
+- imports fail in VS Code but work in the terminal (or vice versa)
+
+Fix:
+- Command Palette → Python: Select Interpreter → select `analysis`
+- restart VS Code if needed
+
+### `conda` / `mamba` not found
+Fix:
+- use Miniforge Prompt, or ensure conda has been initialized for your shell
+- close and reopen the terminal
+
+### Package downloads fail (proxy / certificates)
+Symptoms:
+- certificate errors, connection failures during `mamba env create`
+
+Fix:
+- follow your organization’s approved proxy/certificate configuration steps for conda/mamba
+
+## Definition of done (ready to proceed to other chapters)
+
+You are ready to continue when:
+- you can run `python --version` with `analysis` activated
+- you can import pandas successfully
+- VS Code is using the `analysis` interpreter
+- you can open and run a notebook using the `analysis` kernel (if using notebooks)

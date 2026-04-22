@@ -207,23 +207,166 @@
   {
     "objectID": "repo-create-generic-python-repo.html",
     "href": "repo-create-generic-python-repo.html",
-    "title": "2  Create Generic Python repo",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
     "section": "",
-    "text": "2.1 Introduction\nThis guide will describe how to start a new generic Python-based data science project. This will provide a home to store your workflow steps and manage the code for your project.\nKey Steps * Clone the template repo to your local computer.\n* Update the Readme to describe your project.",
+    "text": "2.1 Introduction\nThis chapter shows how to start a new lightweight Python data science analysis project using the approved MVR-GIS template repository:\nThis chapter is intentionally lightweight. Heavyweight geospatial stacks (ArcGIS Pro / arcpy, GDAL-heavy workflows, etc.) are covered in a separate chapter: repo-create-arcgis-python-repo.qmd.",
     "crumbs": [
       "Git Repos",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create Generic Python repo</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
     ]
   },
   {
-    "objectID": "repo-create-generic-python-repo.html#prerequsites",
-    "href": "repo-create-generic-python-repo.html#prerequsites",
-    "title": "2  Create Generic Python repo",
-    "section": "2.2 Prerequsites",
-    "text": "2.2 Prerequsites\n\nIDE: VS Code\nPython:",
+    "objectID": "repo-create-generic-python-repo.html#introduction",
+    "href": "repo-create-generic-python-repo.html#introduction",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "",
+    "text": "Template repo: MVR-GIS/repo-generic-python\nIDE: VS Code\nEnvironment manager: Miniforge (conda-forge) + mamba\nDependency spec: environment.yml\nReproducibility model: one environment per repository\nDefault environment name: analysis\nNotebooks: first-class workflow (similar to R Markdown-style analysis)",
     "crumbs": [
       "Git Repos",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create Generic Python repo</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#key-steps-overview",
+    "href": "repo-create-generic-python-repo.html#key-steps-overview",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.2 Key steps (overview)",
+    "text": "2.2 Key steps (overview)\n\nCreate a new repository from the MVR-GIS template.\nClone your new repository to your computer.\nCreate the analysis environment from environment.yml.\nOpen the repo in VS Code and select the correct Python interpreter.\nVerify you can run Python, import pandas, and (optionally) run notebooks.",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#prerequisites",
+    "href": "repo-create-generic-python-repo.html#prerequisites",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.3 Prerequisites",
+    "text": "2.3 Prerequisites\n\nAccess\n\nGitHub access (to create a repository in the approved location)\nNetwork access that allows conda-forge package downloads (proxy/cert configuration may be required in some environments)\n\n\n\nSoftware (Windows, USACE GFE)\n\nVS Code installed using your organization’s approved method\nGit installed using your organization’s approved method\nMiniforge installed (per-user install is recommended and does not require admin rights)\n\n\n\nVerify Git\nOpen a terminal and run:\ngit --version\n\n\nVerify Miniforge + mamba\nAfter installing Miniforge, verify:\nconda --version\nmamba --version\nIf mamba is not available, install it into base:\nconda install -n base mamba -c conda-forge\nmamba --version\n\n\nVS Code extensions\nInstall these extensions: - Python (Microsoft) - Jupyter (Microsoft) (recommended if you will use notebooks)",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#step-1-create-a-new-repository-from-the-template",
+    "href": "repo-create-generic-python-repo.html#step-1-create-a-new-repository-from-the-template",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.4 Step 1 — Create a new repository from the template",
+    "text": "2.4 Step 1 — Create a new repository from the template\n\nIn GitHub, open the template repository: MVR-GIS/repo-generic-python.\nClick Use this template.\nCreate your new repository:\n\nOwner: MVR-GIS (or your approved org/user location)\nRepository name: choose a descriptive name (example: my-analysis-project)\nVisibility: choose per project needs (public or private)\n\nAfter GitHub creates your new repository, copy its clone URL (HTTPS).",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#step-2-clone-your-new-repository",
+    "href": "repo-create-generic-python-repo.html#step-2-clone-your-new-repository",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.5 Step 2 — Clone your new repository",
+    "text": "2.5 Step 2 — Clone your new repository\n\nOpen a terminal (PowerShell recommended), or open Miniforge Prompt if conda is not on PATH.\nNavigate to where you store projects:\ncd ~/Documents\nClone your new repository (replace with your repo name):\ngit clone https://github.com/MVR-GIS/.git\nMove into the project directory:\ncd",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#step-3-create-the-per-project-environment-analysis",
+    "href": "repo-create-generic-python-repo.html#step-3-create-the-per-project-environment-analysis",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.6 Step 3 — Create the per-project environment (analysis)",
+    "text": "2.6 Step 3 — Create the per-project environment (analysis)\nThis template uses a repository-local environment.yml file to define the environment. The environment name is standardized as analysis to simplify onboarding.\nFrom the repository root:\nmamba env create -f environment.yml",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#step-4-activate-the-environment-and-verify-python",
+    "href": "repo-create-generic-python-repo.html#step-4-activate-the-environment-and-verify-python",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.7 Step 4 — Activate the environment and verify Python",
+    "text": "2.7 Step 4 — Activate the environment and verify Python\nActivate the environment:\nconda activate analysis\nVerify Python runs:\npython --version\nVerify pandas imports:\npython -c \"import pandas as pd; print(pd.__version__)\"",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#step-5-open-the-project-in-vs-code",
+    "href": "repo-create-generic-python-repo.html#step-5-open-the-project-in-vs-code",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.8 Step 5 — Open the project in VS Code",
+    "text": "2.8 Step 5 — Open the project in VS Code\nFrom the repo root:\ncode .",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#step-6-configure-vs-code-to-use-the-analysis-interpreter",
+    "href": "repo-create-generic-python-repo.html#step-6-configure-vs-code-to-use-the-analysis-interpreter",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.9 Step 6 — Configure VS Code to use the analysis interpreter",
+    "text": "2.9 Step 6 — Configure VS Code to use the analysis interpreter\n\nIn VS Code, open the Command Palette (Ctrl+Shift+P).\nRun: Python: Select Interpreter\nChoose the interpreter for the conda environment named analysis.\n\nOptional verification (in a VS Code terminal):\npython -c \"import sys; print(sys.executable)\"",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#step-7-notebook-workflow-recommended",
+    "href": "repo-create-generic-python-repo.html#step-7-notebook-workflow-recommended",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.10 Step 7 — Notebook workflow (recommended)",
+    "text": "2.10 Step 7 — Notebook workflow (recommended)\nThis template includes a notebooks/ directory. To start a notebook-based analysis workflow:\n\nOpen a notebook in notebooks/ (or create a new one).\nWhen prompted for a kernel, select the Python kernel from the analysis environment.\nRun a simple cell to confirm the kernel works (example):\nimport pandas as pd pd.__version__\n\nIf the kernel list does not show analysis, re-check: - the selected interpreter (Step 6) - that you created the environment successfully (Step 3) - that the Jupyter extension is installed",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#daily-workflow-what-to-do-each-work-session",
+    "href": "repo-create-generic-python-repo.html#daily-workflow-what-to-do-each-work-session",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.11 Daily workflow (what to do each work session)",
+    "text": "2.11 Daily workflow (what to do each work session)\n\nPull the latest changes:\ngit pull\nActivate the environment:\nconda activate analysis\nOpen VS Code:\ncode .\n\nIf environment.yml changed, update your environment:\nmamba env update -f environment.yml --prune",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#project-structure-template-expectation",
+    "href": "repo-create-generic-python-repo.html#project-structure-template-expectation",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.12 Project structure (template expectation)",
+    "text": "2.12 Project structure (template expectation)\n\nnotebooks/ — Jupyter notebooks (analysis + narrative)\nsrc/ — reusable Python code (helpers, functions, modules)\ndata/ — data (follow your project’s data policy)\noutputs/ — figures/tables/results produced by analysis\n\nRecommendation: - Keep notebooks focused on analysis and narrative. - Move reusable logic into src/ as it stabilizes.",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#troubleshooting",
+    "href": "repo-create-generic-python-repo.html#troubleshooting",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.13 Troubleshooting",
+    "text": "2.13 Troubleshooting\n\nVS Code is using the wrong interpreter\nSymptoms: - imports fail in VS Code but work in the terminal (or vice versa)\nFix: - Command Palette → Python: Select Interpreter → select analysis - restart VS Code if needed\n\n\nconda / mamba not found\nFix: - use Miniforge Prompt, or ensure conda has been initialized for your shell - close and reopen the terminal\n\n\nPackage downloads fail (proxy / certificates)\nSymptoms: - certificate errors, connection failures during mamba env create\nFix: - follow your organization’s approved proxy/certificate configuration steps for conda/mamba",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-generic-python-repo.html#definition-of-done-ready-to-proceed-to-other-chapters",
+    "href": "repo-create-generic-python-repo.html#definition-of-done-ready-to-proceed-to-other-chapters",
+    "title": "2  Create a Generic Python Repo (Windows GFE)",
+    "section": "2.14 Definition of done (ready to proceed to other chapters)",
+    "text": "2.14 Definition of done (ready to proceed to other chapters)\nYou are ready to continue when: - you can run python --version with analysis activated - you can import pandas successfully - VS Code is using the analysis interpreter - you can open and run a notebook using the analysis kernel (if using notebooks)",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo (Windows GFE)</span>"
     ]
   },
   {
@@ -392,14 +535,58 @@
     ]
   },
   {
-    "objectID": "fnd-chunking.html",
-    "href": "fnd-chunking.html",
-    "title": "17  Chunking",
+    "objectID": "fnd-pdf-parse.html",
+    "href": "fnd-pdf-parse.html",
+    "title": "17  Parsing PDFs for AI Workflows",
     "section": "",
-    "text": "17.1 Need",
+    "text": "17.1 Concepts",
     "crumbs": [
       "Foundry Workflows",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Chunking</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Parsing PDFs for AI Workflows</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-pdf-parse.html#concepts",
+    "href": "fnd-pdf-parse.html#concepts",
+    "title": "17  Parsing PDFs for AI Workflows",
+    "section": "",
+    "text": "Why we parse PDFs (not just “extract text”)\nFor enterprise AI-assisted workflows (e.g., RAG — Retrieval-Augmented Generation, also called AI-assisted document retrieval or an enterprise knowledge base), we typically retrieve small, relevant portions of documents rather than sending entire documents into a model.\nIf we only extract raw text, we lose context that auditors and reviewers need:\n\nWhere did this statement come from? (document identity, page number, section)\nWhat is the original source? (file path, file hash, last modified time)\nWhat kind of content is it? (title, paragraph, header/footer, table)\nCan we reconstruct the evidence trail? (traceability from chunk → element → PDF)\n\nParsing is the step where we convert PDFs into structured elements (text blocks + rich metadata) so downstream chunking can preserve source provenance.\n\n\nWhat we mean by “elements”\nAn element is a unit of extracted content that retains document-aware structure. Depending on the PDF, elements may include:\n\ntitles / headings\nnarrative paragraphs\nlists / bullets\ntables (sometimes)\nheaders / footers (often noise, but still identifiable)\n\nIn this workflow, elements are the atomic units we later group into semantic chunks.\n\n\nProvenance and audit trail requirements (USACE context)\nIn a government review environment, AI-assisted outputs must be defensible. That means every downstream record (chunks, embeddings, search hits, citations) must retain enough metadata to support:\n\ntraceability: “show me the exact PDF and page this came from”\nreview: “is this claim supported by the source?”\nvalidation: “did we ingest the correct version of the document?”\nauditability: “what processing steps were applied, by what tool versions, and when?”\n\nGuiding principle: If two documents have identical text but different origins (different file, version, date), they must not be treated as the same evidence.",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Parsing PDFs for AI Workflows</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-pdf-parse.html#workflow-overview",
+    "href": "fnd-pdf-parse.html#workflow-overview",
+    "title": "17  Parsing PDFs for AI Workflows",
+    "section": "17.2 Workflow overview",
+    "text": "17.2 Workflow overview\nWe will:\n\nDiscover PDFs in nested folders on a local filesystem.\nCapture file-level provenance (path, size, modified time, hashes).\nParse PDFs into structured elements using unstructured.\nPersist parsed outputs to a platform-neutral format (JSONL), preserving metadata.\nVerify parsing quality and metadata completeness before chunking.",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Parsing PDFs for AI Workflows</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-pdf-parse.html#prerequisites",
+    "href": "fnd-pdf-parse.html#prerequisites",
+    "title": "17  Parsing PDFs for AI Workflows",
+    "section": "17.3 Prerequisites",
+    "text": "17.3 Prerequisites\n\nExecution environment\n\nPython 3.10+ recommended (pin a version for reproducibility).\nOffline-friendly execution (no cloud APIs required for parsing).\n\n\n\nPython packages\nAt minimum:\n\nunstructured[pdf]\npandas\n\nOptional but recommended:\n\npyarrow (for later Parquet export)\ntqdm (progress bars)\n\n\n\nInstallation (example)\nCreate and activate a virtual environment, then install dependencies:\npython -m venv .venv\n# Windows PowerShell:\n# .\\.venv\\Scripts\\Activate.ps1\n# macOS/Linux:\n# source .venv/bin/activate\n\npython -m pip install --upgrade pip\npython -m pip install \"unstructured[pdf]\" pandas tqdm",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Parsing PDFs for AI Workflows</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunking.html",
+    "href": "fnd-chunking.html",
+    "title": "18  Chunking",
+    "section": "",
+    "text": "18.1 Need",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Chunking</span>"
     ]
   }
 ]

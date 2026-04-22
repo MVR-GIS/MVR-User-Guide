@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Create Generic Python repo – MVR Geospatial Data Science User Guide</title>
+<title>2&nbsp; Create a Generic Python Repo (Windows GFE) – MVR Geospatial Data Science User Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -255,7 +255,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./repo-gpg-commit-signing.html">Git Repos</a></li><li class="breadcrumb-item"><a href="./repo-create-generic-python-repo.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create Generic Python repo</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./repo-gpg-commit-signing.html">Git Repos</a></li><li class="breadcrumb-item"><a href="./repo-create-generic-python-repo.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create a Generic Python Repo (Windows GFE)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -308,7 +308,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./repo-create-generic-python-repo.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create Generic Python repo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create a Generic Python Repo (Windows GFE)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -463,8 +463,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./fnd-pdf-parse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Parsing PDFs for AI Workflows</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./fnd-chunking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Chunking</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chunking</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fnd-chunk-export.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">fnd-chunk-export.html</span></span></a>
   </div>
 </li>
       </ul>
@@ -497,7 +509,31 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">2.1</span> Introduction</a></li>
-  <li><a href="#prerequsites" id="toc-prerequsites" class="nav-link" data-scroll-target="#prerequsites"><span class="header-section-number">2.2</span> Prerequsites</a></li>
+  <li><a href="#key-steps-overview" id="toc-key-steps-overview" class="nav-link" data-scroll-target="#key-steps-overview"><span class="header-section-number">2.2</span> Key steps (overview)</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">2.3</span> Prerequisites</a>
+  <ul class="collapse">
+  <li><a href="#access" id="toc-access" class="nav-link" data-scroll-target="#access">Access</a></li>
+  <li><a href="#software-windows-usace-gfe" id="toc-software-windows-usace-gfe" class="nav-link" data-scroll-target="#software-windows-usace-gfe">Software (Windows, USACE GFE)</a></li>
+  <li><a href="#verify-git" id="toc-verify-git" class="nav-link" data-scroll-target="#verify-git">Verify Git</a></li>
+  <li><a href="#verify-miniforge-mamba" id="toc-verify-miniforge-mamba" class="nav-link" data-scroll-target="#verify-miniforge-mamba">Verify Miniforge + mamba</a></li>
+  <li><a href="#vs-code-extensions" id="toc-vs-code-extensions" class="nav-link" data-scroll-target="#vs-code-extensions">VS Code extensions</a></li>
+  </ul></li>
+  <li><a href="#step-1-create-a-new-repository-from-the-template" id="toc-step-1-create-a-new-repository-from-the-template" class="nav-link" data-scroll-target="#step-1-create-a-new-repository-from-the-template"><span class="header-section-number">2.4</span> Step 1 — Create a new repository from the template</a></li>
+  <li><a href="#step-2-clone-your-new-repository" id="toc-step-2-clone-your-new-repository" class="nav-link" data-scroll-target="#step-2-clone-your-new-repository"><span class="header-section-number">2.5</span> Step 2 — Clone your new repository</a></li>
+  <li><a href="#step-3-create-the-per-project-environment-analysis" id="toc-step-3-create-the-per-project-environment-analysis" class="nav-link" data-scroll-target="#step-3-create-the-per-project-environment-analysis"><span class="header-section-number">2.6</span> Step 3 — Create the per-project environment (<code>analysis</code>)</a></li>
+  <li><a href="#step-4-activate-the-environment-and-verify-python" id="toc-step-4-activate-the-environment-and-verify-python" class="nav-link" data-scroll-target="#step-4-activate-the-environment-and-verify-python"><span class="header-section-number">2.7</span> Step 4 — Activate the environment and verify Python</a></li>
+  <li><a href="#step-5-open-the-project-in-vs-code" id="toc-step-5-open-the-project-in-vs-code" class="nav-link" data-scroll-target="#step-5-open-the-project-in-vs-code"><span class="header-section-number">2.8</span> Step 5 — Open the project in VS Code</a></li>
+  <li><a href="#step-6-configure-vs-code-to-use-the-analysis-interpreter" id="toc-step-6-configure-vs-code-to-use-the-analysis-interpreter" class="nav-link" data-scroll-target="#step-6-configure-vs-code-to-use-the-analysis-interpreter"><span class="header-section-number">2.9</span> Step 6 — Configure VS Code to use the <code>analysis</code> interpreter</a></li>
+  <li><a href="#step-7-notebook-workflow-recommended" id="toc-step-7-notebook-workflow-recommended" class="nav-link" data-scroll-target="#step-7-notebook-workflow-recommended"><span class="header-section-number">2.10</span> Step 7 — Notebook workflow (recommended)</a></li>
+  <li><a href="#daily-workflow-what-to-do-each-work-session" id="toc-daily-workflow-what-to-do-each-work-session" class="nav-link" data-scroll-target="#daily-workflow-what-to-do-each-work-session"><span class="header-section-number">2.11</span> Daily workflow (what to do each work session)</a></li>
+  <li><a href="#project-structure-template-expectation" id="toc-project-structure-template-expectation" class="nav-link" data-scroll-target="#project-structure-template-expectation"><span class="header-section-number">2.12</span> Project structure (template expectation)</a></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting"><span class="header-section-number">2.13</span> Troubleshooting</a>
+  <ul class="collapse">
+  <li><a href="#vs-code-is-using-the-wrong-interpreter" id="toc-vs-code-is-using-the-wrong-interpreter" class="nav-link" data-scroll-target="#vs-code-is-using-the-wrong-interpreter">VS Code is using the wrong interpreter</a></li>
+  <li><a href="#conda-mamba-not-found" id="toc-conda-mamba-not-found" class="nav-link" data-scroll-target="#conda-mamba-not-found"><code>conda</code> / <code>mamba</code> not found</a></li>
+  <li><a href="#package-downloads-fail-proxy-certificates" id="toc-package-downloads-fail-proxy-certificates" class="nav-link" data-scroll-target="#package-downloads-fail-proxy-certificates">Package downloads fail (proxy / certificates)</a></li>
+  </ul></li>
+  <li><a href="#definition-of-done-ready-to-proceed-to-other-chapters" id="toc-definition-of-done-ready-to-proceed-to-other-chapters" class="nav-link" data-scroll-target="#definition-of-done-ready-to-proceed-to-other-chapters"><span class="header-section-number">2.14</span> Definition of done (ready to proceed to other chapters)</a></li>
   </ul>
 </nav>
     </div>
@@ -505,9 +541,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./repo-gpg-commit-signing.html">Git Repos</a></li><li class="breadcrumb-item"><a href="./repo-create-generic-python-repo.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create Generic Python repo</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./repo-gpg-commit-signing.html">Git Repos</a></li><li class="breadcrumb-item"><a href="./repo-create-generic-python-repo.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create a Generic Python Repo (Windows GFE)</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create Generic Python repo</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create a Generic Python Repo (Windows GFE)</span></h1>
 </div>
 
 
@@ -526,16 +562,174 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">2.1</span> Introduction</h2>
-<p>This guide will describe how to start a new generic Python-based data science project. This will provide a home to store your workflow steps and manage the code for your project.</p>
-<p><strong>Key Steps</strong> * Clone the template repo to your local computer.<br>
-* Update the Readme to describe your project.</p>
-</section>
-<section id="prerequsites" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="prerequsites"><span class="header-section-number">2.2</span> Prerequsites</h2>
+<p>This chapter shows how to start a new <strong>lightweight</strong> Python data science analysis project using the approved MVR-GIS template repository:</p>
 <ul>
+<li>Template repo: <code>MVR-GIS/repo-generic-python</code></li>
 <li>IDE: VS Code</li>
-<li>Python:</li>
+<li>Environment manager: Miniforge (conda-forge) + mamba</li>
+<li>Dependency spec: <code>environment.yml</code></li>
+<li>Reproducibility model: <strong>one environment per repository</strong></li>
+<li>Default environment name: <code>analysis</code></li>
+<li>Notebooks: first-class workflow (similar to R Markdown-style analysis)</li>
 </ul>
+<p>This chapter is intentionally lightweight. Heavyweight geospatial stacks (ArcGIS Pro / arcpy, GDAL-heavy workflows, etc.) are covered in a separate chapter: <code>repo-create-arcgis-python-repo.qmd</code>.</p>
+</section>
+<section id="key-steps-overview" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="key-steps-overview"><span class="header-section-number">2.2</span> Key steps (overview)</h2>
+<ol type="1">
+<li>Create a new repository from the MVR-GIS template.</li>
+<li>Clone your new repository to your computer.</li>
+<li>Create the <code>analysis</code> environment from <code>environment.yml</code>.</li>
+<li>Open the repo in VS Code and select the correct Python interpreter.</li>
+<li>Verify you can run Python, import pandas, and (optionally) run notebooks.</li>
+</ol>
+</section>
+<section id="prerequisites" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">2.3</span> Prerequisites</h2>
+<section id="access" class="level3">
+<h3 class="anchored" data-anchor-id="access">Access</h3>
+<ul>
+<li>GitHub access (to create a repository in the approved location)</li>
+<li>Network access that allows conda-forge package downloads (proxy/cert configuration may be required in some environments)</li>
+</ul>
+</section>
+<section id="software-windows-usace-gfe" class="level3">
+<h3 class="anchored" data-anchor-id="software-windows-usace-gfe">Software (Windows, USACE GFE)</h3>
+<ul>
+<li>VS Code installed using your organization’s approved method</li>
+<li>Git installed using your organization’s approved method</li>
+<li>Miniforge installed (per-user install is recommended and does not require admin rights)</li>
+</ul>
+</section>
+<section id="verify-git" class="level3">
+<h3 class="anchored" data-anchor-id="verify-git">Verify Git</h3>
+<p>Open a terminal and run:</p>
+<pre><code>git --version</code></pre>
+</section>
+<section id="verify-miniforge-mamba" class="level3">
+<h3 class="anchored" data-anchor-id="verify-miniforge-mamba">Verify Miniforge + mamba</h3>
+<p>After installing Miniforge, verify:</p>
+<pre><code>conda --version
+mamba --version</code></pre>
+<p>If <code>mamba</code> is not available, install it into <code>base</code>:</p>
+<pre><code>conda install -n base mamba -c conda-forge
+mamba --version</code></pre>
+</section>
+<section id="vs-code-extensions" class="level3">
+<h3 class="anchored" data-anchor-id="vs-code-extensions">VS Code extensions</h3>
+<p>Install these extensions: - Python (Microsoft) - Jupyter (Microsoft) (recommended if you will use notebooks)</p>
+</section>
+</section>
+<section id="step-1-create-a-new-repository-from-the-template" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="step-1-create-a-new-repository-from-the-template"><span class="header-section-number">2.4</span> Step 1 — Create a new repository from the template</h2>
+<ol type="1">
+<li>In GitHub, open the template repository: <code>MVR-GIS/repo-generic-python</code>.</li>
+<li>Click <strong>Use this template</strong>.</li>
+<li>Create your new repository:
+<ul>
+<li>Owner: <code>MVR-GIS</code> (or your approved org/user location)</li>
+<li>Repository name: choose a descriptive name (example: <code>my-analysis-project</code>)</li>
+<li>Visibility: choose per project needs (public or private)</li>
+</ul></li>
+<li>After GitHub creates your new repository, copy its clone URL (HTTPS).</li>
+</ol>
+</section>
+<section id="step-2-clone-your-new-repository" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="step-2-clone-your-new-repository"><span class="header-section-number">2.5</span> Step 2 — Clone your new repository</h2>
+<ol type="1">
+<li><p>Open a terminal (PowerShell recommended), or open <strong>Miniforge Prompt</strong> if conda is not on PATH.</p></li>
+<li><p>Navigate to where you store projects:</p>
+<p>cd ~/Documents</p></li>
+<li><p>Clone your new repository (replace with your repo name):</p>
+<p>git clone https://github.com/MVR-GIS/<your-new-repo>.git</your-new-repo></p></li>
+<li><p>Move into the project directory:</p>
+<p>cd <your-new-repo></your-new-repo></p></li>
+</ol>
+</section>
+<section id="step-3-create-the-per-project-environment-analysis" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="step-3-create-the-per-project-environment-analysis"><span class="header-section-number">2.6</span> Step 3 — Create the per-project environment (<code>analysis</code>)</h2>
+<p>This template uses a repository-local <code>environment.yml</code> file to define the environment. The environment name is standardized as <code>analysis</code> to simplify onboarding.</p>
+<p>From the repository root:</p>
+<pre><code>mamba env create -f environment.yml</code></pre>
+</section>
+<section id="step-4-activate-the-environment-and-verify-python" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="step-4-activate-the-environment-and-verify-python"><span class="header-section-number">2.7</span> Step 4 — Activate the environment and verify Python</h2>
+<p>Activate the environment:</p>
+<pre><code>conda activate analysis</code></pre>
+<p>Verify Python runs:</p>
+<pre><code>python --version</code></pre>
+<p>Verify pandas imports:</p>
+<pre><code>python -c "import pandas as pd; print(pd.__version__)"</code></pre>
+</section>
+<section id="step-5-open-the-project-in-vs-code" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="step-5-open-the-project-in-vs-code"><span class="header-section-number">2.8</span> Step 5 — Open the project in VS Code</h2>
+<p>From the repo root:</p>
+<pre><code>code .</code></pre>
+</section>
+<section id="step-6-configure-vs-code-to-use-the-analysis-interpreter" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="step-6-configure-vs-code-to-use-the-analysis-interpreter"><span class="header-section-number">2.9</span> Step 6 — Configure VS Code to use the <code>analysis</code> interpreter</h2>
+<ol type="1">
+<li>In VS Code, open the Command Palette (Ctrl+Shift+P).</li>
+<li>Run: Python: Select Interpreter</li>
+<li>Choose the interpreter for the conda environment named <code>analysis</code>.</li>
+</ol>
+<p>Optional verification (in a VS Code terminal):</p>
+<pre><code>python -c "import sys; print(sys.executable)"</code></pre>
+</section>
+<section id="step-7-notebook-workflow-recommended" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="step-7-notebook-workflow-recommended"><span class="header-section-number">2.10</span> Step 7 — Notebook workflow (recommended)</h2>
+<p>This template includes a <code>notebooks/</code> directory. To start a notebook-based analysis workflow:</p>
+<ol type="1">
+<li><p>Open a notebook in <code>notebooks/</code> (or create a new one).</p></li>
+<li><p>When prompted for a kernel, select the Python kernel from the <code>analysis</code> environment.</p></li>
+<li><p>Run a simple cell to confirm the kernel works (example):</p>
+<p>import pandas as pd pd.__version__</p></li>
+</ol>
+<p>If the kernel list does not show <code>analysis</code>, re-check: - the selected interpreter (Step 6) - that you created the environment successfully (Step 3) - that the Jupyter extension is installed</p>
+</section>
+<section id="daily-workflow-what-to-do-each-work-session" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="daily-workflow-what-to-do-each-work-session"><span class="header-section-number">2.11</span> Daily workflow (what to do each work session)</h2>
+<ol type="1">
+<li><p>Pull the latest changes:</p>
+<p>git pull</p></li>
+<li><p>Activate the environment:</p>
+<p>conda activate analysis</p></li>
+<li><p>Open VS Code:</p>
+<p>code .</p></li>
+</ol>
+<p>If <code>environment.yml</code> changed, update your environment:</p>
+<pre><code>mamba env update -f environment.yml --prune</code></pre>
+</section>
+<section id="project-structure-template-expectation" class="level2" data-number="2.12">
+<h2 data-number="2.12" class="anchored" data-anchor-id="project-structure-template-expectation"><span class="header-section-number">2.12</span> Project structure (template expectation)</h2>
+<ul>
+<li><code>notebooks/</code> — Jupyter notebooks (analysis + narrative)</li>
+<li><code>src/</code> — reusable Python code (helpers, functions, modules)</li>
+<li><code>data/</code> — data (follow your project’s data policy)</li>
+<li><code>outputs/</code> — figures/tables/results produced by analysis</li>
+</ul>
+<p>Recommendation: - Keep notebooks focused on analysis and narrative. - Move reusable logic into <code>src/</code> as it stabilizes.</p>
+</section>
+<section id="troubleshooting" class="level2" data-number="2.13">
+<h2 data-number="2.13" class="anchored" data-anchor-id="troubleshooting"><span class="header-section-number">2.13</span> Troubleshooting</h2>
+<section id="vs-code-is-using-the-wrong-interpreter" class="level3">
+<h3 class="anchored" data-anchor-id="vs-code-is-using-the-wrong-interpreter">VS Code is using the wrong interpreter</h3>
+<p>Symptoms: - imports fail in VS Code but work in the terminal (or vice versa)</p>
+<p>Fix: - Command Palette → Python: Select Interpreter → select <code>analysis</code> - restart VS Code if needed</p>
+</section>
+<section id="conda-mamba-not-found" class="level3">
+<h3 class="anchored" data-anchor-id="conda-mamba-not-found"><code>conda</code> / <code>mamba</code> not found</h3>
+<p>Fix: - use Miniforge Prompt, or ensure conda has been initialized for your shell - close and reopen the terminal</p>
+</section>
+<section id="package-downloads-fail-proxy-certificates" class="level3">
+<h3 class="anchored" data-anchor-id="package-downloads-fail-proxy-certificates">Package downloads fail (proxy / certificates)</h3>
+<p>Symptoms: - certificate errors, connection failures during <code>mamba env create</code></p>
+<p>Fix: - follow your organization’s approved proxy/certificate configuration steps for conda/mamba</p>
+</section>
+</section>
+<section id="definition-of-done-ready-to-proceed-to-other-chapters" class="level2" data-number="2.14">
+<h2 data-number="2.14" class="anchored" data-anchor-id="definition-of-done-ready-to-proceed-to-other-chapters"><span class="header-section-number">2.14</span> Definition of done (ready to proceed to other chapters)</h2>
+<p>You are ready to continue when: - you can run <code>python --version</code> with <code>analysis</code> activated - you can import pandas successfully - VS Code is using the <code>analysis</code> interpreter - you can open and run a notebook using the <code>analysis</code> kernel (if using notebooks)</p>
 
 
 </section>
