@@ -69,14 +69,298 @@ Optional but recommended:
 ### Installation (example)
 Create and activate a virtual environment, then install dependencies:
 
-```bash
-python -m venv .venv
-# Windows PowerShell:
-# .\.venv\Scripts\Activate.ps1
-# macOS/Linux:
-# source .venv/bin/activate
+    python -m venv .venv
+    # Windows PowerShell:
+    # .\.venv\Scripts\Activate.ps1
+    # macOS/Linux:
+    # source .venv/bin/activate
 
-python -m pip install --upgrade pip
-python -m pip install "unstructured[pdf]" pandas tqdm
-```
+    python -m pip install --upgrade pip
+    python -m pip install "unstructured[pdf]" pandas tqdm
 
+> Assumption for this guide: PDFs that were originally scanned have already been OCR’d before they enter this workflow.
+
+---
+
+## Runnable script: PDF inventory + parsing + JSONL outputs
+
+### What this script produces
+For each run, it creates a run folder with:
+
+- `manifest.csv` — one row per PDF (file-level provenance)
+- `elements.jsonl` — one JSON object per extracted element (element-level provenance)
+- `run-metadata.json` — run info + tool versions (audit trail)
+
+### How to run
+- Set `SOURCE_ROOT` to the folder containing PDFs (nested folders OK).
+- Run the script.
+- Inspect outputs and perform verification checks below.
+
+    # Save this as scripts/parse_pdfs_unstructured.py (recommended) and run:
+    #   python scripts/parse_pdfs_unstructured.py
+    #
+    # Or copy/paste into a notebook for an initial trial.
+
+    from __future__ import annotations
+
+    import datetime as dt
+    import hashlib
+    import json
+    import os
+    import platform
+    import sys
+    from dataclasses import dataclass
+    from pathlib import Path
+    from typing import Any, Dict, List, Optional
+
+    import pandas as pd
+    from tqdm import tqdm
+
+    from unstructured.partition.pdf import partition_pdf
+
+
+    # ---------------------------
+    # Configuration (edit these)
+    # ---------------------------
+
+    # Root folder containing PDFs in nested directories
+    SOURCE_ROOT = Path(r"CHANGE_ME\path\to\pdfs").expanduser().resolve()
+
+    # Where outputs will be written
+    OUTPUT_ROOT = Path("runs").resolve()
+
+    # Give each run a stable identifier (recommend: YYYY-MM-DD + short purpose)
+    RUN_ID = f"{dt.datetime.utcnow().date().isoformat()}_pdf-parse"
+
+    # Controls
+    INCLUDE_HIDDEN_FILES = False
+    MAX_PDFS: Optional[int] = None  # set e.g. 50 for a quick test, else None
+
+
+    # ---------------------------
+    # Provenance helpers
+    # ---------------------------
+
+    def utc_now_iso() -> str:
+        return dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc).isoformat()
+
+    def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
+        """Compute SHA-256 over raw bytes (critical for version traceability)."""
+        h = hashlib.sha256()
+        with path.open("rb") as f:
+            while True:
+                b = f.read(chunk_size)
+                if not b:
+                    break
+                h.update(b)
+        return h.hexdigest()
+
+    def is_hidden(path: Path) -> bool:
+        # Cross-platform-ish: dotfiles + Windows hidden attribute (best-effort)
+        if path.name.startswith("."):
+            return True
+        if os.name == "nt":
+            try:
+                import ctypes
+                attrs = ctypes.windll.kernel32.GetFileAttributesW(str(path))
+                if attrs == -1:
+                    return False
+                return bool(attrs & 2)  # FILE_ATTRIBUTE_HIDDEN
+            except Exception:
+                return False
+        return False
+
+    def discover_pdfs(root: Path) -> List[Path]:
+        pdfs: List[Path] = []
+        for p in root.rglob("*.pdf"):
+            if not INCLUDE_HIDDEN_FILES and is_hidden(p):
+                continue
+            pdfs.append(p)
+        pdfs.sort()
+        if MAX_PDFS is not None:
+            pdfs = pdfs[:MAX_PDFS]
+        return pdfs
+
+
+    # ---------------------------
+    # Data models (lightweight)
+    # ---------------------------
+
+    @dataclass(frozen=True)
+    class FileManifestRow:
+        run_id: str
+        collected_at_utc: str
+        source_root: str
+        source_path: str
+        source_relpath: str
+        source_filename: str
+        source_bytes: int
+        source_modified_time_utc: str
+        sha256: str
+
+    def file_manifest_row(path: Path, source_root: Path, run_id: str) -> FileManifestRow:
+        st = path.stat()
+        mtime = dt.datetime.fromtimestamp(st.st_mtime, tz=dt.timezone.utc).isoformat()
+        return FileManifestRow(
+            run_id=run_id,
+            collected_at_utc=utc_now_iso(),
+            source_root=str(source_root),
+            source_path=str(path),
+            source_relpath=str(path.relative_to(source_root)),
+            source_filename=path.name,
+            source_bytes=int(st.st_size),
+            source_modified_time_utc=mtime,
+            sha256=sha256_file(path),
+        )
+
+    def element_to_record(
+        element: Any,
+        *,
+        run_id: str,
+        document_sha256: str,
+        source_path: str,
+        source_relpath: str,
+    ) -> Dict[str, Any]:
+        text = getattr(element, "text", None)
+        category = getattr(element, "category", None)
+        element_type = element.__class__.__name__
+
+        md = getattr(element, "metadata", None)
+        md_dict: Dict[str, Any] = {}
+        if md is not None:
+            try:
+                md_dict = {k: v for k, v in vars(md).items() if v is not None}
+            except Exception:
+                md_dict = {"_metadata_repr": repr(md)}
+
+        page_number = md_dict.get("page_number") or md_dict.get("page_number_start")
+
+        document_id = f"sha256:{document_sha256}"
+
+        return {
+            "run_id": run_id,
+            "parsed_at_utc": utc_now_iso(),
+
+            "document_id": document_id,
+            "document_sha256": document_sha256,
+            "source_path": source_path,
+            "source_relpath": source_relpath,
+
+            "element_index": None,
+            "element_type": element_type,
+            "element_category": category,
+
+            "page_number": page_number,
+
+            "text": text,
+
+            "unstructured_metadata": md_dict,
+        }
+
+
+    # ---------------------------
+    # Main routine
+    # ---------------------------
+
+    def _safe_import_version(pkg: str) -> Optional[str]:
+        try:
+            mod = __import__(pkg)
+            return getattr(mod, "__version__", None)
+        except Exception:
+            return None
+
+    def main() -> None:
+        if not SOURCE_ROOT.exists():
+            raise FileNotFoundError(f"SOURCE_ROOT does not exist: {SOURCE_ROOT}")
+
+        run_dir = OUTPUT_ROOT / RUN_ID
+        run_dir.mkdir(parents=True, exist_ok=False)
+
+        pdf_paths = discover_pdfs(SOURCE_ROOT)
+        if not pdf_paths:
+            raise RuntimeError(f"No PDFs found under: {SOURCE_ROOT}")
+
+        run_metadata = {
+            "run_id": RUN_ID,
+            "created_at_utc": utc_now_iso(),
+            "source_root": str(SOURCE_ROOT),
+            "output_dir": str(run_dir),
+            "python": sys.version,
+            "platform": {
+                "system": platform.system(),
+                "release": platform.release(),
+                "version": platform.version(),
+                "machine": platform.machine(),
+            },
+            "packages": {
+                "unstructured": _safe_import_version("unstructured"),
+                "pandas": _safe_import_version("pandas"),
+                "tqdm": _safe_import_version("tqdm"),
+            },
+            "assumptions": [
+                "PDFs that were scanned have already been OCR'd prior to ingestion.",
+                "No cloud APIs are required for parsing.",
+            ],
+        }
+        (run_dir / "run-metadata.json").write_text(json.dumps(run_metadata, indent=2), encoding="utf-8")
+
+        manifest_rows: List[FileManifestRow] = []
+        for p in tqdm(pdf_paths, desc="Hashing PDFs"):
+            manifest_rows.append(file_manifest_row(p, SOURCE_ROOT, RUN_ID))
+
+        manifest_df = pd.DataFrame([r.__dict__ for r in manifest_rows])
+        manifest_path = run_dir / "manifest.csv"
+        manifest_df.to_csv(manifest_path, index=False)
+
+        elements_path = run_dir / "elements.jsonl"
+        with elements_path.open("w", encoding="utf-8") as f:
+            for row in tqdm(manifest_rows, desc="Parsing PDFs"):
+                pdf_path = Path(row.source_path)
+
+                elements = partition_pdf(
+                    filename=str(pdf_path),
+                )
+
+                records = [
+                    element_to_record(
+                        el,
+                        run_id=RUN_ID,
+                        document_sha256=row.sha256,
+                        source_path=row.source_path,
+                        source_relpath=row.source_relpath,
+                    )
+                    for el in elements
+                ]
+
+                for i, rec in enumerate(records):
+                    rec["element_index"] = i
+
+                for rec in records:
+                    f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+
+        print(f"Done.\nRun directory: {run_dir}\nManifest: {manifest_path}\nElements: {elements_path}")
+
+    if __name__ == "__main__":
+        main()
+
+---
+
+## Verification checklist (use after running the script)
+
+### Parse validity
+- [ ] `manifest.csv` includes every PDF you intended to ingest (spot-check folder coverage).
+- [ ] `elements.jsonl` is non-empty.
+- [ ] A sample of documents produces narrative elements (not just headers/footers).
+
+### Provenance completeness (minimum release blockers)
+- [ ] Every element JSON object has: `document_sha256`, `source_relpath`, `element_index`, `text` (or a documented reason if `text` is empty).
+- [ ] `document_id` is present and is derived from `sha256`.
+
+### Sampling-based QA (recommended)
+- [ ] Randomly sample 5 PDFs, open them, and verify a few extracted elements match the page content.
+- [ ] Check whether `page_number` is present frequently enough to meet your traceability expectations. If not, adapt the parsing strategy (still keeping it platform-agnostic).
+
+---
+
+## Next page
+Once PDFs are parsed to structured elements and validated, proceed to: **Semantic Chunking** (`fnd-chunking.qmd`).
