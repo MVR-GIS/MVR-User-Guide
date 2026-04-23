@@ -1,0 +1,58 @@
+---
+title: "Reproducible AI"
+---
+
+## What is {reproducibleai}?
+
+[{reproducibleai}](https://github.com/MVR-GIS/reproducibleai) is an R package from the MVR-GIS team that supports **reproducible AI workflows** in day-to-day data science work.
+
+This user guide provides a short orientation and points you to the package’s primary documentation. The package itself is documented with **pkgdown**, and that documentation will evolve independently of this book:
+
+- Package website (pkgdown): [https://mvr-gis.github.io/reproducibleai/](https://mvr-gis.github.io/reproducibleai/)
+- Source repository: [https://github.com/MVR-GIS/reproducibleai](https://github.com/MVR-GIS/reproducibleai)
+
+## Why “reproducible AI” matters in data science
+
+AI-enabled analyses often involve more moving parts than traditional scripts:
+
+- more dependencies (model libraries, runtimes, system requirements),
+- more configuration (hyperparameters, prompts, templates),
+- more artifacts (models, embeddings, caches, logs),
+- and more sources of variability (nondeterminism, API changes, time-dependent outputs).
+
+A “reproducible AI” approach helps you produce results that are:
+
+- **repeatable** (you can rerun the same workflow and understand differences),
+- **reviewable** (others can audit inputs, settings, and outputs),
+- **portable** (the workflow can run in a documented environment),
+- **maintainable** (updates don’t silently invalidate results).
+
+## When to use {reproducibleai}
+
+Use {reproducibleai} when your work includes AI components and you need a clearer audit trail, such as:
+
+- preparing analyses for peer review or QA/QC,
+- building “living” workflows that must be rerun on a schedule,
+- handing off work to a new analyst or team,
+- standardizing practices across multiple projects.
+
+## How to get started
+
+Because {reproducibleai} has its own maintained documentation, the best starting point is the package site:
+
+- Getting started and reference docs: [https://mvr-gis.github.io/reproducibleai/](https://mvr-gis.github.io/reproducibleai/)
+
+If your team installs R packages directly from GitHub, you can install {reproducibleai} from source (follow your organization’s standard installation policy):
+
+
+    install.packages("pak")
+    pak::pak("MVR-GIS/reproducibleai")
+
+## How this chapter fits into the user guide
+
+This chapter is intentionally brief to avoid duplicating package documentation.
+
+In this book, we will primarily:
+- link to {reproducibleai} where it supports documented workflows,
+- describe when to use it (and when not to),
+- and highlight any project-level conventions needed for reproducible results (e.g., execution policy, artifact handling, and review practices).

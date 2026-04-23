@@ -36,6 +36,7 @@ book:
         - con-podman.qmd
     - part: "AI Workflows"
       chapters:
+        - ai-reproducibleai.qmd
         - ai-workflows.qmd
     - part: "Data Governance"
       chapters:

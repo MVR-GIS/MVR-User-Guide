@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; Deploy Shiny – MVR Geospatial Data Science User Guide</title>
+<title>11&nbsp; Reproducible AI – MVR Geospatial Data Science User Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -255,7 +255,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-RStudio-getting-started.html">R Projects</a></li><li class="breadcrumb-item"><a href="./r-deploy-shiny.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Deploy Shiny</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ai-reproducibleai.html">AI Workflows</a></li><li class="breadcrumb-item"><a href="./ai-reproducibleai.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Reproducible AI</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -354,7 +354,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-deploy-shiny.html" class="sidebar-item-text sidebar-link active">
+  <a href="./r-deploy-shiny.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Deploy Shiny</span></span></a>
   </div>
 </li>
@@ -394,7 +394,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ai-reproducibleai.html" class="sidebar-item-text sidebar-link">
+  <a href="./ai-reproducibleai.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Reproducible AI</span></span></a>
   </div>
 </li>
@@ -509,16 +509,26 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#what-is-reproducibleai" id="toc-what-is-reproducibleai" class="nav-link active" data-scroll-target="#what-is-reproducibleai"><span class="header-section-number">11.1</span> What is {reproducibleai}?</a></li>
+  <li><a href="#why-reproducible-ai-matters-in-data-science" id="toc-why-reproducible-ai-matters-in-data-science" class="nav-link" data-scroll-target="#why-reproducible-ai-matters-in-data-science"><span class="header-section-number">11.2</span> Why “reproducible AI” matters in data science</a></li>
+  <li><a href="#when-to-use-reproducibleai" id="toc-when-to-use-reproducibleai" class="nav-link" data-scroll-target="#when-to-use-reproducibleai"><span class="header-section-number">11.3</span> When to use {reproducibleai}</a></li>
+  <li><a href="#how-to-get-started" id="toc-how-to-get-started" class="nav-link" data-scroll-target="#how-to-get-started"><span class="header-section-number">11.4</span> How to get started</a></li>
+  <li><a href="#how-this-chapter-fits-into-the-user-guide" id="toc-how-this-chapter-fits-into-the-user-guide" class="nav-link" data-scroll-target="#how-this-chapter-fits-into-the-user-guide"><span class="header-section-number">11.5</span> How this chapter fits into the user guide</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-RStudio-getting-started.html">R Projects</a></li><li class="breadcrumb-item"><a href="./r-deploy-shiny.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Deploy Shiny</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ai-reproducibleai.html">AI Workflows</a></li><li class="breadcrumb-item"><a href="./ai-reproducibleai.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Reproducible AI</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Deploy Shiny</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Reproducible AI</span></h1>
 </div>
 
 
@@ -535,8 +545,59 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="what-is-reproducibleai" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="what-is-reproducibleai"><span class="header-section-number">11.1</span> What is {reproducibleai}?</h2>
+<p><a href="https://github.com/MVR-GIS/reproducibleai">{reproducibleai}</a> is an R package from the MVR-GIS team that supports <strong>reproducible AI workflows</strong> in day-to-day data science work.</p>
+<p>This user guide provides a short orientation and points you to the package’s primary documentation. The package itself is documented with <strong>pkgdown</strong>, and that documentation will evolve independently of this book:</p>
+<ul>
+<li>Package website (pkgdown): <a href="https://mvr-gis.github.io/reproducibleai/">https://mvr-gis.github.io/reproducibleai/</a></li>
+<li>Source repository: <a href="https://github.com/MVR-GIS/reproducibleai">https://github.com/MVR-GIS/reproducibleai</a></li>
+</ul>
+</section>
+<section id="why-reproducible-ai-matters-in-data-science" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="why-reproducible-ai-matters-in-data-science"><span class="header-section-number">11.2</span> Why “reproducible AI” matters in data science</h2>
+<p>AI-enabled analyses often involve more moving parts than traditional scripts:</p>
+<ul>
+<li>more dependencies (model libraries, runtimes, system requirements),</li>
+<li>more configuration (hyperparameters, prompts, templates),</li>
+<li>more artifacts (models, embeddings, caches, logs),</li>
+<li>and more sources of variability (nondeterminism, API changes, time-dependent outputs).</li>
+</ul>
+<p>A “reproducible AI” approach helps you produce results that are:</p>
+<ul>
+<li><strong>repeatable</strong> (you can rerun the same workflow and understand differences),</li>
+<li><strong>reviewable</strong> (others can audit inputs, settings, and outputs),</li>
+<li><strong>portable</strong> (the workflow can run in a documented environment),</li>
+<li><strong>maintainable</strong> (updates don’t silently invalidate results).</li>
+</ul>
+</section>
+<section id="when-to-use-reproducibleai" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="when-to-use-reproducibleai"><span class="header-section-number">11.3</span> When to use {reproducibleai}</h2>
+<p>Use {reproducibleai} when your work includes AI components and you need a clearer audit trail, such as:</p>
+<ul>
+<li>preparing analyses for peer review or QA/QC,</li>
+<li>building “living” workflows that must be rerun on a schedule,</li>
+<li>handing off work to a new analyst or team,</li>
+<li>standardizing practices across multiple projects.</li>
+</ul>
+</section>
+<section id="how-to-get-started" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="how-to-get-started"><span class="header-section-number">11.4</span> How to get started</h2>
+<p>Because {reproducibleai} has its own maintained documentation, the best starting point is the package site:</p>
+<ul>
+<li>Getting started and reference docs: <a href="https://mvr-gis.github.io/reproducibleai/">https://mvr-gis.github.io/reproducibleai/</a></li>
+</ul>
+<p>If your team installs R packages directly from GitHub, you can install {reproducibleai} from source (follow your organization’s standard installation policy):</p>
+<pre><code>install.packages("pak")
+pak::pak("MVR-GIS/reproducibleai")</code></pre>
+</section>
+<section id="how-this-chapter-fits-into-the-user-guide" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="how-this-chapter-fits-into-the-user-guide"><span class="header-section-number">11.5</span> How this chapter fits into the user guide</h2>
+<p>This chapter is intentionally brief to avoid duplicating package documentation.</p>
+<p>In this book, we will primarily: - link to {reproducibleai} where it supports documented workflows, - describe when to use it (and when not to), - and highlight any project-level conventions needed for reproducible results (e.g., execution policy, artifact handling, and review practices).</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
