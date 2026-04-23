@@ -69,7 +69,7 @@ Optional but recommended:
 ### Installation (example)
 Create and activate a virtual environment, then install dependencies:
 
-~~~~bash
+~~~bash
 python -m venv .venv
 # Windows PowerShell:
 # .\.venv\Scripts\Activate.ps1
@@ -78,7 +78,7 @@ python -m venv .venv
 
 python -m pip install --upgrade pip
 python -m pip install "unstructured[pdf]" pandas tqdm
-~~~~
+~~~
 
 > Assumption for this guide: PDFs that were originally scanned have already been OCR’d before they enter this workflow.
 
@@ -98,7 +98,9 @@ For each run, it creates a run folder with:
 - Run the script.
 - Inspect outputs and perform verification checks below.
 
-~~~~{python}
+~~~python
+#| eval: false
+
 # Save this as scripts/parse_pdfs_unstructured.py (recommended) and run:
 #   python scripts/parse_pdfs_unstructured.py
 #
@@ -351,7 +353,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-~~~~
+~~~
 
 ---
 

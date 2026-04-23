@@ -154,7 +154,9 @@ It will produce:
 - `runs/<RUN_ID>_semantic-chunk/chunk-run-metadata.json`
 
 ### Script
-~~~{python}
+~~~python
+#| eval: false
+
 # Save as scripts/semantic_chunk_elements.py (recommended) and run:
 #   python scripts/semantic_chunk_elements.py
 #

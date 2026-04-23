@@ -136,7 +136,9 @@ python -m pip install pandas pyarrow tqdm
   - tool versions
 
 ### Script
-~~~{python}
+~~~python
+#| eval: false
+
 # Save as scripts/export_chunks.py and run:
 #   python scripts/export_chunks.py
 #
