@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>18&nbsp; Chunking – MVR Geospatial Data Science User Guide</title>
+<title>18&nbsp; Semantic Chunking – MVR Geospatial Data Science User Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -255,7 +290,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-tag-documents.html">Foundry Workflows</a></li><li class="breadcrumb-item"><a href="./fnd-chunking.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chunking</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-tag-documents.html">Foundry Workflows</a></li><li class="breadcrumb-item"><a href="./fnd-chunking.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Semantic Chunking</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -470,13 +505,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fnd-chunking.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chunking</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Semantic Chunking</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fnd-chunk-export.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">fnd-chunk-export.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exporting Chunks (Gemini JSONL + Foundry Parquet)</span></span></a>
   </div>
 </li>
       </ul>
@@ -508,7 +543,66 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#need" id="toc-need" class="nav-link active" data-scroll-target="#need"><span class="header-section-number">18.1</span> Need</a></li>
+  <li><a href="#concepts" id="toc-concepts" class="nav-link active" data-scroll-target="#concepts"><span class="header-section-number">18.1</span> Concepts</a>
+  <ul class="collapse">
+  <li><a href="#why-we-chunk-documents" id="toc-why-we-chunk-documents" class="nav-link" data-scroll-target="#why-we-chunk-documents">Why we “chunk” documents</a></li>
+  <li><a href="#what-is-semantic-chunking-vs.-fixed-size-chunking" id="toc-what-is-semantic-chunking-vs.-fixed-size-chunking" class="nav-link" data-scroll-target="#what-is-semantic-chunking-vs.-fixed-size-chunking">What is semantic chunking (vs.&nbsp;fixed-size chunking)</a></li>
+  <li><a href="#why-embeddings-are-required" id="toc-why-embeddings-are-required" class="nav-link" data-scroll-target="#why-embeddings-are-required">Why embeddings are required</a></li>
+  <li><a href="#chunk-size-is-a-governance-decision" id="toc-chunk-size-is-a-governance-decision" class="nav-link" data-scroll-target="#chunk-size-is-a-governance-decision">Chunk size is a governance decision</a></li>
+  <li><a href="#provenance-no-orphan-chunks" id="toc-provenance-no-orphan-chunks" class="nav-link" data-scroll-target="#provenance-no-orphan-chunks">Provenance: “no orphan chunks”</a></li>
+  </ul></li>
+  <li><a href="#workflow-overview" id="toc-workflow-overview" class="nav-link" data-scroll-target="#workflow-overview"><span class="header-section-number">18.2</span> Workflow overview</a></li>
+  <li><a href="#chunk-metadata-schema-rigorous" id="toc-chunk-metadata-schema-rigorous" class="nav-link" data-scroll-target="#chunk-metadata-schema-rigorous"><span class="header-section-number">18.3</span> Chunk metadata schema (rigorous)</a>
+  <ul class="collapse">
+  <li><a href="#required-fields-release-blockers" id="toc-required-fields-release-blockers" class="nav-link" data-scroll-target="#required-fields-release-blockers">Required fields (release blockers)</a></li>
+  <li><a href="#recommended-fields-strongly-encouraged" id="toc-recommended-fields-strongly-encouraged" class="nav-link" data-scroll-target="#recommended-fields-strongly-encouraged">Recommended fields (strongly encouraged)</a></li>
+  </ul></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">18.4</span> Prerequisites</a>
+  <ul class="collapse">
+  <li><a href="#python-packages" id="toc-python-packages" class="nav-link" data-scroll-target="#python-packages">Python packages</a></li>
+  <li><a href="#installation-example" id="toc-installation-example" class="nav-link" data-scroll-target="#installation-example">Installation (example)</a></li>
+  </ul></li>
+  <li><a href="#runnable-script-build-semantic-chunks-from-parsed-elements" id="toc-runnable-script-build-semantic-chunks-from-parsed-elements" class="nav-link" data-scroll-target="#runnable-script-build-semantic-chunks-from-parsed-elements"><span class="header-section-number">18.5</span> Runnable script: build semantic chunks from parsed elements</a>
+  <ul class="collapse">
+  <li><a href="#inputs-expected" id="toc-inputs-expected" class="nav-link" data-scroll-target="#inputs-expected">Inputs expected</a></li>
+  <li><a href="#script" id="toc-script" class="nav-link" data-scroll-target="#script">Script</a></li>
+  </ul></li>
+  <li><a href="#langchain-text-splitters" id="toc-langchain-text-splitters" class="nav-link" data-scroll-target="#langchain-text-splitters"><span class="header-section-number">19</span> langchain-text-splitters</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">20</span> —————————</a></li>
+  <li><a href="#configuration-edit-these" id="toc-configuration-edit-these" class="nav-link" data-scroll-target="#configuration-edit-these"><span class="header-section-number">21</span> Configuration (edit these)</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"><span class="header-section-number">22</span> —————————</a></li>
+  <li><a href="#point-to-an-existing-parse-run-folder-produced-by-fnd-pdf-parse.qmd" id="toc-point-to-an-existing-parse-run-folder-produced-by-fnd-pdf-parse.qmd" class="nav-link" data-scroll-target="#point-to-an-existing-parse-run-folder-produced-by-fnd-pdf-parse.qmd"><span class="header-section-number">23</span> Point to an existing parse run folder produced by fnd-pdf-parse.qmd</a></li>
+  <li><a href="#output-parent-folder" id="toc-output-parent-folder" class="nav-link" data-scroll-target="#output-parent-folder"><span class="header-section-number">24</span> Output parent folder</a></li>
+  <li><a href="#new-run-id-for-chunking" id="toc-new-run-id-for-chunking" class="nav-link" data-scroll-target="#new-run-id-for-chunking"><span class="header-section-number">25</span> New run ID for chunking</a></li>
+  <li><a href="#local-embedding-model-offline" id="toc-local-embedding-model-offline" class="nav-link" data-scroll-target="#local-embedding-model-offline"><span class="header-section-number">26</span> Local embedding model (offline)</a></li>
+  <li><a href="#common-default-all-minilm-l6-v2-fast-compact-widely-used" id="toc-common-default-all-minilm-l6-v2-fast-compact-widely-used" class="nav-link" data-scroll-target="#common-default-all-minilm-l6-v2-fast-compact-widely-used"><span class="header-section-number">27</span> Common default: “all-MiniLM-L6-v2” (fast, compact, widely used)</a></li>
+  <li><a href="#optional-filtering-drop-likely-headerfooter-elements-by-heuristic" id="toc-optional-filtering-drop-likely-headerfooter-elements-by-heuristic" class="nav-link" data-scroll-target="#optional-filtering-drop-likely-headerfooter-elements-by-heuristic"><span class="header-section-number">28</span> Optional filtering: drop likely header/footer elements by heuristic</a></li>
+  <li><a href="#chunking-policy-governance-decision" id="toc-chunking-policy-governance-decision" class="nav-link" data-scroll-target="#chunking-policy-governance-decision"><span class="header-section-number">29</span> Chunking policy (governance decision)</a></li>
+  <li><a href="#note-semanticchunker-uses-embeddings-and-breakpoints-based-on-similarity." id="toc-note-semanticchunker-uses-embeddings-and-breakpoints-based-on-similarity." class="nav-link" data-scroll-target="#note-semanticchunker-uses-embeddings-and-breakpoints-based-on-similarity."><span class="header-section-number">30</span> Note: SemanticChunker uses embeddings and breakpoints based on similarity.</a></li>
+  <li><a href="#keep-parameters-explicit-and-record-them-in-metadata." id="toc-keep-parameters-explicit-and-record-them-in-metadata." class="nav-link" data-scroll-target="#keep-parameters-explicit-and-record-them-in-metadata."><span class="header-section-number">31</span> Keep parameters explicit and record them in metadata.</a></li>
+  <li><a href="#safety-bounds-to-prevent-extreme-chunk-sizes" id="toc-safety-bounds-to-prevent-extreme-chunk-sizes" class="nav-link" data-scroll-target="#safety-bounds-to-prevent-extreme-chunk-sizes"><span class="header-section-number">32</span> Safety bounds (to prevent extreme chunk sizes)</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"><span class="header-section-number">33</span> —————————</a></li>
+  <li><a href="#utilities" id="toc-utilities" class="nav-link" data-scroll-target="#utilities"><span class="header-section-number">34</span> Utilities</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"><span class="header-section-number">35</span> —————————</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"><span class="header-section-number">36</span> —————————</a></li>
+  <li><a href="#embeddings-adapter" id="toc-embeddings-adapter" class="nav-link" data-scroll-target="#embeddings-adapter"><span class="header-section-number">37</span> Embeddings adapter</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"><span class="header-section-number">38</span> —————————</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6"><span class="header-section-number">39</span> —————————</a></li>
+  <li><a href="#filtering-helpers-optional" id="toc-filtering-helpers-optional" class="nav-link" data-scroll-target="#filtering-helpers-optional"><span class="header-section-number">40</span> Filtering helpers (optional)</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7"><span class="header-section-number">41</span> —————————</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8"><span class="header-section-number">42</span> —————————</a></li>
+  <li><a href="#chunking-logic" id="toc-chunking-logic" class="nav-link" data-scroll-target="#chunking-logic"><span class="header-section-number">43</span> Chunking logic</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9"><span class="header-section-number">44</span> —————————</a>
+  <ul class="collapse">
+  <li><a href="#quality-assurance-qa" id="toc-quality-assurance-qa" class="nav-link" data-scroll-target="#quality-assurance-qa"><span class="header-section-number">44.1</span> Quality assurance (QA)</a>
+  <ul class="collapse">
+  <li><a href="#provenance-completeness-release-blockers" id="toc-provenance-completeness-release-blockers" class="nav-link" data-scroll-target="#provenance-completeness-release-blockers">1) Provenance completeness (release blockers)</a></li>
+  <li><a href="#chunk-coherence-checks" id="toc-chunk-coherence-checks" class="nav-link" data-scroll-target="#chunk-coherence-checks">2) Chunk coherence checks</a></li>
+  <li><a href="#size-policy-checks-governance" id="toc-size-policy-checks-governance" class="nav-link" data-scroll-target="#size-policy-checks-governance">3) Size policy checks (governance)</a></li>
+  <li><a href="#known-limitation-precise-element-span-mapping" id="toc-known-limitation-precise-element-span-mapping" class="nav-link" data-scroll-target="#known-limitation-precise-element-span-mapping">4) Known limitation: precise element span mapping</a></li>
+  </ul></li>
+  <li><a href="#next-page" id="toc-next-page" class="nav-link" data-scroll-target="#next-page"><span class="header-section-number">44.2</span> Next page</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -516,9 +610,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-tag-documents.html">Foundry Workflows</a></li><li class="breadcrumb-item"><a href="./fnd-chunking.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chunking</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-tag-documents.html">Foundry Workflows</a></li><li class="breadcrumb-item"><a href="./fnd-chunking.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Semantic Chunking</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chunking</span></h1>
+<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Semantic Chunking</span></h1>
 </div>
 
 
@@ -535,10 +629,579 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="need" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="need"><span class="header-section-number">18.1</span> Need</h2>
+<section id="concepts" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="concepts"><span class="header-section-number">18.1</span> Concepts</h2>
+<section id="why-we-chunk-documents" class="level3">
+<h3 class="anchored" data-anchor-id="why-we-chunk-documents">Why we “chunk” documents</h3>
+<p>Most enterprise AI platforms (and most LLM-powered tools) have <strong>content window limits</strong>. Even when a platform supports uploading large documents, the model typically only “sees” a bounded amount of text at inference time. If we want reliable answers with defensible citations, we must break documents into smaller units that can be:</p>
+<ul>
+<li>retrieved quickly,</li>
+<li>re-ranked for relevance,</li>
+<li>passed into a model without truncation,</li>
+<li>and traced back to the original source.</li>
+</ul>
+<p>In <strong>RAG</strong> (Retrieval-Augmented Generation), chunking is a core step that enables “AI-assisted document retrieval” / “enterprise knowledge bases” to work reliably.</p>
+</section>
+<section id="what-is-semantic-chunking-vs.-fixed-size-chunking" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-semantic-chunking-vs.-fixed-size-chunking">What is semantic chunking (vs.&nbsp;fixed-size chunking)</h3>
+<p>Chunking approaches fall on a spectrum:</p>
+<ul>
+<li><p><strong>Fixed-size chunking</strong> (characters/tokens with overlap)<br>
+Simple and fast, but often splits mid-paragraph or mid-idea, reducing retrieval quality and making citations harder to interpret.</p></li>
+<li><p><strong>Structure-based chunking</strong> (headings/sections)<br>
+Works well when PDFs have consistent headings, but fails when structure is weak or inconsistent.</p></li>
+<li><p><strong>Semantic chunking</strong> (embedding similarity)<br>
+Uses a sentence/paragraph embedding model to detect topic shifts. Chunks tend to align with meaning, improving retrieval and reducing “citation soup”.</p></li>
+</ul>
+<p>This guide standardizes on <strong>semantic chunking</strong> because it best supports: - coherent evidence snippets, - stable review and validation, - and higher-quality retrieval across mixed document types.</p>
+</section>
+<section id="why-embeddings-are-required" class="level3">
+<h3 class="anchored" data-anchor-id="why-embeddings-are-required">Why embeddings are required</h3>
+<p>Semantic chunking relies on <strong>embeddings</strong>: numeric vectors representing the meaning of text. We compare neighboring sentences/paragraphs by similarity (often cosine similarity). When similarity drops below a threshold, that’s a candidate chunk boundary.</p>
+<p>Because cloud embedding APIs may not be available in USACE environments, this workflow assumes <strong>local/offline embeddings</strong> via <code>sentence-transformers</code>.</p>
+</section>
+<section id="chunk-size-is-a-governance-decision" class="level3">
+<h3 class="anchored" data-anchor-id="chunk-size-is-a-governance-decision">Chunk size is a governance decision</h3>
+<p>Chunk size is not purely technical—it affects:</p>
+<ul>
+<li><strong>Traceability:</strong> smaller chunks reduce ambiguity about what supports a claim.</li>
+<li><strong>Recall:</strong> smaller chunks can increase recall but may lose context.</li>
+<li><strong>Precision:</strong> larger chunks may retrieve extra unrelated text.</li>
+<li><strong>Platform constraints:</strong> ingestion limits, query-time context window, storage costs.</li>
+</ul>
+<p><strong>Recommendation:</strong> choose a default target chunk size and document it as policy. Then allow a controlled override for specific corpora.</p>
+</section>
+<section id="provenance-no-orphan-chunks" class="level3">
+<h3 class="anchored" data-anchor-id="provenance-no-orphan-chunks">Provenance: “no orphan chunks”</h3>
+<p>A chunk that cannot be traced back to the exact source is not acceptable for high-stakes review. Every chunk must carry enough metadata to answer:</p>
+<ul>
+<li>Which exact file/version produced it? (hash)</li>
+<li>Where in the file did it come from? (page pointers where possible)</li>
+<li>What run produced it? (run ID + tool versions)</li>
+<li>What was the chunking policy? (parameters recorded)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="workflow-overview" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="workflow-overview"><span class="header-section-number">18.2</span> Workflow overview</h2>
+<p>Inputs: - <code>manifest.csv</code> and <code>elements.jsonl</code> from the parsing step (<code>fnd-pdf-parse.qmd</code>)</p>
+<p>Outputs: - <code>chunks.jsonl</code> (platform-neutral chunk records + metadata)</p>
+<p>High-level steps:</p>
+<ol type="1">
+<li>Load <code>manifest.csv</code> and <code>elements.jsonl</code>.</li>
+<li>Normalize and filter elements (remove empty text; optionally remove headers/footers).</li>
+<li>Prepare a local embedding model.</li>
+<li>Apply semantic chunking (group elements into coherent chunks).</li>
+<li>Attach rigorous chunk metadata (document + element lineage).</li>
+<li>Write <code>chunks.jsonl</code>.</li>
+<li>Run QA checks (coherence + provenance completeness).</li>
+</ol>
+<hr>
+</section>
+<section id="chunk-metadata-schema-rigorous" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="chunk-metadata-schema-rigorous"><span class="header-section-number">18.3</span> Chunk metadata schema (rigorous)</h2>
+<section id="required-fields-release-blockers" class="level3">
+<h3 class="anchored" data-anchor-id="required-fields-release-blockers">Required fields (release blockers)</h3>
+<p>Every chunk record <strong>MUST</strong> include:</p>
+<ul>
+<li><strong>Run / audit</strong>
+<ul>
+<li><code>run_id</code></li>
+<li><code>chunked_at_utc</code></li>
+<li><code>pipeline_stage</code> (e.g., <code>"semantic_chunking"</code>)</li>
+<li><code>pipeline_version</code> (your own workflow version string)</li>
+<li><code>software_versions</code> (at least: python, sentence-transformers, langchain-text-splitters, unstructured)</li>
+</ul></li>
+<li><strong>Document identity</strong>
+<ul>
+<li><code>document_id</code> (recommend: <code>sha256:&lt;hash&gt;</code>)</li>
+<li><code>document_sha256</code></li>
+<li><code>source_path</code> (full path captured at ingest time)</li>
+<li><code>source_relpath</code> (relative to collection root)</li>
+</ul></li>
+<li><strong>Chunk identity</strong>
+<ul>
+<li><code>chunk_id</code> (stable and unique; recommend hash of {document_sha256 + element span + chunk_text})</li>
+<li><code>chunk_index</code> (0..N per document)</li>
+</ul></li>
+<li><strong>Lineage (element span)</strong>
+<ul>
+<li><code>element_index_start</code></li>
+<li><code>element_index_end</code></li>
+<li><code>element_count</code></li>
+<li><code>element_types</code> (set or list, for QA)</li>
+<li><code>page_number_min</code> (if available)</li>
+<li><code>page_number_max</code> (if available)</li>
+</ul></li>
+<li><strong>Content</strong>
+<ul>
+<li><code>text</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="recommended-fields-strongly-encouraged" class="level3">
+<h3 class="anchored" data-anchor-id="recommended-fields-strongly-encouraged">Recommended fields (strongly encouraged)</h3>
+<ul>
+<li><code>char_count</code></li>
+<li><code>approx_token_count</code> (approximation; true tokenization depends on target model)</li>
+<li><code>embedding_model_name</code></li>
+<li><code>semantic_chunker_params</code> (thresholds, target sizes, overlap policy)</li>
+<li><code>qa_flags</code> (e.g., <code>["missing_page_numbers"]</code>)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="prerequisites" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">18.4</span> Prerequisites</h2>
+<section id="python-packages" class="level3">
+<h3 class="anchored" data-anchor-id="python-packages">Python packages</h3>
+<p>This page assumes a Python environment that includes:</p>
+<ul>
+<li><code>pandas</code></li>
+<li><code>sentence-transformers</code></li>
+<li><code>langchain-text-splitters</code> (preferred over full langchain install)</li>
+</ul>
+<p>Optional but useful: - <code>tqdm</code></p>
+</section>
+<section id="installation-example" class="level3">
+<h3 class="anchored" data-anchor-id="installation-example">Installation (example)</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install pandas tqdm</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install sentence-transformers</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install langchain-text-splitters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p>Note: We are intentionally using local embeddings. No cloud connectivity is required.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="runnable-script-build-semantic-chunks-from-parsed-elements" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="runnable-script-build-semantic-chunks-from-parsed-elements"><span class="header-section-number">18.5</span> Runnable script: build semantic chunks from parsed elements</h2>
+<section id="inputs-expected" class="level3">
+<h3 class="anchored" data-anchor-id="inputs-expected">Inputs expected</h3>
+<p>This script expects a prior run folder from parsing, for example:</p>
+<ul>
+<li><code>runs/2026-04-23_pdf-parse/manifest.csv</code></li>
+<li><code>runs/2026-04-23_pdf-parse/elements.jsonl</code></li>
+<li><code>runs/2026-04-23_pdf-parse/run-metadata.json</code></li>
+</ul>
+<p>It will produce:</p>
+<ul>
+<li><code>runs/&lt;RUN_ID&gt;_semantic-chunk/chunks.jsonl</code></li>
+<li><code>runs/&lt;RUN_ID&gt;_semantic-chunk/chunk-run-metadata.json</code></li>
+</ul>
+</section>
+<section id="script" class="level3">
+<h3 class="anchored" data-anchor-id="script">Script</h3>
+<p>~~~{python} # Save as scripts/semantic_chunk_elements.py (recommended) and run: # python scripts/semantic_chunk_elements.py # # This script is designed to be platform-agnostic and offline-friendly.</p>
+<p>from <strong>future</strong> import annotations</p>
+<p>import datetime as dt import hashlib import json import platform import sys from dataclasses import dataclass from pathlib import Path from typing import Any, Dict, Iterable, List, Optional, Tuple</p>
+<p>import pandas as pd from tqdm import tqdm</p>
+<p>from sentence_transformers import SentenceTransformer</p>
+</section>
+</section>
+<section id="langchain-text-splitters" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> langchain-text-splitters</h1>
+<p>from langchain_text_splitters import SemanticChunker from langchain_core.embeddings import Embeddings</p>
+</section>
+<section id="section" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> —————————</h1>
+</section>
+<section id="configuration-edit-these" class="level1" data-number="21">
+<h1 data-number="21"><span class="header-section-number">21</span> Configuration (edit these)</h1>
+</section>
+<section id="section-1" class="level1" data-number="22">
+<h1 data-number="22"><span class="header-section-number">22</span> —————————</h1>
+</section>
+<section id="point-to-an-existing-parse-run-folder-produced-by-fnd-pdf-parse.qmd" class="level1" data-number="23">
+<h1 data-number="23"><span class="header-section-number">23</span> Point to an existing parse run folder produced by fnd-pdf-parse.qmd</h1>
+<p>PARSE_RUN_DIR = Path(r”CHANGE_ME\2026-04-23_pdf-parse”).resolve()</p>
+</section>
+<section id="output-parent-folder" class="level1" data-number="24">
+<h1 data-number="24"><span class="header-section-number">24</span> Output parent folder</h1>
+<p>OUTPUT_ROOT = Path(“runs”).resolve()</p>
+</section>
+<section id="new-run-id-for-chunking" class="level1" data-number="25">
+<h1 data-number="25"><span class="header-section-number">25</span> New run ID for chunking</h1>
+<p>RUN_ID = f”{dt.datetime.utcnow().date().isoformat()}_semantic-chunk”</p>
+</section>
+<section id="local-embedding-model-offline" class="level1" data-number="26">
+<h1 data-number="26"><span class="header-section-number">26</span> Local embedding model (offline)</h1>
+</section>
+<section id="common-default-all-minilm-l6-v2-fast-compact-widely-used" class="level1" data-number="27">
+<h1 data-number="27"><span class="header-section-number">27</span> Common default: “all-MiniLM-L6-v2” (fast, compact, widely used)</h1>
+<p>EMBEDDING_MODEL_NAME = “all-MiniLM-L6-v2”</p>
+</section>
+<section id="optional-filtering-drop-likely-headerfooter-elements-by-heuristic" class="level1" data-number="28">
+<h1 data-number="28"><span class="header-section-number">28</span> Optional filtering: drop likely header/footer elements by heuristic</h1>
+<p>DROP_SHORT_REPEATED_LINES = True REPEAT_LINE_MIN_DOC_FREQUENCY = 0.40 # appears in &gt;= 40% of pages/elements -&gt; likely header/footer MIN_LINE_LENGTH = 25</p>
+</section>
+<section id="chunking-policy-governance-decision" class="level1" data-number="29">
+<h1 data-number="29"><span class="header-section-number">29</span> Chunking policy (governance decision)</h1>
+</section>
+<section id="note-semanticchunker-uses-embeddings-and-breakpoints-based-on-similarity." class="level1" data-number="30">
+<h1 data-number="30"><span class="header-section-number">30</span> Note: SemanticChunker uses embeddings and breakpoints based on similarity.</h1>
+</section>
+<section id="keep-parameters-explicit-and-record-them-in-metadata." class="level1" data-number="31">
+<h1 data-number="31"><span class="header-section-number">31</span> Keep parameters explicit and record them in metadata.</h1>
+<p>BREAKPOINT_THRESHOLD_TYPE = “percentile” # “percentile” or “standard_deviation” depending on version BREAKPOINT_THRESHOLD_AMOUNT = 90 # percentile threshold (higher =&gt; fewer splits)</p>
+</section>
+<section id="safety-bounds-to-prevent-extreme-chunk-sizes" class="level1" data-number="32">
+<h1 data-number="32"><span class="header-section-number">32</span> Safety bounds (to prevent extreme chunk sizes)</h1>
+<p>MAX_CHUNK_CHARS = 6000 MIN_CHUNK_CHARS = 300</p>
+</section>
+<section id="section-2" class="level1" data-number="33">
+<h1 data-number="33"><span class="header-section-number">33</span> —————————</h1>
+</section>
+<section id="utilities" class="level1" data-number="34">
+<h1 data-number="34"><span class="header-section-number">34</span> Utilities</h1>
+</section>
+<section id="section-3" class="level1" data-number="35">
+<h1 data-number="35"><span class="header-section-number">35</span> —————————</h1>
+<p>def utc_now_iso() -&gt; str: return dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc).isoformat()</p>
+<p>def _safe_import_version(pkg: str) -&gt; Optional[str]: try: mod = <strong>import</strong>(pkg) return getattr(mod, “<strong>version</strong>”, None) except Exception: return None</p>
+<p>def approx_token_count(text: str) -&gt; int: # Rough heuristic: English token ~ 4 chars average (varies widely) # Keep as “approx” and do not claim model-specific tokenization. return max(1, int(len(text) / 4))</p>
+<p>def stable_chunk_id(document_sha256: str, element_start: int, element_end: int, text: str) -&gt; str: h = hashlib.sha256() h.update(document_sha256.encode(“utf-8”)) h.update(f”{element_start}:{element_end}“.encode(”utf-8”)) h.update(text.encode(“utf-8”)) return h.hexdigest()</p>
+<p>def load_jsonl(path: Path) -&gt; List[Dict[str, Any]]: records: List[Dict[str, Any]] = [] with path.open(“r”, encoding=“utf-8”) as f: for line in f: line = line.strip() if not line: continue records.append(json.loads(line)) return records</p>
+</section>
+<section id="section-4" class="level1" data-number="36">
+<h1 data-number="36"><span class="header-section-number">36</span> —————————</h1>
+</section>
+<section id="embeddings-adapter" class="level1" data-number="37">
+<h1 data-number="37"><span class="header-section-number">37</span> Embeddings adapter</h1>
+</section>
+<section id="section-5" class="level1" data-number="38">
+<h1 data-number="38"><span class="header-section-number">38</span> —————————</h1>
+<p>class SentenceTransformerEmbeddings(Embeddings): ““” Adapter to use sentence-transformers with LangChain’s text splitters. ““” def <strong>init</strong>(self, model: SentenceTransformer): self.model = model</p>
+<pre><code>def embed_documents(self, texts: List[str]) -&gt; List[List[float]]:
+    vectors = self.model.encode(texts, show_progress_bar=False, normalize_embeddings=True)
+    return [v.tolist() for v in vectors]
+
+def embed_query(self, text: str) -&gt; List[float]:
+    v = self.model.encode([text], show_progress_bar=False, normalize_embeddings=True)[0]
+    return v.tolist()</code></pre>
+</section>
+<section id="section-6" class="level1" data-number="39">
+<h1 data-number="39"><span class="header-section-number">39</span> —————————</h1>
+</section>
+<section id="filtering-helpers-optional" class="level1" data-number="40">
+<h1 data-number="40"><span class="header-section-number">40</span> Filtering helpers (optional)</h1>
+</section>
+<section id="section-7" class="level1" data-number="41">
+<h1 data-number="41"><span class="header-section-number">41</span> —————————</h1>
+<p>def normalize_line(s: str) -&gt; str: return ” “.join(s.split()).strip().lower()</p>
+<p>def identify_repeated_lines(elements: List[Dict[str, Any]]) -&gt; set: ““” Heuristic: find short lines repeated across many elements in a document. Intended to catch headers/footers (e.g., report title, page footer). ““” from collections import Counter</p>
+<pre><code>lines = []
+for e in elements:
+    txt = e.get("text") or ""
+    txt = txt.strip()
+    if not txt:
+        continue
+    # only consider single-line-ish short texts
+    if "\n" in txt:
+        continue
+    if len(txt) &lt; MIN_LINE_LENGTH:
+        continue
+    lines.append(normalize_line(txt))
+
+if not lines:
+    return set()
+
+counts = Counter(lines)
+n = len(elements)
+repeated = {
+    line for line, c in counts.items()
+    if (c / max(1, n)) &gt;= REPEAT_LINE_MIN_DOC_FREQUENCY
+}
+return repeated</code></pre>
+</section>
+<section id="section-8" class="level1" data-number="42">
+<h1 data-number="42"><span class="header-section-number">42</span> —————————</h1>
+</section>
+<section id="chunking-logic" class="level1" data-number="43">
+<h1 data-number="43"><span class="header-section-number">43</span> Chunking logic</h1>
+</section>
+<section id="section-9" class="level1" data-number="44">
+<h1 data-number="44"><span class="header-section-number">44</span> —————————</h1>
+<p><span class="citation" data-cites="dataclass">(<a href="ref-references.html#ref-dataclass" role="doc-biblioref"><strong>dataclass?</strong></a>)</span> class ChunkRecord: run_id: str chunked_at_utc: str pipeline_stage: str pipeline_version: str software_versions: Dict[str, Optional[str]]</p>
+<pre><code>document_id: str
+document_sha256: str
+source_path: str
+source_relpath: str
+
+chunk_id: str
+chunk_index: int
+
+element_index_start: int
+element_index_end: int
+element_count: int
+element_types: List[str]
+page_number_min: Optional[int]
+page_number_max: Optional[int]
+
+text: str
+
+char_count: int
+approx_token_count: int
+
+embedding_model_name: str
+semantic_chunker_params: Dict[str, Any]
+qa_flags: List[str]</code></pre>
+<p>def main() -&gt; None: # Input checks manifest_path = PARSE_RUN_DIR / “manifest.csv” elements_path = PARSE_RUN_DIR / “elements.jsonl” parse_run_meta_path = PARSE_RUN_DIR / “run-metadata.json”</p>
+<pre><code>for p in [manifest_path, elements_path, parse_run_meta_path]:
+    if not p.exists():
+        raise FileNotFoundError(f"Missing expected input: {p}")
+
+# Load inputs
+manifest_df = pd.read_csv(manifest_path)
+elements = load_jsonl(elements_path)
+
+# Group elements by document_sha256
+elements_by_doc: Dict[str, List[Dict[str, Any]]] = {}
+for e in elements:
+    doc_sha = e["document_sha256"]
+    elements_by_doc.setdefault(doc_sha, []).append(e)
+
+# Load local embedding model
+st_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+embeddings = SentenceTransformerEmbeddings(st_model)
+
+# Configure semantic chunker (record params explicitly)
+semantic_params = {
+    "breakpoint_threshold_type": BREAKPOINT_THRESHOLD_TYPE,
+    "breakpoint_threshold_amount": BREAKPOINT_THRESHOLD_AMOUNT,
+    "max_chunk_chars": MAX_CHUNK_CHARS,
+    "min_chunk_chars": MIN_CHUNK_CHARS,
+}
+
+chunker = SemanticChunker(
+    embeddings=embeddings,
+    breakpoint_threshold_type=BREAKPOINT_THRESHOLD_TYPE,
+    breakpoint_threshold_amount=BREAKPOINT_THRESHOLD_AMOUNT,
+)
+
+# Output run directory
+out_dir = OUTPUT_ROOT / RUN_ID
+out_dir.mkdir(parents=True, exist_ok=False)
+
+# Chunk run metadata (audit trail)
+chunk_run_meta = {
+    "run_id": RUN_ID,
+    "created_at_utc": utc_now_iso(),
+    "parse_run_dir": str(PARSE_RUN_DIR),
+    "inputs": {
+        "manifest_csv": str(manifest_path),
+        "elements_jsonl": str(elements_path),
+        "parse_run_metadata": str(parse_run_meta_path),
+    },
+    "python": sys.version,
+    "platform": {
+        "system": platform.system(),
+        "release": platform.release(),
+        "version": platform.version(),
+        "machine": platform.machine(),
+    },
+    "packages": {
+        "sentence_transformers": _safe_import_version("sentence_transformers"),
+        "langchain_text_splitters": _safe_import_version("langchain_text_splitters"),
+        "langchain_core": _safe_import_version("langchain_core"),
+        "pandas": _safe_import_version("pandas"),
+    },
+    "embedding_model_name": EMBEDDING_MODEL_NAME,
+    "semantic_chunker_params": semantic_params,
+    "assumptions": [
+        "Local/offline embeddings are used (no cloud APIs).",
+        "PDFs were already OCR'd if scanned.",
+    ],
+}
+(out_dir / "chunk-run-metadata.json").write_text(json.dumps(chunk_run_meta, indent=2), encoding="utf-8")
+
+# Build chunk records and write JSONL
+chunks_path = out_dir / "chunks.jsonl"
+
+pipeline_version = "0.1.0"  # TODO: set and maintain as your workflow evolves
+software_versions = {
+    "python": platform.python_version(),
+    "sentence_transformers": _safe_import_version("sentence_transformers"),
+    "langchain_text_splitters": _safe_import_version("langchain_text_splitters"),
+    "langchain_core": _safe_import_version("langchain_core"),
+    "unstructured": _safe_import_version("unstructured"),
+}
+
+with chunks_path.open("w", encoding="utf-8") as f:
+    for _, doc_row in tqdm(manifest_df.iterrows(), total=len(manifest_df), desc="Chunking documents"):
+        doc_sha = doc_row["sha256"]
+        doc_elements = elements_by_doc.get(doc_sha, [])
+
+        if not doc_elements:
+            # Nothing parsed; record could be flagged elsewhere; skip for now.
+            continue
+
+        # Ensure deterministic ordering
+        doc_elements.sort(key=lambda e: int(e.get("element_index", 0)))
+
+        repeated_lines = set()
+        if DROP_SHORT_REPEATED_LINES:
+            repeated_lines = identify_repeated_lines(doc_elements)
+
+        # Filter/normalize element texts
+        clean_texts: List[str] = []
+        clean_indices: List[int] = []
+        clean_types: List[str] = []
+        clean_pages: List[Optional[int]] = []
+
+        for e in doc_elements:
+            txt = (e.get("text") or "").strip()
+            if not txt:
+                continue
+
+            if DROP_SHORT_REPEATED_LINES and ("\n" not in txt) and (normalize_line(txt) in repeated_lines):
+                continue
+
+            clean_texts.append(txt)
+            clean_indices.append(int(e["element_index"]))
+            clean_types.append(str(e.get("element_type") or ""))
+            clean_pages.append(e.get("page_number"))
+
+        if not clean_texts:
+            continue
+
+        # Combine elements into a single string with separators.
+        # Note: We keep lineage to element indices so we can map boundaries later.
+        joined = "\n\n".join(clean_texts)
+
+        # Use SemanticChunker to split into semantically coherent pieces
+        docs = chunker.create_documents([joined])
+        chunk_texts = [d.page_content for d in docs]
+
+        # Safety bounds post-processing
+        final_chunks: List[str] = []
+        for t in chunk_texts:
+            t = t.strip()
+            if not t:
+                continue
+            # Hard cap (defensive). If exceeded, fallback to naive slicing with overlap.
+            if len(t) &gt; MAX_CHUNK_CHARS:
+                # Simple fallback: split by chars
+                start = 0
+                step = MAX_CHUNK_CHARS
+                while start &lt; len(t):
+                    final_chunks.append(t[start : start + step].strip())
+                    start += step
+            else:
+                final_chunks.append(t)
+
+        # Build chunk records.
+        # IMPORTANT: This is an initial implementation: mapping semantic chunk boundaries
+        # back to exact element spans is non-trivial when we join texts.
+        #
+        # Best-practice direction:
+        # - chunk at the element level (or sentence level) and track spans explicitly.
+        # For now, we provide a conservative lineage approach:
+        # - each chunk points to the full filtered element range (start/end),
+        # - and page_number_min/max across those elements.
+        #
+        # This preserves traceability but is less precise than ideal.
+        element_index_start = min(clean_indices)
+        element_index_end = max(clean_indices)
+        page_numbers = [p for p in clean_pages if isinstance(p, (int, float))]
+        page_min = int(min(page_numbers)) if page_numbers else None
+        page_max = int(max(page_numbers)) if page_numbers else None
+
+        for i, chunk_text in enumerate(final_chunks):
+            qa_flags: List[str] = []
+            if page_min is None or page_max is None:
+                qa_flags.append("missing_page_numbers")
+
+            if len(chunk_text) &lt; MIN_CHUNK_CHARS:
+                qa_flags.append("chunk_too_small")
+            if len(chunk_text) &gt; MAX_CHUNK_CHARS:
+                qa_flags.append("chunk_too_large")
+
+            chunk_id = stable_chunk_id(doc_sha, element_index_start, element_index_end, chunk_text)
+
+            rec = ChunkRecord(
+                run_id=RUN_ID,
+                chunked_at_utc=utc_now_iso(),
+                pipeline_stage="semantic_chunking",
+                pipeline_version=pipeline_version,
+                software_versions=software_versions,
+
+                document_id=f"sha256:{doc_sha}",
+                document_sha256=doc_sha,
+                source_path=str(doc_row["source_path"]),
+                source_relpath=str(doc_row["source_relpath"]),
+
+                chunk_id=chunk_id,
+                chunk_index=i,
+
+                element_index_start=element_index_start,
+                element_index_end=element_index_end,
+                element_count=(element_index_end - element_index_start + 1),
+                element_types=sorted(list(set(clean_types))),
+                page_number_min=page_min,
+                page_number_max=page_max,
+
+                text=chunk_text,
+
+                char_count=len(chunk_text),
+                approx_token_count=approx_token_count(chunk_text),
+
+                embedding_model_name=EMBEDDING_MODEL_NAME,
+                semantic_chunker_params=semantic_params,
+                qa_flags=qa_flags,
+            )
+
+            f.write(json.dumps(rec.__dict__, ensure_ascii=False) + "\n")
+
+print(f"Done.\nChunk run directory: {out_dir}\nChunks: {chunks_path}")
+print("NOTE: Element-span mapping is conservative in this initial version; see QA section in the QMD.")</code></pre>
+<p>if <strong>name</strong> == “<strong>main</strong>”: main() ~~~</p>
+<hr>
+<section id="quality-assurance-qa" class="level2" data-number="44.1">
+<h2 data-number="44.1" class="anchored" data-anchor-id="quality-assurance-qa"><span class="header-section-number">44.1</span> Quality assurance (QA)</h2>
+<section id="provenance-completeness-release-blockers" class="level3">
+<h3 class="anchored" data-anchor-id="provenance-completeness-release-blockers">1) Provenance completeness (release blockers)</h3>
+<p>For a sample of chunk records, verify:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><code>document_sha256</code> is present and matches the manifest.</label></li>
+<li><label><input type="checkbox"><code>source_relpath</code> is present (supports path-stable imports).</label></li>
+<li><label><input type="checkbox"><code>chunk_id</code> is unique within the run.</label></li>
+<li><label><input type="checkbox"><code>page_number_min</code> / <code>page_number_max</code> are present for most documents (document limitations noted if absent).</label></li>
+</ul>
+</section>
+<section id="chunk-coherence-checks" class="level3">
+<h3 class="anchored" data-anchor-id="chunk-coherence-checks">2) Chunk coherence checks</h3>
+<p>Sample 20 chunks and answer:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Does each chunk represent one coherent topic?</label></li>
+<li><label><input type="checkbox">Are there obvious mid-sentence or mid-paragraph splits?</label></li>
+<li><label><input type="checkbox">Are there large amounts of repeated header/footer noise?</label></li>
+</ul>
+<p>If coherence is poor: - adjust the semantic breakpoint threshold, - or introduce a structure-aware pre-grouping step (e.g., grouping by detected titles).</p>
+</section>
+<section id="size-policy-checks-governance" class="level3">
+<h3 class="anchored" data-anchor-id="size-policy-checks-governance">3) Size policy checks (governance)</h3>
+<p>Decide and document a standard chunk size band (characters and approximate tokens). Then verify:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">&lt;5% of chunks are flagged <code>chunk_too_small</code></label></li>
+<li><label><input type="checkbox">&lt;5% of chunks are flagged <code>chunk_too_large</code></label></li>
+</ul>
+</section>
+<section id="known-limitation-precise-element-span-mapping" class="level3">
+<h3 class="anchored" data-anchor-id="known-limitation-precise-element-span-mapping">4) Known limitation: precise element span mapping</h3>
+<p>This initial script uses a <strong>conservative lineage</strong> approach: each chunk references the overall filtered element range for the document rather than a precise per-chunk element span.</p>
+<p>This is traceable (no orphan chunks), but it is not ideal for high-precision page/element citations.</p>
+<p><strong>Best-practice next step (recommended enhancement):</strong> Chunk at the <strong>element level</strong> (or sentence level) and track explicit spans so each chunk can record the exact contributing element indices and page pointers.</p>
+<hr>
+</section>
+</section>
+<section id="next-page" class="level2" data-number="44.2">
+<h2 data-number="44.2" class="anchored" data-anchor-id="next-page"><span class="header-section-number">44.2</span> Next page</h2>
+<p>Once <code>chunks.jsonl</code> is produced and QA’d, proceed to: <strong>Exporting Chunks</strong> (<code>fnd-chunk-export.qmd</code>).</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

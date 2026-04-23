@@ -1,4 +1,610 @@
-# Chunking
+# Semantic Chunking
 
-## Need
+## Concepts
 
+### Why we “chunk” documents
+Most enterprise AI platforms (and most LLM-powered tools) have **content window limits**. Even when a platform supports uploading large documents, the model typically only “sees” a bounded amount of text at inference time. If we want reliable answers with defensible citations, we must break documents into smaller units that can be:
+
+- retrieved quickly,
+- re-ranked for relevance,
+- passed into a model without truncation,
+- and traced back to the original source.
+
+In **RAG** (Retrieval-Augmented Generation), chunking is a core step that enables “AI-assisted document retrieval” / “enterprise knowledge bases” to work reliably.
+
+### What is semantic chunking (vs. fixed-size chunking)
+Chunking approaches fall on a spectrum:
+
+- **Fixed-size chunking** (characters/tokens with overlap)  
+  Simple and fast, but often splits mid-paragraph or mid-idea, reducing retrieval quality and making citations harder to interpret.
+
+- **Structure-based chunking** (headings/sections)  
+  Works well when PDFs have consistent headings, but fails when structure is weak or inconsistent.
+
+- **Semantic chunking** (embedding similarity)  
+  Uses a sentence/paragraph embedding model to detect topic shifts. Chunks tend to align with meaning, improving retrieval and reducing “citation soup”.
+
+This guide standardizes on **semantic chunking** because it best supports:
+- coherent evidence snippets,
+- stable review and validation,
+- and higher-quality retrieval across mixed document types.
+
+### Why embeddings are required
+Semantic chunking relies on **embeddings**: numeric vectors representing the meaning of text. We compare neighboring sentences/paragraphs by similarity (often cosine similarity). When similarity drops below a threshold, that’s a candidate chunk boundary.
+
+Because cloud embedding APIs may not be available in USACE environments, this workflow assumes **local/offline embeddings** via `sentence-transformers`.
+
+### Chunk size is a governance decision
+Chunk size is not purely technical—it affects:
+
+- **Traceability:** smaller chunks reduce ambiguity about what supports a claim.
+- **Recall:** smaller chunks can increase recall but may lose context.
+- **Precision:** larger chunks may retrieve extra unrelated text.
+- **Platform constraints:** ingestion limits, query-time context window, storage costs.
+
+**Recommendation:** choose a default target chunk size and document it as policy. Then allow a controlled override for specific corpora.
+
+### Provenance: “no orphan chunks”
+A chunk that cannot be traced back to the exact source is not acceptable for high-stakes review. Every chunk must carry enough metadata to answer:
+
+- Which exact file/version produced it? (hash)
+- Where in the file did it come from? (page pointers where possible)
+- What run produced it? (run ID + tool versions)
+- What was the chunking policy? (parameters recorded)
+
+---
+
+## Workflow overview
+
+Inputs:
+- `manifest.csv` and `elements.jsonl` from the parsing step (`fnd-pdf-parse.qmd`)
+
+Outputs:
+- `chunks.jsonl` (platform-neutral chunk records + metadata)
+
+High-level steps:
+
+1. Load `manifest.csv` and `elements.jsonl`.
+2. Normalize and filter elements (remove empty text; optionally remove headers/footers).
+3. Prepare a local embedding model.
+4. Apply semantic chunking (group elements into coherent chunks).
+5. Attach rigorous chunk metadata (document + element lineage).
+6. Write `chunks.jsonl`.
+7. Run QA checks (coherence + provenance completeness).
+
+---
+
+## Chunk metadata schema (rigorous)
+
+### Required fields (release blockers)
+Every chunk record **MUST** include:
+
+- **Run / audit**
+  - `run_id`
+  - `chunked_at_utc`
+  - `pipeline_stage` (e.g., `"semantic_chunking"`)
+  - `pipeline_version` (your own workflow version string)
+  - `software_versions` (at least: python, sentence-transformers, langchain-text-splitters, unstructured)
+
+- **Document identity**
+  - `document_id` (recommend: `sha256:<hash>`)
+  - `document_sha256`
+  - `source_path` (full path captured at ingest time)
+  - `source_relpath` (relative to collection root)
+
+- **Chunk identity**
+  - `chunk_id` (stable and unique; recommend hash of {document_sha256 + element span + chunk_text})
+  - `chunk_index` (0..N per document)
+
+- **Lineage (element span)**
+  - `element_index_start`
+  - `element_index_end`
+  - `element_count`
+  - `element_types` (set or list, for QA)
+  - `page_number_min` (if available)
+  - `page_number_max` (if available)
+
+- **Content**
+  - `text`
+
+### Recommended fields (strongly encouraged)
+- `char_count`
+- `approx_token_count` (approximation; true tokenization depends on target model)
+- `embedding_model_name`
+- `semantic_chunker_params` (thresholds, target sizes, overlap policy)
+- `qa_flags` (e.g., `["missing_page_numbers"]`)
+
+---
+
+## Prerequisites
+
+### Python packages
+This page assumes a Python environment that includes:
+
+- `pandas`
+- `sentence-transformers`
+- `langchain-text-splitters` (preferred over full langchain install)
+
+Optional but useful:
+- `tqdm`
+
+### Installation (example)
+~~~bash
+python -m pip install pandas tqdm
+python -m pip install sentence-transformers
+python -m pip install langchain-text-splitters
+~~~
+
+> Note: We are intentionally using local embeddings. No cloud connectivity is required.
+
+---
+
+## Runnable script: build semantic chunks from parsed elements
+
+### Inputs expected
+This script expects a prior run folder from parsing, for example:
+
+- `runs/2026-04-23_pdf-parse/manifest.csv`
+- `runs/2026-04-23_pdf-parse/elements.jsonl`
+- `runs/2026-04-23_pdf-parse/run-metadata.json`
+
+It will produce:
+
+- `runs/<RUN_ID>_semantic-chunk/chunks.jsonl`
+- `runs/<RUN_ID>_semantic-chunk/chunk-run-metadata.json`
+
+### Script
+~~~{python}
+# Save as scripts/semantic_chunk_elements.py (recommended) and run:
+#   python scripts/semantic_chunk_elements.py
+#
+# This script is designed to be platform-agnostic and offline-friendly.
+
+from __future__ import annotations
+
+import datetime as dt
+import hashlib
+import json
+import platform
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, Iterable, List, Optional, Tuple
+
+import pandas as pd
+from tqdm import tqdm
+
+from sentence_transformers import SentenceTransformer
+
+# langchain-text-splitters
+from langchain_text_splitters import SemanticChunker
+from langchain_core.embeddings import Embeddings
+
+
+# ---------------------------
+# Configuration (edit these)
+# ---------------------------
+
+# Point to an existing parse run folder produced by fnd-pdf-parse.qmd
+PARSE_RUN_DIR = Path(r"CHANGE_ME\runs\2026-04-23_pdf-parse").resolve()
+
+# Output parent folder
+OUTPUT_ROOT = Path("runs").resolve()
+
+# New run ID for chunking
+RUN_ID = f"{dt.datetime.utcnow().date().isoformat()}_semantic-chunk"
+
+# Local embedding model (offline)
+# Common default: "all-MiniLM-L6-v2" (fast, compact, widely used)
+EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
+
+# Optional filtering: drop likely header/footer elements by heuristic
+DROP_SHORT_REPEATED_LINES = True
+REPEAT_LINE_MIN_DOC_FREQUENCY = 0.40  # appears in >= 40% of pages/elements -> likely header/footer
+MIN_LINE_LENGTH = 25
+
+# Chunking policy (governance decision)
+# Note: SemanticChunker uses embeddings and breakpoints based on similarity.
+# Keep parameters explicit and record them in metadata.
+BREAKPOINT_THRESHOLD_TYPE = "percentile"  # "percentile" or "standard_deviation" depending on version
+BREAKPOINT_THRESHOLD_AMOUNT = 90  # percentile threshold (higher => fewer splits)
+
+# Safety bounds (to prevent extreme chunk sizes)
+MAX_CHUNK_CHARS = 6000
+MIN_CHUNK_CHARS = 300
+
+
+# ---------------------------
+# Utilities
+# ---------------------------
+
+def utc_now_iso() -> str:
+    return dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc).isoformat()
+
+def _safe_import_version(pkg: str) -> Optional[str]:
+    try:
+        mod = __import__(pkg)
+        return getattr(mod, "__version__", None)
+    except Exception:
+        return None
+
+def approx_token_count(text: str) -> int:
+    # Rough heuristic: English token ~ 4 chars average (varies widely)
+    # Keep as "approx" and do not claim model-specific tokenization.
+    return max(1, int(len(text) / 4))
+
+def stable_chunk_id(document_sha256: str, element_start: int, element_end: int, text: str) -> str:
+    h = hashlib.sha256()
+    h.update(document_sha256.encode("utf-8"))
+    h.update(f"{element_start}:{element_end}".encode("utf-8"))
+    h.update(text.encode("utf-8"))
+    return h.hexdigest()
+
+def load_jsonl(path: Path) -> List[Dict[str, Any]]:
+    records: List[Dict[str, Any]] = []
+    with path.open("r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            records.append(json.loads(line))
+    return records
+
+
+# ---------------------------
+# Embeddings adapter
+# ---------------------------
+
+class SentenceTransformerEmbeddings(Embeddings):
+    """
+    Adapter to use sentence-transformers with LangChain's text splitters.
+    """
+    def __init__(self, model: SentenceTransformer):
+        self.model = model
+
+    def embed_documents(self, texts: List[str]) -> List[List[float]]:
+        vectors = self.model.encode(texts, show_progress_bar=False, normalize_embeddings=True)
+        return [v.tolist() for v in vectors]
+
+    def embed_query(self, text: str) -> List[float]:
+        v = self.model.encode([text], show_progress_bar=False, normalize_embeddings=True)[0]
+        return v.tolist()
+
+
+# ---------------------------
+# Filtering helpers (optional)
+# ---------------------------
+
+def normalize_line(s: str) -> str:
+    return " ".join(s.split()).strip().lower()
+
+def identify_repeated_lines(elements: List[Dict[str, Any]]) -> set:
+    """
+    Heuristic: find short lines repeated across many elements in a document.
+    Intended to catch headers/footers (e.g., report title, page footer).
+    """
+    from collections import Counter
+
+    lines = []
+    for e in elements:
+        txt = e.get("text") or ""
+        txt = txt.strip()
+        if not txt:
+            continue
+        # only consider single-line-ish short texts
+        if "\n" in txt:
+            continue
+        if len(txt) < MIN_LINE_LENGTH:
+            continue
+        lines.append(normalize_line(txt))
+
+    if not lines:
+        return set()
+
+    counts = Counter(lines)
+    n = len(elements)
+    repeated = {
+        line for line, c in counts.items()
+        if (c / max(1, n)) >= REPEAT_LINE_MIN_DOC_FREQUENCY
+    }
+    return repeated
+
+
+# ---------------------------
+# Chunking logic
+# ---------------------------
+
+@dataclass
+class ChunkRecord:
+    run_id: str
+    chunked_at_utc: str
+    pipeline_stage: str
+    pipeline_version: str
+    software_versions: Dict[str, Optional[str]]
+
+    document_id: str
+    document_sha256: str
+    source_path: str
+    source_relpath: str
+
+    chunk_id: str
+    chunk_index: int
+
+    element_index_start: int
+    element_index_end: int
+    element_count: int
+    element_types: List[str]
+    page_number_min: Optional[int]
+    page_number_max: Optional[int]
+
+    text: str
+
+    char_count: int
+    approx_token_count: int
+
+    embedding_model_name: str
+    semantic_chunker_params: Dict[str, Any]
+    qa_flags: List[str]
+
+
+def main() -> None:
+    # Input checks
+    manifest_path = PARSE_RUN_DIR / "manifest.csv"
+    elements_path = PARSE_RUN_DIR / "elements.jsonl"
+    parse_run_meta_path = PARSE_RUN_DIR / "run-metadata.json"
+
+    for p in [manifest_path, elements_path, parse_run_meta_path]:
+        if not p.exists():
+            raise FileNotFoundError(f"Missing expected input: {p}")
+
+    # Load inputs
+    manifest_df = pd.read_csv(manifest_path)
+    elements = load_jsonl(elements_path)
+
+    # Group elements by document_sha256
+    elements_by_doc: Dict[str, List[Dict[str, Any]]] = {}
+    for e in elements:
+        doc_sha = e["document_sha256"]
+        elements_by_doc.setdefault(doc_sha, []).append(e)
+
+    # Load local embedding model
+    st_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+    embeddings = SentenceTransformerEmbeddings(st_model)
+
+    # Configure semantic chunker (record params explicitly)
+    semantic_params = {
+        "breakpoint_threshold_type": BREAKPOINT_THRESHOLD_TYPE,
+        "breakpoint_threshold_amount": BREAKPOINT_THRESHOLD_AMOUNT,
+        "max_chunk_chars": MAX_CHUNK_CHARS,
+        "min_chunk_chars": MIN_CHUNK_CHARS,
+    }
+
+    chunker = SemanticChunker(
+        embeddings=embeddings,
+        breakpoint_threshold_type=BREAKPOINT_THRESHOLD_TYPE,
+        breakpoint_threshold_amount=BREAKPOINT_THRESHOLD_AMOUNT,
+    )
+
+    # Output run directory
+    out_dir = OUTPUT_ROOT / RUN_ID
+    out_dir.mkdir(parents=True, exist_ok=False)
+
+    # Chunk run metadata (audit trail)
+    chunk_run_meta = {
+        "run_id": RUN_ID,
+        "created_at_utc": utc_now_iso(),
+        "parse_run_dir": str(PARSE_RUN_DIR),
+        "inputs": {
+            "manifest_csv": str(manifest_path),
+            "elements_jsonl": str(elements_path),
+            "parse_run_metadata": str(parse_run_meta_path),
+        },
+        "python": sys.version,
+        "platform": {
+            "system": platform.system(),
+            "release": platform.release(),
+            "version": platform.version(),
+            "machine": platform.machine(),
+        },
+        "packages": {
+            "sentence_transformers": _safe_import_version("sentence_transformers"),
+            "langchain_text_splitters": _safe_import_version("langchain_text_splitters"),
+            "langchain_core": _safe_import_version("langchain_core"),
+            "pandas": _safe_import_version("pandas"),
+        },
+        "embedding_model_name": EMBEDDING_MODEL_NAME,
+        "semantic_chunker_params": semantic_params,
+        "assumptions": [
+            "Local/offline embeddings are used (no cloud APIs).",
+            "PDFs were already OCR'd if scanned.",
+        ],
+    }
+    (out_dir / "chunk-run-metadata.json").write_text(json.dumps(chunk_run_meta, indent=2), encoding="utf-8")
+
+    # Build chunk records and write JSONL
+    chunks_path = out_dir / "chunks.jsonl"
+
+    pipeline_version = "0.1.0"  # TODO: set and maintain as your workflow evolves
+    software_versions = {
+        "python": platform.python_version(),
+        "sentence_transformers": _safe_import_version("sentence_transformers"),
+        "langchain_text_splitters": _safe_import_version("langchain_text_splitters"),
+        "langchain_core": _safe_import_version("langchain_core"),
+        "unstructured": _safe_import_version("unstructured"),
+    }
+
+    with chunks_path.open("w", encoding="utf-8") as f:
+        for _, doc_row in tqdm(manifest_df.iterrows(), total=len(manifest_df), desc="Chunking documents"):
+            doc_sha = doc_row["sha256"]
+            doc_elements = elements_by_doc.get(doc_sha, [])
+
+            if not doc_elements:
+                # Nothing parsed; record could be flagged elsewhere; skip for now.
+                continue
+
+            # Ensure deterministic ordering
+            doc_elements.sort(key=lambda e: int(e.get("element_index", 0)))
+
+            repeated_lines = set()
+            if DROP_SHORT_REPEATED_LINES:
+                repeated_lines = identify_repeated_lines(doc_elements)
+
+            # Filter/normalize element texts
+            clean_texts: List[str] = []
+            clean_indices: List[int] = []
+            clean_types: List[str] = []
+            clean_pages: List[Optional[int]] = []
+
+            for e in doc_elements:
+                txt = (e.get("text") or "").strip()
+                if not txt:
+                    continue
+
+                if DROP_SHORT_REPEATED_LINES and ("\n" not in txt) and (normalize_line(txt) in repeated_lines):
+                    continue
+
+                clean_texts.append(txt)
+                clean_indices.append(int(e["element_index"]))
+                clean_types.append(str(e.get("element_type") or ""))
+                clean_pages.append(e.get("page_number"))
+
+            if not clean_texts:
+                continue
+
+            # Combine elements into a single string with separators.
+            # Note: We keep lineage to element indices so we can map boundaries later.
+            joined = "\n\n".join(clean_texts)
+
+            # Use SemanticChunker to split into semantically coherent pieces
+            docs = chunker.create_documents([joined])
+            chunk_texts = [d.page_content for d in docs]
+
+            # Safety bounds post-processing
+            final_chunks: List[str] = []
+            for t in chunk_texts:
+                t = t.strip()
+                if not t:
+                    continue
+                # Hard cap (defensive). If exceeded, fallback to naive slicing with overlap.
+                if len(t) > MAX_CHUNK_CHARS:
+                    # Simple fallback: split by chars
+                    start = 0
+                    step = MAX_CHUNK_CHARS
+                    while start < len(t):
+                        final_chunks.append(t[start : start + step].strip())
+                        start += step
+                else:
+                    final_chunks.append(t)
+
+            # Build chunk records.
+            # IMPORTANT: This is an initial implementation: mapping semantic chunk boundaries
+            # back to exact element spans is non-trivial when we join texts.
+            #
+            # Best-practice direction:
+            # - chunk at the element level (or sentence level) and track spans explicitly.
+            # For now, we provide a conservative lineage approach:
+            # - each chunk points to the full filtered element range (start/end),
+            # - and page_number_min/max across those elements.
+            #
+            # This preserves traceability but is less precise than ideal.
+            element_index_start = min(clean_indices)
+            element_index_end = max(clean_indices)
+            page_numbers = [p for p in clean_pages if isinstance(p, (int, float))]
+            page_min = int(min(page_numbers)) if page_numbers else None
+            page_max = int(max(page_numbers)) if page_numbers else None
+
+            for i, chunk_text in enumerate(final_chunks):
+                qa_flags: List[str] = []
+                if page_min is None or page_max is None:
+                    qa_flags.append("missing_page_numbers")
+
+                if len(chunk_text) < MIN_CHUNK_CHARS:
+                    qa_flags.append("chunk_too_small")
+                if len(chunk_text) > MAX_CHUNK_CHARS:
+                    qa_flags.append("chunk_too_large")
+
+                chunk_id = stable_chunk_id(doc_sha, element_index_start, element_index_end, chunk_text)
+
+                rec = ChunkRecord(
+                    run_id=RUN_ID,
+                    chunked_at_utc=utc_now_iso(),
+                    pipeline_stage="semantic_chunking",
+                    pipeline_version=pipeline_version,
+                    software_versions=software_versions,
+
+                    document_id=f"sha256:{doc_sha}",
+                    document_sha256=doc_sha,
+                    source_path=str(doc_row["source_path"]),
+                    source_relpath=str(doc_row["source_relpath"]),
+
+                    chunk_id=chunk_id,
+                    chunk_index=i,
+
+                    element_index_start=element_index_start,
+                    element_index_end=element_index_end,
+                    element_count=(element_index_end - element_index_start + 1),
+                    element_types=sorted(list(set(clean_types))),
+                    page_number_min=page_min,
+                    page_number_max=page_max,
+
+                    text=chunk_text,
+
+                    char_count=len(chunk_text),
+                    approx_token_count=approx_token_count(chunk_text),
+
+                    embedding_model_name=EMBEDDING_MODEL_NAME,
+                    semantic_chunker_params=semantic_params,
+                    qa_flags=qa_flags,
+                )
+
+                f.write(json.dumps(rec.__dict__, ensure_ascii=False) + "\n")
+
+    print(f"Done.\nChunk run directory: {out_dir}\nChunks: {chunks_path}")
+    print("NOTE: Element-span mapping is conservative in this initial version; see QA section in the QMD.")
+
+
+if __name__ == "__main__":
+    main()
+~~~
+
+---
+
+## Quality assurance (QA)
+
+### 1) Provenance completeness (release blockers)
+For a sample of chunk records, verify:
+
+- [ ] `document_sha256` is present and matches the manifest.
+- [ ] `source_relpath` is present (supports path-stable imports).
+- [ ] `chunk_id` is unique within the run.
+- [ ] `page_number_min` / `page_number_max` are present for most documents (document limitations noted if absent).
+
+### 2) Chunk coherence checks
+Sample 20 chunks and answer:
+
+- [ ] Does each chunk represent one coherent topic?
+- [ ] Are there obvious mid-sentence or mid-paragraph splits?
+- [ ] Are there large amounts of repeated header/footer noise?
+
+If coherence is poor:
+- adjust the semantic breakpoint threshold,
+- or introduce a structure-aware pre-grouping step (e.g., grouping by detected titles).
+
+### 3) Size policy checks (governance)
+Decide and document a standard chunk size band (characters and approximate tokens). Then verify:
+
+- [ ] <5% of chunks are flagged `chunk_too_small`
+- [ ] <5% of chunks are flagged `chunk_too_large`
+
+### 4) Known limitation: precise element span mapping
+This initial script uses a **conservative lineage** approach: each chunk references the overall filtered element range for the document rather than a precise per-chunk element span.
+
+This is traceable (no orphan chunks), but it is not ideal for high-precision page/element citations.
+
+**Best-practice next step (recommended enhancement):**
+Chunk at the **element level** (or sentence level) and track explicit spans so each chunk can record the exact contributing element indices and page pointers.
+
+---
+
+## Next page
+Once `chunks.jsonl` is produced and QA’d, proceed to: **Exporting Chunks** (`fnd-chunk-export.qmd`).

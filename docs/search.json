@@ -583,7 +583,7 @@
     "href": "fnd-pdf-parse.html#runnable-script-pdf-inventory-parsing-jsonl-outputs",
     "title": "17  Parsing PDFs for AI Workflows",
     "section": "17.4 Runnable script: PDF inventory + parsing + JSONL outputs",
-    "text": "17.4 Runnable script: PDF inventory + parsing + JSONL outputs\n\nWhat this script produces\nFor each run, it creates a run folder with:\n\nmanifest.csv — one row per PDF (file-level provenance)\nelements.jsonl — one JSON object per extracted element (element-level provenance)\nrun-metadata.json — run info + tool versions (audit trail)\n\n\n\nHow to run\n\nSet SOURCE_ROOT to the folder containing PDFs (nested folders OK).\nRun the script.\nInspect outputs and perform verification checks below.\n# Save this as scripts/parse_pdfs_unstructured.py (recommended) and run: # python scripts/parse_pdfs_unstructured.py # # Or copy/paste into a notebook for an initial trial.\nfrom future import annotations\nimport datetime as dt import hashlib import json import os import platform import sys from dataclasses import dataclass from pathlib import Path from typing import Any, Dict, List, Optional\nimport pandas as pd from tqdm import tqdm\nfrom unstructured.partition.pdf import partition_pdf\n# ————————— # Configuration (edit these) # —————————\n# Root folder containing PDFs in nested directories SOURCE_ROOT = Path(r”CHANGE_ME“).expanduser().resolve()\n# Where outputs will be written OUTPUT_ROOT = Path(“runs”).resolve()\n# Give each run a stable identifier (recommend: YYYY-MM-DD + short purpose) RUN_ID = f”{dt.datetime.utcnow().date().isoformat()}_pdf-parse”\n# Controls INCLUDE_HIDDEN_FILES = False MAX_PDFS: Optional[int] = None # set e.g. 50 for a quick test, else None\n# ————————— # Provenance helpers # —————————\ndef utc_now_iso() -&gt; str: return dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc).isoformat()\ndef sha256_file(path: Path, chunk_size: int = 1024 * 1024) -&gt; str: “““Compute SHA-256 over raw bytes (critical for version traceability).”“” h = hashlib.sha256() with path.open(“rb”) as f: while True: b = f.read(chunk_size) if not b: break h.update(b) return h.hexdigest()\ndef is_hidden(path: Path) -&gt; bool: # Cross-platform-ish: dotfiles + Windows hidden attribute (best-effort) if path.name.startswith(“.”): return True if os.name == “nt”: try: import ctypes attrs = ctypes.windll.kernel32.GetFileAttributesW(str(path)) if attrs == -1: return False return bool(attrs & 2) # FILE_ATTRIBUTE_HIDDEN except Exception: return False return False\ndef discover_pdfs(root: Path) -&gt; List[Path]: pdfs: List[Path] = [] for p in root.rglob(“*.pdf”): if not INCLUDE_HIDDEN_FILES and is_hidden(p): continue pdfs.append(p) pdfs.sort() if MAX_PDFS is not None: pdfs = pdfs[:MAX_PDFS] return pdfs\n# ————————— # Data models (lightweight) # —————————\n(dataclass?)(frozen=True) class FileManifestRow: run_id: str collected_at_utc: str source_root: str source_path: str source_relpath: str source_filename: str source_bytes: int source_modified_time_utc: str sha256: str\ndef file_manifest_row(path: Path, source_root: Path, run_id: str) -&gt; FileManifestRow: st = path.stat() mtime = dt.datetime.fromtimestamp(st.st_mtime, tz=dt.timezone.utc).isoformat() return FileManifestRow( run_id=run_id, collected_at_utc=utc_now_iso(), source_root=str(source_root), source_path=str(path), source_relpath=str(path.relative_to(source_root)), source_filename=path.name, source_bytes=int(st.st_size), source_modified_time_utc=mtime, sha256=sha256_file(path), )\ndef element_to_record( element: Any, *, run_id: str, document_sha256: str, source_path: str, source_relpath: str, ) -&gt; Dict[str, Any]: text = getattr(element, “text”, None) category = getattr(element, “category”, None) element_type = element.__class__.__name__\n  md = getattr(element, \"metadata\", None)\n  md_dict: Dict[str, Any] = {}\n  if md is not None:\n      try:\n          md_dict = {k: v for k, v in vars(md).items() if v is not None}\n      except Exception:\n          md_dict = {\"_metadata_repr\": repr(md)}\n\n  page_number = md_dict.get(\"page_number\") or md_dict.get(\"page_number_start\")\n\n  document_id = f\"sha256:{document_sha256}\"\n\n  return {\n      \"run_id\": run_id,\n      \"parsed_at_utc\": utc_now_iso(),\n\n      \"document_id\": document_id,\n      \"document_sha256\": document_sha256,\n      \"source_path\": source_path,\n      \"source_relpath\": source_relpath,\n\n      \"element_index\": None,\n      \"element_type\": element_type,\n      \"element_category\": category,\n\n      \"page_number\": page_number,\n\n      \"text\": text,\n\n      \"unstructured_metadata\": md_dict,\n  }\n# ————————— # Main routine # —————————\ndef _safe_import_version(pkg: str) -&gt; Optional[str]: try: mod = import(pkg) return getattr(mod, “version”, None) except Exception: return None\ndef main() -&gt; None: if not SOURCE_ROOT.exists(): raise FileNotFoundError(f”SOURCE_ROOT does not exist: {SOURCE_ROOT}“)\n  run_dir = OUTPUT_ROOT / RUN_ID\n  run_dir.mkdir(parents=True, exist_ok=False)\n\n  pdf_paths = discover_pdfs(SOURCE_ROOT)\n  if not pdf_paths:\n      raise RuntimeError(f\"No PDFs found under: {SOURCE_ROOT}\")\n\n  run_metadata = {\n      \"run_id\": RUN_ID,\n      \"created_at_utc\": utc_now_iso(),\n      \"source_root\": str(SOURCE_ROOT),\n      \"output_dir\": str(run_dir),\n      \"python\": sys.version,\n      \"platform\": {\n          \"system\": platform.system(),\n          \"release\": platform.release(),\n          \"version\": platform.version(),\n          \"machine\": platform.machine(),\n      },\n      \"packages\": {\n          \"unstructured\": _safe_import_version(\"unstructured\"),\n          \"pandas\": _safe_import_version(\"pandas\"),\n          \"tqdm\": _safe_import_version(\"tqdm\"),\n      },\n      \"assumptions\": [\n          \"PDFs that were scanned have already been OCR'd prior to ingestion.\",\n          \"No cloud APIs are required for parsing.\",\n      ],\n  }\n  (run_dir / \"run-metadata.json\").write_text(json.dumps(run_metadata, indent=2), encoding=\"utf-8\")\n\n  manifest_rows: List[FileManifestRow] = []\n  for p in tqdm(pdf_paths, desc=\"Hashing PDFs\"):\n      manifest_rows.append(file_manifest_row(p, SOURCE_ROOT, RUN_ID))\n\n  manifest_df = pd.DataFrame([r.__dict__ for r in manifest_rows])\n  manifest_path = run_dir / \"manifest.csv\"\n  manifest_df.to_csv(manifest_path, index=False)\n\n  elements_path = run_dir / \"elements.jsonl\"\n  with elements_path.open(\"w\", encoding=\"utf-8\") as f:\n      for row in tqdm(manifest_rows, desc=\"Parsing PDFs\"):\n          pdf_path = Path(row.source_path)\n\n          elements = partition_pdf(\n              filename=str(pdf_path),\n          )\n\n          records = [\n              element_to_record(\n                  el,\n                  run_id=RUN_ID,\n                  document_sha256=row.sha256,\n                  source_path=row.source_path,\n                  source_relpath=row.source_relpath,\n              )\n              for el in elements\n          ]\n\n          for i, rec in enumerate(records):\n              rec[\"element_index\"] = i\n\n          for rec in records:\n              f.write(json.dumps(rec, ensure_ascii=False) + \"\\n\")\n\n  print(f\"Done.\\nRun directory: {run_dir}\\nManifest: {manifest_path}\\nElements: {elements_path}\")\nif name == “main”: main()",
+    "text": "17.4 Runnable script: PDF inventory + parsing + JSONL outputs\n\nWhat this script produces\nFor each run, it creates a run folder with:\n\nmanifest.csv — one row per PDF (file-level provenance)\nelements.jsonl — one JSON object per extracted element (element-level provenance)\nrun-metadata.json — run info + tool versions (audit trail)\n\n\n\nHow to run\n\nSet SOURCE_ROOT to the folder containing PDFs (nested folders OK).\nRun the script.\nInspect outputs and perform verification checks below.\n\n~~~~{python} # Save this as scripts/parse_pdfs_unstructured.py (recommended) and run: # python scripts/parse_pdfs_unstructured.py # # Or copy/paste into a notebook for an initial trial.\nfrom future import annotations\nimport datetime as dt import hashlib import json import os import platform import sys from dataclasses import dataclass from pathlib import Path from typing import Any, Dict, List, Optional\nimport pandas as pd from tqdm import tqdm\nfrom unstructured.partition.pdf import partition_pdf",
     "crumbs": [
       "Foundry Workflows",
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>Parsing PDFs for AI Workflows</span>"
@@ -593,8 +593,8 @@
     "objectID": "fnd-pdf-parse.html#verification-checklist-use-after-running-the-script",
     "href": "fnd-pdf-parse.html#verification-checklist-use-after-running-the-script",
     "title": "17  Parsing PDFs for AI Workflows",
-    "section": "17.5 Verification checklist (use after running the script)",
-    "text": "17.5 Verification checklist (use after running the script)\n\nParse validity\n\nmanifest.csv includes every PDF you intended to ingest (spot-check folder coverage).\nelements.jsonl is non-empty.\nA sample of documents produces narrative elements (not just headers/footers).\n\n\n\nProvenance completeness (minimum release blockers)\n\nEvery element JSON object has: document_sha256, source_relpath, element_index, text (or a documented reason if text is empty).\ndocument_id is present and is derived from sha256.\n\n\n\nSampling-based QA (recommended)\n\nRandomly sample 5 PDFs, open them, and verify a few extracted elements match the page content.\nCheck whether page_number is present frequently enough to meet your traceability expectations. If not, adapt the parsing strategy (still keeping it platform-agnostic).",
+    "section": "33.1 Verification checklist (use after running the script)",
+    "text": "33.1 Verification checklist (use after running the script)\n\nParse validity\n\nmanifest.csv includes every PDF you intended to ingest (spot-check folder coverage).\nelements.jsonl is non-empty.\nA sample of documents produces narrative elements (not just headers/footers).\n\n\n\nProvenance completeness (minimum release blockers)\n\nEvery element JSON object has: document_sha256, source_relpath, element_index, text (or a documented reason if text is empty).\ndocument_id is present and is derived from sha256.\n\n\n\nSampling-based QA (recommended)\n\nRandomly sample 5 PDFs, open them, and verify a few extracted elements match the page content.\nCheck whether page_number is present frequently enough to meet your traceability expectations. If not, adapt the parsing strategy (still keeping it platform-agnostic).",
     "crumbs": [
       "Foundry Workflows",
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>Parsing PDFs for AI Workflows</span>"
@@ -604,8 +604,8 @@
     "objectID": "fnd-pdf-parse.html#next-page",
     "href": "fnd-pdf-parse.html#next-page",
     "title": "17  Parsing PDFs for AI Workflows",
-    "section": "17.6 Next page",
-    "text": "17.6 Next page\nOnce PDFs are parsed to structured elements and validated, proceed to: Semantic Chunking (fnd-chunking.qmd).",
+    "section": "33.2 Next page",
+    "text": "33.2 Next page\nOnce PDFs are parsed to structured elements and validated, proceed to: Semantic Chunking (fnd-chunking.qmd).",
     "crumbs": [
       "Foundry Workflows",
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>Parsing PDFs for AI Workflows</span>"
@@ -614,12 +614,188 @@
   {
     "objectID": "fnd-chunking.html",
     "href": "fnd-chunking.html",
-    "title": "18  Chunking",
+    "title": "18  Semantic Chunking",
     "section": "",
-    "text": "18.1 Need",
+    "text": "18.1 Concepts",
     "crumbs": [
       "Foundry Workflows",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Chunking</span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Semantic Chunking</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunking.html#concepts",
+    "href": "fnd-chunking.html#concepts",
+    "title": "18  Semantic Chunking",
+    "section": "",
+    "text": "Why we “chunk” documents\nMost enterprise AI platforms (and most LLM-powered tools) have content window limits. Even when a platform supports uploading large documents, the model typically only “sees” a bounded amount of text at inference time. If we want reliable answers with defensible citations, we must break documents into smaller units that can be:\n\nretrieved quickly,\nre-ranked for relevance,\npassed into a model without truncation,\nand traced back to the original source.\n\nIn RAG (Retrieval-Augmented Generation), chunking is a core step that enables “AI-assisted document retrieval” / “enterprise knowledge bases” to work reliably.\n\n\nWhat is semantic chunking (vs. fixed-size chunking)\nChunking approaches fall on a spectrum:\n\nFixed-size chunking (characters/tokens with overlap)\nSimple and fast, but often splits mid-paragraph or mid-idea, reducing retrieval quality and making citations harder to interpret.\nStructure-based chunking (headings/sections)\nWorks well when PDFs have consistent headings, but fails when structure is weak or inconsistent.\nSemantic chunking (embedding similarity)\nUses a sentence/paragraph embedding model to detect topic shifts. Chunks tend to align with meaning, improving retrieval and reducing “citation soup”.\n\nThis guide standardizes on semantic chunking because it best supports: - coherent evidence snippets, - stable review and validation, - and higher-quality retrieval across mixed document types.\n\n\nWhy embeddings are required\nSemantic chunking relies on embeddings: numeric vectors representing the meaning of text. We compare neighboring sentences/paragraphs by similarity (often cosine similarity). When similarity drops below a threshold, that’s a candidate chunk boundary.\nBecause cloud embedding APIs may not be available in USACE environments, this workflow assumes local/offline embeddings via sentence-transformers.\n\n\nChunk size is a governance decision\nChunk size is not purely technical—it affects:\n\nTraceability: smaller chunks reduce ambiguity about what supports a claim.\nRecall: smaller chunks can increase recall but may lose context.\nPrecision: larger chunks may retrieve extra unrelated text.\nPlatform constraints: ingestion limits, query-time context window, storage costs.\n\nRecommendation: choose a default target chunk size and document it as policy. Then allow a controlled override for specific corpora.\n\n\nProvenance: “no orphan chunks”\nA chunk that cannot be traced back to the exact source is not acceptable for high-stakes review. Every chunk must carry enough metadata to answer:\n\nWhich exact file/version produced it? (hash)\nWhere in the file did it come from? (page pointers where possible)\nWhat run produced it? (run ID + tool versions)\nWhat was the chunking policy? (parameters recorded)",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Semantic Chunking</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunking.html#workflow-overview",
+    "href": "fnd-chunking.html#workflow-overview",
+    "title": "18  Semantic Chunking",
+    "section": "18.2 Workflow overview",
+    "text": "18.2 Workflow overview\nInputs: - manifest.csv and elements.jsonl from the parsing step (fnd-pdf-parse.qmd)\nOutputs: - chunks.jsonl (platform-neutral chunk records + metadata)\nHigh-level steps:\n\nLoad manifest.csv and elements.jsonl.\nNormalize and filter elements (remove empty text; optionally remove headers/footers).\nPrepare a local embedding model.\nApply semantic chunking (group elements into coherent chunks).\nAttach rigorous chunk metadata (document + element lineage).\nWrite chunks.jsonl.\nRun QA checks (coherence + provenance completeness).",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Semantic Chunking</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunking.html#chunk-metadata-schema-rigorous",
+    "href": "fnd-chunking.html#chunk-metadata-schema-rigorous",
+    "title": "18  Semantic Chunking",
+    "section": "18.3 Chunk metadata schema (rigorous)",
+    "text": "18.3 Chunk metadata schema (rigorous)\n\nRequired fields (release blockers)\nEvery chunk record MUST include:\n\nRun / audit\n\nrun_id\nchunked_at_utc\npipeline_stage (e.g., \"semantic_chunking\")\npipeline_version (your own workflow version string)\nsoftware_versions (at least: python, sentence-transformers, langchain-text-splitters, unstructured)\n\nDocument identity\n\ndocument_id (recommend: sha256:&lt;hash&gt;)\ndocument_sha256\nsource_path (full path captured at ingest time)\nsource_relpath (relative to collection root)\n\nChunk identity\n\nchunk_id (stable and unique; recommend hash of {document_sha256 + element span + chunk_text})\nchunk_index (0..N per document)\n\nLineage (element span)\n\nelement_index_start\nelement_index_end\nelement_count\nelement_types (set or list, for QA)\npage_number_min (if available)\npage_number_max (if available)\n\nContent\n\ntext\n\n\n\n\nRecommended fields (strongly encouraged)\n\nchar_count\napprox_token_count (approximation; true tokenization depends on target model)\nembedding_model_name\nsemantic_chunker_params (thresholds, target sizes, overlap policy)\nqa_flags (e.g., [\"missing_page_numbers\"])",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Semantic Chunking</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunking.html#prerequisites",
+    "href": "fnd-chunking.html#prerequisites",
+    "title": "18  Semantic Chunking",
+    "section": "18.4 Prerequisites",
+    "text": "18.4 Prerequisites\n\nPython packages\nThis page assumes a Python environment that includes:\n\npandas\nsentence-transformers\nlangchain-text-splitters (preferred over full langchain install)\n\nOptional but useful: - tqdm\n\n\nInstallation (example)\npython -m pip install pandas tqdm\npython -m pip install sentence-transformers\npython -m pip install langchain-text-splitters\n\nNote: We are intentionally using local embeddings. No cloud connectivity is required.",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Semantic Chunking</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunking.html#runnable-script-build-semantic-chunks-from-parsed-elements",
+    "href": "fnd-chunking.html#runnable-script-build-semantic-chunks-from-parsed-elements",
+    "title": "18  Semantic Chunking",
+    "section": "18.5 Runnable script: build semantic chunks from parsed elements",
+    "text": "18.5 Runnable script: build semantic chunks from parsed elements\n\nInputs expected\nThis script expects a prior run folder from parsing, for example:\n\nruns/2026-04-23_pdf-parse/manifest.csv\nruns/2026-04-23_pdf-parse/elements.jsonl\nruns/2026-04-23_pdf-parse/run-metadata.json\n\nIt will produce:\n\nruns/&lt;RUN_ID&gt;_semantic-chunk/chunks.jsonl\nruns/&lt;RUN_ID&gt;_semantic-chunk/chunk-run-metadata.json\n\n\n\nScript\n~~~{python} # Save as scripts/semantic_chunk_elements.py (recommended) and run: # python scripts/semantic_chunk_elements.py # # This script is designed to be platform-agnostic and offline-friendly.\nfrom future import annotations\nimport datetime as dt import hashlib import json import platform import sys from dataclasses import dataclass from pathlib import Path from typing import Any, Dict, Iterable, List, Optional, Tuple\nimport pandas as pd from tqdm import tqdm\nfrom sentence_transformers import SentenceTransformer",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Semantic Chunking</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunking.html#quality-assurance-qa",
+    "href": "fnd-chunking.html#quality-assurance-qa",
+    "title": "18  Semantic Chunking",
+    "section": "44.1 Quality assurance (QA)",
+    "text": "44.1 Quality assurance (QA)\n\n1) Provenance completeness (release blockers)\nFor a sample of chunk records, verify:\n\ndocument_sha256 is present and matches the manifest.\nsource_relpath is present (supports path-stable imports).\nchunk_id is unique within the run.\npage_number_min / page_number_max are present for most documents (document limitations noted if absent).\n\n\n\n2) Chunk coherence checks\nSample 20 chunks and answer:\n\nDoes each chunk represent one coherent topic?\nAre there obvious mid-sentence or mid-paragraph splits?\nAre there large amounts of repeated header/footer noise?\n\nIf coherence is poor: - adjust the semantic breakpoint threshold, - or introduce a structure-aware pre-grouping step (e.g., grouping by detected titles).\n\n\n3) Size policy checks (governance)\nDecide and document a standard chunk size band (characters and approximate tokens). Then verify:\n\n&lt;5% of chunks are flagged chunk_too_small\n&lt;5% of chunks are flagged chunk_too_large\n\n\n\n4) Known limitation: precise element span mapping\nThis initial script uses a conservative lineage approach: each chunk references the overall filtered element range for the document rather than a precise per-chunk element span.\nThis is traceable (no orphan chunks), but it is not ideal for high-precision page/element citations.\nBest-practice next step (recommended enhancement): Chunk at the element level (or sentence level) and track explicit spans so each chunk can record the exact contributing element indices and page pointers.",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Semantic Chunking</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunking.html#next-page",
+    "href": "fnd-chunking.html#next-page",
+    "title": "18  Semantic Chunking",
+    "section": "44.2 Next page",
+    "text": "44.2 Next page\nOnce chunks.jsonl is produced and QA’d, proceed to: Exporting Chunks (fnd-chunk-export.qmd).",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Semantic Chunking</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunk-export.html",
+    "href": "fnd-chunk-export.html",
+    "title": "19  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "section": "",
+    "text": "19.1 Concepts",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunk-export.html#concepts",
+    "href": "fnd-chunk-export.html#concepts",
+    "title": "19  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "section": "",
+    "text": "Why we standardize export formats\nDifferent enterprise platforms ingest and index text differently, but the governance requirement is the same:\n\nthe exact source must be traceable,\noutputs must be reviewable and reproducible,\nand the exported dataset must support audit and reprocessing.\n\nStandardizing on a platform-neutral chunk record (the output of fnd-chunking.qmd) gives us a stable “source of truth”. From there, we generate platform-specific exports without changing the underlying meaning or provenance.\n\n\nGemini vs. Foundry: what we’re optimizing for\n\nGemini Enterprise workflows often benefit from JSONL because:\n\nit is line-delimited and stream-friendly,\neasy to generate and inspect,\ncommon in model ingestion pipelines.\n\nPalantir Foundry / Army Vantage workflows often benefit from Parquet because:\n\ncolumnar storage is efficient for analytics and indexing,\nschema is explicit and enforced,\nit is commonly used for Foundry datasets and pipelines.\n\n\n\n\n“Export is not transformation”\nExports should be lossless with respect to: - document identity (document_sha256, document_id) - location/provenance pointers (page range, element span) - audit fields (run IDs, tool versions, parameters) - chunk content (text)\nAny platform-specific reshaping should be: - mechanical (renaming fields, adding nested structure), and - fully documented and reproducible.\n\n\nSource provenance must remain first-class\nExports must preserve the ability to answer, for any retrieved chunk:\n\nWhich file/version? (sha256)\nWhere in the file? (page range, element span)\nWhich processing run and policy? (run metadata + parameters)\n\nIf a target platform cannot ingest certain metadata directly, we still export it as fields so it can be stored alongside the content or referenced externally.",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunk-export.html#export-schemas-recommended",
+    "href": "fnd-chunk-export.html#export-schemas-recommended",
+    "title": "19  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "section": "19.2 Export schemas (recommended)",
+    "text": "19.2 Export schemas (recommended)\n\nBaseline chunk record (source of truth)\nWe assume input chunks come from chunks.jsonl as produced by fnd-chunking.qmd.\nAt minimum, each record includes:\n\nDocument provenance: document_sha256, source_relpath, source_path\nLocation pointers: page_number_min, page_number_max, element_index_start, element_index_end\nChunk identity: chunk_id, chunk_index\nContent: text\nAudit: run_id, pipeline_version, semantic_chunker_params, software_versions\n\n\n\nGemini JSONL export (recommended structure)\nBecause “Gemini ingestion” can vary by organization and toolchain, we recommend a conservative, flexible JSON object per line:\n\nid (use chunk_id)\ntext\nmetadata object containing all provenance and audit fields\n\nExample (one line per chunk):\n{\"id\":\"&lt;chunk_id&gt;\",\"text\":\"...\",\"metadata\":{...}}\nThis keeps the chunk content and provenance together while remaining broadly compatible with JSON-based pipelines.\n\n\nFoundry Parquet export (recommended structure)\nFor Foundry, keep a flat, typed table with columns such as:\n\nchunk_id (string)\ndocument_sha256 (string)\nsource_relpath (string)\npage_number_min (int)\npage_number_max (int)\nelement_index_start (int)\nelement_index_end (int)\nchunk_index (int)\ntext (string)\nchar_count (int)\napprox_token_count (int)\nrun_id (string)\nchunked_at_utc (timestamp-like string)\npipeline_version (string)\nembedding_model_name (string)\nsemantic_chunker_params_json (string JSON)\nsoftware_versions_json (string JSON)\nqa_flags (string[] or JSON string depending on downstream tooling)\n\nThis structure is analytics-friendly and plays well with schema enforcement.",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunk-export.html#workflow-overview",
+    "href": "fnd-chunk-export.html#workflow-overview",
+    "title": "19  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "section": "19.3 Workflow overview",
+    "text": "19.3 Workflow overview\nInputs: - runs/&lt;chunk_run&gt;/chunks.jsonl - runs/&lt;chunk_run&gt;/chunk-run-metadata.json (recommended to retain)\nOutputs: - gemini/chunks.jsonl (Gemini-friendly JSONL) - foundry/chunks.parquet (Foundry-friendly Parquet) - export-run-metadata.json (audit trail)",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunk-export.html#prerequisites",
+    "href": "fnd-chunk-export.html#prerequisites",
+    "title": "19  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "section": "19.4 Prerequisites",
+    "text": "19.4 Prerequisites\nPython packages: - pandas - pyarrow (required for Parquet) - tqdm (optional)\nInstallation (example): ~bash python -m pip install pandas pyarrow tqdm~",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunk-export.html#runnable-script-export-jsonl-gemini-parquet-foundry",
+    "href": "fnd-chunk-export.html#runnable-script-export-jsonl-gemini-parquet-foundry",
+    "title": "19  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "section": "19.5 Runnable script: export JSONL (Gemini) + Parquet (Foundry)",
+    "text": "19.5 Runnable script: export JSONL (Gemini) + Parquet (Foundry)\n\nWhat this script does\n\nReads chunks.jsonl\nWrites:\n\nexports/&lt;RUN_ID&gt;/gemini/chunks.jsonl\nexports/&lt;RUN_ID&gt;/foundry/chunks.parquet\n\nWrites export-run-metadata.json to document:\n\ninputs\nexport schema decisions\ntool versions\n\n\n\n\nScript\n~~~{python} # Save as scripts/export_chunks.py and run: # python scripts/export_chunks.py # # Assumes you have already generated chunks.jsonl via fnd-chunking.qmd.\nfrom future import annotations\nimport datetime as dt import json import platform import sys from pathlib import Path from typing import Any, Dict, List, Optional\nimport pandas as pd from tqdm import tqdm",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunk-export.html#verification-checklist-release-blockers",
+    "href": "fnd-chunk-export.html#verification-checklist-release-blockers",
+    "title": "19  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "section": "29.1 Verification checklist (release blockers)",
+    "text": "29.1 Verification checklist (release blockers)\n\n1) Row counts match (lossless export)\n\nNumber of lines in chunks.jsonl equals number of lines in exports/.../gemini/chunks.jsonl.\nParquet row count equals chunk count.\n\n\n\n2) Provenance fields preserved\nFor a sample of rows/records, verify the following are present and consistent:\n\nchunk_id\ndocument_sha256\nsource_relpath (and optionally source_path)\npage_number_min, page_number_max (when available)\nrun_id, pipeline_version\n\n\n\n3) JSONL validity\n\nEach line in Gemini JSONL is valid JSON (no trailing commas, no multi-line records).\nmetadata contains document provenance and audit fields.\n\n\n\n4) Parquet schema review\n\nsemantic_chunker_params_json and software_versions_json are valid JSON strings.\ntext is stored as a string column.\nNo unintended nulling of required fields.",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunk-export.html#operational-guidance-platform-flexibility",
+    "href": "fnd-chunk-export.html#operational-guidance-platform-flexibility",
+    "title": "19  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "section": "29.2 Operational guidance (platform flexibility)",
+    "text": "29.2 Operational guidance (platform flexibility)\n\nImporting into Gemini workflows\nBecause Gemini Enterprise ingestion pipelines differ by tenant configuration, we recommend keeping the JSONL format conservative:\n\nid for stable chunk identity\ntext for chunk content\nmetadata for everything needed to cite and audit\n\nIf a Gemini workflow requires a different shape (e.g., specific keys like document, uri, or source), add a thin export adapter that reshapes fields without dropping provenance.\n\n\nImporting into Foundry / Army Vantage\nFoundry typically ingests Parquet cleanly and allows: - filtering by provenance fields, - joining back to other datasets (e.g., document catalog), - enforcing schema consistency in pipelines.\nTreat document_sha256 as the primary join key back to the document manifest and any higher-level document registry.",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-chunk-export.html#definition-of-done-for-export-work",
+    "href": "fnd-chunk-export.html#definition-of-done-for-export-work",
+    "title": "19  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "section": "29.3 Definition of done (for export work)",
+    "text": "29.3 Definition of done (for export work)\n\nExports are generated reproducibly from chunk source-of-truth.\nProvenance and audit fields are preserved (no “orphan” content).\nVerification checks pass (counts, schema, sample inspection).\nExport run metadata is written and stored alongside outputs.",
+    "crumbs": [
+      "Foundry Workflows",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
     ]
   }
 ]

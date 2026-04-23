@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -470,13 +505,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fnd-chunking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chunking</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Semantic Chunking</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fnd-chunk-export.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">fnd-chunk-export.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exporting Chunks (Gemini JSONL + Foundry Parquet)</span></span></a>
   </div>
 </li>
       </ul>
@@ -526,13 +561,31 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#what-this-script-produces" id="toc-what-this-script-produces" class="nav-link" data-scroll-target="#what-this-script-produces">What this script produces</a></li>
   <li><a href="#how-to-run" id="toc-how-to-run" class="nav-link" data-scroll-target="#how-to-run">How to run</a></li>
   </ul></li>
-  <li><a href="#verification-checklist-use-after-running-the-script" id="toc-verification-checklist-use-after-running-the-script" class="nav-link" data-scroll-target="#verification-checklist-use-after-running-the-script"><span class="header-section-number">17.5</span> Verification checklist (use after running the script)</a>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">18</span> —————————</a></li>
+  <li><a href="#configuration-edit-these" id="toc-configuration-edit-these" class="nav-link" data-scroll-target="#configuration-edit-these"><span class="header-section-number">19</span> Configuration (edit these)</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"><span class="header-section-number">20</span> —————————</a></li>
+  <li><a href="#root-folder-containing-pdfs-in-nested-directories" id="toc-root-folder-containing-pdfs-in-nested-directories" class="nav-link" data-scroll-target="#root-folder-containing-pdfs-in-nested-directories"><span class="header-section-number">21</span> Root folder containing PDFs in nested directories</a></li>
+  <li><a href="#where-outputs-will-be-written" id="toc-where-outputs-will-be-written" class="nav-link" data-scroll-target="#where-outputs-will-be-written"><span class="header-section-number">22</span> Where outputs will be written</a></li>
+  <li><a href="#give-each-run-a-stable-identifier-recommend-yyyy-mm-dd-short-purpose" id="toc-give-each-run-a-stable-identifier-recommend-yyyy-mm-dd-short-purpose" class="nav-link" data-scroll-target="#give-each-run-a-stable-identifier-recommend-yyyy-mm-dd-short-purpose"><span class="header-section-number">23</span> Give each run a stable identifier (recommend: YYYY-MM-DD + short purpose)</a></li>
+  <li><a href="#controls" id="toc-controls" class="nav-link" data-scroll-target="#controls"><span class="header-section-number">24</span> Controls</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"><span class="header-section-number">25</span> —————————</a></li>
+  <li><a href="#provenance-helpers" id="toc-provenance-helpers" class="nav-link" data-scroll-target="#provenance-helpers"><span class="header-section-number">26</span> Provenance helpers</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"><span class="header-section-number">27</span> —————————</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"><span class="header-section-number">28</span> —————————</a></li>
+  <li><a href="#data-models-lightweight" id="toc-data-models-lightweight" class="nav-link" data-scroll-target="#data-models-lightweight"><span class="header-section-number">29</span> Data models (lightweight)</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"><span class="header-section-number">30</span> —————————</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6"><span class="header-section-number">31</span> —————————</a></li>
+  <li><a href="#main-routine" id="toc-main-routine" class="nav-link" data-scroll-target="#main-routine"><span class="header-section-number">32</span> Main routine</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7"><span class="header-section-number">33</span> —————————</a>
+  <ul class="collapse">
+  <li><a href="#verification-checklist-use-after-running-the-script" id="toc-verification-checklist-use-after-running-the-script" class="nav-link" data-scroll-target="#verification-checklist-use-after-running-the-script"><span class="header-section-number">33.1</span> Verification checklist (use after running the script)</a>
   <ul class="collapse">
   <li><a href="#parse-validity" id="toc-parse-validity" class="nav-link" data-scroll-target="#parse-validity">Parse validity</a></li>
   <li><a href="#provenance-completeness-minimum-release-blockers" id="toc-provenance-completeness-minimum-release-blockers" class="nav-link" data-scroll-target="#provenance-completeness-minimum-release-blockers">Provenance completeness (minimum release blockers)</a></li>
   <li><a href="#sampling-based-qa-recommended" id="toc-sampling-based-qa-recommended" class="nav-link" data-scroll-target="#sampling-based-qa-recommended">Sampling-based QA (recommended)</a></li>
   </ul></li>
-  <li><a href="#next-page" id="toc-next-page" class="nav-link" data-scroll-target="#next-page"><span class="header-section-number">17.6</span> Next page</a></li>
+  <li><a href="#next-page" id="toc-next-page" class="nav-link" data-scroll-target="#next-page"><span class="header-section-number">33.2</span> Next page</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -635,14 +688,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="installation-example" class="level3">
 <h3 class="anchored" data-anchor-id="installation-example">Installation (example)</h3>
 <p>Create and activate a virtual environment, then install dependencies:</p>
-<pre><code>python -m venv .venv
-# Windows PowerShell:
-# .\.venv\Scripts\Activate.ps1
-# macOS/Linux:
-# source .venv/bin/activate
-
-python -m pip install --upgrade pip
-python -m pip install "unstructured[pdf]" pandas tqdm</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv .venv</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows PowerShell:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># .\.venv\Scripts\Activate.ps1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># macOS/Linux:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># source .venv/bin/activate</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="st">"unstructured[pdf]"</span> pandas tqdm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <blockquote class="blockquote">
 <p>Assumption for this guide: PDFs that were originally scanned have already been OCR’d before they enter this workflow.</p>
 </blockquote>
@@ -663,135 +716,178 @@ python -m pip install "unstructured[pdf]" pandas tqdm</code></pre>
 <section id="how-to-run" class="level3">
 <h3 class="anchored" data-anchor-id="how-to-run">How to run</h3>
 <ul>
-<li><p>Set <code>SOURCE_ROOT</code> to the folder containing PDFs (nested folders OK).</p></li>
-<li><p>Run the script.</p></li>
-<li><p>Inspect outputs and perform verification checks below.</p>
-<p># Save this as scripts/parse_pdfs_unstructured.py (recommended) and run: # python scripts/parse_pdfs_unstructured.py # # Or copy/paste into a notebook for an initial trial.</p>
+<li>Set <code>SOURCE_ROOT</code> to the folder containing PDFs (nested folders OK).</li>
+<li>Run the script.</li>
+<li>Inspect outputs and perform verification checks below.</li>
+</ul>
+<p>~~~~{python} # Save this as scripts/parse_pdfs_unstructured.py (recommended) and run: # python scripts/parse_pdfs_unstructured.py # # Or copy/paste into a notebook for an initial trial.</p>
 <p>from <strong>future</strong> import annotations</p>
 <p>import datetime as dt import hashlib import json import os import platform import sys from dataclasses import dataclass from pathlib import Path from typing import Any, Dict, List, Optional</p>
 <p>import pandas as pd from tqdm import tqdm</p>
 <p>from unstructured.partition.pdf import partition_pdf</p>
-<p># ————————— # Configuration (edit these) # —————————</p>
-<p># Root folder containing PDFs in nested directories SOURCE_ROOT = Path(r”CHANGE_ME“).expanduser().resolve()</p>
-<p># Where outputs will be written OUTPUT_ROOT = Path(“runs”).resolve()</p>
-<p># Give each run a stable identifier (recommend: YYYY-MM-DD + short purpose) RUN_ID = f”{dt.datetime.utcnow().date().isoformat()}_pdf-parse”</p>
-<p># Controls INCLUDE_HIDDEN_FILES = False MAX_PDFS: Optional[int] = None # set e.g.&nbsp;50 for a quick test, else None</p>
-<p># ————————— # Provenance helpers # —————————</p>
+</section>
+</section>
+<section id="section" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> —————————</h1>
+</section>
+<section id="configuration-edit-these" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> Configuration (edit these)</h1>
+</section>
+<section id="section-1" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> —————————</h1>
+</section>
+<section id="root-folder-containing-pdfs-in-nested-directories" class="level1" data-number="21">
+<h1 data-number="21"><span class="header-section-number">21</span> Root folder containing PDFs in nested directories</h1>
+<p>SOURCE_ROOT = Path(r”CHANGE_ME“).expanduser().resolve()</p>
+</section>
+<section id="where-outputs-will-be-written" class="level1" data-number="22">
+<h1 data-number="22"><span class="header-section-number">22</span> Where outputs will be written</h1>
+<p>OUTPUT_ROOT = Path(“runs”).resolve()</p>
+</section>
+<section id="give-each-run-a-stable-identifier-recommend-yyyy-mm-dd-short-purpose" class="level1" data-number="23">
+<h1 data-number="23"><span class="header-section-number">23</span> Give each run a stable identifier (recommend: YYYY-MM-DD + short purpose)</h1>
+<p>RUN_ID = f”{dt.datetime.utcnow().date().isoformat()}_pdf-parse”</p>
+</section>
+<section id="controls" class="level1" data-number="24">
+<h1 data-number="24"><span class="header-section-number">24</span> Controls</h1>
+<p>INCLUDE_HIDDEN_FILES = False MAX_PDFS: Optional[int] = None # set e.g.&nbsp;50 for a quick test, else None</p>
+</section>
+<section id="section-2" class="level1" data-number="25">
+<h1 data-number="25"><span class="header-section-number">25</span> —————————</h1>
+</section>
+<section id="provenance-helpers" class="level1" data-number="26">
+<h1 data-number="26"><span class="header-section-number">26</span> Provenance helpers</h1>
+</section>
+<section id="section-3" class="level1" data-number="27">
+<h1 data-number="27"><span class="header-section-number">27</span> —————————</h1>
 <p>def utc_now_iso() -&gt; str: return dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc).isoformat()</p>
 <p>def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -&gt; str: “““Compute SHA-256 over raw bytes (critical for version traceability).”“” h = hashlib.sha256() with path.open(“rb”) as f: while True: b = f.read(chunk_size) if not b: break h.update(b) return h.hexdigest()</p>
 <p>def is_hidden(path: Path) -&gt; bool: # Cross-platform-ish: dotfiles + Windows hidden attribute (best-effort) if path.name.startswith(“.”): return True if os.name == “nt”: try: import ctypes attrs = ctypes.windll.kernel32.GetFileAttributesW(str(path)) if attrs == -1: return False return bool(attrs &amp; 2) # FILE_ATTRIBUTE_HIDDEN except Exception: return False return False</p>
 <p>def discover_pdfs(root: Path) -&gt; List[Path]: pdfs: List[Path] = [] for p in root.rglob(“*.pdf”): if not INCLUDE_HIDDEN_FILES and is_hidden(p): continue pdfs.append(p) pdfs.sort() if MAX_PDFS is not None: pdfs = pdfs[:MAX_PDFS] return pdfs</p>
-<p># ————————— # Data models (lightweight) # —————————</p>
+</section>
+<section id="section-4" class="level1" data-number="28">
+<h1 data-number="28"><span class="header-section-number">28</span> —————————</h1>
+</section>
+<section id="data-models-lightweight" class="level1" data-number="29">
+<h1 data-number="29"><span class="header-section-number">29</span> Data models (lightweight)</h1>
+</section>
+<section id="section-5" class="level1" data-number="30">
+<h1 data-number="30"><span class="header-section-number">30</span> —————————</h1>
 <p><span class="citation" data-cites="dataclass">(<a href="ref-references.html#ref-dataclass" role="doc-biblioref"><strong>dataclass?</strong></a>)</span>(frozen=True) class FileManifestRow: run_id: str collected_at_utc: str source_root: str source_path: str source_relpath: str source_filename: str source_bytes: int source_modified_time_utc: str sha256: str</p>
 <p>def file_manifest_row(path: Path, source_root: Path, run_id: str) -&gt; FileManifestRow: st = path.stat() mtime = dt.datetime.fromtimestamp(st.st_mtime, tz=dt.timezone.utc).isoformat() return FileManifestRow( run_id=run_id, collected_at_utc=utc_now_iso(), source_root=str(source_root), source_path=str(path), source_relpath=str(path.relative_to(source_root)), source_filename=path.name, source_bytes=int(st.st_size), source_modified_time_utc=mtime, sha256=sha256_file(path), )</p>
-<p>def element_to_record( element: Any, *, run_id: str, document_sha256: str, source_path: str, source_relpath: str, ) -&gt; Dict[str, Any]: text = getattr(element, “text”, None) category = getattr(element, “category”, None) element_type = element.__class__.__name__</p>
-<pre><code>  md = getattr(element, "metadata", None)
-  md_dict: Dict[str, Any] = {}
-  if md is not None:
-      try:
-          md_dict = {k: v for k, v in vars(md).items() if v is not None}
-      except Exception:
-          md_dict = {"_metadata_repr": repr(md)}
+<p>def element_to_record( element: Any, *, run_id: str, document_sha256: str, source_path: str, source_relpath: str, ) -&gt; Dict[str, Any]: ““” Convert an unstructured element to a JSON-serializable record with strong provenance. ““” text = getattr(element, “text”, None) category = getattr(element, “category”, None) element_type = element.__class__.__name__</p>
+<pre><code>md = getattr(element, "metadata", None)
+md_dict: Dict[str, Any] = {}
+if md is not None:
+    try:
+        md_dict = {k: v for k, v in vars(md).items() if v is not None}
+    except Exception:
+        md_dict = {"_metadata_repr": repr(md)}
 
-  page_number = md_dict.get("page_number") or md_dict.get("page_number_start")
+page_number = md_dict.get("page_number") or md_dict.get("page_number_start")
 
-  document_id = f"sha256:{document_sha256}"
+document_id = f"sha256:{document_sha256}"
 
-  return {
-      "run_id": run_id,
-      "parsed_at_utc": utc_now_iso(),
+return {
+    "run_id": run_id,
+    "parsed_at_utc": utc_now_iso(),
 
-      "document_id": document_id,
-      "document_sha256": document_sha256,
-      "source_path": source_path,
-      "source_relpath": source_relpath,
+    "document_id": document_id,
+    "document_sha256": document_sha256,
+    "source_path": source_path,
+    "source_relpath": source_relpath,
 
-      "element_index": None,
-      "element_type": element_type,
-      "element_category": category,
+    "element_index": None,
+    "element_type": element_type,
+    "element_category": category,
 
-      "page_number": page_number,
+    "page_number": page_number,
 
-      "text": text,
+    "text": text,
 
-      "unstructured_metadata": md_dict,
-  }</code></pre>
-<p># ————————— # Main routine # —————————</p>
+    "unstructured_metadata": md_dict,
+}</code></pre>
+</section>
+<section id="section-6" class="level1" data-number="31">
+<h1 data-number="31"><span class="header-section-number">31</span> —————————</h1>
+</section>
+<section id="main-routine" class="level1" data-number="32">
+<h1 data-number="32"><span class="header-section-number">32</span> Main routine</h1>
+</section>
+<section id="section-7" class="level1" data-number="33">
+<h1 data-number="33"><span class="header-section-number">33</span> —————————</h1>
 <p>def _safe_import_version(pkg: str) -&gt; Optional[str]: try: mod = <strong>import</strong>(pkg) return getattr(mod, “<strong>version</strong>”, None) except Exception: return None</p>
 <p>def main() -&gt; None: if not SOURCE_ROOT.exists(): raise FileNotFoundError(f”SOURCE_ROOT does not exist: {SOURCE_ROOT}“)</p>
-<pre><code>  run_dir = OUTPUT_ROOT / RUN_ID
-  run_dir.mkdir(parents=True, exist_ok=False)
+<pre><code>run_dir = OUTPUT_ROOT / RUN_ID
+run_dir.mkdir(parents=True, exist_ok=False)
 
-  pdf_paths = discover_pdfs(SOURCE_ROOT)
-  if not pdf_paths:
-      raise RuntimeError(f"No PDFs found under: {SOURCE_ROOT}")
+pdf_paths = discover_pdfs(SOURCE_ROOT)
+if not pdf_paths:
+    raise RuntimeError(f"No PDFs found under: {SOURCE_ROOT}")
 
-  run_metadata = {
-      "run_id": RUN_ID,
-      "created_at_utc": utc_now_iso(),
-      "source_root": str(SOURCE_ROOT),
-      "output_dir": str(run_dir),
-      "python": sys.version,
-      "platform": {
-          "system": platform.system(),
-          "release": platform.release(),
-          "version": platform.version(),
-          "machine": platform.machine(),
-      },
-      "packages": {
-          "unstructured": _safe_import_version("unstructured"),
-          "pandas": _safe_import_version("pandas"),
-          "tqdm": _safe_import_version("tqdm"),
-      },
-      "assumptions": [
-          "PDFs that were scanned have already been OCR'd prior to ingestion.",
-          "No cloud APIs are required for parsing.",
-      ],
-  }
-  (run_dir / "run-metadata.json").write_text(json.dumps(run_metadata, indent=2), encoding="utf-8")
+run_metadata = {
+    "run_id": RUN_ID,
+    "created_at_utc": utc_now_iso(),
+    "source_root": str(SOURCE_ROOT),
+    "output_dir": str(run_dir),
+    "python": sys.version,
+    "platform": {
+        "system": platform.system(),
+        "release": platform.release(),
+        "version": platform.version(),
+        "machine": platform.machine(),
+    },
+    "packages": {
+        "unstructured": _safe_import_version("unstructured"),
+        "pandas": _safe_import_version("pandas"),
+        "tqdm": _safe_import_version("tqdm"),
+    },
+    "assumptions": [
+        "PDFs that were scanned have already been OCR'd prior to ingestion.",
+        "No cloud APIs are required for parsing.",
+    ],
+}
+(run_dir / "run-metadata.json").write_text(json.dumps(run_metadata, indent=2), encoding="utf-8")
 
-  manifest_rows: List[FileManifestRow] = []
-  for p in tqdm(pdf_paths, desc="Hashing PDFs"):
-      manifest_rows.append(file_manifest_row(p, SOURCE_ROOT, RUN_ID))
+manifest_rows: List[FileManifestRow] = []
+for p in tqdm(pdf_paths, desc="Hashing PDFs"):
+    manifest_rows.append(file_manifest_row(p, SOURCE_ROOT, RUN_ID))
 
-  manifest_df = pd.DataFrame([r.__dict__ for r in manifest_rows])
-  manifest_path = run_dir / "manifest.csv"
-  manifest_df.to_csv(manifest_path, index=False)
+manifest_df = pd.DataFrame([r.__dict__ for r in manifest_rows])
+manifest_path = run_dir / "manifest.csv"
+manifest_df.to_csv(manifest_path, index=False)
 
-  elements_path = run_dir / "elements.jsonl"
-  with elements_path.open("w", encoding="utf-8") as f:
-      for row in tqdm(manifest_rows, desc="Parsing PDFs"):
-          pdf_path = Path(row.source_path)
+elements_path = run_dir / "elements.jsonl"
+with elements_path.open("w", encoding="utf-8") as f:
+    for row in tqdm(manifest_rows, desc="Parsing PDFs"):
+        pdf_path = Path(row.source_path)
 
-          elements = partition_pdf(
-              filename=str(pdf_path),
-          )
+        elements = partition_pdf(
+            filename=str(pdf_path),
+        )
 
-          records = [
-              element_to_record(
-                  el,
-                  run_id=RUN_ID,
-                  document_sha256=row.sha256,
-                  source_path=row.source_path,
-                  source_relpath=row.source_relpath,
-              )
-              for el in elements
-          ]
+        records = [
+            element_to_record(
+                el,
+                run_id=RUN_ID,
+                document_sha256=row.sha256,
+                source_path=row.source_path,
+                source_relpath=row.source_relpath,
+            )
+            for el in elements
+        ]
 
-          for i, rec in enumerate(records):
-              rec["element_index"] = i
+        for i, rec in enumerate(records):
+            rec["element_index"] = i
 
-          for rec in records:
-              f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        for rec in records:
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
-  print(f"Done.\nRun directory: {run_dir}\nManifest: {manifest_path}\nElements: {elements_path}")</code></pre>
-<p>if <strong>name</strong> == “<strong>main</strong>”: main()</p></li>
-</ul>
+print(f"Done.\nRun directory: {run_dir}\nManifest: {manifest_path}\nElements: {elements_path}")</code></pre>
+<p>if <strong>name</strong> == “<strong>main</strong>”: main() ~~~~</p>
 <hr>
-</section>
-</section>
-<section id="verification-checklist-use-after-running-the-script" class="level2" data-number="17.5">
-<h2 data-number="17.5" class="anchored" data-anchor-id="verification-checklist-use-after-running-the-script"><span class="header-section-number">17.5</span> Verification checklist (use after running the script)</h2>
+<section id="verification-checklist-use-after-running-the-script" class="level2" data-number="33.1">
+<h2 data-number="33.1" class="anchored" data-anchor-id="verification-checklist-use-after-running-the-script"><span class="header-section-number">33.1</span> Verification checklist (use after running the script)</h2>
 <section id="parse-validity" class="level3">
 <h3 class="anchored" data-anchor-id="parse-validity">Parse validity</h3>
 <ul class="task-list">
@@ -816,11 +912,12 @@ python -m pip install "unstructured[pdf]" pandas tqdm</code></pre>
 <hr>
 </section>
 </section>
-<section id="next-page" class="level2" data-number="17.6">
-<h2 data-number="17.6" class="anchored" data-anchor-id="next-page"><span class="header-section-number">17.6</span> Next page</h2>
+<section id="next-page" class="level2" data-number="33.2">
+<h2 data-number="33.2" class="anchored" data-anchor-id="next-page"><span class="header-section-number">33.2</span> Next page</h2>
 <p>Once PDFs are parsed to structured elements and validated, proceed to: <strong>Semantic Chunking</strong> (<code>fnd-chunking.qmd</code>).</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

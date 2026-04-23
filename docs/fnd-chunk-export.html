@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>fnd-chunk-export – MVR Geospatial Data Science User Guide</title>
+<title>19&nbsp; Exporting Chunks (Gemini JSONL + Foundry Parquet) – MVR Geospatial Data Science User Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -255,7 +255,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-tag-documents.html">Foundry Workflows</a></li><li class="breadcrumb-item"><a href="./fnd-chunk-export.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">fnd-chunk-export.html</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-tag-documents.html">Foundry Workflows</a></li><li class="breadcrumb-item"><a href="./fnd-chunk-export.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exporting Chunks (Gemini JSONL + Foundry Parquet)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -470,13 +470,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fnd-chunking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chunking</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Semantic Chunking</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fnd-chunk-export.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">fnd-chunk-export.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exporting Chunks (Gemini JSONL + Foundry Parquet)</span></span></a>
   </div>
 </li>
       </ul>
@@ -503,16 +503,445 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#concepts" id="toc-concepts" class="nav-link active" data-scroll-target="#concepts"><span class="header-section-number">19.1</span> Concepts</a>
+  <ul class="collapse">
+  <li><a href="#why-we-standardize-export-formats" id="toc-why-we-standardize-export-formats" class="nav-link" data-scroll-target="#why-we-standardize-export-formats">Why we standardize export formats</a></li>
+  <li><a href="#gemini-vs.-foundry-what-were-optimizing-for" id="toc-gemini-vs.-foundry-what-were-optimizing-for" class="nav-link" data-scroll-target="#gemini-vs.-foundry-what-were-optimizing-for">Gemini vs.&nbsp;Foundry: what we’re optimizing for</a></li>
+  <li><a href="#export-is-not-transformation" id="toc-export-is-not-transformation" class="nav-link" data-scroll-target="#export-is-not-transformation">“Export is not transformation”</a></li>
+  <li><a href="#source-provenance-must-remain-first-class" id="toc-source-provenance-must-remain-first-class" class="nav-link" data-scroll-target="#source-provenance-must-remain-first-class">Source provenance must remain first-class</a></li>
+  </ul></li>
+  <li><a href="#export-schemas-recommended" id="toc-export-schemas-recommended" class="nav-link" data-scroll-target="#export-schemas-recommended"><span class="header-section-number">19.2</span> Export schemas (recommended)</a>
+  <ul class="collapse">
+  <li><a href="#baseline-chunk-record-source-of-truth" id="toc-baseline-chunk-record-source-of-truth" class="nav-link" data-scroll-target="#baseline-chunk-record-source-of-truth">Baseline chunk record (source of truth)</a></li>
+  <li><a href="#gemini-jsonl-export-recommended-structure" id="toc-gemini-jsonl-export-recommended-structure" class="nav-link" data-scroll-target="#gemini-jsonl-export-recommended-structure">Gemini JSONL export (recommended structure)</a></li>
+  <li><a href="#foundry-parquet-export-recommended-structure" id="toc-foundry-parquet-export-recommended-structure" class="nav-link" data-scroll-target="#foundry-parquet-export-recommended-structure">Foundry Parquet export (recommended structure)</a></li>
+  </ul></li>
+  <li><a href="#workflow-overview" id="toc-workflow-overview" class="nav-link" data-scroll-target="#workflow-overview"><span class="header-section-number">19.3</span> Workflow overview</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">19.4</span> Prerequisites</a></li>
+  <li><a href="#runnable-script-export-jsonl-gemini-parquet-foundry" id="toc-runnable-script-export-jsonl-gemini-parquet-foundry" class="nav-link" data-scroll-target="#runnable-script-export-jsonl-gemini-parquet-foundry"><span class="header-section-number">19.5</span> Runnable script: export JSONL (Gemini) + Parquet (Foundry)</a>
+  <ul class="collapse">
+  <li><a href="#what-this-script-does" id="toc-what-this-script-does" class="nav-link" data-scroll-target="#what-this-script-does">What this script does</a></li>
+  <li><a href="#script" id="toc-script" class="nav-link" data-scroll-target="#script">Script</a></li>
+  </ul></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">20</span> —————————</a></li>
+  <li><a href="#configuration-edit-these" id="toc-configuration-edit-these" class="nav-link" data-scroll-target="#configuration-edit-these"><span class="header-section-number">21</span> Configuration (edit these)</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"><span class="header-section-number">22</span> —————————</a></li>
+  <li><a href="#output-filenames" id="toc-output-filenames" class="nav-link" data-scroll-target="#output-filenames"><span class="header-section-number">23</span> Output filenames</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"><span class="header-section-number">24</span> —————————</a></li>
+  <li><a href="#helpers" id="toc-helpers" class="nav-link" data-scroll-target="#helpers"><span class="header-section-number">25</span> Helpers</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"><span class="header-section-number">26</span> —————————</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"><span class="header-section-number">27</span> —————————</a></li>
+  <li><a href="#export-transforms" id="toc-export-transforms" class="nav-link" data-scroll-target="#export-transforms"><span class="header-section-number">28</span> Export transforms</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"><span class="header-section-number">29</span> —————————</a>
+  <ul class="collapse">
+  <li><a href="#verification-checklist-release-blockers" id="toc-verification-checklist-release-blockers" class="nav-link" data-scroll-target="#verification-checklist-release-blockers"><span class="header-section-number">29.1</span> Verification checklist (release blockers)</a>
+  <ul class="collapse">
+  <li><a href="#row-counts-match-lossless-export" id="toc-row-counts-match-lossless-export" class="nav-link" data-scroll-target="#row-counts-match-lossless-export">1) Row counts match (lossless export)</a></li>
+  <li><a href="#provenance-fields-preserved" id="toc-provenance-fields-preserved" class="nav-link" data-scroll-target="#provenance-fields-preserved">2) Provenance fields preserved</a></li>
+  <li><a href="#jsonl-validity" id="toc-jsonl-validity" class="nav-link" data-scroll-target="#jsonl-validity">3) JSONL validity</a></li>
+  <li><a href="#parquet-schema-review" id="toc-parquet-schema-review" class="nav-link" data-scroll-target="#parquet-schema-review">4) Parquet schema review</a></li>
+  </ul></li>
+  <li><a href="#operational-guidance-platform-flexibility" id="toc-operational-guidance-platform-flexibility" class="nav-link" data-scroll-target="#operational-guidance-platform-flexibility"><span class="header-section-number">29.2</span> Operational guidance (platform flexibility)</a>
+  <ul class="collapse">
+  <li><a href="#importing-into-gemini-workflows" id="toc-importing-into-gemini-workflows" class="nav-link" data-scroll-target="#importing-into-gemini-workflows">Importing into Gemini workflows</a></li>
+  <li><a href="#importing-into-foundry-army-vantage" id="toc-importing-into-foundry-army-vantage" class="nav-link" data-scroll-target="#importing-into-foundry-army-vantage">Importing into Foundry / Army Vantage</a></li>
+  </ul></li>
+  <li><a href="#definition-of-done-for-export-work" id="toc-definition-of-done-for-export-work" class="nav-link" data-scroll-target="#definition-of-done-for-export-work"><span class="header-section-number">29.3</span> Definition of done (for export work)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-tag-documents.html">Foundry Workflows</a></li><li class="breadcrumb-item"><a href="./fnd-chunk-export.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">fnd-chunk-export.html</span></a></li></ol></nav></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-tag-documents.html">Foundry Workflows</a></li><li class="breadcrumb-item"><a href="./fnd-chunk-export.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exporting Chunks (Gemini JSONL + Foundry Parquet)</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exporting Chunks (Gemini JSONL + Foundry Parquet)</span></h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<section id="concepts" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="concepts"><span class="header-section-number">19.1</span> Concepts</h2>
+<section id="why-we-standardize-export-formats" class="level3">
+<h3 class="anchored" data-anchor-id="why-we-standardize-export-formats">Why we standardize export formats</h3>
+<p>Different enterprise platforms ingest and index text differently, but the governance requirement is the same:</p>
+<ul>
+<li>the <strong>exact source</strong> must be traceable,</li>
+<li>outputs must be <strong>reviewable</strong> and <strong>reproducible</strong>,</li>
+<li>and the exported dataset must support <strong>audit and reprocessing</strong>.</li>
+</ul>
+<p>Standardizing on a platform-neutral chunk record (the output of <code>fnd-chunking.qmd</code>) gives us a stable “source of truth”. From there, we generate platform-specific exports without changing the underlying meaning or provenance.</p>
+</section>
+<section id="gemini-vs.-foundry-what-were-optimizing-for" class="level3">
+<h3 class="anchored" data-anchor-id="gemini-vs.-foundry-what-were-optimizing-for">Gemini vs.&nbsp;Foundry: what we’re optimizing for</h3>
+<ul>
+<li><strong>Gemini Enterprise</strong> workflows often benefit from <strong>JSONL</strong> because:
+<ul>
+<li>it is line-delimited and stream-friendly,</li>
+<li>easy to generate and inspect,</li>
+<li>common in model ingestion pipelines.</li>
+</ul></li>
+<li><strong>Palantir Foundry / Army Vantage</strong> workflows often benefit from <strong>Parquet</strong> because:
+<ul>
+<li>columnar storage is efficient for analytics and indexing,</li>
+<li>schema is explicit and enforced,</li>
+<li>it is commonly used for Foundry datasets and pipelines.</li>
+</ul></li>
+</ul>
+</section>
+<section id="export-is-not-transformation" class="level3">
+<h3 class="anchored" data-anchor-id="export-is-not-transformation">“Export is not transformation”</h3>
+<p>Exports should be <strong>lossless</strong> with respect to: - document identity (<code>document_sha256</code>, <code>document_id</code>) - location/provenance pointers (page range, element span) - audit fields (run IDs, tool versions, parameters) - chunk content (<code>text</code>)</p>
+<p>Any platform-specific reshaping should be: - mechanical (renaming fields, adding nested structure), and - fully documented and reproducible.</p>
+</section>
+<section id="source-provenance-must-remain-first-class" class="level3">
+<h3 class="anchored" data-anchor-id="source-provenance-must-remain-first-class">Source provenance must remain first-class</h3>
+<p>Exports must preserve the ability to answer, for any retrieved chunk:</p>
+<ol type="1">
+<li><strong>Which file/version?</strong> (sha256)</li>
+<li><strong>Where in the file?</strong> (page range, element span)</li>
+<li><strong>Which processing run and policy?</strong> (run metadata + parameters)</li>
+</ol>
+<p>If a target platform cannot ingest certain metadata directly, we still export it as fields so it can be stored alongside the content or referenced externally.</p>
+<hr>
+</section>
+</section>
+<section id="export-schemas-recommended" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="export-schemas-recommended"><span class="header-section-number">19.2</span> Export schemas (recommended)</h2>
+<section id="baseline-chunk-record-source-of-truth" class="level3">
+<h3 class="anchored" data-anchor-id="baseline-chunk-record-source-of-truth">Baseline chunk record (source of truth)</h3>
+<p>We assume input chunks come from <code>chunks.jsonl</code> as produced by <code>fnd-chunking.qmd</code>.</p>
+<p>At minimum, each record includes:</p>
+<ul>
+<li>Document provenance: <code>document_sha256</code>, <code>source_relpath</code>, <code>source_path</code></li>
+<li>Location pointers: <code>page_number_min</code>, <code>page_number_max</code>, <code>element_index_start</code>, <code>element_index_end</code></li>
+<li>Chunk identity: <code>chunk_id</code>, <code>chunk_index</code></li>
+<li>Content: <code>text</code></li>
+<li>Audit: <code>run_id</code>, <code>pipeline_version</code>, <code>semantic_chunker_params</code>, <code>software_versions</code></li>
+</ul>
+</section>
+<section id="gemini-jsonl-export-recommended-structure" class="level3">
+<h3 class="anchored" data-anchor-id="gemini-jsonl-export-recommended-structure">Gemini JSONL export (recommended structure)</h3>
+<p>Because “Gemini ingestion” can vary by organization and toolchain, we recommend a conservative, flexible JSON object per line:</p>
+<ul>
+<li><code>id</code> (use <code>chunk_id</code>)</li>
+<li><code>text</code></li>
+<li><code>metadata</code> object containing all provenance and audit fields</li>
+</ul>
+<p>Example (one line per chunk):</p>
+<pre><code>{"id":"&lt;chunk_id&gt;","text":"...","metadata":{...}}</code></pre>
+<p>This keeps the chunk content and provenance together while remaining broadly compatible with JSON-based pipelines.</p>
+</section>
+<section id="foundry-parquet-export-recommended-structure" class="level3">
+<h3 class="anchored" data-anchor-id="foundry-parquet-export-recommended-structure">Foundry Parquet export (recommended structure)</h3>
+<p>For Foundry, keep a flat, typed table with columns such as:</p>
+<ul>
+<li><code>chunk_id</code> (string)</li>
+<li><code>document_sha256</code> (string)</li>
+<li><code>source_relpath</code> (string)</li>
+<li><code>page_number_min</code> (int)</li>
+<li><code>page_number_max</code> (int)</li>
+<li><code>element_index_start</code> (int)</li>
+<li><code>element_index_end</code> (int)</li>
+<li><code>chunk_index</code> (int)</li>
+<li><code>text</code> (string)</li>
+<li><code>char_count</code> (int)</li>
+<li><code>approx_token_count</code> (int)</li>
+<li><code>run_id</code> (string)</li>
+<li><code>chunked_at_utc</code> (timestamp-like string)</li>
+<li><code>pipeline_version</code> (string)</li>
+<li><code>embedding_model_name</code> (string)</li>
+<li><code>semantic_chunker_params_json</code> (string JSON)</li>
+<li><code>software_versions_json</code> (string JSON)</li>
+<li><code>qa_flags</code> (string[] or JSON string depending on downstream tooling)</li>
+</ul>
+<p>This structure is analytics-friendly and plays well with schema enforcement.</p>
+<hr>
+</section>
+</section>
+<section id="workflow-overview" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="workflow-overview"><span class="header-section-number">19.3</span> Workflow overview</h2>
+<p>Inputs: - <code>runs/&lt;chunk_run&gt;/chunks.jsonl</code> - <code>runs/&lt;chunk_run&gt;/chunk-run-metadata.json</code> (recommended to retain)</p>
+<p>Outputs: - <code>gemini/chunks.jsonl</code> (Gemini-friendly JSONL) - <code>foundry/chunks.parquet</code> (Foundry-friendly Parquet) - <code>export-run-metadata.json</code> (audit trail)</p>
+<hr>
+</section>
+<section id="prerequisites" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">19.4</span> Prerequisites</h2>
+<p>Python packages: - <code>pandas</code> - <code>pyarrow</code> (required for Parquet) - <code>tqdm</code> (optional)</p>
+<p>Installation (example): ~<del>bash python -m pip install pandas pyarrow tqdm</del>~</p>
+<hr>
+</section>
+<section id="runnable-script-export-jsonl-gemini-parquet-foundry" class="level2" data-number="19.5">
+<h2 data-number="19.5" class="anchored" data-anchor-id="runnable-script-export-jsonl-gemini-parquet-foundry"><span class="header-section-number">19.5</span> Runnable script: export JSONL (Gemini) + Parquet (Foundry)</h2>
+<section id="what-this-script-does" class="level3">
+<h3 class="anchored" data-anchor-id="what-this-script-does">What this script does</h3>
+<ul>
+<li>Reads <code>chunks.jsonl</code></li>
+<li>Writes:
+<ul>
+<li><code>exports/&lt;RUN_ID&gt;/gemini/chunks.jsonl</code></li>
+<li><code>exports/&lt;RUN_ID&gt;/foundry/chunks.parquet</code></li>
+</ul></li>
+<li>Writes <code>export-run-metadata.json</code> to document:
+<ul>
+<li>inputs</li>
+<li>export schema decisions</li>
+<li>tool versions</li>
+</ul></li>
+</ul>
+</section>
+<section id="script" class="level3">
+<h3 class="anchored" data-anchor-id="script">Script</h3>
+<p>~~~{python} # Save as scripts/export_chunks.py and run: # python scripts/export_chunks.py # # Assumes you have already generated chunks.jsonl via fnd-chunking.qmd.</p>
+<p>from <strong>future</strong> import annotations</p>
+<p>import datetime as dt import json import platform import sys from pathlib import Path from typing import Any, Dict, List, Optional</p>
+<p>import pandas as pd from tqdm import tqdm</p>
+</section>
+</section>
+<section id="section" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> —————————</h1>
+</section>
+<section id="configuration-edit-these" class="level1" data-number="21">
+<h1 data-number="21"><span class="header-section-number">21</span> Configuration (edit these)</h1>
+</section>
+<section id="section-1" class="level1" data-number="22">
+<h1 data-number="22"><span class="header-section-number">22</span> —————————</h1>
+<p>CHUNK_RUN_DIR = Path(r”CHANGE_ME\2026-04-23_semantic-chunk”).resolve()</p>
+<p>OUTPUT_ROOT = Path(“exports”).resolve() RUN_ID = f”{dt.datetime.utcnow().date().isoformat()}_chunk-export”</p>
+</section>
+<section id="output-filenames" class="level1" data-number="23">
+<h1 data-number="23"><span class="header-section-number">23</span> Output filenames</h1>
+<p>GEMINI_JSONL_NAME = “chunks.jsonl” FOUNDRY_PARQUET_NAME = “chunks.parquet”</p>
+</section>
+<section id="section-2" class="level1" data-number="24">
+<h1 data-number="24"><span class="header-section-number">24</span> —————————</h1>
+</section>
+<section id="helpers" class="level1" data-number="25">
+<h1 data-number="25"><span class="header-section-number">25</span> Helpers</h1>
+</section>
+<section id="section-3" class="level1" data-number="26">
+<h1 data-number="26"><span class="header-section-number">26</span> —————————</h1>
+<p>def utc_now_iso() -&gt; str: return dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc).isoformat()</p>
+<p>def _safe_import_version(pkg: str) -&gt; Optional[str]: try: mod = <strong>import</strong>(pkg) return getattr(mod, “<strong>version</strong>”, None) except Exception: return None</p>
+<p>def load_jsonl(path: Path) -&gt; List[Dict[str, Any]]: rows: List[Dict[str, Any]] = [] with path.open(“r”, encoding=“utf-8”) as f: for line in f: line = line.strip() if not line: continue rows.append(json.loads(line)) return rows</p>
+</section>
+<section id="section-4" class="level1" data-number="27">
+<h1 data-number="27"><span class="header-section-number">27</span> —————————</h1>
+</section>
+<section id="export-transforms" class="level1" data-number="28">
+<h1 data-number="28"><span class="header-section-number">28</span> Export transforms</h1>
+</section>
+<section id="section-5" class="level1" data-number="29">
+<h1 data-number="29"><span class="header-section-number">29</span> —————————</h1>
+<p>def to_gemini_jsonl_record(chunk: Dict[str, Any]) -&gt; Dict[str, Any]: ““” Gemini-friendly JSONL record. Conservative structure: - id: chunk_id - text: chunk text - metadata: everything else ““” chunk_id = chunk.get(“chunk_id”) text = chunk.get(“text”)</p>
+<pre><code># Keep provenance and audit fields together, but exclude the main text.
+metadata = {k: v for k, v in chunk.items() if k not in ("text",)}
+
+return {
+    "id": chunk_id,
+    "text": text,
+    "metadata": metadata,
+}</code></pre>
+<p>def flatten_for_foundry(chunk: Dict[str, Any]) -&gt; Dict[str, Any]: ““” Flatten nested dict fields into JSON strings for columnar storage. Keeps table schema stable and explicit. ““” out = dict(chunk)</p>
+<pre><code># Normalize nested objects to JSON strings for Parquet friendliness
+if isinstance(out.get("semantic_chunker_params"), dict):
+    out["semantic_chunker_params_json"] = json.dumps(out["semantic_chunker_params"], ensure_ascii=False, sort_keys=True)
+    del out["semantic_chunker_params"]
+
+if isinstance(out.get("software_versions"), dict):
+    out["software_versions_json"] = json.dumps(out["software_versions"], ensure_ascii=False, sort_keys=True)
+    del out["software_versions"]
+
+# Normalize qa_flags: keep list if you want list-typed parquet,
+# or encode as JSON if downstream tooling prefers strings only.
+# Here we keep list if present; pyarrow can store list&lt;string&gt;.
+# If you prefer string: uncomment JSON conversion.
+#
+# if isinstance(out.get("qa_flags"), list):
+#     out["qa_flags_json"] = json.dumps(out["qa_flags"], ensure_ascii=False)
+#     del out["qa_flags"]
+
+return out</code></pre>
+<p>def main() -&gt; None: chunks_path = CHUNK_RUN_DIR / “chunks.jsonl” chunk_run_meta_path = CHUNK_RUN_DIR / “chunk-run-metadata.json”</p>
+<pre><code>for p in [chunks_path, chunk_run_meta_path]:
+    if not p.exists():
+        raise FileNotFoundError(f"Missing expected input: {p}")
+
+export_dir = OUTPUT_ROOT / RUN_ID
+gemini_dir = export_dir / "gemini"
+foundry_dir = export_dir / "foundry"
+gemini_dir.mkdir(parents=True, exist_ok=False)
+foundry_dir.mkdir(parents=True, exist_ok=False)
+
+# Read chunks
+chunks = load_jsonl(chunks_path)
+if not chunks:
+    raise RuntimeError(f"No chunks found in: {chunks_path}")
+
+# Write export run metadata (audit trail)
+export_run_meta = {
+    "run_id": RUN_ID,
+    "created_at_utc": utc_now_iso(),
+    "inputs": {
+        "chunk_run_dir": str(CHUNK_RUN_DIR),
+        "chunks_jsonl": str(chunks_path),
+        "chunk_run_metadata": str(chunk_run_meta_path),
+    },
+    "outputs": {
+        "gemini_jsonl": str(gemini_dir / GEMINI_JSONL_NAME),
+        "foundry_parquet": str(foundry_dir / FOUNDRY_PARQUET_NAME),
+    },
+    "packages": {
+        "pandas": _safe_import_version("pandas"),
+        "pyarrow": _safe_import_version("pyarrow"),
+        "tqdm": _safe_import_version("tqdm"),
+    },
+    "export_policies": {
+        "gemini_jsonl_structure": {"id": "chunk_id", "text": "text", "metadata": "all_other_fields"},
+        "foundry_parquet_flattening": [
+            "semantic_chunker_params -&gt; semantic_chunker_params_json",
+            "software_versions -&gt; software_versions_json",
+        ],
+        "losslessness_goal": "Do not drop provenance/audit fields; only reshape.",
+    },
+}
+(export_dir / "export-run-metadata.json").write_text(json.dumps(export_run_meta, indent=2), encoding="utf-8")
+
+# 1) Gemini JSONL
+gemini_out_path = gemini_dir / GEMINI_JSONL_NAME
+with gemini_out_path.open("w", encoding="utf-8") as f:
+    for c in tqdm(chunks, desc="Writing Gemini JSONL"):
+        rec = to_gemini_jsonl_record(c)
+        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+
+# 2) Foundry Parquet
+flat_rows = [flatten_for_foundry(c) for c in chunks]
+df = pd.DataFrame(flat_rows)
+
+# Optional: enforce column ordering (helps reviewers)
+preferred_cols = [
+    "chunk_id",
+    "document_sha256",
+    "document_id",
+    "source_relpath",
+    "source_path",
+    "chunk_index",
+    "text",
+    "page_number_min",
+    "page_number_max",
+    "element_index_start",
+    "element_index_end",
+    "element_count",
+    "char_count",
+    "approx_token_count",
+    "run_id",
+    "chunked_at_utc",
+    "pipeline_stage",
+    "pipeline_version",
+    "embedding_model_name",
+    "semantic_chunker_params_json",
+    "software_versions_json",
+    "qa_flags",
+]
+cols = [c for c in preferred_cols if c in df.columns] + [c for c in df.columns if c not in preferred_cols]
+df = df[cols]
+
+foundry_out_path = foundry_dir / FOUNDRY_PARQUET_NAME
+df.to_parquet(foundry_out_path, index=False)
+
+print("Done.")
+print(f"Export directory: {export_dir}")
+print(f"Gemini JSONL: {gemini_out_path}")
+print(f"Foundry Parquet: {foundry_out_path}")</code></pre>
+<p>if <strong>name</strong> == “<strong>main</strong>”: main() ~~~</p>
+<hr>
+<section id="verification-checklist-release-blockers" class="level2" data-number="29.1">
+<h2 data-number="29.1" class="anchored" data-anchor-id="verification-checklist-release-blockers"><span class="header-section-number">29.1</span> Verification checklist (release blockers)</h2>
+<section id="row-counts-match-lossless-export" class="level3">
+<h3 class="anchored" data-anchor-id="row-counts-match-lossless-export">1) Row counts match (lossless export)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Number of lines in <code>chunks.jsonl</code> equals number of lines in <code>exports/.../gemini/chunks.jsonl</code>.</label></li>
+<li><label><input type="checkbox">Parquet row count equals chunk count.</label></li>
+</ul>
+</section>
+<section id="provenance-fields-preserved" class="level3">
+<h3 class="anchored" data-anchor-id="provenance-fields-preserved">2) Provenance fields preserved</h3>
+<p>For a sample of rows/records, verify the following are present and consistent:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><code>chunk_id</code></label></li>
+<li><label><input type="checkbox"><code>document_sha256</code></label></li>
+<li><label><input type="checkbox"><code>source_relpath</code> (and optionally <code>source_path</code>)</label></li>
+<li><label><input type="checkbox"><code>page_number_min</code>, <code>page_number_max</code> (when available)</label></li>
+<li><label><input type="checkbox"><code>run_id</code>, <code>pipeline_version</code></label></li>
+</ul>
+</section>
+<section id="jsonl-validity" class="level3">
+<h3 class="anchored" data-anchor-id="jsonl-validity">3) JSONL validity</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Each line in Gemini JSONL is valid JSON (no trailing commas, no multi-line records).</label></li>
+<li><label><input type="checkbox"><code>metadata</code> contains document provenance and audit fields.</label></li>
+</ul>
+</section>
+<section id="parquet-schema-review" class="level3">
+<h3 class="anchored" data-anchor-id="parquet-schema-review">4) Parquet schema review</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><code>semantic_chunker_params_json</code> and <code>software_versions_json</code> are valid JSON strings.</label></li>
+<li><label><input type="checkbox"><code>text</code> is stored as a string column.</label></li>
+<li><label><input type="checkbox">No unintended nulling of required fields.</label></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="operational-guidance-platform-flexibility" class="level2" data-number="29.2">
+<h2 data-number="29.2" class="anchored" data-anchor-id="operational-guidance-platform-flexibility"><span class="header-section-number">29.2</span> Operational guidance (platform flexibility)</h2>
+<section id="importing-into-gemini-workflows" class="level3">
+<h3 class="anchored" data-anchor-id="importing-into-gemini-workflows">Importing into Gemini workflows</h3>
+<p>Because Gemini Enterprise ingestion pipelines differ by tenant configuration, we recommend keeping the JSONL format conservative:</p>
+<ul>
+<li><code>id</code> for stable chunk identity</li>
+<li><code>text</code> for chunk content</li>
+<li><code>metadata</code> for everything needed to cite and audit</li>
+</ul>
+<p>If a Gemini workflow requires a different shape (e.g., specific keys like <code>document</code>, <code>uri</code>, or <code>source</code>), add a <em>thin export adapter</em> that reshapes fields without dropping provenance.</p>
+</section>
+<section id="importing-into-foundry-army-vantage" class="level3">
+<h3 class="anchored" data-anchor-id="importing-into-foundry-army-vantage">Importing into Foundry / Army Vantage</h3>
+<p>Foundry typically ingests Parquet cleanly and allows: - filtering by provenance fields, - joining back to other datasets (e.g., document catalog), - enforcing schema consistency in pipelines.</p>
+<p>Treat <code>document_sha256</code> as the primary join key back to the document manifest and any higher-level document registry.</p>
+<hr>
+</section>
+</section>
+<section id="definition-of-done-for-export-work" class="level2" data-number="29.3">
+<h2 data-number="29.3" class="anchored" data-anchor-id="definition-of-done-for-export-work"><span class="header-section-number">29.3</span> Definition of done (for export work)</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Exports are generated reproducibly from chunk source-of-truth.</label></li>
+<li><label><input type="checkbox">Provenance and audit fields are preserved (no “orphan” content).</label></li>
+<li><label><input type="checkbox">Verification checks pass (counts, schema, sample inspection).</label></li>
+<li><label><input type="checkbox">Export run metadata is written and stored alongside outputs.</label></li>
+</ul>
+
+
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
