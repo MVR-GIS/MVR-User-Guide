@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -343,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./repo-create-generic-python-repo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create a Generic Python Repo (Windows GFE)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create a Generic Python Repo</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -556,6 +521,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#python-packages" id="toc-python-packages" class="nav-link" data-scroll-target="#python-packages">Python packages</a></li>
   <li><a href="#installation-example" id="toc-installation-example" class="nav-link" data-scroll-target="#installation-example">Installation (example)</a></li>
   </ul></li>
+  <li><a href="#runnable-script-pdf-inventory-parsing-jsonl-outputs" id="toc-runnable-script-pdf-inventory-parsing-jsonl-outputs" class="nav-link" data-scroll-target="#runnable-script-pdf-inventory-parsing-jsonl-outputs"><span class="header-section-number">17.4</span> Runnable script: PDF inventory + parsing + JSONL outputs</a>
+  <ul class="collapse">
+  <li><a href="#what-this-script-produces" id="toc-what-this-script-produces" class="nav-link" data-scroll-target="#what-this-script-produces">What this script produces</a></li>
+  <li><a href="#how-to-run" id="toc-how-to-run" class="nav-link" data-scroll-target="#how-to-run">How to run</a></li>
+  </ul></li>
+  <li><a href="#verification-checklist-use-after-running-the-script" id="toc-verification-checklist-use-after-running-the-script" class="nav-link" data-scroll-target="#verification-checklist-use-after-running-the-script"><span class="header-section-number">17.5</span> Verification checklist (use after running the script)</a>
+  <ul class="collapse">
+  <li><a href="#parse-validity" id="toc-parse-validity" class="nav-link" data-scroll-target="#parse-validity">Parse validity</a></li>
+  <li><a href="#provenance-completeness-minimum-release-blockers" id="toc-provenance-completeness-minimum-release-blockers" class="nav-link" data-scroll-target="#provenance-completeness-minimum-release-blockers">Provenance completeness (minimum release blockers)</a></li>
+  <li><a href="#sampling-based-qa-recommended" id="toc-sampling-based-qa-recommended" class="nav-link" data-scroll-target="#sampling-based-qa-recommended">Sampling-based QA (recommended)</a></li>
+  </ul></li>
+  <li><a href="#next-page" id="toc-next-page" class="nav-link" data-scroll-target="#next-page"><span class="header-section-number">17.6</span> Next page</a></li>
   </ul>
 </nav>
     </div>
@@ -658,17 +635,192 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="installation-example" class="level3">
 <h3 class="anchored" data-anchor-id="installation-example">Installation (example)</h3>
 <p>Create and activate a virtual environment, then install dependencies:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv .venv</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows PowerShell:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># .\.venv\Scripts\Activate.ps1</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># macOS/Linux:</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># source .venv/bin/activate</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="st">"unstructured[pdf]"</span> pandas tqdm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>python -m venv .venv
+# Windows PowerShell:
+# .\.venv\Scripts\Activate.ps1
+# macOS/Linux:
+# source .venv/bin/activate
 
-
+python -m pip install --upgrade pip
+python -m pip install "unstructured[pdf]" pandas tqdm</code></pre>
+<blockquote class="blockquote">
+<p>Assumption for this guide: PDFs that were originally scanned have already been OCR’d before they enter this workflow.</p>
+</blockquote>
+<hr>
 </section>
+</section>
+<section id="runnable-script-pdf-inventory-parsing-jsonl-outputs" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="runnable-script-pdf-inventory-parsing-jsonl-outputs"><span class="header-section-number">17.4</span> Runnable script: PDF inventory + parsing + JSONL outputs</h2>
+<section id="what-this-script-produces" class="level3">
+<h3 class="anchored" data-anchor-id="what-this-script-produces">What this script produces</h3>
+<p>For each run, it creates a run folder with:</p>
+<ul>
+<li><code>manifest.csv</code> — one row per PDF (file-level provenance)</li>
+<li><code>elements.jsonl</code> — one JSON object per extracted element (element-level provenance)</li>
+<li><code>run-metadata.json</code> — run info + tool versions (audit trail)</li>
+</ul>
+</section>
+<section id="how-to-run" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-run">How to run</h3>
+<ul>
+<li><p>Set <code>SOURCE_ROOT</code> to the folder containing PDFs (nested folders OK).</p></li>
+<li><p>Run the script.</p></li>
+<li><p>Inspect outputs and perform verification checks below.</p>
+<p># Save this as scripts/parse_pdfs_unstructured.py (recommended) and run: # python scripts/parse_pdfs_unstructured.py # # Or copy/paste into a notebook for an initial trial.</p>
+<p>from <strong>future</strong> import annotations</p>
+<p>import datetime as dt import hashlib import json import os import platform import sys from dataclasses import dataclass from pathlib import Path from typing import Any, Dict, List, Optional</p>
+<p>import pandas as pd from tqdm import tqdm</p>
+<p>from unstructured.partition.pdf import partition_pdf</p>
+<p># ————————— # Configuration (edit these) # —————————</p>
+<p># Root folder containing PDFs in nested directories SOURCE_ROOT = Path(r”CHANGE_ME“).expanduser().resolve()</p>
+<p># Where outputs will be written OUTPUT_ROOT = Path(“runs”).resolve()</p>
+<p># Give each run a stable identifier (recommend: YYYY-MM-DD + short purpose) RUN_ID = f”{dt.datetime.utcnow().date().isoformat()}_pdf-parse”</p>
+<p># Controls INCLUDE_HIDDEN_FILES = False MAX_PDFS: Optional[int] = None # set e.g.&nbsp;50 for a quick test, else None</p>
+<p># ————————— # Provenance helpers # —————————</p>
+<p>def utc_now_iso() -&gt; str: return dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc).isoformat()</p>
+<p>def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -&gt; str: “““Compute SHA-256 over raw bytes (critical for version traceability).”“” h = hashlib.sha256() with path.open(“rb”) as f: while True: b = f.read(chunk_size) if not b: break h.update(b) return h.hexdigest()</p>
+<p>def is_hidden(path: Path) -&gt; bool: # Cross-platform-ish: dotfiles + Windows hidden attribute (best-effort) if path.name.startswith(“.”): return True if os.name == “nt”: try: import ctypes attrs = ctypes.windll.kernel32.GetFileAttributesW(str(path)) if attrs == -1: return False return bool(attrs &amp; 2) # FILE_ATTRIBUTE_HIDDEN except Exception: return False return False</p>
+<p>def discover_pdfs(root: Path) -&gt; List[Path]: pdfs: List[Path] = [] for p in root.rglob(“*.pdf”): if not INCLUDE_HIDDEN_FILES and is_hidden(p): continue pdfs.append(p) pdfs.sort() if MAX_PDFS is not None: pdfs = pdfs[:MAX_PDFS] return pdfs</p>
+<p># ————————— # Data models (lightweight) # —————————</p>
+<p><span class="citation" data-cites="dataclass">(<a href="ref-references.html#ref-dataclass" role="doc-biblioref"><strong>dataclass?</strong></a>)</span>(frozen=True) class FileManifestRow: run_id: str collected_at_utc: str source_root: str source_path: str source_relpath: str source_filename: str source_bytes: int source_modified_time_utc: str sha256: str</p>
+<p>def file_manifest_row(path: Path, source_root: Path, run_id: str) -&gt; FileManifestRow: st = path.stat() mtime = dt.datetime.fromtimestamp(st.st_mtime, tz=dt.timezone.utc).isoformat() return FileManifestRow( run_id=run_id, collected_at_utc=utc_now_iso(), source_root=str(source_root), source_path=str(path), source_relpath=str(path.relative_to(source_root)), source_filename=path.name, source_bytes=int(st.st_size), source_modified_time_utc=mtime, sha256=sha256_file(path), )</p>
+<p>def element_to_record( element: Any, *, run_id: str, document_sha256: str, source_path: str, source_relpath: str, ) -&gt; Dict[str, Any]: text = getattr(element, “text”, None) category = getattr(element, “category”, None) element_type = element.__class__.__name__</p>
+<pre><code>  md = getattr(element, "metadata", None)
+  md_dict: Dict[str, Any] = {}
+  if md is not None:
+      try:
+          md_dict = {k: v for k, v in vars(md).items() if v is not None}
+      except Exception:
+          md_dict = {"_metadata_repr": repr(md)}
+
+  page_number = md_dict.get("page_number") or md_dict.get("page_number_start")
+
+  document_id = f"sha256:{document_sha256}"
+
+  return {
+      "run_id": run_id,
+      "parsed_at_utc": utc_now_iso(),
+
+      "document_id": document_id,
+      "document_sha256": document_sha256,
+      "source_path": source_path,
+      "source_relpath": source_relpath,
+
+      "element_index": None,
+      "element_type": element_type,
+      "element_category": category,
+
+      "page_number": page_number,
+
+      "text": text,
+
+      "unstructured_metadata": md_dict,
+  }</code></pre>
+<p># ————————— # Main routine # —————————</p>
+<p>def _safe_import_version(pkg: str) -&gt; Optional[str]: try: mod = <strong>import</strong>(pkg) return getattr(mod, “<strong>version</strong>”, None) except Exception: return None</p>
+<p>def main() -&gt; None: if not SOURCE_ROOT.exists(): raise FileNotFoundError(f”SOURCE_ROOT does not exist: {SOURCE_ROOT}“)</p>
+<pre><code>  run_dir = OUTPUT_ROOT / RUN_ID
+  run_dir.mkdir(parents=True, exist_ok=False)
+
+  pdf_paths = discover_pdfs(SOURCE_ROOT)
+  if not pdf_paths:
+      raise RuntimeError(f"No PDFs found under: {SOURCE_ROOT}")
+
+  run_metadata = {
+      "run_id": RUN_ID,
+      "created_at_utc": utc_now_iso(),
+      "source_root": str(SOURCE_ROOT),
+      "output_dir": str(run_dir),
+      "python": sys.version,
+      "platform": {
+          "system": platform.system(),
+          "release": platform.release(),
+          "version": platform.version(),
+          "machine": platform.machine(),
+      },
+      "packages": {
+          "unstructured": _safe_import_version("unstructured"),
+          "pandas": _safe_import_version("pandas"),
+          "tqdm": _safe_import_version("tqdm"),
+      },
+      "assumptions": [
+          "PDFs that were scanned have already been OCR'd prior to ingestion.",
+          "No cloud APIs are required for parsing.",
+      ],
+  }
+  (run_dir / "run-metadata.json").write_text(json.dumps(run_metadata, indent=2), encoding="utf-8")
+
+  manifest_rows: List[FileManifestRow] = []
+  for p in tqdm(pdf_paths, desc="Hashing PDFs"):
+      manifest_rows.append(file_manifest_row(p, SOURCE_ROOT, RUN_ID))
+
+  manifest_df = pd.DataFrame([r.__dict__ for r in manifest_rows])
+  manifest_path = run_dir / "manifest.csv"
+  manifest_df.to_csv(manifest_path, index=False)
+
+  elements_path = run_dir / "elements.jsonl"
+  with elements_path.open("w", encoding="utf-8") as f:
+      for row in tqdm(manifest_rows, desc="Parsing PDFs"):
+          pdf_path = Path(row.source_path)
+
+          elements = partition_pdf(
+              filename=str(pdf_path),
+          )
+
+          records = [
+              element_to_record(
+                  el,
+                  run_id=RUN_ID,
+                  document_sha256=row.sha256,
+                  source_path=row.source_path,
+                  source_relpath=row.source_relpath,
+              )
+              for el in elements
+          ]
+
+          for i, rec in enumerate(records):
+              rec["element_index"] = i
+
+          for rec in records:
+              f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+
+  print(f"Done.\nRun directory: {run_dir}\nManifest: {manifest_path}\nElements: {elements_path}")</code></pre>
+<p>if <strong>name</strong> == “<strong>main</strong>”: main()</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="verification-checklist-use-after-running-the-script" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="verification-checklist-use-after-running-the-script"><span class="header-section-number">17.5</span> Verification checklist (use after running the script)</h2>
+<section id="parse-validity" class="level3">
+<h3 class="anchored" data-anchor-id="parse-validity">Parse validity</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><code>manifest.csv</code> includes every PDF you intended to ingest (spot-check folder coverage).</label></li>
+<li><label><input type="checkbox"><code>elements.jsonl</code> is non-empty.</label></li>
+<li><label><input type="checkbox">A sample of documents produces narrative elements (not just headers/footers).</label></li>
+</ul>
+</section>
+<section id="provenance-completeness-minimum-release-blockers" class="level3">
+<h3 class="anchored" data-anchor-id="provenance-completeness-minimum-release-blockers">Provenance completeness (minimum release blockers)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Every element JSON object has: <code>document_sha256</code>, <code>source_relpath</code>, <code>element_index</code>, <code>text</code> (or a documented reason if <code>text</code> is empty).</label></li>
+<li><label><input type="checkbox"><code>document_id</code> is present and is derived from <code>sha256</code>.</label></li>
+</ul>
+</section>
+<section id="sampling-based-qa-recommended" class="level3">
+<h3 class="anchored" data-anchor-id="sampling-based-qa-recommended">Sampling-based QA (recommended)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Randomly sample 5 PDFs, open them, and verify a few extracted elements match the page content.</label></li>
+<li><label><input type="checkbox">Check whether <code>page_number</code> is present frequently enough to meet your traceability expectations. If not, adapt the parsing strategy (still keeping it platform-agnostic).</label></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="next-page" class="level2" data-number="17.6">
+<h2 data-number="17.6" class="anchored" data-anchor-id="next-page"><span class="header-section-number">17.6</span> Next page</h2>
+<p>Once PDFs are parsed to structured elements and validated, proceed to: <strong>Semantic Chunking</strong> (<code>fnd-chunking.qmd</code>).</p>
+
+
 </section>
 
 </main> <!-- /main -->
