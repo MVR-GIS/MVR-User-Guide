@@ -242,7 +242,7 @@
     "href": "repo-create-generic-python-repo.html#prerequisites",
     "title": "2  Create a Generic Python Repo",
     "section": "2.3 Prerequisites",
-    "text": "2.3 Prerequisites\n\nAccess\n\nGitHub access (to create a repository in the approved location)\nNetwork access that allows conda-forge package downloads (proxy/cert configuration may be required in some environments)\n\n\n\nSoftware (Windows, USACE GFE)\n\nVS Code installed using your organization’s approved method\nGit installed using your organization’s approved method\nMiniforge installed (per-user install is recommended and does not require admin rights)\n\n\n\nVerify Git\nOpen a terminal and run:\ngit --version\n\n\nVerify Miniforge + mamba\nAfter installing Miniforge, verify:\nconda --version\nmamba --version\nIf mamba is not available, install it into base:\nconda install -n base mamba -c conda-forge\nmamba --version\n\n\nVS Code extensions\nInstall these extensions: - Python (Microsoft) - Jupyter (Microsoft) (recommended if you will use notebooks)",
+    "text": "2.3 Prerequisites\n\nAccess\n\nGitHub access (to create a repository in the approved location)\nNetwork access that allows conda-forge package downloads (proxy/cert configuration may be required in some environments)\n\n\n\nSoftware (Windows, USACE GFE)\n\nVS Code installed using your organization’s approved method\nGit installed using your organization’s approved method\nMiniforge installed (per-user install is recommended and does not require admin rights)\n\n\n\nVerify Git\nOpen a terminal and run:\n\ngit --version\n\n\n\nVerify Miniforge + mamba\nAfter installing Miniforge, verify:\n\nconda --version\nmamba --version\n\nIf mamba is not available, install it into base:\n\nconda install -n base mamba -c conda-forge\nmamba --version\n\n\n\nVS Code extensions\nInstall these extensions: - Python (Microsoft) - Jupyter (Microsoft) (recommended if you will use notebooks)",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo</span>"
@@ -264,7 +264,7 @@
     "href": "repo-create-generic-python-repo.html#step-2-clone-your-new-repository",
     "title": "2  Create a Generic Python Repo",
     "section": "2.5 Step 2 — Clone your new repository",
-    "text": "2.5 Step 2 — Clone your new repository\n\nOpen a terminal (PowerShell recommended), or open Miniforge Prompt if conda is not on PATH.\nNavigate to where you store projects:\ncd ~/Documents\nClone your new repository (replace with your repo name):\ngit clone https://github.com/MVR-GIS/.git\nMove into the project directory:\ncd",
+    "text": "2.5 Step 2 — Clone your new repository\n\nOpen a terminal (PowerShell recommended), or open Miniforge Prompt if conda is not on PATH.\nNavigate to where you store projects:\n\n\ncd ~/Documents\n\n\nClone your new repository (replace with your repo name):\n\n\ngit clone https://github.com/MVR-GIS/&lt;YOUR-NEW-REPO&gt;.git\n\n\nMove into the project directory:\n\n\ncd &lt;YOUR-NEW-REPO&gt;",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo</span>"
@@ -275,7 +275,7 @@
     "href": "repo-create-generic-python-repo.html#step-3-create-the-per-project-environment-analysis",
     "title": "2  Create a Generic Python Repo",
     "section": "2.6 Step 3 — Create the per-project environment (analysis)",
-    "text": "2.6 Step 3 — Create the per-project environment (analysis)\nThis template uses a repository-local environment.yml file to define the environment. The environment name is standardized as analysis to simplify onboarding.\nFrom the repository root:\nmamba env create -f environment.yml",
+    "text": "2.6 Step 3 — Create the per-project environment (analysis)\nThis template uses a repository-local environment.yml file to define the environment. The environment name is standardized as analysis to simplify onboarding.\nFrom the repository root:\n\nmamba env create -f environment.yml",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo</span>"
@@ -286,7 +286,7 @@
     "href": "repo-create-generic-python-repo.html#step-4-activate-the-environment-and-verify-python",
     "title": "2  Create a Generic Python Repo",
     "section": "2.7 Step 4 — Activate the environment and verify Python",
-    "text": "2.7 Step 4 — Activate the environment and verify Python\nActivate the environment:\nconda activate analysis\nVerify Python runs:\npython --version\nVerify pandas imports:\npython -c \"import pandas as pd; print(pd.__version__)\"",
+    "text": "2.7 Step 4 — Activate the environment and verify Python\nActivate the environment:\n\nconda activate analysis\n\nVerify Python runs:\n\npython --version\n\nVerify pandas imports:\n\npython -c \"import pandas as pd; print(pd.__version__)\"",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo</span>"
@@ -297,7 +297,7 @@
     "href": "repo-create-generic-python-repo.html#step-5-open-the-project-in-vs-code",
     "title": "2  Create a Generic Python Repo",
     "section": "2.8 Step 5 — Open the project in VS Code",
-    "text": "2.8 Step 5 — Open the project in VS Code\nFrom the repo root:\ncode .",
+    "text": "2.8 Step 5 — Open the project in VS Code\nFrom the repo root:\n\ncode .",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo</span>"
@@ -308,7 +308,7 @@
     "href": "repo-create-generic-python-repo.html#step-6-configure-vs-code-to-use-the-analysis-interpreter",
     "title": "2  Create a Generic Python Repo",
     "section": "2.9 Step 6 — Configure VS Code to use the analysis interpreter",
-    "text": "2.9 Step 6 — Configure VS Code to use the analysis interpreter\n\nIn VS Code, open the Command Palette (Ctrl+Shift+P).\nRun: Python: Select Interpreter\nChoose the interpreter for the conda environment named analysis.\n\nOptional verification (in a VS Code terminal):\npython -c \"import sys; print(sys.executable)\"",
+    "text": "2.9 Step 6 — Configure VS Code to use the analysis interpreter\n\nIn VS Code, open the Command Palette (Ctrl+Shift+P).\nRun: Python: Select Interpreter\nChoose the interpreter for the conda environment named analysis.\n\nOptional verification (in a VS Code terminal):\n\npython -c \"import sys; print(sys.executable)\"",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo</span>"
@@ -319,7 +319,7 @@
     "href": "repo-create-generic-python-repo.html#step-7-notebook-workflow-recommended",
     "title": "2  Create a Generic Python Repo",
     "section": "2.10 Step 7 — Notebook workflow (recommended)",
-    "text": "2.10 Step 7 — Notebook workflow (recommended)\nThis template includes a notebooks/ directory. To start a notebook-based analysis workflow:\n\nOpen a notebook in notebooks/ (or create a new one).\nWhen prompted for a kernel, select the Python kernel from the analysis environment.\nRun a simple cell to confirm the kernel works (example):\nimport pandas as pd pd.__version__\n\nIf the kernel list does not show analysis, re-check: - the selected interpreter (Step 6) - that you created the environment successfully (Step 3) - that the Jupyter extension is installed",
+    "text": "2.10 Step 7 — Notebook workflow (recommended)\nThis template includes a notebooks/ directory. To start a notebook-based analysis workflow:\n\nOpen a notebook in notebooks/ (or create a new one).\nWhen prompted for a kernel, select the Python kernel from the analysis environment.\nRun a simple cell to confirm the kernel works (example):\n\n\nimport pandas as pd\npd.__version__\n\nIf the kernel list does not show analysis, re-check: - the selected interpreter (Step 6) - that you created the environment successfully (Step 3) - that the Jupyter extension is installed",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo</span>"
@@ -330,7 +330,7 @@
     "href": "repo-create-generic-python-repo.html#daily-workflow-what-to-do-each-work-session",
     "title": "2  Create a Generic Python Repo",
     "section": "2.11 Daily workflow (what to do each work session)",
-    "text": "2.11 Daily workflow (what to do each work session)\n\nPull the latest changes:\ngit pull\nActivate the environment:\nconda activate analysis\nOpen VS Code:\ncode .\n\nIf environment.yml changed, update your environment:\nmamba env update -f environment.yml --prune",
+    "text": "2.11 Daily workflow (what to do each work session)\n\nPull the latest changes:\n\n\ngit pull\n\n\nActivate the environment:\n\n\nconda activate analysis\n\n\nOpen VS Code:\n\n\ncode .\n\nIf environment.yml changed, update your environment:\n\nmamba env update -f environment.yml --prune",
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create a Generic Python Repo</span>"
@@ -372,34 +372,67 @@
   {
     "objectID": "r-Positron-getting-started.html",
     "href": "r-Positron-getting-started.html",
-    "title": "6  Positron Getting Started",
+    "title": "5  Positron Getting Started",
     "section": "",
-    "text": "6.1 What is Positron?",
+    "text": "5.1 What is Positron?\nPositron is a modern, VS Code-based data science IDE designed for R and Python workflows. For USACE data scientists, Positron is the recommended IDE for technical analysis projects where you want:\nThis chapter is an on-ramp. It is not a replacement for Positron’s official documentation. For feature walkthroughs and authoritative “how-to” guidance, use the vendor site:",
     "crumbs": [
       "R Projects",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Positron Getting Started</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Positron Getting Started</span>"
     ]
   },
   {
-    "objectID": "r-Positron-getting-started.html#install-and-configure",
-    "href": "r-Positron-getting-started.html#install-and-configure",
-    "title": "6  Positron Getting Started",
-    "section": "6.2 Install and Configure",
-    "text": "6.2 Install and Configure",
+    "objectID": "r-Positron-getting-started.html#what-is-positron",
+    "href": "r-Positron-getting-started.html#what-is-positron",
+    "title": "5  Positron Getting Started",
+    "section": "",
+    "text": "a project-oriented workflow (folders, git repos, reproducible projects),\nan editor that scales from small scripts to larger codebases,\ninteractive analysis tools (console + plots + data viewing) in an integrated environment, and\na pathway to extend capabilities through vetted extensions (with USACE constraints noted below).\n\n\n\nPositron documentation: Positron Welcome",
     "crumbs": [
       "R Projects",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Positron Getting Started</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Positron Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "r-Positron-getting-started.html#prerequisites-install-these-first",
+    "href": "r-Positron-getting-started.html#prerequisites-install-these-first",
+    "title": "5  Positron Getting Started",
+    "section": "5.2 Prerequisites (install these first)",
+    "text": "5.2 Prerequisites (install these first)\nBefore installing or using Positron for R-based work, make sure your system has:\n\nR (required)\nRTools (Windows only; sometimes required)\n\n\nInstall R (required)\nR provides the runtime that Positron uses to run your R scripts and render R/knitr outputs.\n\nR homepage: https://www.r-project.org/\n\nUSACE users should follow the approved/scanned software process described in the “Open Source Software” chapter:\n\nSee: [gov-open-source-software.qmd] (Status Check + App Portal)\n\n\n\nInstall RTools (Windows; “maybe” required)\nYou may need RTools on Windows when installing R packages that compile from source (C/C++/Fortran) or when your workflow requires building packages locally.\n\nRTools: https://cran.r-project.org/bin/windows/Rtools/\n\nIf you are unsure: install R first, then attempt to install your required packages. If package installation fails with compilation/toolchain errors, install RTools and retry.",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Positron Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "r-Positron-getting-started.html#install-and-configure-positron-usace-pathway",
+    "href": "r-Positron-getting-started.html#install-and-configure-positron-usace-pathway",
+    "title": "5  Positron Getting Started",
+    "section": "5.3 Install and configure Positron (USACE pathway)",
+    "text": "5.3 Install and configure Positron (USACE pathway)\n\n\n\n\n\n\nUSACE installation path (App Portal)\n\n\n\nFor USACE-managed devices, install software through the USACE App Portal and confirm you are using an approved/scanned version.\n\nCheck scanned/approved versions: https://finder.nosc.usace.army.mil/code_scan_tracker\nInstall approved versions via the USACE App Portal\n\nThese links and the “Status Check” workflow are maintained in: [gov-open-source-software.qmd].\n\n\nAfter Positron is installed, do a quick verification to ensure Positron can run R successfully.\n\nFirst launch checklist (R / knitr projects)\n\nOpen Positron.\nCreate or open a project folder (recommendation: one folder per analysis project).\nOpen a new R script (for example: scratch.R).\nRun the following in the R console to confirm R is available:\nversion\n\nYou should see your installed R version printed.\nIf you plan to render Quarto/knitr documents locally, also confirm you can install and load common packages (your project may require additional packages):\ninstall.packages(c(\"knitr\", \"rmarkdown\", \"quarto\"))\nIf installs fail with compilation errors on Windows, revisit the RTools prerequisite.",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Positron Getting Started</span>"
     ]
   },
   {
     "objectID": "r-Positron-getting-started.html#extensions",
     "href": "r-Positron-getting-started.html#extensions",
-    "title": "6  Positron Getting Started",
-    "section": "6.3 Extensions",
-    "text": "6.3 Extensions\nThe current USACE deployment of Positron via AppPortal prevents using the “Extensions” sidebar to search the Open VSXVS Code Extensions Marketplace. However, we are currently able to manually download and install extensions. See the Positron Extensions section of the Positron User Guide for the latest details.\n\nInstall from Open VSX",
+    "title": "5  Positron Getting Started",
+    "section": "5.4 Extensions",
+    "text": "5.4 Extensions\nPositron supports many VS Code-style extensions, but the current USACE deployment via App Portal may restrict using the Extensions sidebar to search/browse an extension marketplace interactively. In practice, this may require a manual extension installation approach.\nGuidance for USACE environments:\n\nKeep extensions minimal and purposeful (reduce drift and support burden).\nPrefer extensions that are widely used and actively maintained.\nWhen possible, standardize extensions within a team for consistent workflows.\n\n\nInstall from Open VSX\nOpen VSX is a common source for VS Code-style extensions.\n\nIdentify the extension you need and why you need it.\n\nOpen VSX: https://open-vsx.org/\n\nVerify it is compatible with Positron. Not all VS Code Extensions work with Positron. See https://positron.posit.co/extensions.html\nUse the following code snippet to download and install the extension:\n\n\nlatest_version_url &lt;- \"https://open-vsx.org/api/posit/shiny/1.3.2/file/posit.shiny-1.3.2.vsix\"\nlatest_version_filename &lt;- basename(file.path(latest_version_url))\n\ndownloaded_vsix &lt;- tempfile(latest_version_filename, fileext = \".vsix\")\n\ndownload.file(\n  url = latest_version_url,\n  destfile = downloaded_vsix,\n  method = \"curl\",\n  mode = \"wb\",\n  extra = \"-L\"\n)\n\nsystem(\n  paste(\"positron --install-extension\", shQuote(downloaded_vsix))\n)\n\nFor the authoritative Positron extension guidance and supported workflows, follow the vendor documentation:\n\nhttps://positron.posit.co/welcome.html",
     "crumbs": [
       "R Projects",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Positron Getting Started</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Positron Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "r-ROracle-setup.html",
+    "href": "r-ROracle-setup.html",
+    "title": "7  ROracle Setup",
+    "section": "",
+    "text": "After installing Oracle Instant Client following the SOP (“EGIS\\Support\\_files\\Software\\Oracle\\InstantClient\\Oracle Instant Client Install SOP.docx”)\nBefore closing out of the “Environment Variables” editor, create one new environment variable called “OCI-LIB64” and point it to your instance of instant client (C:\\Oracle\\instantclient_23_8)\nThen, navigate to the ROracle folder under EGIS\\Support-files\\Software\\Oracle\\ROracle\\_20250718 for the latest version, set that as your working directory, and call install.packages() to install Oracle\n\nsetwd(\"EGIS/Support_files/Software/Oracle/ROracle_20250718/ROracle_1.5-0\")\ninstall.packages(\"ROracle\", repos = NULL, type = \"source\")\n\nThats all!",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ROracle Setup</span>"
     ]
   },
   {

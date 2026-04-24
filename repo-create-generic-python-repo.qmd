@@ -1,3 +1,9 @@
+---
+engine: knitr
+execute:
+  eval: false
+---
+
 # Create a Generic Python Repo
 
 ## Introduction
@@ -36,18 +42,24 @@ This chapter is intentionally lightweight. Heavyweight geospatial stacks (ArcGIS
 ### Verify Git
 Open a terminal and run:
 
-    git --version
+```{bash}
+git --version
+```
 
 ### Verify Miniforge + mamba
 After installing Miniforge, verify:
 
-    conda --version
-    mamba --version
+```{bash}
+conda --version
+mamba --version
+```
 
 If `mamba` is not available, install it into `base`:
 
-    conda install -n base mamba -c conda-forge
-    mamba --version
+```{bash}
+conda install -n base mamba -c conda-forge
+mamba --version
+```
 
 ### VS Code extensions
 Install these extensions:
@@ -69,15 +81,20 @@ Install these extensions:
 1. Open a terminal (PowerShell recommended), or open **Miniforge Prompt** if conda is not on PATH.
 2. Navigate to where you store projects:
 
-    cd ~/Documents
+```{bash}
+cd ~/Documents
+```
 
 3. Clone your new repository (replace with your repo name):
 
-    git clone https://github.com/MVR-GIS/<YOUR-NEW-REPO>.git
+```{bash}
+git clone https://github.com/MVR-GIS/<YOUR-NEW-REPO>.git
+```
 
 4. Move into the project directory:
-
-    cd <YOUR-NEW-REPO>
+```{bash}
+cd <YOUR-NEW-REPO>
+```
 
 ## Step 3 — Create the per-project environment (`analysis`)
 
@@ -85,27 +102,33 @@ This template uses a repository-local `environment.yml` file to define the envir
 
 From the repository root:
 
-    mamba env create -f environment.yml
+```{bash}
+mamba env create -f environment.yml
+```
 
 ## Step 4 — Activate the environment and verify Python
 
 Activate the environment:
-
-    conda activate analysis
+```{bash}
+conda activate analysis
+```
 
 Verify Python runs:
-
-    python --version
+```{bash}
+python --version
+```
 
 Verify pandas imports:
-
-    python -c "import pandas as pd; print(pd.__version__)"
+```{bash}
+python -c "import pandas as pd; print(pd.__version__)"
+```
 
 ## Step 5 — Open the project in VS Code
 
 From the repo root:
-
-    code .
+```{bash}
+code .
+```
 
 ## Step 6 — Configure VS Code to use the `analysis` interpreter
 
@@ -115,7 +138,9 @@ From the repo root:
 
 Optional verification (in a VS Code terminal):
 
-    python -c "import sys; print(sys.executable)"
+```{bash}
+python -c "import sys; print(sys.executable)"
+```
 
 ## Step 7 — Notebook workflow (recommended)
 
@@ -125,8 +150,10 @@ This template includes a `notebooks/` directory. To start a notebook-based analy
 2. When prompted for a kernel, select the Python kernel from the `analysis` environment.
 3. Run a simple cell to confirm the kernel works (example):
 
-    import pandas as pd
-    pd.__version__
+```{bash}
+import pandas as pd
+pd.__version__
+```
 
 If the kernel list does not show `analysis`, re-check:
 - the selected interpreter (Step 6)
@@ -136,20 +163,24 @@ If the kernel list does not show `analysis`, re-check:
 ## Daily workflow (what to do each work session)
 
 1. Pull the latest changes:
-
-    git pull
+```{bash}
+git pull
+```
 
 2. Activate the environment:
-
-    conda activate analysis
+```{bash}
+conda activate analysis
+```
 
 3. Open VS Code:
-
-    code .
+```{bash}
+code .
+```
 
 If `environment.yml` changed, update your environment:
-
-    mamba env update -f environment.yml --prune
+```{bash}
+mamba env update -f environment.yml --prune
+```
 
 ## Project structure (template expectation)
 

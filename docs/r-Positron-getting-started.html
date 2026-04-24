@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Positron Getting Started – MVR Geospatial Data Science User Guide</title>
+<title>5&nbsp; Positron Getting Started – MVR Geospatial Data Science User Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -255,7 +290,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-RStudio-getting-started.html">R Projects</a></li><li class="breadcrumb-item"><a href="./r-Positron-getting-started.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Positron Getting Started</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-Positron-getting-started.html">R Projects</a></li><li class="breadcrumb-item"><a href="./r-Positron-getting-started.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Positron Getting Started</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -336,14 +371,14 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-RStudio-getting-started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">RStudio Getting Started</span></span></a>
+  <a href="./r-Positron-getting-started.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Positron Getting Started</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-Positron-getting-started.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Positron Getting Started</span></span></a>
+  <a href="./r-RStudio-getting-started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">RStudio Getting Started</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -514,9 +549,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-is-positron" id="toc-what-is-positron" class="nav-link active" data-scroll-target="#what-is-positron"><span class="header-section-number">6.1</span> What is Positron?</a></li>
-  <li><a href="#install-and-configure" id="toc-install-and-configure" class="nav-link" data-scroll-target="#install-and-configure"><span class="header-section-number">6.2</span> Install and Configure</a></li>
-  <li><a href="#extensions" id="toc-extensions" class="nav-link" data-scroll-target="#extensions"><span class="header-section-number">6.3</span> Extensions</a>
+  <li><a href="#what-is-positron" id="toc-what-is-positron" class="nav-link active" data-scroll-target="#what-is-positron"><span class="header-section-number">5.1</span> What is Positron?</a></li>
+  <li><a href="#prerequisites-install-these-first" id="toc-prerequisites-install-these-first" class="nav-link" data-scroll-target="#prerequisites-install-these-first"><span class="header-section-number">5.2</span> Prerequisites (install these first)</a>
+  <ul class="collapse">
+  <li><a href="#install-r-required" id="toc-install-r-required" class="nav-link" data-scroll-target="#install-r-required">Install R (required)</a></li>
+  <li><a href="#install-rtools-windows-maybe-required" id="toc-install-rtools-windows-maybe-required" class="nav-link" data-scroll-target="#install-rtools-windows-maybe-required">Install RTools (Windows; “maybe” required)</a></li>
+  </ul></li>
+  <li><a href="#install-and-configure-positron-usace-pathway" id="toc-install-and-configure-positron-usace-pathway" class="nav-link" data-scroll-target="#install-and-configure-positron-usace-pathway"><span class="header-section-number">5.3</span> Install and configure Positron (USACE pathway)</a>
+  <ul class="collapse">
+  <li><a href="#first-launch-checklist-r-knitr-projects" id="toc-first-launch-checklist-r-knitr-projects" class="nav-link" data-scroll-target="#first-launch-checklist-r-knitr-projects">First launch checklist (R / knitr projects)</a></li>
+  </ul></li>
+  <li><a href="#extensions" id="toc-extensions" class="nav-link" data-scroll-target="#extensions"><span class="header-section-number">5.4</span> Extensions</a>
   <ul class="collapse">
   <li><a href="#install-from-open-vsx" id="toc-install-from-open-vsx" class="nav-link" data-scroll-target="#install-from-open-vsx">Install from Open VSX</a></li>
   </ul></li>
@@ -527,9 +570,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-RStudio-getting-started.html">R Projects</a></li><li class="breadcrumb-item"><a href="./r-Positron-getting-started.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Positron Getting Started</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-Positron-getting-started.html">R Projects</a></li><li class="breadcrumb-item"><a href="./r-Positron-getting-started.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Positron Getting Started</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Positron Getting Started</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Positron Getting Started</span></h1>
 </div>
 
 
@@ -546,17 +589,125 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="what-is-positron" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="what-is-positron"><span class="header-section-number">6.1</span> What is Positron?</h2>
+<section id="what-is-positron" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="what-is-positron"><span class="header-section-number">5.1</span> What is Positron?</h2>
+<p><strong>Positron</strong> is a modern, VS Code-based data science IDE designed for <strong>R and Python</strong> workflows. For USACE data scientists, Positron is the recommended IDE for technical analysis projects where you want:</p>
+<ul>
+<li>a project-oriented workflow (folders, git repos, reproducible projects),</li>
+<li>an editor that scales from small scripts to larger codebases,</li>
+<li>interactive analysis tools (console + plots + data viewing) in an integrated environment, and</li>
+<li>a pathway to extend capabilities through vetted extensions (with USACE constraints noted below).</li>
+</ul>
+<p>This chapter is an <strong>on-ramp</strong>. It is not a replacement for Positron’s official documentation. For feature walkthroughs and authoritative “how-to” guidance, use the vendor site:</p>
+<ul>
+<li>Positron documentation: <a href="https://positron.posit.co/welcome.html">Positron Welcome</a></li>
+</ul>
 </section>
-<section id="install-and-configure" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="install-and-configure"><span class="header-section-number">6.2</span> Install and Configure</h2>
+<section id="prerequisites-install-these-first" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="prerequisites-install-these-first"><span class="header-section-number">5.2</span> Prerequisites (install these first)</h2>
+<p>Before installing or using Positron for R-based work, make sure your system has:</p>
+<ol type="1">
+<li><strong>R</strong> (required)</li>
+<li><strong>RTools</strong> (Windows only; sometimes required)</li>
+</ol>
+<section id="install-r-required" class="level3">
+<h3 class="anchored" data-anchor-id="install-r-required">Install R (required)</h3>
+<p>R provides the runtime that Positron uses to run your R scripts and render R/knitr outputs.</p>
+<ul>
+<li>R homepage: <a href="https://www.r-project.org/">https://www.r-project.org/</a></li>
+</ul>
+<p>USACE users should follow the <strong>approved/scanned software</strong> process described in the “Open Source Software” chapter:</p>
+<ul>
+<li>See: [gov-open-source-software.qmd] (Status Check + App Portal)</li>
+</ul>
 </section>
-<section id="extensions" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="extensions"><span class="header-section-number">6.3</span> Extensions</h2>
-<p>The current USACE deployment of Positron via AppPortal prevents using the “Extensions” sidebar to search the Open VSXVS Code Extensions Marketplace. However, we are currently able to manually download and install extensions. See the <a href="https://positron.posit.co/extensions.html">Positron Extensions</a> section of the Positron User Guide for the latest details.</p>
+<section id="install-rtools-windows-maybe-required" class="level3">
+<h3 class="anchored" data-anchor-id="install-rtools-windows-maybe-required">Install RTools (Windows; “maybe” required)</h3>
+<p>You may need <strong>RTools</strong> on Windows when installing R packages that compile from source (C/C++/Fortran) or when your workflow requires building packages locally.</p>
+<ul>
+<li>RTools: <a href="https://cran.r-project.org/bin/windows/Rtools/">https://cran.r-project.org/bin/windows/Rtools/</a></li>
+</ul>
+<p>If you are unsure: install R first, then attempt to install your required packages. If package installation fails with compilation/toolchain errors, install RTools and retry.</p>
+</section>
+</section>
+<section id="install-and-configure-positron-usace-pathway" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="install-and-configure-positron-usace-pathway"><span class="header-section-number">5.3</span> Install and configure Positron (USACE pathway)</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+USACE installation path (App Portal)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For USACE-managed devices, install software through the USACE <strong>App Portal</strong> and confirm you are using an approved/scanned version.</p>
+<ul>
+<li>Check scanned/approved versions: <a href="https://finder.nosc.usace.army.mil/code_scan_tracker">https://finder.nosc.usace.army.mil/code_scan_tracker</a></li>
+<li>Install approved versions via the USACE <a href="https://app-portal.usace.army.mil/">App Portal</a></li>
+</ul>
+<p>These links and the “Status Check” workflow are maintained in: [gov-open-source-software.qmd].</p>
+</div>
+</div>
+<p>After Positron is installed, do a quick verification to ensure Positron can run R successfully.</p>
+<section id="first-launch-checklist-r-knitr-projects" class="level3">
+<h3 class="anchored" data-anchor-id="first-launch-checklist-r-knitr-projects">First launch checklist (R / knitr projects)</h3>
+<ol type="1">
+<li><p>Open Positron.</p></li>
+<li><p>Create or open a project folder (recommendation: one folder per analysis project).</p></li>
+<li><p>Open a new R script (for example: <code>scratch.R</code>).</p></li>
+<li><p>Run the following in the R console to confirm R is available:</p>
+<p>version</p></li>
+</ol>
+<p>You should see your installed R version printed.</p>
+<p>If you plan to render Quarto/knitr documents locally, also confirm you can install and load common packages (your project may require additional packages):</p>
+<pre><code>install.packages(c("knitr", "rmarkdown", "quarto"))</code></pre>
+<p>If installs fail with compilation errors on Windows, revisit the RTools prerequisite.</p>
+</section>
+</section>
+<section id="extensions" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="extensions"><span class="header-section-number">5.4</span> Extensions</h2>
+<p>Positron supports many VS Code-style extensions, but the current USACE deployment via App Portal may restrict using the <strong>Extensions</strong> sidebar to search/browse an extension marketplace interactively. In practice, this may require a <strong>manual extension installation</strong> approach.</p>
+<p>Guidance for USACE environments:</p>
+<ul>
+<li>Keep extensions minimal and purposeful (reduce drift and support burden).</li>
+<li>Prefer extensions that are widely used and actively maintained.</li>
+<li>When possible, standardize extensions within a team for consistent workflows.</li>
+</ul>
 <section id="install-from-open-vsx" class="level3">
 <h3 class="anchored" data-anchor-id="install-from-open-vsx">Install from Open VSX</h3>
+<p>Open VSX is a common source for VS Code-style extensions.</p>
+<ol type="1">
+<li>Identify the extension you need and why you need it.
+<ul>
+<li>Open VSX: <a href="https://open-vsx.org/">https://open-vsx.org/</a></li>
+</ul></li>
+<li>Verify it is compatible with Positron. Not all VS Code Extensions work with Positron. See <a href="https://positron.posit.co/extensions.html">https://positron.posit.co/extensions.html</a></li>
+<li>Use the following code snippet to download and install the extension:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>latest_version_url <span class="ot">&lt;-</span> <span class="st">"https://open-vsx.org/api/posit/shiny/1.3.2/file/posit.shiny-1.3.2.vsix"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>latest_version_filename <span class="ot">&lt;-</span> <span class="fu">basename</span>(<span class="fu">file.path</span>(latest_version_url))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>downloaded_vsix <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(latest_version_filename, <span class="at">fileext =</span> <span class="st">".vsix"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> latest_version_url,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> downloaded_vsix,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"curl"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"wb"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">extra =</span> <span class="st">"-L"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">"positron --install-extension"</span>, <span class="fu">shQuote</span>(downloaded_vsix))</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For the authoritative Positron extension guidance and supported workflows, follow the vendor documentation:</p>
+<ul>
+<li>https://positron.posit.co/welcome.html</li>
+</ul>
 
 
 </section>
