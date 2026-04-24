@@ -26,8 +26,8 @@ book:
         - repo-create-r-repo.qmd
     - part: "R Projects"
       chapters:
-        - r-RStudio-getting-started.qmd
         - r-Positron-getting-started.qmd
+        - r-RStudio-getting-started.qmd
         - r-ROracle-setup.qmd
         - r-deploy-shiny.qmd
         - r-Posit-Cloud-admin.qmd

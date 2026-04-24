@@ -2,10 +2,96 @@
 
 ## What is Positron?
 
-## Install and Configure
+**Positron** is a modern, VS Code-based data science IDE designed for **R and Python** workflows. For USACE data scientists, Positron is the recommended IDE for technical analysis projects where you want:
+
+- a project-oriented workflow (folders, git repos, reproducible projects),
+- an editor that scales from small scripts to larger codebases,
+- interactive analysis tools (console + plots + data viewing) in an integrated environment, and
+- a pathway to extend capabilities through vetted extensions (with USACE constraints noted below).
+
+This chapter is an **on-ramp**. It is not a replacement for Positron’s official documentation. For feature walkthroughs and authoritative “how-to” guidance, use the vendor site:
+
+- Positron documentation: [Positron Welcome](https://positron.posit.co/welcome.html)
+
+## Prerequisites (install these first)
+
+Before installing or using Positron for R-based work, make sure your system has:
+
+1. **R** (required)
+2. **RTools** (Windows only; sometimes required)
+
+### Install R (required)
+
+R provides the runtime that Positron uses to run your R scripts and render R/knitr outputs.
+
+- R homepage: [https://www.r-project.org/](https://www.r-project.org/)
+
+USACE users should follow the **approved/scanned software** process described in the “Open Source Software” chapter:
+
+- See: [gov-open-source-software.qmd] (Status Check + App Portal)
+
+### Install RTools (Windows; “maybe” required)
+
+You may need **RTools** on Windows when installing R packages that compile from source (C/C++/Fortran) or when your workflow requires building packages locally.
+
+- RTools: [https://cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/)
+
+If you are unsure: install R first, then attempt to install your required packages. If package installation fails with compilation/toolchain errors, install RTools and retry.
+
+## Install and configure Positron (USACE pathway)
+
+::: {.callout-note}
+## USACE installation path (App Portal)
+
+For USACE-managed devices, install software through the USACE **App Portal** and confirm you are using an approved/scanned version.
+
+- Check scanned/approved versions: [https://finder.nosc.usace.army.mil/code_scan_tracker](https://finder.nosc.usace.army.mil/code_scan_tracker)
+- Install approved versions via the USACE [App Portal](https://app-portal.usace.army.mil/)
+
+These links and the “Status Check” workflow are maintained in: [gov-open-source-software.qmd].
+:::
+
+After Positron is installed, do a quick verification to ensure Positron can run R successfully.
+
+### First launch checklist (R / knitr projects)
+
+1. Open Positron.
+2. Create or open a project folder (recommendation: one folder per analysis project).
+3. Open a new R script (for example: `scratch.R`).
+4. Run the following in the R console to confirm R is available:
+
+    version
+
+You should see your installed R version printed.
+
+If you plan to render Quarto/knitr documents locally, also confirm you can install and load common packages (your project may require additional packages):
+
+    install.packages(c("knitr", "rmarkdown", "quarto"))
+
+If installs fail with compilation errors on Windows, revisit the RTools prerequisite.
 
 ## Extensions
-The current USACE deployment of Positron via AppPortal prevents using the "Extensions" sidebar to search the Open VSXVS Code Extensions Marketplace. However, we are currently able to manually download and install extensions. See the [Positron Extensions](https://positron.posit.co/extensions.html) section of the Positron User Guide for the latest details. 
+
+Positron supports many VS Code-style extensions, but the current USACE deployment via App Portal may restrict using the **Extensions** sidebar to search/browse an extension marketplace interactively. In practice, this may require a **manual extension installation** approach.
+
+Guidance for USACE environments:
+
+- Keep extensions minimal and purposeful (reduce drift and support burden).
+- Prefer extensions that are widely used and actively maintained.
+- When possible, standardize extensions within a team for consistent workflows.
 
 ### Install from Open VSX
 
+Open VSX is a common source for VS Code-style extensions.
+
+- Open VSX: https://open-vsx.org/
+
+High-level workflow (intentionally not duplicating vendor documentation):
+
+1. Identify the extension you need and why you need it.
+2. Obtain it from an approved source (for many extensions, Open VSX).
+3. If in-app installation is blocked, download the extension package and install it manually, consistent with USACE constraints.
+
+For the authoritative Positron extension guidance and supported workflows, follow the vendor documentation:
+
+- https://positron.posit.co/welcome.html
