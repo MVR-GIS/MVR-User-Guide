@@ -1,6 +1,8 @@
 # ROracle Setup
 
-After installing Oracle Instant Client following the SOP EGIS\\Support\\\_files\\Software\\Oracle\\InstantClient\\Oracle Instant Client Install SOP.docx") before closing out of the "Environment Variables" editor, create one new environment variable called "OCI-LIB64" and point it to your instance of instant client (C:\\Oracle\\instantclient_23_8)
+After installing Oracle Instant Client following the SOP ("EGIS\\Support\\\_files\\Software\\Oracle\\InstantClient\\Oracle Instant Client Install SOP.docx")
+
+Before closing out of the "Environment Variables" editor, create one new environment variable called "OCI-LIB64" and point it to your instance of instant client (C:\\Oracle\\instantclient_23_8)
 
 Then, navigate to the ROracle folder under EGIS\\Support-files\\Software\\Oracle\\ROracle\\\_20250718 for the latest version, set that as your working directory, and call `install.packages()` to install Oracle
 
