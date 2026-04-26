@@ -516,16 +516,16 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#languages" id="toc-languages" class="nav-link active" data-scroll-target="#languages"><span class="header-section-number">13.1</span> Languages</a>
   <ul class="collapse">
-  <li><a href="#miniforge" id="toc-miniforge" class="nav-link" data-scroll-target="#miniforge">Miniforge</a></li>
+  <li><a href="#miniforge-python-distribution" id="toc-miniforge-python-distribution" class="nav-link" data-scroll-target="#miniforge-python-distribution">Miniforge Python Distribution</a></li>
   <li><a href="#node.js" id="toc-node.js" class="nav-link" data-scroll-target="#node.js">Node.js</a></li>
   <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
   <li><a href="#rtools" id="toc-rtools" class="nav-link" data-scroll-target="#rtools">RTools</a></li>
   </ul></li>
   <li><a href="#ides" id="toc-ides" class="nav-link" data-scroll-target="#ides"><span class="header-section-number">13.2</span> IDEs</a>
   <ul class="collapse">
+  <li><a href="#vs-code" id="toc-vs-code" class="nav-link" data-scroll-target="#vs-code">VS Code</a></li>
   <li><a href="#positron" id="toc-positron" class="nav-link" data-scroll-target="#positron">Positron</a></li>
   <li><a href="#rstudio-desktop" id="toc-rstudio-desktop" class="nav-link" data-scroll-target="#rstudio-desktop">RStudio Desktop</a></li>
-  <li><a href="#vs-code" id="toc-vs-code" class="nav-link" data-scroll-target="#vs-code">VS Code</a></li>
   </ul></li>
   <li><a href="#version-control" id="toc-version-control" class="nav-link" data-scroll-target="#version-control"><span class="header-section-number">13.3</span> Version Control</a>
   <ul class="collapse">
@@ -533,8 +533,8 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#databases" id="toc-databases" class="nav-link" data-scroll-target="#databases"><span class="header-section-number">13.4</span> Databases</a>
   <ul class="collapse">
-  <li><a href="#pgadmin" id="toc-pgadmin" class="nav-link" data-scroll-target="#pgadmin">pgAdmin</a></li>
   <li><a href="#postgresql" id="toc-postgresql" class="nav-link" data-scroll-target="#postgresql">PostgreSQL</a></li>
+  <li><a href="#pgadmin" id="toc-pgadmin" class="nav-link" data-scroll-target="#pgadmin">pgAdmin</a></li>
   </ul></li>
   <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers"><span class="header-section-number">13.5</span> Containers</a>
   <ul class="collapse">
@@ -599,8 +599,8 @@ Status Check (USACE users only)
 </div>
 <section id="languages" class="level2" data-number="13.1">
 <h2 data-number="13.1" class="anchored" data-anchor-id="languages"><span class="header-section-number">13.1</span> Languages</h2>
-<section id="miniforge" class="level3">
-<h3 class="anchored" data-anchor-id="miniforge">Miniforge</h3>
+<section id="miniforge-python-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="miniforge-python-distribution">Miniforge Python Distribution</h3>
 <ul>
 <li><strong>Definition:</strong> A lightweight conda distribution that installs only the conda package manager and the conda-forge channel by default.</li>
 <li><strong>Purpose:</strong> Bootstrap a minimal, reproducible Python environment for non-geospatial projects without the overhead of a full Anaconda installation.</li>
@@ -638,6 +638,15 @@ Status Check (USACE users only)
 </section>
 <section id="ides" class="level2" data-number="13.2">
 <h2 data-number="13.2" class="anchored" data-anchor-id="ides"><span class="header-section-number">13.2</span> IDEs</h2>
+<section id="vs-code" class="level3">
+<h3 class="anchored" data-anchor-id="vs-code">VS Code</h3>
+<ul>
+<li><strong>Definition:</strong> A source-available code editor produced by Microsoft, built on the MIT-licensed Code - OSS project, with broad language and extension support.</li>
+<li><strong>Purpose:</strong> Write, debug, and manage code across multiple languages using a lightweight, highly extensible editor with a large extension ecosystem.</li>
+<li><strong>Audience:</strong> Developers and data scientists who need a general-purpose editor that supports Python, JavaScript, R, and other languages beyond what Positron or RStudio cover.</li>
+<li><strong>URL:</strong> <a href="https://code.visualstudio.com/">code.visualstudio.com</a></li>
+</ul>
+</section>
 <section id="positron" class="level3">
 <h3 class="anchored" data-anchor-id="positron">Positron</h3>
 <ul>
@@ -656,15 +665,6 @@ Status Check (USACE users only)
 <li><strong>URL:</strong> <a href="https://posit.co/products/open-source/rstudio/">posit.co/products/open-source/rstudio</a></li>
 </ul>
 </section>
-<section id="vs-code" class="level3">
-<h3 class="anchored" data-anchor-id="vs-code">VS Code</h3>
-<ul>
-<li><strong>Definition:</strong> A source-available code editor produced by Microsoft, built on the MIT-licensed Code - OSS project, with broad language and extension support.</li>
-<li><strong>Purpose:</strong> Write, debug, and manage code across multiple languages using a lightweight, highly extensible editor with a large extension ecosystem.</li>
-<li><strong>Audience:</strong> Developers and data scientists who need a general-purpose editor that supports Python, JavaScript, R, and other languages beyond what Positron or RStudio cover.</li>
-<li><strong>URL:</strong> <a href="https://code.visualstudio.com/">code.visualstudio.com</a></li>
-</ul>
-</section>
 </section>
 <section id="version-control" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="version-control"><span class="header-section-number">13.3</span> Version Control</h2>
@@ -680,15 +680,6 @@ Status Check (USACE users only)
 </section>
 <section id="databases" class="level2" data-number="13.4">
 <h2 data-number="13.4" class="anchored" data-anchor-id="databases"><span class="header-section-number">13.4</span> Databases</h2>
-<section id="pgadmin" class="level3">
-<h3 class="anchored" data-anchor-id="pgadmin">pgAdmin</h3>
-<ul>
-<li><strong>Definition:</strong> An open source administration and development platform for PostgreSQL databases.</li>
-<li><strong>Purpose:</strong> Administer PostgreSQL servers, design schemas, write and run SQL queries, and inspect database objects through a graphical interface.</li>
-<li><strong>Audience:</strong> Data scientists and database administrators who work with PostgreSQL.</li>
-<li><strong>URL:</strong> <a href="https://www.pgadmin.org/">pgadmin.org</a></li>
-</ul>
-</section>
 <section id="postgresql" class="level3">
 <h3 class="anchored" data-anchor-id="postgresql">PostgreSQL</h3>
 <ul>
@@ -696,6 +687,15 @@ Status Check (USACE users only)
 <li><strong>Purpose:</strong> Store, query, and manage structured geospatial and tabular data using SQL; extend with PostGIS for spatial data support.</li>
 <li><strong>Audience:</strong> Data scientists and analysts who need a robust, production-grade relational database.</li>
 <li><strong>URL:</strong> <a href="https://www.postgresql.org/">postgresql.org</a></li>
+</ul>
+</section>
+<section id="pgadmin" class="level3">
+<h3 class="anchored" data-anchor-id="pgadmin">pgAdmin</h3>
+<ul>
+<li><strong>Definition:</strong> An open source administration and development platform for PostgreSQL databases.</li>
+<li><strong>Purpose:</strong> Administer PostgreSQL servers, design schemas, write and run SQL queries, and inspect database objects through a graphical interface.</li>
+<li><strong>Audience:</strong> Data scientists and database administrators who work with PostgreSQL.</li>
+<li><strong>URL:</strong> <a href="https://www.pgadmin.org/">pgadmin.org</a></li>
 </ul>
 </section>
 </section>

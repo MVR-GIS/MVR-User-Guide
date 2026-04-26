@@ -14,9 +14,10 @@ options for skill development on your projects.
   [app-portal.usace.army.mil](https://app-portal.usace.army.mil/)
 :::
 
+
 ## Languages
 
-### Miniforge
+### Miniforge Python Distribution
 
 - **Definition:** A lightweight conda distribution that installs only
   the conda package manager and the conda-forge channel by default.
@@ -58,7 +59,21 @@ options for skill development on your projects.
 - **URL:**
   [cran.r-project.org/bin/windows/Rtools](https://cran.r-project.org/bin/windows/Rtools/)
 
+
 ## IDEs
+
+### VS Code
+
+- **Definition:** A source-available code editor produced by Microsoft,
+  built on the MIT-licensed Code - OSS project, with broad language and
+  extension support.
+- **Purpose:** Write, debug, and manage code across multiple languages
+  using a lightweight, highly extensible editor with a large extension
+  ecosystem.
+- **Audience:** Developers and data scientists who need a general-purpose
+  editor that supports Python, JavaScript, R, and other languages beyond
+  what Positron or RStudio cover.
+- **URL:** [code.visualstudio.com](https://code.visualstudio.com/)
 
 ### Positron
 
@@ -81,18 +96,6 @@ options for skill development on your projects.
 - **URL:**
   [posit.co/products/open-source/rstudio](https://posit.co/products/open-source/rstudio/)
 
-### VS Code
-
-- **Definition:** A source-available code editor produced by Microsoft,
-  built on the MIT-licensed Code - OSS project, with broad language and
-  extension support.
-- **Purpose:** Write, debug, and manage code across multiple languages
-  using a lightweight, highly extensible editor with a large extension
-  ecosystem.
-- **Audience:** Developers and data scientists who need a general-purpose
-  editor that supports Python, JavaScript, R, and other languages beyond
-  what Positron or RStudio cover.
-- **URL:** [code.visualstudio.com](https://code.visualstudio.com/)
 
 ## Version Control
 
@@ -106,7 +109,18 @@ options for skill development on your projects.
   in Git repositories.
 - **URL:** [gitforwindows.org](https://gitforwindows.org/)
 
+
 ## Databases
+
+### PostgreSQL
+
+- **Definition:** An open source object-relational database system with
+  over 35 years of active development.
+- **Purpose:** Store, query, and manage structured geospatial and
+  tabular data using SQL; extend with PostGIS for spatial data support.
+- **Audience:** Data scientists and analysts who need a robust,
+  production-grade relational database.
+- **URL:** [postgresql.org](https://www.postgresql.org/)
 
 ### pgAdmin
 
@@ -119,15 +133,6 @@ options for skill development on your projects.
   with PostgreSQL.
 - **URL:** [pgadmin.org](https://www.pgadmin.org/)
 
-### PostgreSQL
-
-- **Definition:** An open source object-relational database system with
-  over 35 years of active development.
-- **Purpose:** Store, query, and manage structured geospatial and
-  tabular data using SQL; extend with PostGIS for spatial data support.
-- **Audience:** Data scientists and analysts who need a robust,
-  production-grade relational database.
-- **URL:** [postgresql.org](https://www.postgresql.org/)
 
 ## Containers
 
@@ -152,6 +157,7 @@ options for skill development on your projects.
 - **Audience:** GIS analysts who need a full-featured desktop GIS, and
   advanced analysts who use the QGIS Python API for scripting.
 - **URL:** [qgis.org](https://qgis.org/)
+
 
 ## Publishing & Sharing
 
@@ -187,6 +193,7 @@ options for skill development on your projects.
   data sources, or standards in their work.
 - **URL:** [zotero.org](https://www.zotero.org/)
 
+
 ## Knowledge Representation
 
 ### Protege Desktop
@@ -201,4 +208,5 @@ options for skill development on your projects.
   semantic data modeling or Army Vantage ontology workflows.
 - **URL:** [protege.stanford.edu](https://protege.stanford.edu/) |
   Install via [app-portal.usace.army.mil](https://app-portal.usace.army.mil/)
+  
   
