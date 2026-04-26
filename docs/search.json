@@ -396,7 +396,7 @@
     "href": "r-Positron-getting-started.html#prerequisites-install-these-first",
     "title": "5  Positron Getting Started",
     "section": "5.2 Prerequisites (install these first)",
-    "text": "5.2 Prerequisites (install these first)\nBefore installing or using Positron for R-based work, make sure your system has:\n\nR (required)\nRTools (Windows only; sometimes required)\n\n\nInstall R (required)\nR provides the runtime that Positron uses to run your R scripts and render R/knitr outputs.\n\nR homepage: https://www.r-project.org/\n\nUSACE users should follow the approved/scanned software process described in the “Open Source Software” chapter:\n\nSee: [gov-open-source-software.qmd] (Status Check + App Portal)\n\n\n\nInstall RTools (Windows; “maybe” required)\nYou may need RTools on Windows when installing R packages that compile from source (C/C++/Fortran) or when your workflow requires building packages locally.\n\nRTools: https://cran.r-project.org/bin/windows/Rtools/\n\nIf you are unsure: install R first, then attempt to install your required packages. If package installation fails with compilation/toolchain errors, install RTools and retry.",
+    "text": "5.2 Prerequisites (install these first)\nBefore installing or using Positron for R-based work, make sure your system has:\n\nR (required)\nRTools (Windows only; sometimes required)\n\n\nInstall R (required)\nR provides the runtime that Positron uses to run your R scripts and render R/knitr outputs.\n\nR homepage: https://www.r-project.org/\n\nUSACE users should follow the approved/scanned software process described in the “Open Source Software” chapter:\n\nSee: Open Source Software (Status Check + App Portal)\n\n\n\nInstall RTools (Windows; “maybe” required)\nYou may need RTools on Windows when installing R packages that compile from source (C/C++/Fortran) or when your workflow requires building packages locally.\n\nRTools: https://cran.r-project.org/bin/windows/Rtools/\n\nIf you are unsure: install R first, then attempt to install your required packages. If package installation fails with compilation/toolchain errors, install RTools and retry.",
     "crumbs": [
       "R Projects",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Positron Getting Started</span>"
@@ -407,7 +407,7 @@
     "href": "r-Positron-getting-started.html#install-and-configure-positron-usace-pathway",
     "title": "5  Positron Getting Started",
     "section": "5.3 Install and configure Positron (USACE pathway)",
-    "text": "5.3 Install and configure Positron (USACE pathway)\n\n\n\n\n\n\nUSACE installation path (App Portal)\n\n\n\nFor USACE-managed devices, install software through the USACE App Portal and confirm you are using an approved/scanned version.\n\nCheck scanned/approved versions: https://finder.nosc.usace.army.mil/code_scan_tracker\nInstall approved versions via the USACE App Portal\n\nThese links and the “Status Check” workflow are maintained in: [gov-open-source-software.qmd].\n\n\nAfter Positron is installed, do a quick verification to ensure Positron can run R successfully.\n\nFirst launch checklist (R / knitr projects)\n\nOpen Positron.\nCreate or open a project folder (recommendation: one folder per analysis project).\nOpen a new R script (for example: scratch.R).\nRun the following in the R console to confirm R is available:\nversion\n\nYou should see your installed R version printed.\nIf you plan to render Quarto/knitr documents locally, also confirm you can install and load common packages (your project may require additional packages):\ninstall.packages(c(\"knitr\", \"rmarkdown\", \"quarto\"))\nIf installs fail with compilation errors on Windows, revisit the RTools prerequisite.",
+    "text": "5.3 Install and configure Positron (USACE pathway)\n\n\n\n\n\n\nUSACE installation path (App Portal)\n\n\n\nFor USACE-managed devices, install software through the USACE App Portal and confirm you are using an approved/scanned version.\n\nCheck scanned/approved versions: Finder\nInstall approved versions via the USACE App Portal\n\nThese links and the “Status Check” workflow are maintained in: Open Source Software.\n\n\nAfter Positron is installed, do a quick verification to ensure Positron can run R successfully.\n\nFirst launch checklist (R / knitr projects)\n\nOpen Positron.\nCreate or open a project folder (recommendation: one folder per analysis project).\nOpen a new R script (for example: scratch.R).\nRun the following in the R console to confirm R is available:\n\n\nversion\n\nYou should see your installed R version printed.\nIf you plan to render Quarto/knitr documents locally, also confirm you can install and load common packages (your project may require additional packages):\n\ninstall.packages(c(\"knitr\", \"rmarkdown\", \"quarto\"))\n\nIf installs fail with compilation errors on Windows, revisit the RTools prerequisite.",
     "crumbs": [
       "R Projects",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Positron Getting Started</span>"
@@ -422,6 +422,83 @@
     "crumbs": [
       "R Projects",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Positron Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "r-RStudio-getting-started.html",
+    "href": "r-RStudio-getting-started.html",
+    "title": "6  RStudio Getting Started",
+    "section": "",
+    "text": "6.1 What is RStudio?\nPositron is the recommended IDE for USACE data science when you are working on R and Python based technical analysis projects. RStudio Desktop remains a strong, widely used IDE built specifically for the R language, and it is a good choice for USACE work that is primarily R-based—especially when your workflow emphasizes:\nThis chapter is intended to aim you in the right direction (USACE install path + prerequisites + basic verification). It does not duplicate Posit’s authoritative documentation.\nAuthoritative documentation: - RStudio (Posit) documentation / RStudio landing page - Posit Support (general): support.posit.co/",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>RStudio Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "r-RStudio-getting-started.html#what-is-rstudio",
+    "href": "r-RStudio-getting-started.html#what-is-rstudio",
+    "title": "6  RStudio Getting Started",
+    "section": "",
+    "text": "R scripts and packages (including package development),\nreproducible reports (R Markdown / Quarto),\ninteractive exploration (console, plots, environment, viewer panes),\na stable, purpose-built R experience with a large existing user base.",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>RStudio Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "r-RStudio-getting-started.html#when-should-i-use-rstudio-vs-positron",
+    "href": "r-RStudio-getting-started.html#when-should-i-use-rstudio-vs-positron",
+    "title": "6  RStudio Getting Started",
+    "section": "6.2 When should I use RStudio vs Positron?",
+    "text": "6.2 When should I use RStudio vs Positron?\nAs a rule for USACE technical analysis projects:\n\nChoose Positron for most new work, especially when your projects span R + Python or you want a more VS Code-like experience.\nChoose RStudio when your work is R-first and you want the most established, R-specific IDE experience.\nIf your team standardizes on one IDE for supportability, follow team guidance.",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>RStudio Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "r-RStudio-getting-started.html#prerequisites-install-these-first",
+    "href": "r-RStudio-getting-started.html#prerequisites-install-these-first",
+    "title": "6  RStudio Getting Started",
+    "section": "6.3 Prerequisites (install these first)",
+    "text": "6.3 Prerequisites (install these first)\nBefore installing or using RStudio for R-based work, make sure your system has:\n\nR (required)\nRTools (Windows only; sometimes required for building packages from source)\n\n\nInstall R (required)\nR provides the runtime that RStudio uses to run your scripts and render R/knitr outputs.\n\nR homepage: https://www.r-project.org/\n\nUSACE users should follow the approved/scanned software process described in the “Open Source Software” chapter:\n\nSee: Open Source Software (Status Check + App Portal)\n\n\n\nInstall RTools (Windows; “maybe” required)\nYou may need RTools on Windows when installing R packages that compile from source (C/C++/Fortran) or when your workflow requires building packages locally.\n\nRTools: https://cran.r-project.org/bin/windows/Rtools/\n\nIf you are unsure: install R first, then attempt to install your required packages. If package installation fails with compilation/toolchain errors, install RTools and retry.",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>RStudio Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "r-RStudio-getting-started.html#install-and-configure-rstudio-usace-pathway",
+    "href": "r-RStudio-getting-started.html#install-and-configure-rstudio-usace-pathway",
+    "title": "6  RStudio Getting Started",
+    "section": "6.4 Install and configure RStudio (USACE pathway)",
+    "text": "6.4 Install and configure RStudio (USACE pathway)\n\n\n\n\n\n\nUSACE installation path (App Portal)\n\n\n\nFor USACE-managed devices, install software through the USACE App Portal and confirm you are using an approved/scanned version.\n\nCheck scanned/approved versions: Finder\nInstall approved versions via the USACE App Portal: App Portal\n\nThese links and the “Status Check” workflow are maintained in: Open Source Software.\n\n\nAfter RStudio is installed, do a quick verification to ensure RStudio can run R successfully.\n\nFirst launch checklist (R / knitr projects)\n\nOpen RStudio.\nConfirm RStudio is using the expected R installation:\n\nTools → Global Options → General → Basic → “R version”\n\nOpen a new R script (for example: scratch.R).\nRun the following in the R console to confirm R is available:\n\n\nversion\n\nYou should see your installed R version printed.\nIf you plan to render Quarto/knitr documents locally, also confirm you can install and load common packages (your project may require additional packages):\n\ninstall.packages(c(\"knitr\", \"rmarkdown\", \"quarto\"))\n\nIf installs fail with compilation errors on Windows, revisit the RTools prerequisite.",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>RStudio Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "r-RStudio-getting-started.html#recommended-baseline-settings-team-friendly-defaults",
+    "href": "r-RStudio-getting-started.html#recommended-baseline-settings-team-friendly-defaults",
+    "title": "6  RStudio Getting Started",
+    "section": "6.5 Recommended baseline settings (team-friendly defaults)",
+    "text": "6.5 Recommended baseline settings (team-friendly defaults)\nThese are optional, but commonly help with consistency and reproducibility across a team:\n\nPrefer working in a dedicated Project (File → New Project) rather than ad-hoc scripts scattered across the filesystem.\nKeep analysis dependencies explicit:\n\nconsider an R package lockfile workflow (e.g., renv) when projects need to be re-run reliably on other machines.\n\nAvoid relying on hidden local state:\n\nrestart your R session periodically,\nre-run scripts from a clean session to confirm they work end-to-end.\n\n\n(Choose conventions deliberately and document them in your project README.)",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>RStudio Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "r-RStudio-getting-started.html#getting-help",
+    "href": "r-RStudio-getting-started.html#getting-help",
+    "title": "6  RStudio Getting Started",
+    "section": "6.6 Getting help",
+    "text": "6.6 Getting help\nIf something fails (install, packages, R version detection), capture:\n\nexact error message,\nR version (version),\nRStudio version (Help → About),\nwhether you are on a USACE-managed device (App Portal-installed).\n\nThen consult: - Posit’s RStudio documentation",
+    "crumbs": [
+      "R Projects",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>RStudio Getting Started</span>"
     ]
   },
   {

@@ -1,2 +1,117 @@
+---
+engine: knitr
+execute:
+  eval: false
+---
+
 # RStudio Getting Started
 
+## What is RStudio?
+
+**Positron is the recommended IDE for USACE data science** when you are working on R and Python based technical analysis projects. **RStudio Desktop** remains a strong, widely used IDE built specifically for the **R** language, and it is a good choice for USACE work that is primarily R-based—especially when your workflow emphasizes:
+
+- R scripts and packages (including package development),
+- reproducible reports (R Markdown / Quarto),
+- interactive exploration (console, plots, environment, viewer panes),
+- a stable, purpose-built R experience with a large existing user base.
+
+This chapter is intended to **aim you in the right direction** (USACE install path + prerequisites + basic verification). It does not duplicate Posit’s authoritative documentation.
+
+Authoritative documentation:
+- RStudio (Posit) documentation / [RStudio landing page](https://posit.co/products/open-source/rstudio/)
+- Posit Support (general): [support.posit.co/](https://support.posit.co/)
+
+## When should I use RStudio vs Positron?
+
+As a rule for USACE technical analysis projects:
+
+- Choose **Positron** for most new work, especially when your projects span **R + Python** or you want a more VS Code-like experience.
+- Choose **RStudio** when your work is **R-first** and you want the most established, R-specific IDE experience.
+- If your team standardizes on one IDE for supportability, follow team guidance.
+
+## Prerequisites (install these first)
+
+Before installing or using RStudio for R-based work, make sure your system has:
+
+1. **R** (required)
+2. **RTools** (Windows only; sometimes required for building packages from source)
+
+### Install R (required)
+
+R provides the runtime that RStudio uses to run your scripts and render R/knitr outputs.
+
+- R homepage: [https://www.r-project.org/](https://www.r-project.org/)
+
+USACE users should follow the **approved/scanned software** process described in the “Open Source Software” chapter:
+
+- See: [Open Source Software](gov-open-source-software.qmd) (Status Check + App Portal)
+
+### Install RTools (Windows; “maybe” required)
+
+You may need **RTools** on Windows when installing R packages that compile from source (C/C++/Fortran) or when your workflow requires building packages locally.
+
+- RTools: [https://cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/)
+
+If you are unsure: install R first, then attempt to install your required packages. If package installation fails with compilation/toolchain errors, install RTools and retry.
+
+## Install and configure RStudio (USACE pathway)
+
+::: {.callout-note}
+## USACE installation path (App Portal)
+
+For USACE-managed devices, install software through the USACE **App Portal** and confirm you are using an approved/scanned version.
+
+- Check scanned/approved versions: [Finder](https://finder.nosc.usace.army.mil/code_scan_tracker)
+- Install approved versions via the USACE App Portal: [App Portal](https://app-portal.usace.army.mil/)
+
+These links and the “Status Check” workflow are maintained in: [Open Source Software](gov-open-source-software.qmd).
+:::
+
+After RStudio is installed, do a quick verification to ensure RStudio can run R successfully.
+
+### First launch checklist (R / knitr projects)
+
+1. Open RStudio.
+2. Confirm RStudio is using the expected R installation:
+   - Tools → Global Options → General → Basic → “R version”
+3. Open a new R script (for example: `scratch.R`).
+4. Run the following in the R console to confirm R is available:
+
+```{r}
+version
+```
+
+You should see your installed R version printed.
+
+If you plan to render Quarto/knitr documents locally, also confirm you can install and load common packages (your project may require additional packages):
+
+```{r}
+install.packages(c("knitr", "rmarkdown", "quarto"))
+```
+
+If installs fail with compilation errors on Windows, revisit the RTools prerequisite.
+
+## Recommended baseline settings (team-friendly defaults)
+
+These are optional, but commonly help with consistency and reproducibility across a team:
+
+- Prefer working in a dedicated **Project** (File → New Project) rather than ad-hoc scripts scattered across the filesystem.
+- Keep analysis dependencies explicit:
+  - consider an R package lockfile workflow (e.g., `renv`) when projects need to be re-run reliably on other machines.
+- Avoid relying on hidden local state:
+  - restart your R session periodically,
+  - re-run scripts from a clean session to confirm they work end-to-end.
+
+(Choose conventions deliberately and document them in your project README.)
+
+## Getting help
+
+If something fails (install, packages, R version detection), capture:
+
+- exact error message,
+- R version (`version`),
+- RStudio version (Help → About),
+- whether you are on a USACE-managed device (App Portal-installed).
+
+Then consult:
+- Posit’s [RStudio documentation](https://posit.co/products/open-source/rstudio/)

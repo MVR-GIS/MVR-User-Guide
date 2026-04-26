@@ -618,7 +618,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>USACE users should follow the <strong>approved/scanned software</strong> process described in the “Open Source Software” chapter:</p>
 <ul>
-<li>See: [gov-open-source-software.qmd] (Status Check + App Portal)</li>
+<li>See: <a href="./gov-open-source-software.html">Open Source Software</a> (Status Check + App Portal)</li>
 </ul>
 </section>
 <section id="install-rtools-windows-maybe-required" class="level3">
@@ -644,25 +644,29 @@ USACE installation path (App Portal)
 <div class="callout-body-container callout-body">
 <p>For USACE-managed devices, install software through the USACE <strong>App Portal</strong> and confirm you are using an approved/scanned version.</p>
 <ul>
-<li>Check scanned/approved versions: <a href="https://finder.nosc.usace.army.mil/code_scan_tracker">https://finder.nosc.usace.army.mil/code_scan_tracker</a></li>
+<li>Check scanned/approved versions: <a href="https://finder.nosc.usace.army.mil/code_scan_tracker">Finder</a></li>
 <li>Install approved versions via the USACE <a href="https://app-portal.usace.army.mil/">App Portal</a></li>
 </ul>
-<p>These links and the “Status Check” workflow are maintained in: [gov-open-source-software.qmd].</p>
+<p>These links and the “Status Check” workflow are maintained in: <a href="./gov-open-source-software.html">Open Source Software</a>.</p>
 </div>
 </div>
 <p>After Positron is installed, do a quick verification to ensure Positron can run R successfully.</p>
 <section id="first-launch-checklist-r-knitr-projects" class="level3">
 <h3 class="anchored" data-anchor-id="first-launch-checklist-r-knitr-projects">First launch checklist (R / knitr projects)</h3>
 <ol type="1">
-<li><p>Open Positron.</p></li>
-<li><p>Create or open a project folder (recommendation: one folder per analysis project).</p></li>
-<li><p>Open a new R script (for example: <code>scratch.R</code>).</p></li>
-<li><p>Run the following in the R console to confirm R is available:</p>
-<p>version</p></li>
+<li>Open Positron.</li>
+<li>Create or open a project folder (recommendation: one folder per analysis project).</li>
+<li>Open a new R script (for example: <code>scratch.R</code>).</li>
+<li>Run the following in the R console to confirm R is available:</li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>You should see your installed R version printed.</p>
 <p>If you plan to render Quarto/knitr documents locally, also confirm you can install and load common packages (your project may require additional packages):</p>
-<pre><code>install.packages(c("knitr", "rmarkdown", "quarto"))</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"knitr"</span>, <span class="st">"rmarkdown"</span>, <span class="st">"quarto"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>If installs fail with compilation errors on Windows, revisit the RTools prerequisite.</p>
 </section>
 </section>
@@ -687,26 +691,26 @@ USACE installation path (App Portal)
 <li>Use the following code snippet to download and install the extension:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>latest_version_url <span class="ot">&lt;-</span> <span class="st">"https://open-vsx.org/api/posit/shiny/1.3.2/file/posit.shiny-1.3.2.vsix"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>latest_version_filename <span class="ot">&lt;-</span> <span class="fu">basename</span>(<span class="fu">file.path</span>(latest_version_url))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>downloaded_vsix <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(latest_version_filename, <span class="at">fileext =</span> <span class="st">".vsix"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> latest_version_url,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> downloaded_vsix,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"curl"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"wb"</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">extra =</span> <span class="st">"-L"</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">"positron --install-extension"</span>, <span class="fu">shQuote</span>(downloaded_vsix))</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>latest_version_url <span class="ot">&lt;-</span> <span class="st">"https://open-vsx.org/api/posit/shiny/1.3.2/file/posit.shiny-1.3.2.vsix"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>latest_version_filename <span class="ot">&lt;-</span> <span class="fu">basename</span>(<span class="fu">file.path</span>(latest_version_url))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>downloaded_vsix <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(latest_version_filename, <span class="at">fileext =</span> <span class="st">".vsix"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> latest_version_url,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> downloaded_vsix,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"curl"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"wb"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">extra =</span> <span class="st">"-L"</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">"positron --install-extension"</span>, <span class="fu">shQuote</span>(downloaded_vsix))</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For the authoritative Positron extension guidance and supported workflows, follow the vendor documentation:</p>
 <ul>
-<li>https://positron.posit.co/welcome.html</li>
+<li><a href="https://positron.posit.co/welcome.html">https://positron.posit.co/welcome.html</a></li>
 </ul>
 
 

@@ -34,7 +34,7 @@ R provides the runtime that Positron uses to run your R scripts and render R/kni
 
 USACE users should follow the **approved/scanned software** process described in the “Open Source Software” chapter:
 
-- See: [gov-open-source-software.qmd] (Status Check + App Portal)
+- See: [Open Source Software](gov-open-source-software.qmd) (Status Check + App Portal)
 
 ### Install RTools (Windows; “maybe” required)
 
@@ -51,10 +51,10 @@ If you are unsure: install R first, then attempt to install your required packag
 
 For USACE-managed devices, install software through the USACE **App Portal** and confirm you are using an approved/scanned version.
 
-- Check scanned/approved versions: [https://finder.nosc.usace.army.mil/code_scan_tracker](https://finder.nosc.usace.army.mil/code_scan_tracker)
+- Check scanned/approved versions: [Finder](https://finder.nosc.usace.army.mil/code_scan_tracker)
 - Install approved versions via the USACE [App Portal](https://app-portal.usace.army.mil/)
 
-These links and the “Status Check” workflow are maintained in: [gov-open-source-software.qmd].
+These links and the “Status Check” workflow are maintained in: [Open Source Software](gov-open-source-software.qmd).
 :::
 
 After Positron is installed, do a quick verification to ensure Positron can run R successfully.
@@ -66,13 +66,17 @@ After Positron is installed, do a quick verification to ensure Positron can run 
 3. Open a new R script (for example: `scratch.R`).
 4. Run the following in the R console to confirm R is available:
 
-    version
+```{r}
+version
+```
 
 You should see your installed R version printed.
 
 If you plan to render Quarto/knitr documents locally, also confirm you can install and load common packages (your project may require additional packages):
 
-    install.packages(c("knitr", "rmarkdown", "quarto"))
+```{r}
+install.packages(c("knitr", "rmarkdown", "quarto"))
+```
 
 If installs fail with compilation errors on Windows, revisit the RTools prerequisite.
 
@@ -118,4 +122,4 @@ system(
 
 For the authoritative Positron extension guidance and supported workflows, follow the vendor documentation:
 
-- https://positron.posit.co/welcome.html
+- [https://positron.posit.co/welcome.html](https://positron.posit.co/welcome.html)
