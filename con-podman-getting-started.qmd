@@ -5,11 +5,13 @@ execute:
 
 # Podman Desktop (Getting Started)
 
-This chapter is for **data scientists who are new to containers** and need to get comfortable with **Podman Desktop + Podman CLI** on a **Windows** USACE-managed computer.
+This chapter is for **USACE data scientists who are new to containers** and need to get comfortable with **Podman Desktop + Podman CLI** on a **Windows** computer.
 
-Your team’s primary use case:
+Primary use case for this guide:
 
-> **QA/QC a container locally** for a data science application prior to production deployment—especially when the Dockerfile is multi-stage and aligned with hardened container guidance.
+- **QA/QC a container locally** for a data science application prior to production deployment.
+- Build and test images defined by a **Dockerfile** (often **multi-stage** and increasingly based on **hardened** base images).
+- Iterate on the container build process to mitigate cybersecurity findings (while keeping the app functional).
 
 ::: {.callout-important}
 ## Prerequisite
@@ -20,44 +22,188 @@ Podman Desktop must already be installed and WSL2 enabled by a PC Tech.
 
 ## Why USACE is transitioning from Docker Desktop to Podman Desktop (Windows)
 
-Historically, many teams used Docker Desktop for local container development. However:
+Historically, many teams used Docker Desktop for local container development on Windows. However:
 
-- **Docker Desktop now requires a subscription for many organizational/government use cases on Windows.**
-- **Podman Desktop is open source and no-cost**, and provides a supported path for local container workflows.
+- **Docker Desktop now requires a subscription for many organizational/government Windows use cases.**
+- **Podman Desktop is open source and no-cost**, and supports common container workflows needed for local QA/QC.
 
-This user guide focuses on **Podman Desktop** as the standard approach for local container QA/QC in USACE Windows environments.
+This user guide focuses on **Podman Desktop** as the recommended approach for local container QA/QC in USACE Windows environments.
 
 ::: {.callout-note}
-## Terminology: “Dockerfile” still applies
-Podman builds images using Dockerfile syntax (and related standards). It is normal to:
-- keep a file named `Dockerfile`
-- use `podman build ...` to build it
+## “Dockerfile” is still the standard build input
+Podman can build images from a `Dockerfile` using the same general syntax and patterns you may already know from Docker-based workflows.
+
+It is normal and expected that:
+- your repo contains a file named `Dockerfile`
+- you use `podman build ...` to build it
 :::
 
-## Mental model (what you need to know to be effective)
-
-Containers can feel like a lot at first. For day-1 productivity, focus on these concepts:
+## A minimal mental model (enough to be productive)
 
 - **Image**: a packaged filesystem + metadata that defines an app environment.
 - **Container**: a running (or stopped) instance of an image.
 - **Registry**: where images come from (public or internal).
 - **Dockerfile**: build recipe for an image (often multi-stage).
-- **Volume / bind mount**: how you make local files available inside a container.
-- **Port mapping**: how you access a containerized service from your browser/tools.
+- **Bind mount**: make local files available inside a container.
+- **Port mapping**: access a containerized service from your Windows machine.
 - **WSL2 backend**: on Windows, Podman runs Linux containers via WSL2.
+
+::: {.callout-tip}
+## Your “first success” goal
+For QA/QC work, success is not “I can run any container.”
+
+Success is:
+1. You can build the image from your repo’s Dockerfile.
+2. You can run the container locally.
+3. You can view logs and diagnose failures.
+4. You can iterate: change Dockerfile, rebuild, rerun, retest.
+:::
 
 ## First success checklist (15 minutes)
 
-### 1) Open Podman Desktop and verify engine is running
+### 1) Confirm Podman is available (PowerShell)
 
-- Launch **Podman Desktop**
-- Confirm it shows the engine/backend as **ready/running** (wording varies by version)
+Open **PowerShell** and run:
 
-### 2) Verify CLI access (PowerShell)
+    podman --version
+    podman info
 
-Open PowerShell and run:
+Expected: commands run successfully and `podman info` returns structured output.
 
-```powershell
-podman --version
-podman info
-```
+If `podman` is not found:
+- confirm Podman Desktop is installed
+- reopen PowerShell (PATH changes may require a new shell)
+- if still blocked, ask your PC Tech to verify installation
+
+### 2) Confirm you can pull and run a small test image
+
+This is a basic smoke test that confirms your local Podman runtime is functioning:
+
+    podman pull docker.io/library/alpine:latest
+    podman run --rm docker.io/library/alpine:latest echo "podman is working"
+
+Expected: you see:
+
+    podman is working
+
+::: {.callout-warning}
+## Network / registry restrictions
+If pulling from public registries fails due to policy/proxy restrictions, stop and coordinate with your team’s container/DevOps support path (approved registries, proxy configuration, internal mirrors, etc.).
+:::
+
+## Core QA/QC workflows (build, run, logs)
+
+The commands below are the “80% path” for validating container changes locally.
+
+### Workflow A — Build an image from a Dockerfile
+
+From the repo root (where the Dockerfile lives):
+
+    podman build -t myapp:dev .
+
+Recommended habits:
+- Use meaningful tags for QA/QC (include a date, branch, or ticket identifier).
+- If your team uses a standard image name, follow it consistently.
+
+Examples:
+
+    podman build -t myapp:qaqc-2026-04-29 .
+
+#### Multi-stage Dockerfile: build a specific stage (when needed)
+
+If your Dockerfile defines multiple stages and you want to build a specific stage:
+
+    podman build --target runtime -t myapp:runtime .
+
+Use this when you need to:
+- test only the hardened runtime stage
+- confirm the final stage still works after refactoring earlier build stages
+
+#### Verify what you built
+
+    podman images
+    podman inspect myapp:dev
+
+Tip: `podman inspect` is useful when verifying labels, entrypoints, env vars, and other runtime metadata.
+
+### Workflow B — Run the container locally
+
+Most QA/QC runs fall into one of these patterns:
+
+#### Pattern 1: run a command and exit (batch-style)
+
+    podman run --rm myapp:dev <command>
+
+Example:
+
+    podman run --rm myapp:dev --help
+
+#### Pattern 2: run a service and map ports (web app/API)
+
+If your container listens on a port (example: 8000), map it to your machine:
+
+    podman run --rm -p 8000:8000 myapp:dev
+
+Then test:
+- `http://localhost:8000` in a browser, or
+- your API client / curl
+
+Add environment variables as needed:
+
+    podman run --rm -p 8000:8000 -e APP_ENV=dev myapp:dev
+
+Name the container if you plan to inspect it while running:
+
+    podman run --name myapp-qaqc -p 8000:8000 myapp:dev
+
+### Workflow C — View logs (the fastest way to QA/QC startup issues)
+
+If a container is named, you can view logs with:
+
+    podman logs myapp-qaqc
+
+If the container exits too fast and you used `--rm`, rerun without `--rm` so you can inspect logs and state:
+
+    podman run --name myapp-debug -p 8000:8000 myapp:dev
+
+Then:
+
+    podman ps -a
+    podman logs myapp-debug
+
+Clean up when done:
+
+    podman rm myapp-debug
+
+### Workflow D — Stop / remove containers cleanly
+
+List running containers:
+
+    podman ps
+
+Stop a running container:
+
+    podman stop myapp-qaqc
+
+Remove a stopped container:
+
+    podman rm myapp-qaqc
+
+### Workflow E — Cleanup images when iterating heavily
+
+If you are repeatedly rebuilding and running QA/QC, you may accumulate many unused layers/images.
+
+Inspect:
+
+    podman images
+
+Prune unused images:
+
+    podman image prune
+
+::: {.callout-warning}
+## Be careful with aggressive cleanup
+Avoid commands that delete “everything” unless you know you won’t need cached layers/images. They can be costly to rebuild and may remove images you rely on for offline work.
+:::
+
+## QA/QC: a simple local validation checklist

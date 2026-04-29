@@ -616,7 +616,7 @@
     "href": "con-podman-getting-started.html",
     "title": "11  Podman Desktop (Getting Started)",
     "section": "",
-    "text": "11.1 Why USACE is transitioning from Docker Desktop to Podman Desktop (Windows)\nThis chapter is for data scientists who are new to containers and need to get comfortable with Podman Desktop + Podman CLI on a Windows USACE-managed computer.\nYour team’s primary use case:\nHistorically, many teams used Docker Desktop for local container development. However:\nThis user guide focuses on Podman Desktop as the standard approach for local container QA/QC in USACE Windows environments.",
+    "text": "11.1 Why USACE is transitioning from Docker Desktop to Podman Desktop (Windows)\nThis chapter is for USACE data scientists who are new to containers and need to get comfortable with Podman Desktop + Podman CLI on a Windows computer.\nPrimary use case for this guide:\nHistorically, many teams used Docker Desktop for local container development on Windows. However:\nThis user guide focuses on Podman Desktop as the recommended approach for local container QA/QC in USACE Windows environments.",
     "crumbs": [
       "Containers",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop (Getting Started)</span>"
@@ -627,18 +627,18 @@
     "href": "con-podman-getting-started.html#why-usace-is-transitioning-from-docker-desktop-to-podman-desktop-windows",
     "title": "11  Podman Desktop (Getting Started)",
     "section": "",
-    "text": "Docker Desktop now requires a subscription for many organizational/government use cases on Windows.\nPodman Desktop is open source and no-cost, and provides a supported path for local container workflows.\n\n\n\n\n\n\n\n\nTerminology: “Dockerfile” still applies\n\n\n\nPodman builds images using Dockerfile syntax (and related standards). It is normal to: - keep a file named Dockerfile - use podman build ... to build it",
+    "text": "Docker Desktop now requires a subscription for many organizational/government Windows use cases.\nPodman Desktop is open source and no-cost, and supports common container workflows needed for local QA/QC.\n\n\n\n\n\n\n\n\n“Dockerfile” is still the standard build input\n\n\n\nPodman can build images from a Dockerfile using the same general syntax and patterns you may already know from Docker-based workflows.\nIt is normal and expected that: - your repo contains a file named Dockerfile - you use podman build ... to build it",
     "crumbs": [
       "Containers",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop (Getting Started)</span>"
     ]
   },
   {
-    "objectID": "con-podman-getting-started.html#mental-model-what-you-need-to-know-to-be-effective",
-    "href": "con-podman-getting-started.html#mental-model-what-you-need-to-know-to-be-effective",
+    "objectID": "con-podman-getting-started.html#a-minimal-mental-model-enough-to-be-productive",
+    "href": "con-podman-getting-started.html#a-minimal-mental-model-enough-to-be-productive",
     "title": "11  Podman Desktop (Getting Started)",
-    "section": "11.2 Mental model (what you need to know to be effective)",
-    "text": "11.2 Mental model (what you need to know to be effective)\nContainers can feel like a lot at first. For day-1 productivity, focus on these concepts:\n\nImage: a packaged filesystem + metadata that defines an app environment.\nContainer: a running (or stopped) instance of an image.\nRegistry: where images come from (public or internal).\nDockerfile: build recipe for an image (often multi-stage).\nVolume / bind mount: how you make local files available inside a container.\nPort mapping: how you access a containerized service from your browser/tools.\nWSL2 backend: on Windows, Podman runs Linux containers via WSL2.",
+    "section": "11.2 A minimal mental model (enough to be productive)",
+    "text": "11.2 A minimal mental model (enough to be productive)\n\nImage: a packaged filesystem + metadata that defines an app environment.\nContainer: a running (or stopped) instance of an image.\nRegistry: where images come from (public or internal).\nDockerfile: build recipe for an image (often multi-stage).\nBind mount: make local files available inside a container.\nPort mapping: access a containerized service from your Windows machine.\nWSL2 backend: on Windows, Podman runs Linux containers via WSL2.\n\n\n\n\n\n\n\nYour “first success” goal\n\n\n\nFor QA/QC work, success is not “I can run any container.”\nSuccess is: 1. You can build the image from your repo’s Dockerfile. 2. You can run the container locally. 3. You can view logs and diagnose failures. 4. You can iterate: change Dockerfile, rebuild, rerun, retest.",
     "crumbs": [
       "Containers",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop (Getting Started)</span>"
@@ -649,7 +649,29 @@
     "href": "con-podman-getting-started.html#first-success-checklist-15-minutes",
     "title": "11  Podman Desktop (Getting Started)",
     "section": "11.3 First success checklist (15 minutes)",
-    "text": "11.3 First success checklist (15 minutes)\n\n1) Open Podman Desktop and verify engine is running\n\nLaunch Podman Desktop\nConfirm it shows the engine/backend as ready/running (wording varies by version)\n\n\n\n2) Verify CLI access (PowerShell)\nOpen PowerShell and run:\npodman --version\npodman info",
+    "text": "11.3 First success checklist (15 minutes)\n\n1) Confirm Podman is available (PowerShell)\nOpen PowerShell and run:\npodman --version\npodman info\nExpected: commands run successfully and podman info returns structured output.\nIf podman is not found: - confirm Podman Desktop is installed - reopen PowerShell (PATH changes may require a new shell) - if still blocked, ask your PC Tech to verify installation\n\n\n2) Confirm you can pull and run a small test image\nThis is a basic smoke test that confirms your local Podman runtime is functioning:\npodman pull docker.io/library/alpine:latest\npodman run --rm docker.io/library/alpine:latest echo \"podman is working\"\nExpected: you see:\npodman is working\n\n\n\n\n\n\nNetwork / registry restrictions\n\n\n\nIf pulling from public registries fails due to policy/proxy restrictions, stop and coordinate with your team’s container/DevOps support path (approved registries, proxy configuration, internal mirrors, etc.).",
+    "crumbs": [
+      "Containers",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop (Getting Started)</span>"
+    ]
+  },
+  {
+    "objectID": "con-podman-getting-started.html#core-qaqc-workflows-build-run-logs",
+    "href": "con-podman-getting-started.html#core-qaqc-workflows-build-run-logs",
+    "title": "11  Podman Desktop (Getting Started)",
+    "section": "11.4 Core QA/QC workflows (build, run, logs)",
+    "text": "11.4 Core QA/QC workflows (build, run, logs)\nThe commands below are the “80% path” for validating container changes locally.\n\nWorkflow A — Build an image from a Dockerfile\nFrom the repo root (where the Dockerfile lives):\npodman build -t myapp:dev .\nRecommended habits: - Use meaningful tags for QA/QC (include a date, branch, or ticket identifier). - If your team uses a standard image name, follow it consistently.\nExamples:\npodman build -t myapp:qaqc-2026-04-29 .\n\nMulti-stage Dockerfile: build a specific stage (when needed)\nIf your Dockerfile defines multiple stages and you want to build a specific stage:\npodman build --target runtime -t myapp:runtime .\nUse this when you need to: - test only the hardened runtime stage - confirm the final stage still works after refactoring earlier build stages\n\n\nVerify what you built\npodman images\npodman inspect myapp:dev\nTip: podman inspect is useful when verifying labels, entrypoints, env vars, and other runtime metadata.\n\n\n\nWorkflow B — Run the container locally\nMost QA/QC runs fall into one of these patterns:\n\nPattern 1: run a command and exit (batch-style)\npodman run --rm myapp:dev &lt;command&gt;\nExample:\npodman run --rm myapp:dev --help\n\n\nPattern 2: run a service and map ports (web app/API)\nIf your container listens on a port (example: 8000), map it to your machine:\npodman run --rm -p 8000:8000 myapp:dev\nThen test: - http://localhost:8000 in a browser, or - your API client / curl\nAdd environment variables as needed:\npodman run --rm -p 8000:8000 -e APP_ENV=dev myapp:dev\nName the container if you plan to inspect it while running:\npodman run --name myapp-qaqc -p 8000:8000 myapp:dev\n\n\n\nWorkflow C — View logs (the fastest way to QA/QC startup issues)\nIf a container is named, you can view logs with:\npodman logs myapp-qaqc\nIf the container exits too fast and you used --rm, rerun without --rm so you can inspect logs and state:\npodman run --name myapp-debug -p 8000:8000 myapp:dev\nThen:\npodman ps -a\npodman logs myapp-debug\nClean up when done:\npodman rm myapp-debug\n\n\nWorkflow D — Stop / remove containers cleanly\nList running containers:\npodman ps\nStop a running container:\npodman stop myapp-qaqc\nRemove a stopped container:\npodman rm myapp-qaqc\n\n\nWorkflow E — Cleanup images when iterating heavily\nIf you are repeatedly rebuilding and running QA/QC, you may accumulate many unused layers/images.\nInspect:\npodman images\nPrune unused images:\npodman image prune\n\n\n\n\n\n\nBe careful with aggressive cleanup\n\n\n\nAvoid commands that delete “everything” unless you know you won’t need cached layers/images. They can be costly to rebuild and may remove images you rely on for offline work.",
+    "crumbs": [
+      "Containers",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop (Getting Started)</span>"
+    ]
+  },
+  {
+    "objectID": "con-podman-getting-started.html#qaqc-a-simple-local-validation-checklist",
+    "href": "con-podman-getting-started.html#qaqc-a-simple-local-validation-checklist",
+    "title": "11  Podman Desktop (Getting Started)",
+    "section": "11.5 QA/QC: a simple local validation checklist",
+    "text": "11.5 QA/QC: a simple local validation checklist",
     "crumbs": [
       "Containers",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop (Getting Started)</span>"

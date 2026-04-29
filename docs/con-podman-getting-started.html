@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -556,12 +521,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#why-usace-is-transitioning-from-docker-desktop-to-podman-desktop-windows" id="toc-why-usace-is-transitioning-from-docker-desktop-to-podman-desktop-windows" class="nav-link active" data-scroll-target="#why-usace-is-transitioning-from-docker-desktop-to-podman-desktop-windows"><span class="header-section-number">11.1</span> Why USACE is transitioning from Docker Desktop to Podman Desktop (Windows)</a></li>
-  <li><a href="#mental-model-what-you-need-to-know-to-be-effective" id="toc-mental-model-what-you-need-to-know-to-be-effective" class="nav-link" data-scroll-target="#mental-model-what-you-need-to-know-to-be-effective"><span class="header-section-number">11.2</span> Mental model (what you need to know to be effective)</a></li>
+  <li><a href="#a-minimal-mental-model-enough-to-be-productive" id="toc-a-minimal-mental-model-enough-to-be-productive" class="nav-link" data-scroll-target="#a-minimal-mental-model-enough-to-be-productive"><span class="header-section-number">11.2</span> A minimal mental model (enough to be productive)</a></li>
   <li><a href="#first-success-checklist-15-minutes" id="toc-first-success-checklist-15-minutes" class="nav-link" data-scroll-target="#first-success-checklist-15-minutes"><span class="header-section-number">11.3</span> First success checklist (15 minutes)</a>
   <ul class="collapse">
-  <li><a href="#open-podman-desktop-and-verify-engine-is-running" id="toc-open-podman-desktop-and-verify-engine-is-running" class="nav-link" data-scroll-target="#open-podman-desktop-and-verify-engine-is-running">1) Open Podman Desktop and verify engine is running</a></li>
-  <li><a href="#verify-cli-access-powershell" id="toc-verify-cli-access-powershell" class="nav-link" data-scroll-target="#verify-cli-access-powershell">2) Verify CLI access (PowerShell)</a></li>
+  <li><a href="#confirm-podman-is-available-powershell" id="toc-confirm-podman-is-available-powershell" class="nav-link" data-scroll-target="#confirm-podman-is-available-powershell">1) Confirm Podman is available (PowerShell)</a></li>
+  <li><a href="#confirm-you-can-pull-and-run-a-small-test-image" id="toc-confirm-you-can-pull-and-run-a-small-test-image" class="nav-link" data-scroll-target="#confirm-you-can-pull-and-run-a-small-test-image">2) Confirm you can pull and run a small test image</a></li>
   </ul></li>
+  <li><a href="#core-qaqc-workflows-build-run-logs" id="toc-core-qaqc-workflows-build-run-logs" class="nav-link" data-scroll-target="#core-qaqc-workflows-build-run-logs"><span class="header-section-number">11.4</span> Core QA/QC workflows (build, run, logs)</a>
+  <ul class="collapse">
+  <li><a href="#workflow-a-build-an-image-from-a-dockerfile" id="toc-workflow-a-build-an-image-from-a-dockerfile" class="nav-link" data-scroll-target="#workflow-a-build-an-image-from-a-dockerfile">Workflow A — Build an image from a Dockerfile</a></li>
+  <li><a href="#workflow-b-run-the-container-locally" id="toc-workflow-b-run-the-container-locally" class="nav-link" data-scroll-target="#workflow-b-run-the-container-locally">Workflow B — Run the container locally</a></li>
+  <li><a href="#workflow-c-view-logs-the-fastest-way-to-qaqc-startup-issues" id="toc-workflow-c-view-logs-the-fastest-way-to-qaqc-startup-issues" class="nav-link" data-scroll-target="#workflow-c-view-logs-the-fastest-way-to-qaqc-startup-issues">Workflow C — View logs (the fastest way to QA/QC startup issues)</a></li>
+  <li><a href="#workflow-d-stop-remove-containers-cleanly" id="toc-workflow-d-stop-remove-containers-cleanly" class="nav-link" data-scroll-target="#workflow-d-stop-remove-containers-cleanly">Workflow D — Stop / remove containers cleanly</a></li>
+  <li><a href="#workflow-e-cleanup-images-when-iterating-heavily" id="toc-workflow-e-cleanup-images-when-iterating-heavily" class="nav-link" data-scroll-target="#workflow-e-cleanup-images-when-iterating-heavily">Workflow E — Cleanup images when iterating heavily</a></li>
+  </ul></li>
+  <li><a href="#qaqc-a-simple-local-validation-checklist" id="toc-qaqc-a-simple-local-validation-checklist" class="nav-link" data-scroll-target="#qaqc-a-simple-local-validation-checklist"><span class="header-section-number">11.5</span> QA/QC: a simple local validation checklist</a></li>
   </ul>
 </nav>
     </div>
@@ -588,11 +562,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This chapter is for <strong>data scientists who are new to containers</strong> and need to get comfortable with <strong>Podman Desktop + Podman CLI</strong> on a <strong>Windows</strong> USACE-managed computer.</p>
-<p>Your team’s primary use case:</p>
-<blockquote class="blockquote">
-<p><strong>QA/QC a container locally</strong> for a data science application prior to production deployment—especially when the Dockerfile is multi-stage and aligned with hardened container guidance.</p>
-</blockquote>
+<p>This chapter is for <strong>USACE data scientists who are new to containers</strong> and need to get comfortable with <strong>Podman Desktop + Podman CLI</strong> on a <strong>Windows</strong> computer.</p>
+<p>Primary use case for this guide:</p>
+<ul>
+<li><strong>QA/QC a container locally</strong> for a data science application prior to production deployment.</li>
+<li>Build and test images defined by a <strong>Dockerfile</strong> (often <strong>multi-stage</strong> and increasingly based on <strong>hardened</strong> base images).</li>
+<li>Iterate on the container build process to mitigate cybersecurity findings (while keeping the app functional).</li>
+</ul>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -611,56 +587,175 @@ Prerequisite
 </div>
 <section id="why-usace-is-transitioning-from-docker-desktop-to-podman-desktop-windows" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="why-usace-is-transitioning-from-docker-desktop-to-podman-desktop-windows"><span class="header-section-number">11.1</span> Why USACE is transitioning from Docker Desktop to Podman Desktop (Windows)</h2>
-<p>Historically, many teams used Docker Desktop for local container development. However:</p>
+<p>Historically, many teams used Docker Desktop for local container development on Windows. However:</p>
 <ul>
-<li><strong>Docker Desktop now requires a subscription for many organizational/government use cases on Windows.</strong></li>
-<li><strong>Podman Desktop is open source and no-cost</strong>, and provides a supported path for local container workflows.</li>
+<li><strong>Docker Desktop now requires a subscription for many organizational/government Windows use cases.</strong></li>
+<li><strong>Podman Desktop is open source and no-cost</strong>, and supports common container workflows needed for local QA/QC.</li>
 </ul>
-<p>This user guide focuses on <strong>Podman Desktop</strong> as the standard approach for local container QA/QC in USACE Windows environments.</p>
+<p>This user guide focuses on <strong>Podman Desktop</strong> as the recommended approach for local container QA/QC in USACE Windows environments.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Terminology: “Dockerfile” still applies
+“Dockerfile” is still the standard build input
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Podman builds images using Dockerfile syntax (and related standards). It is normal to: - keep a file named <code>Dockerfile</code> - use <code>podman build ...</code> to build it</p>
+<p>Podman can build images from a <code>Dockerfile</code> using the same general syntax and patterns you may already know from Docker-based workflows.</p>
+<p>It is normal and expected that: - your repo contains a file named <code>Dockerfile</code> - you use <code>podman build ...</code> to build it</p>
 </div>
 </div>
 </section>
-<section id="mental-model-what-you-need-to-know-to-be-effective" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="mental-model-what-you-need-to-know-to-be-effective"><span class="header-section-number">11.2</span> Mental model (what you need to know to be effective)</h2>
-<p>Containers can feel like a lot at first. For day-1 productivity, focus on these concepts:</p>
+<section id="a-minimal-mental-model-enough-to-be-productive" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="a-minimal-mental-model-enough-to-be-productive"><span class="header-section-number">11.2</span> A minimal mental model (enough to be productive)</h2>
 <ul>
 <li><strong>Image</strong>: a packaged filesystem + metadata that defines an app environment.</li>
 <li><strong>Container</strong>: a running (or stopped) instance of an image.</li>
 <li><strong>Registry</strong>: where images come from (public or internal).</li>
 <li><strong>Dockerfile</strong>: build recipe for an image (often multi-stage).</li>
-<li><strong>Volume / bind mount</strong>: how you make local files available inside a container.</li>
-<li><strong>Port mapping</strong>: how you access a containerized service from your browser/tools.</li>
+<li><strong>Bind mount</strong>: make local files available inside a container.</li>
+<li><strong>Port mapping</strong>: access a containerized service from your Windows machine.</li>
 <li><strong>WSL2 backend</strong>: on Windows, Podman runs Linux containers via WSL2.</li>
 </ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your “first success” goal
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For QA/QC work, success is not “I can run any container.”</p>
+<p>Success is: 1. You can build the image from your repo’s Dockerfile. 2. You can run the container locally. 3. You can view logs and diagnose failures. 4. You can iterate: change Dockerfile, rebuild, rerun, retest.</p>
+</div>
+</div>
 </section>
 <section id="first-success-checklist-15-minutes" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="first-success-checklist-15-minutes"><span class="header-section-number">11.3</span> First success checklist (15 minutes)</h2>
-<section id="open-podman-desktop-and-verify-engine-is-running" class="level3">
-<h3 class="anchored" data-anchor-id="open-podman-desktop-and-verify-engine-is-running">1) Open Podman Desktop and verify engine is running</h3>
-<ul>
-<li>Launch <strong>Podman Desktop</strong></li>
-<li>Confirm it shows the engine/backend as <strong>ready/running</strong> (wording varies by version)</li>
-</ul>
+<section id="confirm-podman-is-available-powershell" class="level3">
+<h3 class="anchored" data-anchor-id="confirm-podman-is-available-powershell">1) Confirm Podman is available (PowerShell)</h3>
+<p>Open <strong>PowerShell</strong> and run:</p>
+<pre><code>podman --version
+podman info</code></pre>
+<p>Expected: commands run successfully and <code>podman info</code> returns structured output.</p>
+<p>If <code>podman</code> is not found: - confirm Podman Desktop is installed - reopen PowerShell (PATH changes may require a new shell) - if still blocked, ask your PC Tech to verify installation</p>
 </section>
-<section id="verify-cli-access-powershell" class="level3">
-<h3 class="anchored" data-anchor-id="verify-cli-access-powershell">2) Verify CLI access (PowerShell)</h3>
-<p>Open PowerShell and run:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>podman <span class="op">--</span>version</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>podman info</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="confirm-you-can-pull-and-run-a-small-test-image" class="level3">
+<h3 class="anchored" data-anchor-id="confirm-you-can-pull-and-run-a-small-test-image">2) Confirm you can pull and run a small test image</h3>
+<p>This is a basic smoke test that confirms your local Podman runtime is functioning:</p>
+<pre><code>podman pull docker.io/library/alpine:latest
+podman run --rm docker.io/library/alpine:latest echo "podman is working"</code></pre>
+<p>Expected: you see:</p>
+<pre><code>podman is working</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Network / registry restrictions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If pulling from public registries fails due to policy/proxy restrictions, stop and coordinate with your team’s container/DevOps support path (approved registries, proxy configuration, internal mirrors, etc.).</p>
+</div>
+</div>
+</section>
+</section>
+<section id="core-qaqc-workflows-build-run-logs" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="core-qaqc-workflows-build-run-logs"><span class="header-section-number">11.4</span> Core QA/QC workflows (build, run, logs)</h2>
+<p>The commands below are the “80% path” for validating container changes locally.</p>
+<section id="workflow-a-build-an-image-from-a-dockerfile" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-a-build-an-image-from-a-dockerfile">Workflow A — Build an image from a Dockerfile</h3>
+<p>From the repo root (where the Dockerfile lives):</p>
+<pre><code>podman build -t myapp:dev .</code></pre>
+<p>Recommended habits: - Use meaningful tags for QA/QC (include a date, branch, or ticket identifier). - If your team uses a standard image name, follow it consistently.</p>
+<p>Examples:</p>
+<pre><code>podman build -t myapp:qaqc-2026-04-29 .</code></pre>
+<section id="multi-stage-dockerfile-build-a-specific-stage-when-needed" class="level4">
+<h4 class="anchored" data-anchor-id="multi-stage-dockerfile-build-a-specific-stage-when-needed">Multi-stage Dockerfile: build a specific stage (when needed)</h4>
+<p>If your Dockerfile defines multiple stages and you want to build a specific stage:</p>
+<pre><code>podman build --target runtime -t myapp:runtime .</code></pre>
+<p>Use this when you need to: - test only the hardened runtime stage - confirm the final stage still works after refactoring earlier build stages</p>
+</section>
+<section id="verify-what-you-built" class="level4">
+<h4 class="anchored" data-anchor-id="verify-what-you-built">Verify what you built</h4>
+<pre><code>podman images
+podman inspect myapp:dev</code></pre>
+<p>Tip: <code>podman inspect</code> is useful when verifying labels, entrypoints, env vars, and other runtime metadata.</p>
+</section>
+</section>
+<section id="workflow-b-run-the-container-locally" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-b-run-the-container-locally">Workflow B — Run the container locally</h3>
+<p>Most QA/QC runs fall into one of these patterns:</p>
+<section id="pattern-1-run-a-command-and-exit-batch-style" class="level4">
+<h4 class="anchored" data-anchor-id="pattern-1-run-a-command-and-exit-batch-style">Pattern 1: run a command and exit (batch-style)</h4>
+<pre><code>podman run --rm myapp:dev &lt;command&gt;</code></pre>
+<p>Example:</p>
+<pre><code>podman run --rm myapp:dev --help</code></pre>
+</section>
+<section id="pattern-2-run-a-service-and-map-ports-web-appapi" class="level4">
+<h4 class="anchored" data-anchor-id="pattern-2-run-a-service-and-map-ports-web-appapi">Pattern 2: run a service and map ports (web app/API)</h4>
+<p>If your container listens on a port (example: 8000), map it to your machine:</p>
+<pre><code>podman run --rm -p 8000:8000 myapp:dev</code></pre>
+<p>Then test: - <code>http://localhost:8000</code> in a browser, or - your API client / curl</p>
+<p>Add environment variables as needed:</p>
+<pre><code>podman run --rm -p 8000:8000 -e APP_ENV=dev myapp:dev</code></pre>
+<p>Name the container if you plan to inspect it while running:</p>
+<pre><code>podman run --name myapp-qaqc -p 8000:8000 myapp:dev</code></pre>
+</section>
+</section>
+<section id="workflow-c-view-logs-the-fastest-way-to-qaqc-startup-issues" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-c-view-logs-the-fastest-way-to-qaqc-startup-issues">Workflow C — View logs (the fastest way to QA/QC startup issues)</h3>
+<p>If a container is named, you can view logs with:</p>
+<pre><code>podman logs myapp-qaqc</code></pre>
+<p>If the container exits too fast and you used <code>--rm</code>, rerun without <code>--rm</code> so you can inspect logs and state:</p>
+<pre><code>podman run --name myapp-debug -p 8000:8000 myapp:dev</code></pre>
+<p>Then:</p>
+<pre><code>podman ps -a
+podman logs myapp-debug</code></pre>
+<p>Clean up when done:</p>
+<pre><code>podman rm myapp-debug</code></pre>
+</section>
+<section id="workflow-d-stop-remove-containers-cleanly" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-d-stop-remove-containers-cleanly">Workflow D — Stop / remove containers cleanly</h3>
+<p>List running containers:</p>
+<pre><code>podman ps</code></pre>
+<p>Stop a running container:</p>
+<pre><code>podman stop myapp-qaqc</code></pre>
+<p>Remove a stopped container:</p>
+<pre><code>podman rm myapp-qaqc</code></pre>
+</section>
+<section id="workflow-e-cleanup-images-when-iterating-heavily" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-e-cleanup-images-when-iterating-heavily">Workflow E — Cleanup images when iterating heavily</h3>
+<p>If you are repeatedly rebuilding and running QA/QC, you may accumulate many unused layers/images.</p>
+<p>Inspect:</p>
+<pre><code>podman images</code></pre>
+<p>Prune unused images:</p>
+<pre><code>podman image prune</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Be careful with aggressive cleanup
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Avoid commands that delete “everything” unless you know you won’t need cached layers/images. They can be costly to rebuild and may remove images you rely on for offline work.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="qaqc-a-simple-local-validation-checklist" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="qaqc-a-simple-local-validation-checklist"><span class="header-section-number">11.5</span> QA/QC: a simple local validation checklist</h2>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
