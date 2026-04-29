@@ -41,3 +41,7 @@ You may use read-only inspection as needed to improve accuracy, including:
 - When proposing changes, include verification steps (tests/checks) when applicable.
 - Be direct and efficient; no flattery; prioritize accuracy.
 
+## GitHub Copilot interface quirks
+- Markdown code blocks can only be displayed in the GitHub Copilot `workspace` panel using indents. 
+- In chat session output, do not use code blocks fences using a series of delimiters (i.e., backtick, tilde). No combination of valid pandoc markdown code block fences has been found to be compatible with the `workspace` panel. Code fences appear to conflict with fencing used to wrap output presented in the `workspace` panel. The symptom is that output presented in the `workspace` panel is truncated at the first closing code fence delimiter. 
+- Other fenced output (i.e., yaml headers, callouts) is currently compatible with the`workspace` panel. 
