@@ -47,12 +47,15 @@ book:
     - part: "Bibliography"
       chapters:
         - bib-zotero.qmd
-    - part: "Foundry Workflows"
+    - part: "Unstructured Data"
       chapters:
-        - fnd-tag-documents.qmd
-        - fnd-pdf-parse.qmd
-        - fnd-chunking.qmd
-        - fnd-chunk-export.qmd
+        - uns-pdf-parse.qmd
+        - uns-chunking.qmd
+        - uns-chunk-export.qmd
+        - uns-tagging.qmd
+    - part: "Foundry"
+      chapters:
+        - fnd-getting-started.qmd
   appendices:
     - ref-references.qmd
 

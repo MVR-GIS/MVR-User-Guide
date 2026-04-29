@@ -1,6 +1,6 @@
 Package: MVR-USER-GUIDE
 Title: MVR Data Science User Guide
-Version: 2026.04.01
+Version: 2026.04.29
 Authors@R: c(
     person("Barrie", "Chileen Martinez", , "barrie.chileen@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6960-8167")),

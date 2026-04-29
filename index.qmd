@@ -24,6 +24,9 @@ AI can speed up drafting, coding, and analysis—but only if we use it in a cont
 ### Data Governance
 Data governance is how we keep data usable and defensible: lineage, quality checks, access controls, and “where did this number come from?” documentation. Our focus here is on practical governance workflows, including dbt as a way to formalize transformations and testing.
 
+### Unstructured Data
+Tooling for pre-processing unstructured data to massage it into a format that is readily available to RAG systems. 
+
 ### Bibliography
 If we’re going to standardize how we work, we need to standardize what we cite. This section covers how we manage sources (Zotero) so methods, decisions, and claims in our work are easy for reviewers to trace back to authoritative references.
 
