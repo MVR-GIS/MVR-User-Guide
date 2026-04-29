@@ -1,0 +1,82 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+name: sbom
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install system dependencies (sf/gdal/proj/geos/etc.)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libxml2-dev \
+            libfontconfig1-dev \
+            libfreetype6-dev \
+            libharfbuzz-dev \
+            libfribidi-dev \
+            libpng-dev \
+            libtiff5-dev \
+            libjpeg-dev \
+            libgeos-dev \
+            libproj-dev \
+            proj-data \
+            proj-bin \
+            libgdal-dev \
+            gdal-bin \
+            libudunits2-dev \
+            libsqlite3-dev \
+            libicu-dev \
+            make \
+            g++ \
+            git
+
+      - name: Restore renv
+        shell: Rscript {0}
+        run: |
+          install.packages("renv")
+          renv::restore(prompt = FALSE)
+
+      # --- Anchore SBOM Action step (fill from Marketplace "copy snippet") ---
+      # Replace the `uses:` ref with a pinned commit SHA per GitHub guidance:
+      # https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/find-and-customize-actions
+      - name: Generate SBOM (Anchore/Syft)
+        uses: anchore/sbom-action@v0
+        with:
+          # TODO: Fill these from the action docs:
+          # - how to set format to CycloneDX JSON (cdx json)
+          # - how to set output path to artifacts/sbom/sbom.cdx.json
+          # - how to target the restored renv library directory (if supported)
+          # If the action can only scan the workspace, that is acceptable for v1.
+          # We still record renv + session environment in the env manifest below.
+
+      - name: Write SBOM environment bundle metadata
+        shell: Rscript {0}
+        run: |
+          dir.create("artifacts/sbom", recursive = TRUE, showWarnings = FALSE)
+          reproducibleai::write_sbom_env(
+            lockfile = "renv.lock",
+            out_dir = "artifacts/sbom",
+            overwrite = TRUE
+          )
+
+      - name: Upload SBOM artifact bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ github.repository }}-${{ github.sha }}
+          path: artifacts/sbom
+          retention-days: 120
