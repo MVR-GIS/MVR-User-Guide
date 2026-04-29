@@ -61,6 +61,16 @@ Success is:
 
 ## First success checklist (15 minutes)
 
+### 0) Start Podman Desktop
+- Start the `Podman Desktop` GUI application. 
+- Verify that the application starts. Now a Podman server instance is running on your local computer. 
+- Perform any requested updates. 
+
+::: {.callout-tip}
+## GUI or command line?
+Most of the tasks below can be preformed either in the GUI or at the command line. Notice that as you complete tasks at the command line below, artifacts will appear in the GUI. As you learn, feel free to switch between them! 
+:::
+
 ### 1) Confirm Podman is available (PowerShell)
 
 Open **PowerShell** and run:
