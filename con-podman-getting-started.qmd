@@ -1,0 +1,62 @@
+---
+execute:
+  eval: false
+---
+
+# Podman Desktop (Getting Started)
+
+This chapter is for **data scientists who are new to containers** and need to get comfortable with **Podman Desktop + Podman CLI** on a **Windows** USACE-managed computer.
+
+Your team’s primary use case:
+
+> **QA/QC a container locally** for a data science application prior to production deployment—especially when the Dockerfile is multi-stage and aligned with hardened container guidance.
+
+::: {.callout-important}
+## Prerequisite
+Podman Desktop must already be installed and WSL2 enabled by a PC Tech.
+
+- See: `Podman Desktop (PC Tech Install)`
+:::
+
+## Why USACE is transitioning from Docker Desktop to Podman Desktop (Windows)
+
+Historically, many teams used Docker Desktop for local container development. However:
+
+- **Docker Desktop now requires a subscription for many organizational/government use cases on Windows.**
+- **Podman Desktop is open source and no-cost**, and provides a supported path for local container workflows.
+
+This user guide focuses on **Podman Desktop** as the standard approach for local container QA/QC in USACE Windows environments.
+
+::: {.callout-note}
+## Terminology: “Dockerfile” still applies
+Podman builds images using Dockerfile syntax (and related standards). It is normal to:
+- keep a file named `Dockerfile`
+- use `podman build ...` to build it
+:::
+
+## Mental model (what you need to know to be effective)
+
+Containers can feel like a lot at first. For day-1 productivity, focus on these concepts:
+
+- **Image**: a packaged filesystem + metadata that defines an app environment.
+- **Container**: a running (or stopped) instance of an image.
+- **Registry**: where images come from (public or internal).
+- **Dockerfile**: build recipe for an image (often multi-stage).
+- **Volume / bind mount**: how you make local files available inside a container.
+- **Port mapping**: how you access a containerized service from your browser/tools.
+- **WSL2 backend**: on Windows, Podman runs Linux containers via WSL2.
+
+## First success checklist (15 minutes)
+
+### 1) Open Podman Desktop and verify engine is running
+
+- Launch **Podman Desktop**
+- Confirm it shows the engine/backend as **ready/running** (wording varies by version)
+
+### 2) Verify CLI access (PowerShell)
+
+Open PowerShell and run:
+
+```powershell
+podman --version
+podman info

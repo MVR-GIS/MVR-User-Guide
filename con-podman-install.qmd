@@ -1,0 +1,67 @@
+---
+execute:
+  eval: false
+---
+
+# Podman Desktop (PC Tech Install)
+
+This chapter is written for **USACE PC Techs** performing a **manual install** of Podman Desktop on a Windows computer used by data scientists.
+
+**Context:** Podman Desktop is USACE-approved, but install is not yet automated. PC Techs typically (1) copy a **pre-scanned/approved installer** from a centralized USACE IT folder, then (2) run the installer locally with admin rights, and (3) ensure required Windows features are enabled.
+
+::: {.callout-important}
+## Audience
+- **This page is for PC Techs** (installation + system configuration).
+- Data scientists should use: `Podman Desktop (Getting Started)` for usage workflows after install.
+:::
+
+## What you will install / enable
+
+- **Podman Desktop** (GUI)
+- **WSL2** (Windows Subsystem for Linux v2) — required backend on Windows
+- Any **Windows features** required for WSL2 (typically “Windows Subsystem for Linux” and “Virtual Machine Platform”)
+
+::: {.callout-note}
+## Version policy
+This guide is intentionally **version-agnostic**. Always use the currently **pre-scanned/approved** Podman Desktop installer provided through the USACE internal software distribution process.
+:::
+
+## Pre-install checklist (5 minutes)
+
+1. Confirm you have the **approved Podman Desktop installer** from the centralized IT folder.
+2. Confirm the target machine is a **Windows** device used for data science work.
+3. Confirm the user is expecting to use **containers locally** for QA/QC activities (not production hosting).
+4. Confirm you have the required **admin credentials** to:
+   - run installers
+   - enable Windows features (if needed)
+   - reboot the machine (if required)
+
+## Install procedure (manual)
+
+### Step 1 — Copy installer to local machine
+
+1. Copy the approved Podman Desktop installer from the centralized IT folder to a local path on the target machine (example: `C:\Temp\PodmanDesktop\`).
+2. Verify the installer file is fully copied (size/date match expected).
+
+### Step 2 — Run the Podman Desktop installer (admin)
+
+1. Run the installer (use “Run as administrator” if your workflow requires it).
+2. Accept defaults unless your local IT standards require changes.
+3. Complete installation.
+
+::: {.callout-warning}
+## Reboots
+WSL2 and related Windows features sometimes require a reboot to complete enablement. Plan for at least one reboot during initial setup.
+:::
+
+## WSL2 enablement / verification
+
+Podman Desktop on Windows requires **WSL2**.
+
+### Step 3 — Verify WSL is available
+
+Open **PowerShell** and run:
+
+```powershell
+wsl --status
+

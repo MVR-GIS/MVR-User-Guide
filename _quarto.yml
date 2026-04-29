@@ -20,10 +20,10 @@ book:
     - index.qmd
     - part: "Git Repos"
       chapters:
-        - repo-gpg-commit-signing.qmd
         - repo-create-generic-python-repo.qmd
         - repo-create-arcgis-python-repo.qmd
         - repo-create-r-repo.qmd
+        - repo-gpg-commit-signing.qmd
     - part: "R Projects"
       chapters:
         - r-Positron-getting-started.qmd
@@ -33,7 +33,8 @@ book:
         - r-Posit-Cloud-admin.qmd
     - part: "Containers"
       chapters: 
-        - con-podman.qmd
+        - con-podman-install.qmd
+        - con-podman-getting-started.qmd
     - part: "AI Workflows"
       chapters:
         - ai-reproducibleai.qmd
