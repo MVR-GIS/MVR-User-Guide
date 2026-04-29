@@ -62,6 +62,89 @@ Podman Desktop on Windows requires **WSL2**.
 
 Open **PowerShell** and run:
 
-```powershell
-wsl --status
+    wsl --status
 
+Expected outcomes:
+- If WSL is installed, you should see status output and a WSL version.
+- If WSL is not installed or features are missing, the command will typically provide guidance or error text.
+
+### Step 4 — Ensure WSL2 is enabled (if not already)
+
+If WSL is not installed/enabled, use your standard Windows feature enablement process.
+
+Typical requirements (names may vary by Windows build/policy):
+- **Windows Subsystem for Linux**
+- **Virtual Machine Platform**
+
+After enabling features, reboot if prompted.
+
+### Step 5 — Set WSL default version to 2
+
+    wsl --set-default-version 2
+
+### Step 6 — Confirm WSL2 is working
+
+    wsl --status
+    wsl -l -v
+
+Expected:
+- Default version: 2
+- Any installed distributions show **Version 2**
+
+::: {.callout-note}
+## Linux distribution (distro)
+Some environments pre-provision a WSL distro; others do not. Podman Desktop may guide the user through creating/using a WSL environment when first launched.
+:::
+
+## Podman Desktop first-launch verification (PC Tech)
+
+### Step 7 — Launch Podman Desktop
+
+1. Launch **Podman Desktop**
+2. Confirm the application opens without error dialogs.
+
+### Step 8 — Verify Podman Engine is available
+
+Within Podman Desktop:
+- Confirm the container engine/backend indicates it is ready/started (exact UI text varies by version).
+- If the UI indicates WSL2 is missing, return to the WSL2 section above.
+
+Optional quick CLI verification (PowerShell):
+
+    podman --version
+    podman info
+
+## Handoff to user (what the PC Tech tells the data scientist)
+
+Provide the user:
+1. Confirmation that **Podman Desktop is installed**.
+2. Confirmation that **WSL2 is enabled**.
+3. Where to go next in this user guide:
+   - `Podman Desktop (Getting Started)` for common workflows and QA/QC patterns.
+
+## Troubleshooting (PC Tech quick triage)
+
+### Podman Desktop opens but engine won’t start
+- Confirm WSL2 is enabled and default is version 2:
+  - `wsl --status`
+  - `wsl -l -v`
+- Reboot and retry.
+- If corporate virtualization policies prevent WSL2/VM features, escalate through IT channels with the error text.
+
+### `wsl` commands fail
+- Ensure required Windows features are enabled.
+- Ensure machine policy permits WSL2.
+- Capture:
+  - full command output from `wsl --status`
+  - Windows version/build
+  - any relevant error dialogs
+
+### `podman` CLI not found
+- Confirm Podman Desktop installation completed successfully.
+- If PATH is managed/restricted, the CLI may not be on PATH by default—use Podman Desktop UI verification and/or reinstall per standard process.
+
+## Appendix: Copy/paste snippet for IT ticket notes (optional)
+
+If you need to paste a concise summary into an internal IT ticket, use:
+
+    Installed Podman Desktop (approved installer from central IT folder). Verified WSL2 enabled and default set to version 2 (`wsl --status`). Verified Podman CLI responds (`podman --version`, `podman info`) and Podman Desktop launches without errors.

@@ -60,3 +60,4 @@ Open PowerShell and run:
 ```powershell
 podman --version
 podman info
+```
