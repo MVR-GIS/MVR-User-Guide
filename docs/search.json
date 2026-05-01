@@ -34,7 +34,7 @@
     "href": "index.html#sections",
     "title": "MVR Geospatial Data Science User Guide",
     "section": "Sections",
-    "text": "Sections\nThis guide contains several broad sections describing a range of technologies commonly used in data science.\n\nGit Repositories (“repos”)\nGit repos are where we keep and share our code, docs, and templates, with a clear history of what changed and why. They’re the backbone for collaboration (branching/PRs), traceability (commit history), and trust (things like GPG commit signing).\n\n\nR Projects\nR projects are how we keep an analysis “self-contained” so it can be opened and run reliably by someone else (or by you six months later). This section focuses on the practical tooling we actually use—RStudio/Positron setup, Oracle connectivity, deploying Shiny, and administering Posit Cloud.\n\n\nContainers\nContainers are lightweight, repeatable computing environments—great when you need the same toolchain everywhere without fighting dependencies. Here we focus on Podman as a practical way to package and run data science tooling in a consistent, reviewable way.\n\n\nAI Workflows\nAI can speed up drafting, coding, and analysis—but only if we use it in a controlled way. This section covers a workflow mindset: protect sensitive data, document what the tool did, and make outputs reviewable and reproducible (not magic).\n\n\nData Governance\nData governance is how we keep data usable and defensible: lineage, quality checks, access controls, and “where did this number come from?” documentation. Our focus here is on practical governance workflows, including dbt as a way to formalize transformations and testing.\n\n\nBibliography\nIf we’re going to standardize how we work, we need to standardize what we cite. This section covers how we manage sources (Zotero) so methods, decisions, and claims in our work are easy for reviewers to trace back to authoritative references.\n\n\nFoundry Workflows\nPalantir Foundry (Army Vantage) workflows describe how to build, run, and operationalize pipelines and analytics inside the Army’s enterprise platform. Standard workflows matter because they make lineage, permissions, inputs/outputs, and review steps explicit—so results are easier to trust and easier to QA/QC.",
+    "text": "Sections\nThis guide contains several broad sections describing a range of technologies commonly used in data science.\n\nGit Repositories (“repos”)\nGit repos are where we keep and share our code, docs, and templates, with a clear history of what changed and why. They’re the backbone for collaboration (branching/PRs), traceability (commit history), and trust (things like GPG commit signing).\n\n\nR Projects\nR projects are how we keep an analysis “self-contained” so it can be opened and run reliably by someone else (or by you six months later). This section focuses on the practical tooling we actually use—RStudio/Positron setup, Oracle connectivity, deploying Shiny, and administering Posit Cloud.\n\n\nContainers\nContainers are lightweight, repeatable computing environments—great when you need the same toolchain everywhere without fighting dependencies. Here we focus on Podman as a practical way to package and run data science tooling in a consistent, reviewable way.\n\n\nAI Workflows\nAI can speed up drafting, coding, and analysis—but only if we use it in a controlled way. This section covers a workflow mindset: protect sensitive data, document what the tool did, and make outputs reviewable and reproducible (not magic).\n\n\nData Governance\nData governance is how we keep data usable and defensible: lineage, quality checks, access controls, and “where did this number come from?” documentation. Our focus here is on practical governance workflows, including dbt as a way to formalize transformations and testing.\n\n\nUnstructured Data\nTooling for pre-processing unstructured data to massage it into a format that is readily available to RAG systems.\n\n\nBibliography\nIf we’re going to standardize how we work, we need to standardize what we cite. This section covers how we manage sources (Zotero) so methods, decisions, and claims in our work are easy for reviewers to trace back to authoritative references.\n\n\nFoundry Workflows\nPalantir Foundry (Army Vantage) workflows describe how to build, run, and operationalize pipelines and analytics inside the Army’s enterprise platform. Standard workflows matter because they make lineage, permissions, inputs/outputs, and review steps explicit—so results are easier to trust and easier to QA/QC.",
     "crumbs": [
       "Preface"
     ]
@@ -202,6 +202,215 @@
     "crumbs": [
       "Git Repos",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Create a Generic Python Repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html",
+    "href": "repo-create-arcgis-python-repo.html",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "",
+    "text": "2.1 Introduction\nThis chapter shows the fastest path for MVR geospatial data scientists to start a Python repository that uses ESRI’s ArcGIS Pro Python stack (especially arcpy).\nThis guide is intentionally template-first to minimize setup work for analysts who want to get to analysis quickly.\nAuthoritative ESRI documentation (canonical): - Installing Python for ArcGIS Pro: https://pro.arcgis.com/en/pro-app/latest/arcpy/get-started/installing-python-for-arcgis-pro.htm",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#introduction",
+    "href": "repo-create-arcgis-python-repo.html#introduction",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "",
+    "text": "Template repo: MVR-GIS/repo-arcgispro-python\nIDE: VS Code (including Git via VS Code Source Control)\nEnvironment strategy: clone ArcGIS Pro’s base environment (arcgispro-py3) into a per-repo environment\nStandard environment name: .conda-arcgis\nTerminal strategy: use ESRI’s supported activation scripts (proenv.bat) rather than fragile PATH hacks",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#scope-and-assumptions",
+    "href": "repo-create-arcgis-python-repo.html#scope-and-assumptions",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.2 Scope and assumptions",
+    "text": "2.2 Scope and assumptions\n\nApplies to ArcGIS Pro 3.x (3.4+ expected in practice).\nWindows only.\nThis workflow relies on ArcGIS Pro’s conda-based Python distribution (the environment ESRI maintains).\nThis guide does not provide software installation instructions; USACE employees should follow approved internal workflows referenced elsewhere in this user guide.",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#what-you-get-by-using-the-template",
+    "href": "repo-create-arcgis-python-repo.html#what-you-get-by-using-the-template",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.3 What you get by using the template",
+    "text": "2.3 What you get by using the template\nThe template repo exists so you do not have to build project scaffolding yourself. In general, it should already include:\n\nVS Code workspace configuration (including an ESRI-initialized terminal profile using proenv.bat)\na minimal arcpy smoke test script\nan environment metadata helper (env/capture_env_metadata.py)\na short “day 1” notebook in notebooks/00_getting_started.ipynb\na predictable folder structure (scripts/, src/, notebooks/, data/, outputs/, env/)\n\nIf you find yourself repeatedly adding setup files to downstream repos, treat that as a signal to improve the template rather than redoing setup in each project.",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#key-steps-overview",
+    "href": "repo-create-arcgis-python-repo.html#key-steps-overview",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.4 Key steps (overview)",
+    "text": "2.4 Key steps (overview)\n\nCreate a new repo from the template (Use this template).\nClone locally using VS Code.\nCreate the per-repo conda environment .conda-arcgis by cloning arcgispro-py3 (one-time).\nOpen VS Code’s ESRI-initialized terminal and activate .conda-arcgis.\nRun the smoke test to confirm arcpy works.\nSelect the .conda-arcgis interpreter and (optionally) run the starter notebook.",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#prerequisites",
+    "href": "repo-create-arcgis-python-repo.html#prerequisites",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.5 Prerequisites",
+    "text": "2.5 Prerequisites\n\nArcGIS Pro 3.x installed and working on your machine\nVS Code installed via your organization’s approved method\nGit installed via your organization’s approved method\n\nOptional quick check (VS Code terminal):\ngit --version",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#step-1-create-a-new-repository-from-the-template",
+    "href": "repo-create-arcgis-python-repo.html#step-1-create-a-new-repository-from-the-template",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.6 Step 1 — Create a new repository from the template",
+    "text": "2.6 Step 1 — Create a new repository from the template\nIn GitHub:\n\nOpen the template repository: MVR-GIS/repo-arcgispro-python\nClick Use this template\nCreate your new repository:\n\nOwner: MVR-GIS (or your approved org/user location)\nRepository name: choose a descriptive name for the analysis/workflow\nVisibility: per project needs/policy\n\nCopy the new repository’s clone URL\n\nDefinition of done: - The new repo exists and contains the template structure (VS Code config, smoke test, notebook, README).",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#step-2-clone-the-repo-using-vs-code-git-interface",
+    "href": "repo-create-arcgis-python-repo.html#step-2-clone-the-repo-using-vs-code-git-interface",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.7 Step 2 — Clone the repo using VS Code (Git interface)",
+    "text": "2.7 Step 2 — Clone the repo using VS Code (Git interface)\n\nOpen VS Code\nSource Control → Clone Repository (or Command Palette → “Git: Clone”)\nPaste the repo URL\nChoose a local folder (example: C:\\git\\)\nOpen the cloned repo\n\nVerification: - You can see .vscode/, scripts/, and notebooks/ in the VS Code Explorer - Source Control shows a clean working tree",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#step-3-one-time-setup-create-the-per-repo-environment-.conda-arcgis",
+    "href": "repo-create-arcgis-python-repo.html#step-3-one-time-setup-create-the-per-repo-environment-.conda-arcgis",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.8 Step 3 — One-time setup: create the per-repo environment .conda-arcgis",
+    "text": "2.8 Step 3 — One-time setup: create the per-repo environment .conda-arcgis\nArcGIS Pro ships with a highly customized Python environment (commonly named arcgispro-py3). For project work, we clone it to avoid modifying ESRI’s base environment.\nUse the ArcGIS Pro Python Command Prompt (Start Menu) for environment management:\n\nConfirm arcgispro-py3 exists:\nconda env list\nCreate the per-repo environment by cloning:\nconda create –name .conda-arcgis –clone arcgispro-py3\nActivate and verify:\nconda activate .conda-arcgis python -c “import sys; print(sys.executable)” python -c “import arcpy; print(arcpy.__version__)”\n\nNotes: - Cloning can be slow and disk-heavy; this is expected for the ArcGIS stack. - The standardized name .conda-arcgis reduces setup decisions and keeps instructions consistent.",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#step-4-use-the-esri-configured-terminal-inside-vs-code",
+    "href": "repo-create-arcgis-python-repo.html#step-4-use-the-esri-configured-terminal-inside-vs-code",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.9 Step 4 — Use the ESRI-configured terminal inside VS Code",
+    "text": "2.9 Step 4 — Use the ESRI-configured terminal inside VS Code\nThe template repo configures a VS Code integrated terminal that initializes ESRI’s Python tooling via proenv.bat.\nIn VS Code:\n\nTerminal → New Terminal\nConfirm conda is available:\nconda –version conda env list\nActivate the project environment:\nconda activate .conda-arcgis\n\nVerification:\npython -c \"import arcpy; print(arcpy.__version__)\"\nIf conda is not found: - restart VS Code and open a new terminal - confirm the repo includes .vscode/settings.json",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#step-5-run-the-smoke-test-fast-validation",
+    "href": "repo-create-arcgis-python-repo.html#step-5-run-the-smoke-test-fast-validation",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.10 Step 5 — Run the smoke test (fast validation)",
+    "text": "2.10 Step 5 — Run the smoke test (fast validation)\nRun the template smoke test from the repo root:\npython scripts/smoke_test_arcpy.py\nDefinition of done: - The smoke test prints your Python executable and reports PASS.",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#step-6-select-the-python-interpreter-in-vs-code-required",
+    "href": "repo-create-arcgis-python-repo.html#step-6-select-the-python-interpreter-in-vs-code-required",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.11 Step 6 — Select the Python interpreter in VS Code (required)",
+    "text": "2.11 Step 6 — Select the Python interpreter in VS Code (required)\nEven when your terminal is correct, VS Code needs the correct interpreter for: - IntelliSense / type info - running scripts via the Python extension - Jupyter notebook kernels\nIn VS Code:\n\nOpen Command Palette (Ctrl+Shift+P)\nRun: Python: Select Interpreter\nChoose the interpreter for the conda env named .conda-arcgis\n\nIf you do not see .conda-arcgis: - restart VS Code after creating the environment - confirm it exists: conda env list\nVerification (terminal):\npython -c \"import sys; print(sys.executable)\"",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#step-7-notebook-start-recommended-not-a-tutorial",
+    "href": "repo-create-arcgis-python-repo.html#step-7-notebook-start-recommended-not-a-tutorial",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.12 Step 7 — Notebook start (recommended, not a tutorial)",
+    "text": "2.12 Step 7 — Notebook start (recommended, not a tutorial)\nThis template includes a short “day 1” notebook intended for teams coming from an R Notebook workflow.\nIn VS Code: 1. Open notebooks/00_getting_started.ipynb 2. Select a kernel/interpreter when prompted: .conda-arcgis 3. Run the cells to confirm: - Python executable and version - arcpy import works",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#step-8-capture-environment-metadata-recommended",
+    "href": "repo-create-arcgis-python-repo.html#step-8-capture-environment-metadata-recommended",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.13 Step 8 — Capture environment metadata (recommended)",
+    "text": "2.13 Step 8 — Capture environment metadata (recommended)\nEnvironment capture is a lightweight audit trail. Run:\npython env/capture_env_metadata.py\nIf you also want to write a pip package list (often large), run:\npython env/capture_env_metadata.py --pip-freeze\nOutputs are written to env/.",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#project-structure-template-expectation",
+    "href": "repo-create-arcgis-python-repo.html#project-structure-template-expectation",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.14 Project structure (template expectation)",
+    "text": "2.14 Project structure (template expectation)\n\nnotebooks/ — exploratory analysis + narrative\nscripts/ — runnable workflows (entry points)\nsrc/ — reusable functions/modules as patterns stabilize\ndata/ — project data (use judgment; avoid huge files)\noutputs/ — generated outputs (use judgment; avoid committing huge/binary artifacts)\nenv/ — environment metadata and capture helper",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#git-workflow-vs-code-source-control-minimal-cli",
+    "href": "repo-create-arcgis-python-repo.html#git-workflow-vs-code-source-control-minimal-cli",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.15 Git workflow (VS Code Source Control; minimal CLI)",
+    "text": "2.15 Git workflow (VS Code Source Control; minimal CLI)\nIn VS Code Source Control: - Stage files with “+” - Write a commit message and commit - Use “Sync Changes” to push\nRecommended habit: - commit small, meaningful increments (especially when you add new scripts/notebooks)",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#troubleshooting-most-common",
+    "href": "repo-create-arcgis-python-repo.html#troubleshooting-most-common",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.16 Troubleshooting (most common)",
+    "text": "2.16 Troubleshooting (most common)\n\narcpy import fails\n\nConfirm .conda-arcgis is activated:\nconda activate .conda-arcgis\nRe-run the smoke test:\npython scripts/smoke_test_arcpy.py\nIf it fails even in ArcGIS Pro Python Command Prompt, follow ESRI’s canonical guidance: https://pro.arcgis.com/en/pro-app/latest/arcpy/get-started/installing-python-for-arcgis-pro.htm\n\n\n\nVS Code is using the wrong interpreter\n\nCommand Palette → Python: Select Interpreter → choose .conda-arcgis\nRestart VS Code",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#definition-of-done",
+    "href": "repo-create-arcgis-python-repo.html#definition-of-done",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.17 Definition of done",
+    "text": "2.17 Definition of done\nYou are ready to proceed to “real work” when:\n\nrepo created from MVR-GIS/repo-arcgispro-python\n.conda-arcgis created by cloning arcgispro-py3\nVS Code terminal can run conda and activate .conda-arcgis\npython scripts/smoke_test_arcpy.py passes\nVS Code interpreter set to .conda-arcgis\nstarter notebook runs with .conda-arcgis kernel (recommended)",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
+    ]
+  },
+  {
+    "objectID": "repo-create-arcgis-python-repo.html#related-chapters",
+    "href": "repo-create-arcgis-python-repo.html#related-chapters",
+    "title": "2  Create an ArcGIS Pro Python repo",
+    "section": "2.18 Related chapters",
+    "text": "2.18 Related chapters\n\nLightweight Python repos (non-ArcGIS): repo-create-generic-python-repo.qmd",
+    "crumbs": [
+      "Git Repos",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create an ArcGIS Pro Python repo</span>"
     ]
   },
   {

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Create ArcGIS Python repo – MVR Geospatial Data Science User Guide</title>
+<title>2&nbsp; Create an ArcGIS Pro Python repo – MVR Geospatial Data Science User Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -255,7 +255,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./repo-create-generic-python-repo.html">Git Repos</a></li><li class="breadcrumb-item"><a href="./repo-create-arcgis-python-repo.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create ArcGIS Python repo</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./repo-create-generic-python-repo.html">Git Repos</a></li><li class="breadcrumb-item"><a href="./repo-create-arcgis-python-repo.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create an ArcGIS Pro Python repo</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -308,7 +308,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./repo-create-arcgis-python-repo.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create ArcGIS Python repo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create an ArcGIS Pro Python repo</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -532,16 +532,43 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">2.1</span> Introduction</a></li>
+  <li><a href="#scope-and-assumptions" id="toc-scope-and-assumptions" class="nav-link" data-scroll-target="#scope-and-assumptions"><span class="header-section-number">2.2</span> Scope and assumptions</a></li>
+  <li><a href="#what-you-get-by-using-the-template" id="toc-what-you-get-by-using-the-template" class="nav-link" data-scroll-target="#what-you-get-by-using-the-template"><span class="header-section-number">2.3</span> What you get by using the template</a></li>
+  <li><a href="#key-steps-overview" id="toc-key-steps-overview" class="nav-link" data-scroll-target="#key-steps-overview"><span class="header-section-number">2.4</span> Key steps (overview)</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">2.5</span> Prerequisites</a></li>
+  <li><a href="#step-1-create-a-new-repository-from-the-template" id="toc-step-1-create-a-new-repository-from-the-template" class="nav-link" data-scroll-target="#step-1-create-a-new-repository-from-the-template"><span class="header-section-number">2.6</span> Step 1 — Create a new repository from the template</a></li>
+  <li><a href="#step-2-clone-the-repo-using-vs-code-git-interface" id="toc-step-2-clone-the-repo-using-vs-code-git-interface" class="nav-link" data-scroll-target="#step-2-clone-the-repo-using-vs-code-git-interface"><span class="header-section-number">2.7</span> Step 2 — Clone the repo using VS Code (Git interface)</a></li>
+  <li><a href="#step-3-one-time-setup-create-the-per-repo-environment-.conda-arcgis" id="toc-step-3-one-time-setup-create-the-per-repo-environment-.conda-arcgis" class="nav-link" data-scroll-target="#step-3-one-time-setup-create-the-per-repo-environment-.conda-arcgis"><span class="header-section-number">2.8</span> Step 3 — One-time setup: create the per-repo environment <code>.conda-arcgis</code></a></li>
+  <li><a href="#step-4-use-the-esri-configured-terminal-inside-vs-code" id="toc-step-4-use-the-esri-configured-terminal-inside-vs-code" class="nav-link" data-scroll-target="#step-4-use-the-esri-configured-terminal-inside-vs-code"><span class="header-section-number">2.9</span> Step 4 — Use the ESRI-configured terminal inside VS Code</a></li>
+  <li><a href="#step-5-run-the-smoke-test-fast-validation" id="toc-step-5-run-the-smoke-test-fast-validation" class="nav-link" data-scroll-target="#step-5-run-the-smoke-test-fast-validation"><span class="header-section-number">2.10</span> Step 5 — Run the smoke test (fast validation)</a></li>
+  <li><a href="#step-6-select-the-python-interpreter-in-vs-code-required" id="toc-step-6-select-the-python-interpreter-in-vs-code-required" class="nav-link" data-scroll-target="#step-6-select-the-python-interpreter-in-vs-code-required"><span class="header-section-number">2.11</span> Step 6 — Select the Python interpreter in VS Code (required)</a></li>
+  <li><a href="#step-7-notebook-start-recommended-not-a-tutorial" id="toc-step-7-notebook-start-recommended-not-a-tutorial" class="nav-link" data-scroll-target="#step-7-notebook-start-recommended-not-a-tutorial"><span class="header-section-number">2.12</span> Step 7 — Notebook start (recommended, not a tutorial)</a></li>
+  <li><a href="#step-8-capture-environment-metadata-recommended" id="toc-step-8-capture-environment-metadata-recommended" class="nav-link" data-scroll-target="#step-8-capture-environment-metadata-recommended"><span class="header-section-number">2.13</span> Step 8 — Capture environment metadata (recommended)</a></li>
+  <li><a href="#project-structure-template-expectation" id="toc-project-structure-template-expectation" class="nav-link" data-scroll-target="#project-structure-template-expectation"><span class="header-section-number">2.14</span> Project structure (template expectation)</a></li>
+  <li><a href="#git-workflow-vs-code-source-control-minimal-cli" id="toc-git-workflow-vs-code-source-control-minimal-cli" class="nav-link" data-scroll-target="#git-workflow-vs-code-source-control-minimal-cli"><span class="header-section-number">2.15</span> Git workflow (VS Code Source Control; minimal CLI)</a></li>
+  <li><a href="#troubleshooting-most-common" id="toc-troubleshooting-most-common" class="nav-link" data-scroll-target="#troubleshooting-most-common"><span class="header-section-number">2.16</span> Troubleshooting (most common)</a>
+  <ul class="collapse">
+  <li><a href="#arcpy-import-fails" id="toc-arcpy-import-fails" class="nav-link" data-scroll-target="#arcpy-import-fails"><code>arcpy</code> import fails</a></li>
+  <li><a href="#vs-code-is-using-the-wrong-interpreter" id="toc-vs-code-is-using-the-wrong-interpreter" class="nav-link" data-scroll-target="#vs-code-is-using-the-wrong-interpreter">VS Code is using the wrong interpreter</a></li>
+  </ul></li>
+  <li><a href="#definition-of-done" id="toc-definition-of-done" class="nav-link" data-scroll-target="#definition-of-done"><span class="header-section-number">2.17</span> Definition of done</a></li>
+  <li><a href="#related-chapters" id="toc-related-chapters" class="nav-link" data-scroll-target="#related-chapters"><span class="header-section-number">2.18</span> Related chapters</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./repo-create-generic-python-repo.html">Git Repos</a></li><li class="breadcrumb-item"><a href="./repo-create-arcgis-python-repo.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create ArcGIS Python repo</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./repo-create-generic-python-repo.html">Git Repos</a></li><li class="breadcrumb-item"><a href="./repo-create-arcgis-python-repo.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create an ArcGIS Pro Python repo</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create ArcGIS Python repo</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create an ArcGIS Pro Python repo</span></h1>
 </div>
 
 
@@ -558,8 +585,205 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="introduction" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">2.1</span> Introduction</h2>
+<p>This chapter shows the fastest path for MVR geospatial data scientists to start a Python repository that uses ESRI’s ArcGIS Pro Python stack (especially <code>arcpy</code>).</p>
+<p>This guide is intentionally <strong>template-first</strong> to minimize setup work for analysts who want to get to analysis quickly.</p>
+<ul>
+<li>Template repo: <code>MVR-GIS/repo-arcgispro-python</code></li>
+<li>IDE: VS Code (including Git via VS Code Source Control)</li>
+<li>Environment strategy: clone ArcGIS Pro’s base environment (<code>arcgispro-py3</code>) into a per-repo environment</li>
+<li>Standard environment name: <code>.conda-arcgis</code></li>
+<li>Terminal strategy: use ESRI’s supported activation scripts (<code>proenv.bat</code>) rather than fragile PATH hacks</li>
+</ul>
+<p>Authoritative ESRI documentation (canonical): - Installing Python for ArcGIS Pro: https://pro.arcgis.com/en/pro-app/latest/arcpy/get-started/installing-python-for-arcgis-pro.htm</p>
+</section>
+<section id="scope-and-assumptions" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="scope-and-assumptions"><span class="header-section-number">2.2</span> Scope and assumptions</h2>
+<ul>
+<li>Applies to ArcGIS Pro <strong>3.x</strong> (3.4+ expected in practice).</li>
+<li>Windows only.</li>
+<li>This workflow relies on ArcGIS Pro’s conda-based Python distribution (the environment ESRI maintains).</li>
+<li>This guide does not provide software installation instructions; USACE employees should follow approved internal workflows referenced elsewhere in this user guide.</li>
+</ul>
+</section>
+<section id="what-you-get-by-using-the-template" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="what-you-get-by-using-the-template"><span class="header-section-number">2.3</span> What you get by using the template</h2>
+<p>The template repo exists so you do not have to build project scaffolding yourself. In general, it should already include:</p>
+<ul>
+<li>VS Code workspace configuration (including an ESRI-initialized terminal profile using <code>proenv.bat</code>)</li>
+<li>a minimal <code>arcpy</code> smoke test script</li>
+<li>an environment metadata helper (<code>env/capture_env_metadata.py</code>)</li>
+<li>a short “day 1” notebook in <code>notebooks/00_getting_started.ipynb</code></li>
+<li>a predictable folder structure (<code>scripts/</code>, <code>src/</code>, <code>notebooks/</code>, <code>data/</code>, <code>outputs/</code>, <code>env/</code>)</li>
+</ul>
+<p>If you find yourself repeatedly adding setup files to downstream repos, treat that as a signal to improve the template rather than redoing setup in each project.</p>
+</section>
+<section id="key-steps-overview" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="key-steps-overview"><span class="header-section-number">2.4</span> Key steps (overview)</h2>
+<ol type="1">
+<li>Create a new repo from the template (<code>Use this template</code>).</li>
+<li>Clone locally using VS Code.</li>
+<li>Create the per-repo conda environment <code>.conda-arcgis</code> by cloning <code>arcgispro-py3</code> (one-time).</li>
+<li>Open VS Code’s ESRI-initialized terminal and activate <code>.conda-arcgis</code>.</li>
+<li>Run the smoke test to confirm <code>arcpy</code> works.</li>
+<li>Select the <code>.conda-arcgis</code> interpreter and (optionally) run the starter notebook.</li>
+</ol>
+</section>
+<section id="prerequisites" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">2.5</span> Prerequisites</h2>
+<ul>
+<li>ArcGIS Pro 3.x installed and working on your machine</li>
+<li>VS Code installed via your organization’s approved method</li>
+<li>Git installed via your organization’s approved method</li>
+</ul>
+<p>Optional quick check (VS Code terminal):</p>
+<pre><code>git --version</code></pre>
+</section>
+<section id="step-1-create-a-new-repository-from-the-template" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="step-1-create-a-new-repository-from-the-template"><span class="header-section-number">2.6</span> Step 1 — Create a new repository from the template</h2>
+<p>In GitHub:</p>
+<ol type="1">
+<li>Open the template repository: <code>MVR-GIS/repo-arcgispro-python</code></li>
+<li>Click <strong>Use this template</strong></li>
+<li>Create your new repository:
+<ul>
+<li>Owner: <code>MVR-GIS</code> (or your approved org/user location)</li>
+<li>Repository name: choose a descriptive name for the analysis/workflow</li>
+<li>Visibility: per project needs/policy</li>
+</ul></li>
+<li>Copy the new repository’s clone URL</li>
+</ol>
+<p>Definition of done: - The new repo exists and contains the template structure (VS Code config, smoke test, notebook, README).</p>
+</section>
+<section id="step-2-clone-the-repo-using-vs-code-git-interface" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="step-2-clone-the-repo-using-vs-code-git-interface"><span class="header-section-number">2.7</span> Step 2 — Clone the repo using VS Code (Git interface)</h2>
+<ol type="1">
+<li>Open VS Code</li>
+<li>Source Control → <strong>Clone Repository</strong> (or Command Palette → “Git: Clone”)</li>
+<li>Paste the repo URL</li>
+<li>Choose a local folder (example: <code>C:\git\</code>)</li>
+<li>Open the cloned repo</li>
+</ol>
+<p>Verification: - You can see <code>.vscode/</code>, <code>scripts/</code>, and <code>notebooks/</code> in the VS Code Explorer - Source Control shows a clean working tree</p>
+</section>
+<section id="step-3-one-time-setup-create-the-per-repo-environment-.conda-arcgis" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="step-3-one-time-setup-create-the-per-repo-environment-.conda-arcgis"><span class="header-section-number">2.8</span> Step 3 — One-time setup: create the per-repo environment <code>.conda-arcgis</code></h2>
+<p>ArcGIS Pro ships with a highly customized Python environment (commonly named <code>arcgispro-py3</code>). For project work, we clone it to avoid modifying ESRI’s base environment.</p>
+<p>Use the <strong>ArcGIS Pro Python Command Prompt</strong> (Start Menu) for environment management:</p>
+<ol type="1">
+<li><p>Confirm <code>arcgispro-py3</code> exists:</p>
+<p>conda env list</p></li>
+<li><p>Create the per-repo environment by cloning:</p>
+<p>conda create –name .conda-arcgis –clone arcgispro-py3</p></li>
+<li><p>Activate and verify:</p>
+<p>conda activate .conda-arcgis python -c “import sys; print(sys.executable)” python -c “import arcpy; print(arcpy.__version__)”</p></li>
+</ol>
+<p>Notes: - Cloning can be slow and disk-heavy; this is expected for the ArcGIS stack. - The standardized name <code>.conda-arcgis</code> reduces setup decisions and keeps instructions consistent.</p>
+</section>
+<section id="step-4-use-the-esri-configured-terminal-inside-vs-code" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="step-4-use-the-esri-configured-terminal-inside-vs-code"><span class="header-section-number">2.9</span> Step 4 — Use the ESRI-configured terminal inside VS Code</h2>
+<p>The template repo configures a VS Code integrated terminal that initializes ESRI’s Python tooling via <code>proenv.bat</code>.</p>
+<p>In VS Code:</p>
+<ol type="1">
+<li><p>Terminal → New Terminal</p></li>
+<li><p>Confirm conda is available:</p>
+<p>conda –version conda env list</p></li>
+<li><p>Activate the project environment:</p>
+<p>conda activate .conda-arcgis</p></li>
+</ol>
+<p>Verification:</p>
+<pre><code>python -c "import arcpy; print(arcpy.__version__)"</code></pre>
+<p>If <code>conda</code> is not found: - restart VS Code and open a new terminal - confirm the repo includes <code>.vscode/settings.json</code></p>
+</section>
+<section id="step-5-run-the-smoke-test-fast-validation" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="step-5-run-the-smoke-test-fast-validation"><span class="header-section-number">2.10</span> Step 5 — Run the smoke test (fast validation)</h2>
+<p>Run the template smoke test from the repo root:</p>
+<pre><code>python scripts/smoke_test_arcpy.py</code></pre>
+<p>Definition of done: - The smoke test prints your Python executable and reports <code>PASS</code>.</p>
+</section>
+<section id="step-6-select-the-python-interpreter-in-vs-code-required" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="step-6-select-the-python-interpreter-in-vs-code-required"><span class="header-section-number">2.11</span> Step 6 — Select the Python interpreter in VS Code (required)</h2>
+<p>Even when your terminal is correct, VS Code needs the correct interpreter for: - IntelliSense / type info - running scripts via the Python extension - Jupyter notebook kernels</p>
+<p>In VS Code:</p>
+<ol type="1">
+<li>Open Command Palette (Ctrl+Shift+P)</li>
+<li>Run: <strong>Python: Select Interpreter</strong></li>
+<li>Choose the interpreter for the conda env named <code>.conda-arcgis</code></li>
+</ol>
+<p>If you do not see <code>.conda-arcgis</code>: - restart VS Code after creating the environment - confirm it exists: <code>conda env list</code></p>
+<p>Verification (terminal):</p>
+<pre><code>python -c "import sys; print(sys.executable)"</code></pre>
+</section>
+<section id="step-7-notebook-start-recommended-not-a-tutorial" class="level2" data-number="2.12">
+<h2 data-number="2.12" class="anchored" data-anchor-id="step-7-notebook-start-recommended-not-a-tutorial"><span class="header-section-number">2.12</span> Step 7 — Notebook start (recommended, not a tutorial)</h2>
+<p>This template includes a short “day 1” notebook intended for teams coming from an R Notebook workflow.</p>
+<p>In VS Code: 1. Open <code>notebooks/00_getting_started.ipynb</code> 2. Select a kernel/interpreter when prompted: <code>.conda-arcgis</code> 3. Run the cells to confirm: - Python executable and version - <code>arcpy</code> import works</p>
+</section>
+<section id="step-8-capture-environment-metadata-recommended" class="level2" data-number="2.13">
+<h2 data-number="2.13" class="anchored" data-anchor-id="step-8-capture-environment-metadata-recommended"><span class="header-section-number">2.13</span> Step 8 — Capture environment metadata (recommended)</h2>
+<p>Environment capture is a lightweight audit trail. Run:</p>
+<pre><code>python env/capture_env_metadata.py</code></pre>
+<p>If you also want to write a pip package list (often large), run:</p>
+<pre><code>python env/capture_env_metadata.py --pip-freeze</code></pre>
+<p>Outputs are written to <code>env/</code>.</p>
+</section>
+<section id="project-structure-template-expectation" class="level2" data-number="2.14">
+<h2 data-number="2.14" class="anchored" data-anchor-id="project-structure-template-expectation"><span class="header-section-number">2.14</span> Project structure (template expectation)</h2>
+<ul>
+<li><code>notebooks/</code> — exploratory analysis + narrative</li>
+<li><code>scripts/</code> — runnable workflows (entry points)</li>
+<li><code>src/</code> — reusable functions/modules as patterns stabilize</li>
+<li><code>data/</code> — project data (use judgment; avoid huge files)</li>
+<li><code>outputs/</code> — generated outputs (use judgment; avoid committing huge/binary artifacts)</li>
+<li><code>env/</code> — environment metadata and capture helper</li>
+</ul>
+</section>
+<section id="git-workflow-vs-code-source-control-minimal-cli" class="level2" data-number="2.15">
+<h2 data-number="2.15" class="anchored" data-anchor-id="git-workflow-vs-code-source-control-minimal-cli"><span class="header-section-number">2.15</span> Git workflow (VS Code Source Control; minimal CLI)</h2>
+<p>In VS Code Source Control: - Stage files with “+” - Write a commit message and commit - Use “Sync Changes” to push</p>
+<p>Recommended habit: - commit small, meaningful increments (especially when you add new scripts/notebooks)</p>
+</section>
+<section id="troubleshooting-most-common" class="level2" data-number="2.16">
+<h2 data-number="2.16" class="anchored" data-anchor-id="troubleshooting-most-common"><span class="header-section-number">2.16</span> Troubleshooting (most common)</h2>
+<section id="arcpy-import-fails" class="level3">
+<h3 class="anchored" data-anchor-id="arcpy-import-fails"><code>arcpy</code> import fails</h3>
+<ul>
+<li><p>Confirm <code>.conda-arcgis</code> is activated:</p>
+<p>conda activate .conda-arcgis</p></li>
+<li><p>Re-run the smoke test:</p>
+<p>python scripts/smoke_test_arcpy.py</p></li>
+<li><p>If it fails even in ArcGIS Pro Python Command Prompt, follow ESRI’s canonical guidance: https://pro.arcgis.com/en/pro-app/latest/arcpy/get-started/installing-python-for-arcgis-pro.htm</p></li>
+</ul>
+</section>
+<section id="vs-code-is-using-the-wrong-interpreter" class="level3">
+<h3 class="anchored" data-anchor-id="vs-code-is-using-the-wrong-interpreter">VS Code is using the wrong interpreter</h3>
+<ul>
+<li>Command Palette → Python: Select Interpreter → choose <code>.conda-arcgis</code></li>
+<li>Restart VS Code</li>
+</ul>
+</section>
+</section>
+<section id="definition-of-done" class="level2" data-number="2.17">
+<h2 data-number="2.17" class="anchored" data-anchor-id="definition-of-done"><span class="header-section-number">2.17</span> Definition of done</h2>
+<p>You are ready to proceed to “real work” when:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">repo created from <code>MVR-GIS/repo-arcgispro-python</code></label></li>
+<li><label><input type="checkbox"><code>.conda-arcgis</code> created by cloning <code>arcgispro-py3</code></label></li>
+<li><label><input type="checkbox">VS Code terminal can run conda and activate <code>.conda-arcgis</code></label></li>
+<li><label><input type="checkbox"><code>python scripts/smoke_test_arcpy.py</code> passes</label></li>
+<li><label><input type="checkbox">VS Code interpreter set to <code>.conda-arcgis</code></label></li>
+<li><label><input type="checkbox">starter notebook runs with <code>.conda-arcgis</code> kernel (recommended)</label></li>
+</ul>
+</section>
+<section id="related-chapters" class="level2" data-number="2.18">
+<h2 data-number="2.18" class="anchored" data-anchor-id="related-chapters"><span class="header-section-number">2.18</span> Related chapters</h2>
+<ul>
+<li>Lightweight Python repos (non-ArcGIS): <code>repo-create-generic-python-repo.qmd</code></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
