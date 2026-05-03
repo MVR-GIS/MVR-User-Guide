@@ -1483,34 +1483,34 @@
   {
     "objectID": "fnd-threads.html",
     "href": "fnd-threads.html",
-    "title": "24  Initiate a reproducible Threads workflow",
+    "title": "24  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
     "section": "",
-    "text": "24.1 Objective\nInitiate a reproducible workflow for capturing a Threads chat session history and saving outputs in a reviewable, auditable way inside a Foundry enclave (assume offline / no-internet execution).\nThis chapter focuses on workflow and structure, not on account onboarding or Foundry project setup.",
+    "text": "24.1 Objective\nCapture a Foundry Threads chat session history and preserve outputs in a reviewable, auditable way inside a Foundry enclave (assume offline / no-internet execution).\nThis chapter focuses on workflow and structure and assumes you will do the work inside the Foundry Code Workspace UI (not a local machine workflow).",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#prerequisites",
     "href": "fnd-threads.html#prerequisites",
-    "title": "24  Initiate a reproducible Threads workflow",
+    "title": "24  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
     "section": "24.2 Prerequisites",
-    "text": "24.2 Prerequisites\nComplete these first:\n\nfnd-getting-started.qmd\n\nlogin\ncreate a Project\ntagging for discovery\ngroups/permissions\nany required platform conventions\n\nfnd-load-repo.qmd\n\nimport your GitHub analysis repository into a Foundry Code Repository using ZIP import\n\n\nYou should also already have a GitHub analysis repo created from:\n\nrepo-create-generic-python-repo.qmd",
+    "text": "24.2 Prerequisites\nComplete these first:\n\nfnd-getting-started.qmd\n\nlogin\ncreate a Project\ntagging for discovery\ngroups/permissions\nany required platform conventions\n\nfnd-load-repo.qmd\n\nimport your GitHub analysis repository into a Foundry Code Repository using ZIP import\n\n\nYou should also already have a GitHub analysis repo created from:\n\nrepo-create-generic-python-repo.qmd\n\nImportant: This workflow assumes your analysis repo was created from the template MVR-GIS/repo-generic-python, which includes the tooling used below: - python -m tools.foundry_threads",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#what-is-a-reproducible-threads-session-in-this-context",
     "href": "fnd-threads.html#what-is-a-reproducible-threads-session-in-this-context",
-    "title": "24  Initiate a reproducible Threads workflow",
+    "title": "24  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
     "section": "24.3 What is a “reproducible Threads session” in this context?",
     "text": "24.3 What is a “reproducible Threads session” in this context?\nA reproducible Threads session should leave an audit trail that includes:\n\nwho/what: analyst, date/time window, project context\ninputs: the prompt(s), any system/context constraints, and referenced datasets\nconfiguration: model/tool settings as allowed by your environment\noutputs: generated text, extracted entities/tables, files produced\nprovenance: dataset RIDs/paths (or equivalent identifiers), code version/commit, and run identifier\n\nYour goal is that a reviewer can answer:\n\n“What question was asked?”\n“What data and code were used?”\n“What did the assistant produce?”\n“Where are the saved artifacts?”",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
     ]
   },
   {
@@ -1604,34 +1604,67 @@
   {
     "objectID": "fnd-threads.html#offline-no-internet-constraints",
     "href": "fnd-threads.html#offline-no-internet-constraints",
-    "title": "24  Initiate a reproducible Threads workflow",
-    "section": "24.12 Offline / no-internet constraints",
-    "text": "24.12 Offline / no-internet constraints\nDesign your workflow so it does not require:\n\ndownloading packages at run time\ncalling external APIs\nembedding links as “required steps” unless internal and accessible\n\nIf you reference external documentation, treat it as “background reading” rather than a dependency for completing the workflow.",
+    "title": "24  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "section": "24.7 Offline / no-internet constraints",
+    "text": "24.7 Offline / no-internet constraints\nDesign your workflow so it does not require:\n\ndownloading packages at run time\ncalling external APIs\nembedding links as “required steps” unless internal and accessible\n\nIf you reference external documentation, treat it as “background reading” rather than a dependency for completing the workflow.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#troubleshooting",
     "href": "fnd-threads.html#troubleshooting",
-    "title": "24  Initiate a reproducible Threads workflow",
-    "section": "24.13 Troubleshooting",
-    "text": "24.13 Troubleshooting\n\nI can’t import the repo ZIP into Foundry\n\nRe-check fnd-load-repo.qmd\nConfirm you have permissions to create or modify a Code Repository in the target Project\nConfirm you are using an approved transfer path for moving the ZIP into the enclave\n\n\n\nI’m not sure what I’m allowed to paste into Threads\n\nStop and confirm policy with your platform/data governance point of contact\nPrefer referencing datasets by identifier rather than pasting raw records\n\n\n\nOutputs are too large to store in the repo\nDefault expectation: store artifacts in-repo (the repo is the durable audit record).\nPractical options:\n\nStore a smaller derivative (summary, sample, or compressed version) in outputs/.\nIf you need the full artifact, use Git LFS for the large file(s).\nRecord what you did in metadata.yml so a reviewer understands what is complete vs summarized.",
+    "title": "24  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "section": "24.8 Troubleshooting",
+    "text": "24.8 Troubleshooting\n\nI can’t find threads_export.json from Code Workspace\n\nConfirm the export completed successfully in Threads.\nRe-export and explicitly name the file threads_export.json.\nUse Code Workspace search (or terminal) to locate the file.\nIf exports are saved to a location not visible to Code Workspace in your configuration, coordinate with your Foundry administrators for the approved way to move the export file into the Code Workspace environment.\n\n\n\npython -m tools.foundry_threads fails\n\nConfirm your repo was created from MVR-GIS/repo-generic-python (the tool lives in that template).\nConfirm you are running from the repository root in Code Workspace.\nConfirm your Python environment is active/available in the Code Workspace runtime.\nIf dependency errors mention YAML:\n\nconfirm the environment includes PyYAML per the template’s environment.yml.\n\n\n\n\nI’m not sure what I’m allowed to paste into Threads\n\nStop and confirm policy with your platform/data governance point of contact.\nPrefer referencing datasets by identifier rather than pasting raw records.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#definition-of-done",
     "href": "fnd-threads.html#definition-of-done",
-    "title": "24  Initiate a reproducible Threads workflow",
-    "section": "24.14 Definition of done",
-    "text": "24.14 Definition of done\nYou are done when:\n\na new session folder exists under threads/sessions/\nmetadata.yml exists and includes:\n\npurpose/question\ndataset identifiers (if any)\nconstraints (offline/no-internet)\nwhere outputs were saved\n\ntranscript.md contains a complete prompt/response record (redacted as needed)\noutputs are saved and referenced\nthe work is preserved in a way a reviewer can retrieve later (commit and/or published artifacts)",
+    "title": "24  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "section": "24.9 Definition of done",
+    "text": "24.9 Definition of done\nYou are done when:\n\nthe session transcript exists in-repo:\n\ndev/sessions/YYYY-MM-DD[_topic].md\n\nthe raw export is preserved in-repo:\n\ndev/sessions/.raw/YYYY-MM-DD[_topic].threads_export.json\n\nthe transcript includes YAML front matter metadata (title/date/user/model/hash)\nthe files are committed to the Foundry Code Repository so a reviewer can retrieve them later",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#key-idea-save-often-platforms-glitch",
+    "href": "fnd-threads.html#key-idea-save-often-platforms-glitch",
+    "title": "24  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "section": "24.4 Key idea: save often (platforms glitch)",
+    "text": "24.4 Key idea: save often (platforms glitch)\nAssume export mechanisms and UIs occasionally fail or “lose” context. The safe pattern is:\n\nexport the chat often\nre-run the extractor often\ncommit at reasonable milestones (and/or end of day)",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#where-artifacts-live-in-the-repository",
+    "href": "fnd-threads.html#where-artifacts-live-in-the-repository",
+    "title": "24  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "section": "24.5 Where artifacts live in the repository",
+    "text": "24.5 Where artifacts live in the repository\nThis workflow stores session artifacts under a platform-agnostic development folder:\n\ndev/\n\nsessions/\n\nYYYY-MM-DD[_topic].md\n.raw/\n\nYYYY-MM-DD[_topic].threads_export.json\n\n.backups/ (gitignored local backups)\n\n\n\nNotes:\n\nThe primary human-readable record is the session markdown file:\n\ndev/sessions/YYYY-MM-DD[_topic].md\n\nThe tool inserts structured metadata as YAML front matter at the top of the .md file (instead of writing a separate metadata.yml file).\nThe raw export JSON is preserved in:\n\ndev/sessions/.raw/\n\nBackups are written to:\n\ndev/sessions/.backups/\nThese are meant to prevent loss during active work and are typically not committed to avoid repo bloat.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#step-by-step-inside-foundry-code-workspace",
+    "href": "fnd-threads.html#step-by-step-inside-foundry-code-workspace",
+    "title": "24  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "section": "24.6 Step-by-step (inside Foundry Code Workspace)",
+    "text": "24.6 Step-by-step (inside Foundry Code Workspace)\nThese steps assume you are working inside the Foundry Code Workspace UI for your Project.\n\nStep 1 — Open your Foundry Code Repository in Code Workspace\n\nIn Foundry, navigate to your Project.\nOpen the Code Repository you imported (per fnd-load-repo.qmd).\nOpen it in Code Workspace so you can:\n\nview/edit files\nrun terminal commands (if enabled in your environment)\ncommit changes (using the Code Repo’s commit UI)\n\n\n\n\nStep 2 — Export the Threads chat session to JSON\nIn Foundry Threads (in the same enclave environment):\n\nUse the Threads UI export/save option.\nExport the chat in JSON format.\nSave the export as:\n\n\nthreads_export.json\n\nWhere to save it: Save it somewhere your Foundry Code Workspace runtime can read. In many environments, this is your workspace’s default downloads area or a user-accessible file location exposed to the workspace.\nIf you are unsure where exports land in your configuration: - do one export - then search for the file name threads_export.json from within the Code Workspace file browser / terminal (if available)\n\n\nStep 3 — Run the extractor (creates/updates the auditable artifacts)\nIn Foundry Code Workspace:\n\nEnsure the repo environment is available (per your platform’s Python environment conventions).\nFrom the repo root, run:\n\npython -m tools.foundry_threads\nThis will:\n\nwrite/update the session transcript:\n\ndev/sessions/YYYY-MM-DD.md\n\nwrite/update the raw export copy:\n\ndev/sessions/.raw/YYYY-MM-DD.threads_export.json\n\nif you re-run and a transcript already exists, create a backup:\n\ndev/sessions/.backups/YYYY-MM-DD_backup_&lt;timestamp&gt;.md\n\n\n\n\nStep 4 — Save often (recommended)\nRepeat throughout the day:\n\nExport again from Threads to threads_export.json\nRe-run:\n\npython -m tools.foundry_threads\nThis creates an incremental, durable audit record in the repo even if the UI glitches.\n\n\nStep 5 — Multi-topic days (optional)\nIf you have multiple distinct sessions/topics in the same day, add --topic:\npython -m tools.foundry_threads --topic data_validation\nThis produces:\n\ndev/sessions/YYYY-MM-DD_data_validation.md\ndev/sessions/.raw/YYYY-MM-DD_data_validation.threads_export.json\n\n\n\nStep 6 — Preserve the audit trail (commit in Code Workspace)\nIn Foundry Code Workspace, commit the updated files to the Code Repository.\nMinimum expected committed artifacts:\n\ndev/sessions/YYYY-MM-DD*.md\ndev/sessions/.raw/*.threads_export.json\n\nNotes:\n\nThe .md file is what most reviewers will read.\nThe .raw JSON is preserved for audit integrity and re-derivation.\ndev/sessions/.backups/ is typically not committed (local scratch safety).\n\nCommit message guidance:\n\ninclude date and a short purpose\nexample: Update Threads session log (2026-05-03)",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
     ]
   }
 ]

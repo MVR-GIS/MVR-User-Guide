@@ -3,13 +3,13 @@ execute:
   eval: false
 ---
 
-# Initiate a reproducible Threads workflow
+# Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)
 
 ## Objective
 
-Initiate a reproducible workflow for capturing a Threads chat session history and saving outputs in a reviewable, auditable way inside a Foundry enclave (assume offline / no-internet execution).
+Capture a Foundry Threads chat session history and preserve outputs in a **reviewable, auditable** way inside a Foundry enclave (assume offline / no-internet execution).
 
-This chapter focuses on *workflow and structure*, not on account onboarding or Foundry project setup.
+This chapter focuses on **workflow and structure** and assumes you will do the work inside the **Foundry Code Workspace** UI (not a local machine workflow).
 
 ## Prerequisites
 
@@ -29,6 +29,10 @@ You should also already have a GitHub analysis repo created from:
 
 - `repo-create-generic-python-repo.qmd`
 
+**Important:**
+This workflow assumes your analysis repo was created from the template `MVR-GIS/repo-generic-python`, which includes the tooling used below:
+- `python -m tools.foundry_threads`
+
 ## What is a “reproducible Threads session” in this context?
 
 A reproducible Threads session should leave an audit trail that includes:
@@ -46,127 +50,131 @@ Your goal is that a reviewer can answer:
 - “What did the assistant produce?”
 - “Where are the saved artifacts?”
 
-## Key steps (overview)
+## Key idea: save often (platforms glitch)
 
-1. Ensure your Foundry Code Repo is imported and ready.
-2. Create a standard session folder for the Threads run.
-3. Capture session metadata (who/what/why, dataset references, config).
-4. Capture the session transcript (prompts + responses) in a stable format.
-5. Save outputs (and any derived artifacts) with deterministic naming.
-6. Commit changes to the Code Repo to preserve an audit trail (use Git LFS if needed for large artifacts).
+Assume export mechanisms and UIs occasionally fail or “lose” context. The safe pattern is:
 
-## Recommended repository structure for Threads sessions
+- export the chat often
+- re-run the extractor often
+- commit at reasonable milestones (and/or end of day)
 
-Use a stable location inside the repo for session artifacts. Recommended pattern (create if missing):
+## Where artifacts live in the repository
 
-- `threads/`
+This workflow stores session artifacts under a platform-agnostic development folder:
+
+- `dev/`
   - `sessions/`
-    - `<YYYY-MM-DD>_<short-topic-slug>/`
-      - `README.md`
-      - `metadata.yml`
-      - `transcript.md`
-      - `outputs/`
+    - `YYYY-MM-DD[_topic].md`
+    - `.raw/`
+      - `YYYY-MM-DD[_topic].threads_export.json`
+    - `.backups/` *(gitignored local backups)*
 
 Notes:
 
-- Keep “session history” in plain text formats (`.md`, `.yml`, `.json`) to maximize portability and diffability.
-- Avoid proprietary binary formats for primary records.
-- Default: store all session artifacts in the repository so the repo is the durable, auditable system-of-record.
-- Large artifacts:
-  - Prefer smaller, reviewable derivatives (summaries, samples, compressed exports) when practical.
-  - If you must keep large files, Git LFS is acceptable—use it intentionally and keep file naming and metadata clear.
+- The **primary human-readable record** is the session markdown file:
+  - `dev/sessions/YYYY-MM-DD[_topic].md`
+- The tool inserts structured metadata as **YAML front matter** at the top of the `.md` file (instead of writing a separate `metadata.yml` file).
+- The raw export JSON is preserved in:
+  - `dev/sessions/.raw/`
+- Backups are written to:
+  - `dev/sessions/.backups/`
+  - These are meant to prevent loss during active work and are typically **not committed** to avoid repo bloat.
 
-## Step 1 — Create a new session folder
+## Step-by-step (inside Foundry Code Workspace)
 
-Create a new folder under:
+These steps assume you are working inside the **Foundry Code Workspace UI** for your Project.
 
-- `threads/sessions/`
+### Step 1 — Open your Foundry Code Repository in Code Workspace
 
-Naming convention:
+1. In Foundry, navigate to your Project.
+2. Open the **Code Repository** you imported (per `fnd-load-repo.qmd`).
+3. Open it in **Code Workspace** so you can:
+   - view/edit files
+   - run terminal commands (if enabled in your environment)
+   - commit changes (using the Code Repo’s commit UI)
 
-- `YYYY-MM-DD_short-topic-slug`
+### Step 2 — Export the Threads chat session to JSON
 
-Example:
+In Foundry Threads (in the same enclave environment):
 
-- `2026-05-03_real-estate-permits-qaqc`
+1. Use the Threads UI export/save option.
+2. Export the chat in **JSON** format.
+3. Save the export as:
 
-## Step 2 — Record metadata first (before you chat)
+- `threads_export.json`
 
-Create `metadata.yml` with, at minimum:
+**Where to save it:**
+Save it somewhere your Foundry Code Workspace runtime can read. In many environments, this is your workspace's default downloads area or a user-accessible file location exposed to the workspace.
 
-- session name
-- date
-- author
-- purpose / question
-- datasets referenced (identifiers, not copies)
-- constraints (offline/no-internet, sensitive handling notes)
-- code provenance (commit SHA if available)
+If you are unsure where exports land in your configuration:
+- do one export
+- then search for the file name `threads_export.json` from within the Code Workspace file browser / terminal (if available)
 
-Recommendation:
+### Step 3 — Run the extractor (creates/updates the auditable artifacts)
 
-- include a section that explicitly states what is *out of scope* or what was *not* done (helps reviewers).
+In Foundry Code Workspace:
 
-## Step 3 — Run the Threads session
+1. Ensure the repo environment is available (per your platform’s Python environment conventions).
+2. From the repo root, run:
 
-Conduct the Threads chat session following your organization’s policy on:
+```bash
+python -m tools.foundry_threads
+```
 
-- what data can be pasted into chat
-- how sensitive data is handled
-- what model/tooling is approved
+This will:
 
-During the session, keep a scratchpad of:
+- write/update the session transcript:
+  - `dev/sessions/YYYY-MM-DD.md`
+- write/update the raw export copy:
+  - `dev/sessions/.raw/YYYY-MM-DD.threads_export.json`
+- if you re-run and a transcript already exists, create a backup:
+  - `dev/sessions/.backups/YYYY-MM-DD_backup_<timestamp>.md`
 
-- each prompt you send
-- each key response you receive
-- any action items or decisions
+### Step 4 — Save often (recommended)
 
-## Step 4 — Save the transcript (stable + reviewable)
+Repeat throughout the day:
 
-Create `transcript.md` and capture:
+1. Export again from Threads to `threads_export.json`
+2. Re-run:
 
-- the prompts (verbatim)
-- the responses (verbatim)
+```bash
+python -m tools.foundry_threads
+```
 
-If your platform provides an export function, prefer that over manual copy/paste, but ensure:
+This creates an incremental, durable audit record in the repo even if the UI glitches.
 
-- the format is plain text / markdown
-- timestamps (if present) are consistent and not misleading
-- you remove/redact sensitive data per policy
+### Step 5 — Multi-topic days (optional)
 
-## Step 5 — Save outputs (and keep them traceable)
+If you have multiple distinct sessions/topics in the same day, add `--topic`:
 
-Put any derived artifacts in `outputs/`, such as:
+```bash
+python -m tools.foundry_threads --topic data_validation
+```
 
-- a cleaned “final answer” version of the response
-- extracted tables as CSV
-- checklists or SOP steps as markdown
+This produces:
 
-Naming guidance:
+- `dev/sessions/YYYY-MM-DD_data_validation.md`
+- `dev/sessions/.raw/YYYY-MM-DD_data_validation.threads_export.json`
 
-- keep names deterministic and descriptive
-- avoid spaces; use hyphens
+### Step 6 — Preserve the audit trail (commit in Code Workspace)
 
-Examples:
+In Foundry Code Workspace, commit the updated files to the Code Repository.
 
-- `outputs/final-summary.md`
-- `outputs/extracted-entities.csv`
-- `outputs/recommended-workflow-checklist.md`
+Minimum expected committed artifacts:
 
-## Step 6 — Preserve an audit trail
+- `dev/sessions/YYYY-MM-DD*.md`
+- `dev/sessions/.raw/*.threads_export.json`
 
-Minimum viable audit trail:
+Notes:
 
-- `metadata.yml` exists and references:
-  - datasets used (identifiers)
-  - where outputs are stored
-  - the repo version / commit (or a note that this is not available)
-- `transcript.md` is present
-- outputs are saved under `outputs/`
+- The `.md` file is what most reviewers will read.
+- The `.raw` JSON is preserved for audit integrity and re-derivation.
+- `dev/sessions/.backups/` is typically not committed (local scratch safety).
 
-Preferred:
+Commit message guidance:
 
-- commit the complete session folder to the Foundry Code Repo with a clear commit message
-- if you use Git LFS for large files, ensure the LFS pointers are committed and the files are actually present in the remote LFS store (so others can retrieve them).
+- include date and a short purpose
+- example: `Update Threads session log (2026-05-03)`
 
 ## Offline / no-internet constraints
 
@@ -180,37 +188,33 @@ If you reference external documentation, treat it as “background reading” ra
 
 ## Troubleshooting
 
-### I can’t import the repo ZIP into Foundry
+### I can’t find `threads_export.json` from Code Workspace
 
-- Re-check `fnd-load-repo.qmd`
-- Confirm you have permissions to create or modify a Code Repository in the target Project
-- Confirm you are using an approved transfer path for moving the ZIP into the enclave
+- Confirm the export completed successfully in Threads.
+- Re-export and explicitly name the file `threads_export.json`.
+- Use Code Workspace search (or terminal) to locate the file.
+- If exports are saved to a location not visible to Code Workspace in your configuration, coordinate with your Foundry administrators for the approved way to move the export file into the Code Workspace environment.
+
+### `python -m tools.foundry_threads` fails
+
+- Confirm your repo was created from `MVR-GIS/repo-generic-python` (the tool lives in that template).
+- Confirm you are running from the repository root in Code Workspace.
+- Confirm your Python environment is active/available in the Code Workspace runtime.
+- If dependency errors mention YAML:
+  - confirm the environment includes PyYAML per the template’s `environment.yml`.
 
 ### I’m not sure what I’m allowed to paste into Threads
 
-- Stop and confirm policy with your platform/data governance point of contact
-- Prefer referencing datasets by identifier rather than pasting raw records
-
-### Outputs are too large to store in the repo
-
-Default expectation: store artifacts in-repo (the repo is the durable audit record).
-
-Practical options:
-
-- Store a smaller derivative (summary, sample, or compressed version) in `outputs/`.
-- If you need the full artifact, use Git LFS for the large file(s).
-- Record what you did in `metadata.yml` so a reviewer understands what is complete vs summarized.
+- Stop and confirm policy with your platform/data governance point of contact.
+- Prefer referencing datasets by identifier rather than pasting raw records.
 
 ## Definition of done
 
 You are done when:
 
-- a new session folder exists under `threads/sessions/`
-- `metadata.yml` exists and includes:
-  - purpose/question
-  - dataset identifiers (if any)
-  - constraints (offline/no-internet)
-  - where outputs were saved
-- `transcript.md` contains a complete prompt/response record (redacted as needed)
-- outputs are saved and referenced
-- the work is preserved in a way a reviewer can retrieve later (commit and/or published artifacts)
+- the session transcript exists in-repo:
+  - `dev/sessions/YYYY-MM-DD[_topic].md`
+- the raw export is preserved in-repo:
+  - `dev/sessions/.raw/YYYY-MM-DD[_topic].threads_export.json`
+- the transcript includes YAML front matter metadata (title/date/user/model/hash)
+- the files are committed to the Foundry Code Repository so a reviewer can retrieve them later
