@@ -3,7 +3,7 @@ execute:
   eval: false
 ---
 
-# Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)
+# Reproducible Threads workflow
 
 ## Objective
 

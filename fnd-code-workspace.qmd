@@ -3,7 +3,7 @@ execute:
   eval: false
 ---
 
-# Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)
+# Foundry Code Workspaces
 
 ## Objective
 

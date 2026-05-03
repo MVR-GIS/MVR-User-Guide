@@ -3,7 +3,7 @@ execute:
   eval: false
 ---
 
-# Load a repo into Foundry (ZIP import)
+# Load a repo into Foundry
 
 ## Objective
 

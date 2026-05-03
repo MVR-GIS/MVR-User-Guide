@@ -823,67 +823,67 @@
   {
     "objectID": "con-podman-getting-started.html",
     "href": "con-podman-getting-started.html",
-    "title": "11  Podman Desktop (Getting Started)",
+    "title": "11  Podman Desktop Getting Started",
     "section": "",
     "text": "11.1 Why USACE is transitioning from Docker Desktop to Podman Desktop (Windows)\nThis chapter is for USACE data scientists who are new to containers and need to get comfortable with Podman Desktop + Podman CLI on a Windows computer.\nPrimary use case for this guide:\nHistorically, many teams used Docker Desktop for local container development on Windows. However:\nThis user guide focuses on Podman Desktop as the recommended approach for local container QA/QC in USACE Windows environments.",
     "crumbs": [
       "Containers",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop (Getting Started)</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop Getting Started</span>"
     ]
   },
   {
     "objectID": "con-podman-getting-started.html#why-usace-is-transitioning-from-docker-desktop-to-podman-desktop-windows",
     "href": "con-podman-getting-started.html#why-usace-is-transitioning-from-docker-desktop-to-podman-desktop-windows",
-    "title": "11  Podman Desktop (Getting Started)",
+    "title": "11  Podman Desktop Getting Started",
     "section": "",
     "text": "Docker Desktop now requires a subscription for many organizational/government Windows use cases.\nPodman Desktop is open source and no-cost, and supports common container workflows needed for local QA/QC.\n\n\n\n\n\n\n\n\n“Dockerfile” is still the standard build input\n\n\n\nPodman can build images from a Dockerfile using the same general syntax and patterns you may already know from Docker-based workflows.\nIt is normal and expected that: - your repo contains a file named Dockerfile - you use podman build ... to build it",
     "crumbs": [
       "Containers",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop (Getting Started)</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop Getting Started</span>"
     ]
   },
   {
     "objectID": "con-podman-getting-started.html#a-minimal-mental-model-enough-to-be-productive",
     "href": "con-podman-getting-started.html#a-minimal-mental-model-enough-to-be-productive",
-    "title": "11  Podman Desktop (Getting Started)",
+    "title": "11  Podman Desktop Getting Started",
     "section": "11.2 A minimal mental model (enough to be productive)",
     "text": "11.2 A minimal mental model (enough to be productive)\n\nImage: a packaged filesystem + metadata that defines an app environment.\nContainer: a running (or stopped) instance of an image.\nRegistry: where images come from (public or internal).\nDockerfile: build recipe for an image (often multi-stage).\nBind mount: make local files available inside a container.\nPort mapping: access a containerized service from your Windows machine.\nWSL2 backend: on Windows, Podman runs Linux containers via WSL2.\n\n\n\n\n\n\n\nYour “first success” goal\n\n\n\nFor QA/QC work, success is not “I can run any container.”\nSuccess is: 1. You can build the image from your repo’s Dockerfile. 2. You can run the container locally. 3. You can view logs and diagnose failures. 4. You can iterate: change Dockerfile, rebuild, rerun, retest.",
     "crumbs": [
       "Containers",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop (Getting Started)</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop Getting Started</span>"
     ]
   },
   {
     "objectID": "con-podman-getting-started.html#first-success-checklist-15-minutes",
     "href": "con-podman-getting-started.html#first-success-checklist-15-minutes",
-    "title": "11  Podman Desktop (Getting Started)",
+    "title": "11  Podman Desktop Getting Started",
     "section": "11.3 First success checklist (15 minutes)",
     "text": "11.3 First success checklist (15 minutes)\n\n0) Start Podman Desktop\n\nStart the Podman Desktop GUI application.\nVerify that the application starts. Now a Podman server instance is running on your local computer.\nPerform any requested updates.\n\n\n\n\n\n\n\nGUI or command line?\n\n\n\nMost of the tasks below can be preformed either in the GUI or at the command line. Notice that as you complete tasks at the command line below, artifacts will appear in the GUI. As you learn, feel free to switch between them!\n\n\n\n\n1) Confirm Podman is available (PowerShell)\nOpen PowerShell and run:\npodman --version\npodman info\nExpected: commands run successfully and podman info returns structured output.\nIf podman is not found: - confirm Podman Desktop is installed - reopen PowerShell (PATH changes may require a new shell) - if still blocked, ask your PC Tech to verify installation\n\n\n2) Confirm you can pull and run a small test image\nThis is a basic smoke test that confirms your local Podman runtime is functioning:\npodman pull docker.io/library/alpine:latest\npodman run --rm docker.io/library/alpine:latest echo \"podman is working\"\nExpected: you see:\npodman is working\n\n\n\n\n\n\nNetwork / registry restrictions\n\n\n\nIf pulling from public registries fails due to policy/proxy restrictions, stop and coordinate with your team’s container/DevOps support path (approved registries, proxy configuration, internal mirrors, etc.).",
     "crumbs": [
       "Containers",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop (Getting Started)</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop Getting Started</span>"
     ]
   },
   {
     "objectID": "con-podman-getting-started.html#core-qaqc-workflows-build-run-logs",
     "href": "con-podman-getting-started.html#core-qaqc-workflows-build-run-logs",
-    "title": "11  Podman Desktop (Getting Started)",
+    "title": "11  Podman Desktop Getting Started",
     "section": "11.4 Core QA/QC workflows (build, run, logs)",
     "text": "11.4 Core QA/QC workflows (build, run, logs)\nThe commands below are the “80% path” for validating container changes locally.\n\nWorkflow A — Build an image from a Dockerfile\nFrom the repo root (where the Dockerfile lives):\npodman build -t myapp:dev .\nRecommended habits: - Use meaningful tags for QA/QC (include a date, branch, or ticket identifier). - If your team uses a standard image name, follow it consistently.\nExamples:\npodman build -t myapp:qaqc-2026-04-29 .\n\nMulti-stage Dockerfile: build a specific stage (when needed)\nIf your Dockerfile defines multiple stages and you want to build a specific stage:\npodman build --target runtime -t myapp:runtime .\nUse this when you need to: - test only the hardened runtime stage - confirm the final stage still works after refactoring earlier build stages\n\n\nVerify what you built\npodman images\npodman inspect myapp:dev\nTip: podman inspect is useful when verifying labels, entrypoints, env vars, and other runtime metadata.\n\n\n\nWorkflow B — Run the container locally\nMost QA/QC runs fall into one of these patterns:\n\nPattern 1: run a command and exit (batch-style)\npodman run --rm myapp:dev &lt;command&gt;\nExample:\npodman run --rm myapp:dev --help\n\n\nPattern 2: run a service and map ports (web app/API)\nIf your container listens on a port (example: 8000), map it to your machine:\npodman run --rm -p 8000:8000 myapp:dev\nThen test: - http://localhost:8000 in a browser, or - your API client / curl\nAdd environment variables as needed:\npodman run --rm -p 8000:8000 -e APP_ENV=dev myapp:dev\nName the container if you plan to inspect it while running:\npodman run --name myapp-qaqc -p 8000:8000 myapp:dev\n\n\n\nWorkflow C — View logs (the fastest way to QA/QC startup issues)\nIf a container is named, you can view logs with:\npodman logs myapp-qaqc\nIf the container exits too fast and you used --rm, rerun without --rm so you can inspect logs and state:\npodman run --name myapp-debug -p 8000:8000 myapp:dev\nThen:\npodman ps -a\npodman logs myapp-debug\nClean up when done:\npodman rm myapp-debug\n\n\nWorkflow D — Stop / remove containers cleanly\nList running containers:\npodman ps\nStop a running container:\npodman stop myapp-qaqc\nRemove a stopped container:\npodman rm myapp-qaqc\n\n\nWorkflow E — Cleanup images when iterating heavily\nIf you are repeatedly rebuilding and running QA/QC, you may accumulate many unused layers/images.\nInspect:\npodman images\nPrune unused images:\npodman image prune\n\n\n\n\n\n\nBe careful with aggressive cleanup\n\n\n\nAvoid commands that delete “everything” unless you know you won’t need cached layers/images. They can be costly to rebuild and may remove images you rely on for offline work.",
     "crumbs": [
       "Containers",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop (Getting Started)</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop Getting Started</span>"
     ]
   },
   {
     "objectID": "con-podman-getting-started.html#qaqc-a-simple-local-validation-checklist",
     "href": "con-podman-getting-started.html#qaqc-a-simple-local-validation-checklist",
-    "title": "11  Podman Desktop (Getting Started)",
+    "title": "11  Podman Desktop Getting Started",
     "section": "11.5 QA/QC: a simple local validation checklist",
     "text": "11.5 QA/QC: a simple local validation checklist",
     "crumbs": [
       "Containers",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop (Getting Started)</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Podman Desktop Getting Started</span>"
     ]
   },
   {
@@ -1252,430 +1252,430 @@
   {
     "objectID": "uns-chunk-export.html",
     "href": "uns-chunk-export.html",
-    "title": "20  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "title": "20  Exporting Chunks",
     "section": "",
     "text": "20.1 Concepts",
     "crumbs": [
       "Unstructured Data",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks</span>"
     ]
   },
   {
     "objectID": "uns-chunk-export.html#concepts",
     "href": "uns-chunk-export.html#concepts",
-    "title": "20  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "title": "20  Exporting Chunks",
     "section": "",
     "text": "Why we standardize export formats\nDifferent enterprise platforms ingest and index text differently, but the governance requirement is the same:\n\nthe exact source must be traceable,\noutputs must be reviewable and reproducible,\nand the exported dataset must support audit and reprocessing.\n\nStandardizing on a platform-neutral chunk record (the output of fnd-chunking.qmd) gives us a stable “source of truth”. From there, we generate platform-specific exports without changing the underlying meaning or provenance.\n\n\nGemini vs. Foundry: what we’re optimizing for\n\nGemini Enterprise workflows often benefit from JSONL because:\n\nit is line-delimited and stream-friendly,\neasy to generate and inspect,\ncommon in model ingestion pipelines.\n\nPalantir Foundry / Army Vantage workflows often benefit from Parquet because:\n\ncolumnar storage is efficient for analytics and indexing,\nschema is explicit and enforced,\nit is commonly used for Foundry datasets and pipelines.\n\n\n\n\n“Export is not transformation”\nExports should be lossless with respect to: - document identity (document_sha256, document_id) - location/provenance pointers (page range, element span) - audit fields (run IDs, tool versions, parameters) - chunk content (text)\nAny platform-specific reshaping should be: - mechanical (renaming fields, adding nested structure), and - fully documented and reproducible.\n\n\nSource provenance must remain first-class\nExports must preserve the ability to answer, for any retrieved chunk:\n\nWhich file/version? (sha256)\nWhere in the file? (page range, element span)\nWhich processing run and policy? (run metadata + parameters)\n\nIf a target platform cannot ingest certain metadata directly, we still export it as fields so it can be stored alongside the content or referenced externally.",
     "crumbs": [
       "Unstructured Data",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks</span>"
     ]
   },
   {
     "objectID": "uns-chunk-export.html#export-schemas-recommended",
     "href": "uns-chunk-export.html#export-schemas-recommended",
-    "title": "20  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "title": "20  Exporting Chunks",
     "section": "20.2 Export schemas (recommended)",
     "text": "20.2 Export schemas (recommended)\n\nBaseline chunk record (source of truth)\nWe assume input chunks come from chunks.jsonl as produced by fnd-chunking.qmd.\nAt minimum, each record includes:\n\nDocument provenance: document_sha256, source_relpath, source_path\nLocation pointers: page_number_min, page_number_max, element_index_start, element_index_end\nChunk identity: chunk_id, chunk_index\nContent: text\nAudit: run_id, pipeline_version, semantic_chunker_params, software_versions\n\n\n\nGemini JSONL export (recommended structure)\nBecause “Gemini ingestion” can vary by organization and toolchain, we recommend a conservative, flexible JSON object per line:\n\nid (use chunk_id)\ntext\nmetadata object containing all provenance and audit fields\n\nExample (one line per chunk):\n{\"id\":\"&lt;chunk_id&gt;\",\"text\":\"...\",\"metadata\":{...}}\nThis keeps the chunk content and provenance together while remaining broadly compatible with JSON-based pipelines.\n\n\nFoundry Parquet export (recommended structure)\nFor Foundry, keep a flat, typed table with columns such as:\n\nchunk_id (string)\ndocument_sha256 (string)\nsource_relpath (string)\npage_number_min (int)\npage_number_max (int)\nelement_index_start (int)\nelement_index_end (int)\nchunk_index (int)\ntext (string)\nchar_count (int)\napprox_token_count (int)\nrun_id (string)\nchunked_at_utc (timestamp-like string)\npipeline_version (string)\nembedding_model_name (string)\nsemantic_chunker_params_json (string JSON)\nsoftware_versions_json (string JSON)\nqa_flags (string[] or JSON string depending on downstream tooling)\n\nThis structure is analytics-friendly and plays well with schema enforcement.",
     "crumbs": [
       "Unstructured Data",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks</span>"
     ]
   },
   {
     "objectID": "uns-chunk-export.html#workflow-overview",
     "href": "uns-chunk-export.html#workflow-overview",
-    "title": "20  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "title": "20  Exporting Chunks",
     "section": "20.3 Workflow overview",
     "text": "20.3 Workflow overview\nInputs: - runs/&lt;chunk_run&gt;/chunks.jsonl - runs/&lt;chunk_run&gt;/chunk-run-metadata.json (recommended to retain)\nOutputs: - gemini/chunks.jsonl (Gemini-friendly JSONL) - foundry/chunks.parquet (Foundry-friendly Parquet) - export-run-metadata.json (audit trail)",
     "crumbs": [
       "Unstructured Data",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks</span>"
     ]
   },
   {
     "objectID": "uns-chunk-export.html#prerequisites",
     "href": "uns-chunk-export.html#prerequisites",
-    "title": "20  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "title": "20  Exporting Chunks",
     "section": "20.4 Prerequisites",
     "text": "20.4 Prerequisites\nPython packages: - pandas - pyarrow (required for Parquet) - tqdm (optional)\nInstallation (example): ~bash python -m pip install pandas pyarrow tqdm~",
     "crumbs": [
       "Unstructured Data",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks</span>"
     ]
   },
   {
     "objectID": "uns-chunk-export.html#runnable-script-export-jsonl-gemini-parquet-foundry",
     "href": "uns-chunk-export.html#runnable-script-export-jsonl-gemini-parquet-foundry",
-    "title": "20  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "title": "20  Exporting Chunks",
     "section": "20.5 Runnable script: export JSONL (Gemini) + Parquet (Foundry)",
     "text": "20.5 Runnable script: export JSONL (Gemini) + Parquet (Foundry)\n\nWhat this script does\n\nReads chunks.jsonl\nWrites:\n\nexports/&lt;RUN_ID&gt;/gemini/chunks.jsonl\nexports/&lt;RUN_ID&gt;/foundry/chunks.parquet\n\nWrites export-run-metadata.json to document:\n\ninputs\nexport schema decisions\ntool versions\n\n\n\n\nScript\n#| eval: false\n\n# Save as scripts/export_chunks.py and run:\n#   python scripts/export_chunks.py\n#\n# Assumes you have already generated chunks.jsonl via fnd-chunking.qmd.\n\nfrom __future__ import annotations\n\nimport datetime as dt\nimport json\nimport platform\nimport sys\nfrom pathlib import Path\nfrom typing import Any, Dict, List, Optional\n\nimport pandas as pd\nfrom tqdm import tqdm\n\n\n# ---------------------------\n# Configuration (edit these)\n# ---------------------------\n\nCHUNK_RUN_DIR = Path(r\"CHANGE_ME\\runs\\2026-04-23_semantic-chunk\").resolve()\n\nOUTPUT_ROOT = Path(\"exports\").resolve()\nRUN_ID = f\"{dt.datetime.utcnow().date().isoformat()}_chunk-export\"\n\n# Output filenames\nGEMINI_JSONL_NAME = \"chunks.jsonl\"\nFOUNDRY_PARQUET_NAME = \"chunks.parquet\"\n\n\n# ---------------------------\n# Helpers\n# ---------------------------\n\ndef utc_now_iso() -&gt; str:\n    return dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc).isoformat()\n\ndef _safe_import_version(pkg: str) -&gt; Optional[str]:\n    try:\n        mod = __import__(pkg)\n        return getattr(mod, \"__version__\", None)\n    except Exception:\n        return None\n\ndef load_jsonl(path: Path) -&gt; List[Dict[str, Any]]:\n    rows: List[Dict[str, Any]] = []\n    with path.open(\"r\", encoding=\"utf-8\") as f:\n        for line in f:\n            line = line.strip()\n            if not line:\n                continue\n            rows.append(json.loads(line))\n    return rows\n\n\n# ---------------------------\n# Export transforms\n# ---------------------------\n\ndef to_gemini_jsonl_record(chunk: Dict[str, Any]) -&gt; Dict[str, Any]:\n    \"\"\"\n    Gemini-friendly JSONL record.\n    Conservative structure:\n      - id: chunk_id\n      - text: chunk text\n      - metadata: everything else\n    \"\"\"\n    chunk_id = chunk.get(\"chunk_id\")\n    text = chunk.get(\"text\")\n\n    # Keep provenance and audit fields together, but exclude the main text.\n    metadata = {k: v for k, v in chunk.items() if k not in (\"text\",)}\n\n    return {\n        \"id\": chunk_id,\n        \"text\": text,\n        \"metadata\": metadata,\n    }\n\ndef flatten_for_foundry(chunk: Dict[str, Any]) -&gt; Dict[str, Any]:\n    \"\"\"\n    Flatten nested dict fields into JSON strings for columnar storage.\n    Keeps table schema stable and explicit.\n    \"\"\"\n    out = dict(chunk)\n\n    # Normalize nested objects to JSON strings for Parquet friendliness\n    if isinstance(out.get(\"semantic_chunker_params\"), dict):\n        out[\"semantic_chunker_params_json\"] = json.dumps(out[\"semantic_chunker_params\"], ensure_ascii=False, sort_keys=True)\n        del out[\"semantic_chunker_params\"]\n\n    if isinstance(out.get(\"software_versions\"), dict):\n        out[\"software_versions_json\"] = json.dumps(out[\"software_versions\"], ensure_ascii=False, sort_keys=True)\n        del out[\"software_versions\"]\n\n    # Normalize qa_flags: keep list if you want list-typed parquet,\n    # or encode as JSON if downstream tooling prefers strings only.\n    # Here we keep list if present; pyarrow can store list&lt;string&gt;.\n    # If you prefer string: uncomment JSON conversion.\n    #\n    # if isinstance(out.get(\"qa_flags\"), list):\n    #     out[\"qa_flags_json\"] = json.dumps(out[\"qa_flags\"], ensure_ascii=False)\n    #     del out[\"qa_flags\"]\n\n    return out\n\n\ndef main() -&gt; None:\n    chunks_path = CHUNK_RUN_DIR / \"chunks.jsonl\"\n    chunk_run_meta_path = CHUNK_RUN_DIR / \"chunk-run-metadata.json\"\n\n    for p in [chunks_path, chunk_run_meta_path]:\n        if not p.exists():\n            raise FileNotFoundError(f\"Missing expected input: {p}\")\n\n    export_dir = OUTPUT_ROOT / RUN_ID\n    gemini_dir = export_dir / \"gemini\"\n    foundry_dir = export_dir / \"foundry\"\n    gemini_dir.mkdir(parents=True, exist_ok=False)\n    foundry_dir.mkdir(parents=True, exist_ok=False)\n\n    # Read chunks\n    chunks = load_jsonl(chunks_path)\n    if not chunks:\n        raise RuntimeError(f\"No chunks found in: {chunks_path}\")\n\n    # Write export run metadata (audit trail)\n    export_run_meta = {\n        \"run_id\": RUN_ID,\n        \"created_at_utc\": utc_now_iso(),\n        \"inputs\": {\n            \"chunk_run_dir\": str(CHUNK_RUN_DIR),\n            \"chunks_jsonl\": str(chunks_path),\n            \"chunk_run_metadata\": str(chunk_run_meta_path),\n        },\n        \"outputs\": {\n            \"gemini_jsonl\": str(gemini_dir / GEMINI_JSONL_NAME),\n            \"foundry_parquet\": str(foundry_dir / FOUNDRY_PARQUET_NAME),\n        },\n        \"packages\": {\n            \"pandas\": _safe_import_version(\"pandas\"),\n            \"pyarrow\": _safe_import_version(\"pyarrow\"),\n            \"tqdm\": _safe_import_version(\"tqdm\"),\n        },\n        \"export_policies\": {\n            \"gemini_jsonl_structure\": {\"id\": \"chunk_id\", \"text\": \"text\", \"metadata\": \"all_other_fields\"},\n            \"foundry_parquet_flattening\": [\n                \"semantic_chunker_params -&gt; semantic_chunker_params_json\",\n                \"software_versions -&gt; software_versions_json\",\n            ],\n            \"losslessness_goal\": \"Do not drop provenance/audit fields; only reshape.\",\n        },\n    }\n    (export_dir / \"export-run-metadata.json\").write_text(json.dumps(export_run_meta, indent=2), encoding=\"utf-8\")\n\n    # 1) Gemini JSONL\n    gemini_out_path = gemini_dir / GEMINI_JSONL_NAME\n    with gemini_out_path.open(\"w\", encoding=\"utf-8\") as f:\n        for c in tqdm(chunks, desc=\"Writing Gemini JSONL\"):\n            rec = to_gemini_jsonl_record(c)\n            f.write(json.dumps(rec, ensure_ascii=False) + \"\\n\")\n\n    # 2) Foundry Parquet\n    flat_rows = [flatten_for_foundry(c) for c in chunks]\n    df = pd.DataFrame(flat_rows)\n\n    # Optional: enforce column ordering (helps reviewers)\n    preferred_cols = [\n        \"chunk_id\",\n        \"document_sha256\",\n        \"document_id\",\n        \"source_relpath\",\n        \"source_path\",\n        \"chunk_index\",\n        \"text\",\n        \"page_number_min\",\n        \"page_number_max\",\n        \"element_index_start\",\n        \"element_index_end\",\n        \"element_count\",\n        \"char_count\",\n        \"approx_token_count\",\n        \"run_id\",\n        \"chunked_at_utc\",\n        \"pipeline_stage\",\n        \"pipeline_version\",\n        \"embedding_model_name\",\n        \"semantic_chunker_params_json\",\n        \"software_versions_json\",\n        \"qa_flags\",\n    ]\n    cols = [c for c in preferred_cols if c in df.columns] + [c for c in df.columns if c not in preferred_cols]\n    df = df[cols]\n\n    foundry_out_path = foundry_dir / FOUNDRY_PARQUET_NAME\n    df.to_parquet(foundry_out_path, index=False)\n\n    print(\"Done.\")\n    print(f\"Export directory: {export_dir}\")\n    print(f\"Gemini JSONL: {gemini_out_path}\")\n    print(f\"Foundry Parquet: {foundry_out_path}\")\n\n\nif __name__ == \"__main__\":\n    main()",
     "crumbs": [
       "Unstructured Data",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks</span>"
     ]
   },
   {
     "objectID": "uns-chunk-export.html#verification-checklist-release-blockers",
     "href": "uns-chunk-export.html#verification-checklist-release-blockers",
-    "title": "20  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "title": "20  Exporting Chunks",
     "section": "20.6 Verification checklist (release blockers)",
     "text": "20.6 Verification checklist (release blockers)\n\n1) Row counts match (lossless export)\n\nNumber of lines in chunks.jsonl equals number of lines in exports/.../gemini/chunks.jsonl.\nParquet row count equals chunk count.\n\n\n\n2) Provenance fields preserved\nFor a sample of rows/records, verify the following are present and consistent:\n\nchunk_id\ndocument_sha256\nsource_relpath (and optionally source_path)\npage_number_min, page_number_max (when available)\nrun_id, pipeline_version\n\n\n\n3) JSONL validity\n\nEach line in Gemini JSONL is valid JSON (no trailing commas, no multi-line records).\nmetadata contains document provenance and audit fields.\n\n\n\n4) Parquet schema review\n\nsemantic_chunker_params_json and software_versions_json are valid JSON strings.\ntext is stored as a string column.\nNo unintended nulling of required fields.",
     "crumbs": [
       "Unstructured Data",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks</span>"
     ]
   },
   {
     "objectID": "uns-chunk-export.html#operational-guidance-platform-flexibility",
     "href": "uns-chunk-export.html#operational-guidance-platform-flexibility",
-    "title": "20  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "title": "20  Exporting Chunks",
     "section": "20.7 Operational guidance (platform flexibility)",
     "text": "20.7 Operational guidance (platform flexibility)\n\nImporting into Gemini workflows\nBecause Gemini Enterprise ingestion pipelines differ by tenant configuration, we recommend keeping the JSONL format conservative:\n\nid for stable chunk identity\ntext for chunk content\nmetadata for everything needed to cite and audit\n\nIf a Gemini workflow requires a different shape (e.g., specific keys like document, uri, or source), add a thin export adapter that reshapes fields without dropping provenance.\n\n\nImporting into Foundry / Army Vantage\nFoundry typically ingests Parquet cleanly and allows: - filtering by provenance fields, - joining back to other datasets (e.g., document catalog), - enforcing schema consistency in pipelines.\nTreat document_sha256 as the primary join key back to the document manifest and any higher-level document registry.",
     "crumbs": [
       "Unstructured Data",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks</span>"
     ]
   },
   {
     "objectID": "uns-chunk-export.html#definition-of-done-for-export-work",
     "href": "uns-chunk-export.html#definition-of-done-for-export-work",
-    "title": "20  Exporting Chunks (Gemini JSONL + Foundry Parquet)",
+    "title": "20  Exporting Chunks",
     "section": "20.8 Definition of done (for export work)",
     "text": "20.8 Definition of done (for export work)\n\nExports are generated reproducibly from chunk source-of-truth.\nProvenance and audit fields are preserved (no “orphan” content).\nVerification checks pass (counts, schema, sample inspection).\nExport run metadata is written and stored alongside outputs.",
     "crumbs": [
       "Unstructured Data",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks</span>"
     ]
   },
   {
     "objectID": "fnd-code-workspace.html",
     "href": "fnd-code-workspace.html",
-    "title": "23  Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)",
+    "title": "23  Foundry Code Workspaces",
     "section": "",
     "text": "23.1 Objective\nHelp USACE geospatial data scientists get productive quickly in Army Vantage’s Code Workspaces experience (VS Code in the browser), focusing on:\nThis chapter intentionally avoids repo import mechanics (see fnd-load-repo.qmd).",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
     ]
   },
   {
     "objectID": "fnd-code-workspace.html#objective",
     "href": "fnd-code-workspace.html#objective",
-    "title": "23  Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)",
+    "title": "23  Foundry Code Workspaces",
     "section": "",
     "text": "opening a Code Repository in a Code Workspace\nrunning Python (scripts + notebooks)\nmaking reviewable changes (commits) inside the enclave",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
     ]
   },
   {
     "objectID": "fnd-code-workspace.html#prerequisites",
     "href": "fnd-code-workspace.html#prerequisites",
-    "title": "23  Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)",
+    "title": "23  Foundry Code Workspaces",
     "section": "23.2 Prerequisites",
     "text": "23.2 Prerequisites\n\nYou can sign in to Army Vantage.\nYou have access to a Project with a Code Repository you can open in a Code Workspace.\n\nIf you need to create/import a repository first, follow: fnd-load-repo.qmd.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
     ]
   },
   {
     "objectID": "fnd-code-workspace.html#mental-model-for-daily-work",
     "href": "fnd-code-workspace.html#mental-model-for-daily-work",
-    "title": "23  Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)",
+    "title": "23  Foundry Code Workspaces",
     "section": "23.3 Mental model (for daily work)",
     "text": "23.3 Mental model (for daily work)\nFor our workflow, Army Vantage Code Workspaces is:\n\na browser-based VS Code IDE attached to a Foundry Code Repository\nyour primary place to:\n\nedit files\nrun Python\nview outputs/logs\ncommit changes (audit trail)\n\n\nAssume constrained networking unless explicitly confirmed otherwise.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
     ]
   },
   {
     "objectID": "fnd-code-workspace.html#code-workspaces-tour-what-you-should-know-on-day-1",
     "href": "fnd-code-workspace.html#code-workspaces-tour-what-you-should-know-on-day-1",
-    "title": "23  Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)",
+    "title": "23  Foundry Code Workspaces",
     "section": "23.4 Code Workspaces tour (what you should know on day 1)",
     "text": "23.4 Code Workspaces tour (what you should know on day 1)\nInside a Code Workspace, you’ll typically rely on these VS Code areas:\n\nExplorer (file tree): browse and edit your repo\nSearch: find code/text across the repo\nTerminal: run commands (python, pytest, etc.) if enabled\nRun / Debug: run scripts (if enabled/configured)\nSource Control: view diffs + commit changes\nExtensions (if exposed): may be limited by platform policy\n\nIf you are new to VS Code: - learn two shortcuts early: - Command Palette (VS Code): search for actions/settings - Search in files: find symbols and text quickly",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
     ]
   },
   {
     "objectID": "fnd-code-workspace.html#step-by-step-start-a-working-python-session-inside-code-workspace",
     "href": "fnd-code-workspace.html#step-by-step-start-a-working-python-session-inside-code-workspace",
-    "title": "23  Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)",
+    "title": "23  Foundry Code Workspaces",
     "section": "23.5 Step-by-step: start a working Python session (inside Code Workspace)",
     "text": "23.5 Step-by-step: start a working Python session (inside Code Workspace)\n\nStep 1 — Open your Code Repository in a Code Workspace\n\nIn Army Vantage, open your Project.\nOpen the Code Repository for your analysis work.\nLaunch Code Workspace (VS Code).\n\nOutcome: - you see the repo file tree in the Explorer panel.\n\n\nStep 2 — Identify the “repo root” (important for every command)\nIn the Explorer panel, locate the repository root folder (top of the file tree). This is where you should see project files like:\n\nREADME.md\nenvironment.yml (if using the repo-generic-python template)\nnotebooks/, src/, outputs/\n\nOperational rule: - When later chapters say “run from repo root,” they mean “run with your terminal working directory set to this folder.”\n\n\nStep 3 — Confirm Python is available in the Workspace runtime\nOpen a terminal in Code Workspace (if your environment allows it) and run:\npython --version\nIf Python is not available, you have three common paths (platform-dependent):\n\nyour workspace is not configured with a Python runtime\nyou need to select a pre-provided interpreter/environment\nyou need platform support to enable the correct runtime image / environment\n\nDo not attempt ad-hoc internet installs in an enclave unless explicitly approved.\n\n\nStep 4 — Open and run a notebook (fastest “hello world”)\n\nIn Explorer, open a notebook in notebooks/ (or create a new one).\nRun a minimal cell:\n\nimport sys\nsys.version\nIf prompted to select a kernel/interpreter: - choose the intended Python environment for the repo (platform-provided).\n\n\nStep 5 — Run a Python script from the terminal (repeatable workflows)\nFrom the repo root in the terminal:\npython -c \"print('hello from code workspace')\"\nThen, when you start using repository tooling (example from later chapters):\npython -m tools.foundry_threads --help\n\n\nStep 6 — Make a small edit and commit (audit trail baseline)\nIn Code Workspace:\n\nOpen README.md.\nMake a small change (example: add a one-line note under “Daily workflow”).\nOpen the Source Control panel.\nReview the diff.\nWrite a clear commit message.\nCommit.\n\nOutcome: - you have verified end-to-end: edit → diff → commit inside the enclave.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
     ]
   },
   {
     "objectID": "fnd-code-workspace.html#practical-tips-for-usace-geospatial-workflows",
     "href": "fnd-code-workspace.html#practical-tips-for-usace-geospatial-workflows",
-    "title": "23  Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)",
+    "title": "23  Foundry Code Workspaces",
     "section": "23.6 Practical tips for USACE geospatial workflows",
     "text": "23.6 Practical tips for USACE geospatial workflows\n\nPrefer storing data in Foundry datasets; keep the repo for:\n\ncode\nconfiguration\nsmall reviewable outputs\nAI session logs (per fnd-threads.qmd)\n\nKeep outputs deterministic and reviewable:\n\n.md, .csv, .yml, .json where possible\n\nUse “save often” patterns for anything interactive (Threads sessions, notebooks).",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
     ]
   },
   {
     "objectID": "fnd-code-workspace.html#common-troubleshooting-code-workspace",
     "href": "fnd-code-workspace.html#common-troubleshooting-code-workspace",
-    "title": "23  Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)",
+    "title": "23  Foundry Code Workspaces",
     "section": "23.7 Common troubleshooting (Code Workspace)",
     "text": "23.7 Common troubleshooting (Code Workspace)\n\nI can’t open a terminal\nSome deployments restrict terminal access. If terminal is unavailable:\n\nrely on notebook execution where possible\ncoordinate with platform administrators for the approved execution path\n\n\n\nMy Python kernel/interpreter is wrong\nSymptoms: - imports fail unexpectedly - version mismatch\nFix: - select the correct kernel/interpreter in the notebook UI - ensure you are using the environment intended for the repository\n\n\nI can’t commit changes\n\nverify you have write permissions on the Code Repository\nverify the repo is not in a read-only state\ncoordinate with the Project owner/admin to adjust access",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
     ]
   },
   {
     "objectID": "fnd-code-workspace.html#where-we-go-next",
     "href": "fnd-code-workspace.html#where-we-go-next",
-    "title": "23  Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)",
+    "title": "23  Foundry Code Workspaces",
     "section": "23.8 Where we go next",
     "text": "23.8 Where we go next\n\nfnd-load-repo.qmd — if you still need to import a GitHub repo ZIP into a Foundry Code Repository\nfnd-threads.qmd — capture Threads session history into dev/sessions/ using the repo-local Python tool",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
     ]
   },
   {
     "objectID": "fnd-load-repo.html",
     "href": "fnd-load-repo.html",
-    "title": "24  Load a repo into Foundry (ZIP import)",
+    "title": "24  Load a repo into Foundry",
     "section": "",
     "text": "24.1 Objective\nBring an existing GitHub repository into a Foundry Code Repository using a ZIP download/import workflow, so you can run and version your work inside the Foundry enclave.\nThis chapter is a prerequisite for:",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   },
   {
     "objectID": "fnd-load-repo.html#objective",
     "href": "fnd-load-repo.html#objective",
-    "title": "24  Load a repo into Foundry (ZIP import)",
+    "title": "24  Load a repo into Foundry",
     "section": "",
     "text": "fnd-threads.qmd (Initiate a reproducible Threads workflow)",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   },
   {
     "objectID": "fnd-load-repo.html#prerequisites",
     "href": "fnd-load-repo.html#prerequisites",
-    "title": "24  Load a repo into Foundry (ZIP import)",
+    "title": "24  Load a repo into Foundry",
     "section": "24.2 Prerequisites",
     "text": "24.2 Prerequisites\nBefore you start, complete:\n\nfnd-getting-started.qmd (login, create a project, tagging for discovery, groups/permissions, etc.)\n\nYou also need:\n\naccess to create a Code Repository in your Foundry Project\naccess to the GitHub repository you will import",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   },
   {
     "objectID": "fnd-load-repo.html#which-repo-should-i-import",
     "href": "fnd-load-repo.html#which-repo-should-i-import",
-    "title": "24  Load a repo into Foundry (ZIP import)",
+    "title": "24  Load a repo into Foundry",
     "section": "24.3 Which repo should I import?",
     "text": "24.3 Which repo should I import?\nFor USACE data science work, we recommend starting from the approved lightweight Python analysis template described in:\n\nrepo-create-generic-python-repo.qmd\n\nThat chapter’s workflow creates a new GitHub repository based on:\n\nTemplate repo: MVR-GIS/repo-generic-python\n\nIn Foundry, you will typically import your new repo (created from the template), not the template itself.\nWhy this matters:\n\nthe template includes the standard project structure (notebooks/, src/, outputs/, etc.)\nit also includes repository-local tooling that downstream chapters rely on (example: the Threads export extractor in tools/)",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   },
   {
     "objectID": "fnd-load-repo.html#key-steps-overview",
     "href": "fnd-load-repo.html#key-steps-overview",
-    "title": "24  Load a repo into Foundry (ZIP import)",
+    "title": "24  Load a repo into Foundry",
     "section": "24.4 Key steps (overview)",
     "text": "24.4 Key steps (overview)\n\nCreate your analysis repo in GitHub from the approved template (external step).\nDownload a ZIP of the repo from GitHub (“big green code button”).\nCreate (or open) a Foundry Code Repository in your Foundry Project.\nImport/upload the ZIP contents into the Foundry Code Repository.\nVerify inside Foundry Code Workspace that the repo structure and tooling are present and runnable.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   },
   {
     "objectID": "fnd-load-repo.html#step-1-create-your-analysis-repo-in-github-outside-foundry",
     "href": "fnd-load-repo.html#step-1-create-your-analysis-repo-in-github-outside-foundry",
-    "title": "24  Load a repo into Foundry (ZIP import)",
+    "title": "24  Load a repo into Foundry",
     "section": "24.5 Step 1 — Create your analysis repo in GitHub (outside Foundry)",
     "text": "24.5 Step 1 — Create your analysis repo in GitHub (outside Foundry)\nFollow:\n\nrepo-create-generic-python-repo.qmd\n\nWhen you’re done, you should have a GitHub repository you own/control (example: MVR-GIS/my-analysis-project).\nRecommendation:\n\nrecord the commit SHA you intend to import (or create a tag/release) so you can prove which exact version entered the enclave",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   },
   {
     "objectID": "fnd-load-repo.html#step-2-download-the-repo-zip-from-github",
     "href": "fnd-load-repo.html#step-2-download-the-repo-zip-from-github",
-    "title": "24  Load a repo into Foundry (ZIP import)",
+    "title": "24  Load a repo into Foundry",
     "section": "24.6 Step 2 — Download the repo ZIP from GitHub",
     "text": "24.6 Step 2 — Download the repo ZIP from GitHub\n\nOpen your analysis repo in GitHub.\nClick Code (green button).\nClick Download ZIP.\nSave the ZIP somewhere you can access for import to Foundry.\n\nNotes:\n\nIf your Foundry enclave environment cannot access GitHub directly, you may need to move the ZIP through an approved transfer mechanism. Follow your organization’s policy.\nPrefer a tagged release ZIP if you need stronger provenance. Otherwise, record the commit SHA you downloaded for traceability.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   },
   {
     "objectID": "fnd-load-repo.html#step-3-createopen-a-foundry-code-repository-project-scoped",
     "href": "fnd-load-repo.html#step-3-createopen-a-foundry-code-repository-project-scoped",
-    "title": "24  Load a repo into Foundry (ZIP import)",
+    "title": "24  Load a repo into Foundry",
     "section": "24.7 Step 3 — Create/open a Foundry Code Repository (Project-scoped)",
     "text": "24.7 Step 3 — Create/open a Foundry Code Repository (Project-scoped)\nIn Foundry (inside the correct Project):\n\nCreate a new Code Repository (or open an existing one).\nName it consistently with the GitHub repo you’re importing (recommended).\nConfirm the Code Repo is in the correct Project and has the right permissions/groups (per fnd-getting-started.qmd).",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   },
   {
     "objectID": "fnd-load-repo.html#step-4-import-the-zip-contents-into-the-foundry-code-repository",
     "href": "fnd-load-repo.html#step-4-import-the-zip-contents-into-the-foundry-code-repository",
-    "title": "24  Load a repo into Foundry (ZIP import)",
+    "title": "24  Load a repo into Foundry",
     "section": "24.8 Step 4 — Import the ZIP contents into the Foundry Code Repository",
     "text": "24.8 Step 4 — Import the ZIP contents into the Foundry Code Repository\nImport mechanics vary by Foundry configuration (UI features and permissions). Use the import option available in your environment, such as:\n\nUpload/import from a ZIP archive\nUpload folder contents via the UI\nA “bootstrap” repository import step (if configured)\n\nRequired outcome:\n\nThe Code Repository file tree inside Foundry matches the GitHub repository contents at the commit you downloaded.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   },
   {
     "objectID": "fnd-load-repo.html#step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace",
     "href": "fnd-load-repo.html#step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace",
-    "title": "24  Load a repo into Foundry (ZIP import)",
+    "title": "24  Load a repo into Foundry",
     "section": "24.9 Step 5 — Verify repository structure and tooling (inside Foundry Code Workspace)",
     "text": "24.9 Step 5 — Verify repository structure and tooling (inside Foundry Code Workspace)\nThis verification step must occur inside the Foundry Code Workspace UI for the Code Repository you just imported.\n\n5.1 Open the repo in Code Workspace\n\nIn Foundry, open your Project.\nOpen the Code Repository you imported.\nOpen it in Code Workspace so you can browse files and run commands (if enabled in your environment).\n\n\n\n5.2 Confirm the expected files/folders exist\nAt minimum, verify you see the expected top-level folders/files, such as:\n\nnotebooks/\nsrc/\ndata/ (if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)\noutputs/\nREADME.md\nenvironment.yml\n\nAlso verify the presence of the Threads workflow tooling (required for fnd-threads.qmd):\n\ntools/\n\nfoundry_threads.py\n__init__.py (so python -m tools.foundry_threads works)\n\npytest.ini (supports consistent test imports)\ntests/ (if your repo includes tests; recommended)\n\n\n\n5.3 Quick “tool exists” sanity check (optional but recommended)\nIf your Foundry Code Workspace environment supports running Python in a terminal:\nFrom the repository root, run:\npython -m tools.foundry_threads --help\nExpected outcome:\n\nHelp text prints without import errors (confirms the repo-local tool is present and importable)\n\nIf you cannot run a terminal in Code Workspace (or Python execution is constrained), you can still verify:\n\nthe file tree includes the required tool files listed above\nthe README.md documents how the tool should be run in your environment",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   },
   {
     "objectID": "fnd-load-repo.html#offline-no-internet-guidance-foundry-enclave",
     "href": "fnd-load-repo.html#offline-no-internet-guidance-foundry-enclave",
-    "title": "24  Load a repo into Foundry (ZIP import)",
+    "title": "24  Load a repo into Foundry",
     "section": "24.10 Offline / no-internet guidance (Foundry enclave)",
     "text": "24.10 Offline / no-internet guidance (Foundry enclave)\nAssume no external network access from runtime environments unless your platform team confirms otherwise.\nRecommendations:\n\nDo not rely on pip install ... or conda env create ... fetching packages from the internet during normal execution.\nPrefer platform-provided Python environments or curated package sets where available.\nIf dependency installation is required, coordinate with your Foundry administrators on the approved mechanism (mirrors, curated channels, base images, etc.).",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   },
   {
     "objectID": "fnd-load-repo.html#definition-of-done",
     "href": "fnd-load-repo.html#definition-of-done",
-    "title": "24  Load a repo into Foundry (ZIP import)",
+    "title": "24  Load a repo into Foundry",
     "section": "24.11 Definition of done",
     "text": "24.11 Definition of done\nYou are ready to proceed when:\n\nthe GitHub repo ZIP has been imported into a Foundry Code Repository\nyou can browse the repo file tree in Foundry Code Workspace\nyou recorded provenance:\n\nGitHub repo URL\ncommit SHA (or tag/release) corresponding to the ZIP you imported\n\npermissions/groups are set so collaborators can access the Code Repo (as intended)\n(recommended) you confirmed the Threads tool is present:\n\npython -m tools.foundry_threads --help runs successfully, or the required files exist in the repo tree",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html",
     "href": "fnd-threads.html",
-    "title": "25  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "title": "25  Reproducible Threads workflow",
     "section": "",
     "text": "25.1 Objective\nCapture a Foundry Threads chat session history and preserve outputs in a reviewable, auditable way inside a Foundry enclave (assume offline / no-internet execution).\nThis chapter focuses on workflow and structure and assumes you will do the work inside the Foundry Code Workspace UI (not a local machine workflow).",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#prerequisites",
     "href": "fnd-threads.html#prerequisites",
-    "title": "25  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "title": "25  Reproducible Threads workflow",
     "section": "25.2 Prerequisites",
     "text": "25.2 Prerequisites\nComplete these first:\n\nfnd-getting-started.qmd\n\nlogin\ncreate a Project\ntagging for discovery\ngroups/permissions\nany required platform conventions\n\nfnd-load-repo.qmd\n\nimport your GitHub analysis repository into a Foundry Code Repository using ZIP import\n\n\nYou should also already have a GitHub analysis repo created from:\n\nrepo-create-generic-python-repo.qmd\n\nImportant: This workflow assumes your analysis repo was created from the template MVR-GIS/repo-generic-python, which includes the tooling used below: - python -m tools.foundry_threads",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#what-is-a-reproducible-threads-session-in-this-context",
     "href": "fnd-threads.html#what-is-a-reproducible-threads-session-in-this-context",
-    "title": "25  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "title": "25  Reproducible Threads workflow",
     "section": "25.3 What is a “reproducible Threads session” in this context?",
     "text": "25.3 What is a “reproducible Threads session” in this context?\nA reproducible Threads session should leave an audit trail that includes:\n\nwho/what: analyst, date/time window, project context\ninputs: the prompt(s), any system/context constraints, and referenced datasets\nconfiguration: model/tool settings as allowed by your environment\noutputs: generated text, extracted entities/tables, files produced\nprovenance: dataset RIDs/paths (or equivalent identifiers), code version/commit, and run identifier\n\nYour goal is that a reviewer can answer:\n\n“What question was asked?”\n“What data and code were used?”\n“What did the assistant produce?”\n“Where are the saved artifacts?”",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#key-idea-save-often-platforms-glitch",
     "href": "fnd-threads.html#key-idea-save-often-platforms-glitch",
-    "title": "25  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "title": "25  Reproducible Threads workflow",
     "section": "25.4 Key idea: save often (platforms glitch)",
     "text": "25.4 Key idea: save often (platforms glitch)\nAssume export mechanisms and UIs occasionally fail or “lose” context. The safe pattern is:\n\nexport the chat often\nre-run the extractor often\ncommit at reasonable milestones (and/or end of day)",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#where-artifacts-live-in-the-repository",
     "href": "fnd-threads.html#where-artifacts-live-in-the-repository",
-    "title": "25  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "title": "25  Reproducible Threads workflow",
     "section": "25.5 Where artifacts live in the repository",
     "text": "25.5 Where artifacts live in the repository\nThis workflow stores session artifacts under a platform-agnostic development folder:\n\ndev/\n\nsessions/\n\nYYYY-MM-DD[_topic].md\n.raw/\n\nYYYY-MM-DD[_topic].threads_export.json\n\n.backups/ (gitignored local backups)\n\n\n\nNotes:\n\nThe primary human-readable record is the session markdown file:\n\ndev/sessions/YYYY-MM-DD[_topic].md\n\nThe tool inserts structured metadata as YAML front matter at the top of the .md file (instead of writing a separate metadata.yml file).\nThe raw export JSON is preserved in:\n\ndev/sessions/.raw/\n\nBackups are written to:\n\ndev/sessions/.backups/\nThese are meant to prevent loss during active work and are typically not committed to avoid repo bloat.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#step-by-step-inside-foundry-code-workspace",
     "href": "fnd-threads.html#step-by-step-inside-foundry-code-workspace",
-    "title": "25  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "title": "25  Reproducible Threads workflow",
     "section": "25.6 Step-by-step (inside Foundry Code Workspace)",
     "text": "25.6 Step-by-step (inside Foundry Code Workspace)\nThese steps assume you are working inside the Foundry Code Workspace UI for your Project.\n\nStep 1 — Open your Foundry Code Repository in Code Workspace\n\nIn Foundry, navigate to your Project.\nOpen the Code Repository you imported (per fnd-load-repo.qmd).\nOpen it in Code Workspace so you can:\n\nview/edit files\nrun terminal commands (if enabled in your environment)\ncommit changes (using the Code Repo’s commit UI)\n\n\n\n\nStep 2 — Export the Threads chat session to JSON\nIn Foundry Threads (in the same enclave environment):\n\nUse the Threads UI export/save option.\nExport the chat in JSON format.\nSave the export as:\n\n\nthreads_export.json\n\nWhere to save it: Save it somewhere your Foundry Code Workspace runtime can read. In many environments, this is your workspace’s default downloads area or a user-accessible file location exposed to the workspace.\nIf you are unsure where exports land in your configuration: - do one export - then search for the file name threads_export.json from within the Code Workspace file browser / terminal (if available)\n\n\nStep 3 — Run the extractor (creates/updates the auditable artifacts)\nIn Foundry Code Workspace:\n\nEnsure the repo environment is available (per your platform’s Python environment conventions).\nFrom the repo root, run:\n\npython -m tools.foundry_threads\nThis will:\n\nwrite/update the session transcript:\n\ndev/sessions/YYYY-MM-DD.md\n\nwrite/update the raw export copy:\n\ndev/sessions/.raw/YYYY-MM-DD.threads_export.json\n\nif you re-run and a transcript already exists, create a backup:\n\ndev/sessions/.backups/YYYY-MM-DD_backup_&lt;timestamp&gt;.md\n\n\n\n\nStep 4 — Save often (recommended)\nRepeat throughout the day:\n\nExport again from Threads to threads_export.json\nRe-run:\n\npython -m tools.foundry_threads\nThis creates an incremental, durable audit record in the repo even if the UI glitches.\n\n\nStep 5 — Multi-topic days (optional)\nIf you have multiple distinct sessions/topics in the same day, add --topic:\npython -m tools.foundry_threads --topic data_validation\nThis produces:\n\ndev/sessions/YYYY-MM-DD_data_validation.md\ndev/sessions/.raw/YYYY-MM-DD_data_validation.threads_export.json\n\n\n\nStep 6 — Preserve the audit trail (commit in Code Workspace)\nIn Foundry Code Workspace, commit the updated files to the Code Repository.\nMinimum expected committed artifacts:\n\ndev/sessions/YYYY-MM-DD*.md\ndev/sessions/.raw/*.threads_export.json\n\nNotes:\n\nThe .md file is what most reviewers will read.\nThe .raw JSON is preserved for audit integrity and re-derivation.\ndev/sessions/.backups/ is typically not committed (local scratch safety).\n\nCommit message guidance:\n\ninclude date and a short purpose\nexample: Update Threads session log (2026-05-03)",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#offline-no-internet-constraints",
     "href": "fnd-threads.html#offline-no-internet-constraints",
-    "title": "25  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "title": "25  Reproducible Threads workflow",
     "section": "25.7 Offline / no-internet constraints",
     "text": "25.7 Offline / no-internet constraints\nDesign your workflow so it does not require:\n\ndownloading packages at run time\ncalling external APIs\nembedding links as “required steps” unless internal and accessible\n\nIf you reference external documentation, treat it as “background reading” rather than a dependency for completing the workflow.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#troubleshooting",
     "href": "fnd-threads.html#troubleshooting",
-    "title": "25  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "title": "25  Reproducible Threads workflow",
     "section": "25.8 Troubleshooting",
     "text": "25.8 Troubleshooting\n\nI can’t find threads_export.json from Code Workspace\n\nConfirm the export completed successfully in Threads.\nRe-export and explicitly name the file threads_export.json.\nUse Code Workspace search (or terminal) to locate the file.\nIf exports are saved to a location not visible to Code Workspace in your configuration, coordinate with your Foundry administrators for the approved way to move the export file into the Code Workspace environment.\n\n\n\npython -m tools.foundry_threads fails\n\nConfirm your repo was created from MVR-GIS/repo-generic-python (the tool lives in that template).\nConfirm you are running from the repository root in Code Workspace.\nConfirm your Python environment is active/available in the Code Workspace runtime.\nIf dependency errors mention YAML:\n\nconfirm the environment includes PyYAML per the template’s environment.yml.\n\n\n\n\nI’m not sure what I’m allowed to paste into Threads\n\nStop and confirm policy with your platform/data governance point of contact.\nPrefer referencing datasets by identifier rather than pasting raw records.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#definition-of-done",
     "href": "fnd-threads.html#definition-of-done",
-    "title": "25  Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)",
+    "title": "25  Reproducible Threads workflow",
     "section": "25.9 Definition of done",
     "text": "25.9 Definition of done\nYou are done when:\n\nthe session transcript exists in-repo:\n\ndev/sessions/YYYY-MM-DD[_topic].md\n\nthe raw export is preserved in-repo:\n\ndev/sessions/.raw/YYYY-MM-DD[_topic].threads_export.json\n\nthe transcript includes YAML front matter metadata (title/date/user/model/hash)\nthe files are committed to the Foundry Code Repository so a reviewer can retrieve them later",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   }
 ]

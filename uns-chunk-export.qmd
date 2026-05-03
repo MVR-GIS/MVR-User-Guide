@@ -1,4 +1,4 @@
-# Exporting Chunks (Gemini JSONL + Foundry Parquet)
+# Exporting Chunks
 
 ## Concepts
 

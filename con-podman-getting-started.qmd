@@ -3,7 +3,7 @@ execute:
   eval: false
 ---
 
-# Podman Desktop (Getting Started)
+# Podman Desktop Getting Started
 
 This chapter is for **USACE data scientists who are new to containers** and need to get comfortable with **Podman Desktop + Podman CLI** on a **Windows** computer.
 
