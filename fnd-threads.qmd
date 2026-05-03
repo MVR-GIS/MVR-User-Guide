@@ -53,7 +53,7 @@ Your goal is that a reviewer can answer:
 3. Capture session metadata (who/what/why, dataset references, config).
 4. Capture the session transcript (prompts + responses) in a stable format.
 5. Save outputs (and any derived artifacts) with deterministic naming.
-6. Commit changes to the Code Repo (or save to an approved dataset/artifact location) to preserve an audit trail.
+6. Commit changes to the Code Repo to preserve an audit trail (use Git LFS if needed for large artifacts).
 
 ## Recommended repository structure for Threads sessions
 
@@ -71,7 +71,10 @@ Notes:
 
 - Keep “session history” in plain text formats (`.md`, `.yml`, `.json`) to maximize portability and diffability.
 - Avoid proprietary binary formats for primary records.
-- If outputs are large, store summaries in-repo and write full outputs to an approved Foundry dataset/artifact location (recording identifiers in `metadata.yml`).
+- Default: store all session artifacts in the repository so the repo is the durable, auditable system-of-record.
+- Large artifacts:
+  - Prefer smaller, reviewable derivatives (summaries, samples, compressed exports) when practical.
+  - If you must keep large files, Git LFS is acceptable—use it intentionally and keep file naming and metadata clear.
 
 ## Step 1 — Create a new session folder
 
@@ -162,8 +165,8 @@ Minimum viable audit trail:
 
 Preferred:
 
-- commit the session folder to the Foundry Code Repo with a clear commit message, or
-- publish the artifacts to an approved Foundry location and link to them from the session README/metadata
+- commit the complete session folder to the Foundry Code Repo with a clear commit message
+- if you use Git LFS for large files, ensure the LFS pointers are committed and the files are actually present in the remote LFS store (so others can retrieve them).
 
 ## Offline / no-internet constraints
 
@@ -190,9 +193,13 @@ If you reference external documentation, treat it as “background reading” ra
 
 ### Outputs are too large to store in the repo
 
-- Store summaries and metadata in-repo
-- Store large artifacts in an approved Foundry dataset/artifact location
-- Record exact identifiers/paths in `metadata.yml`
+Default expectation: store artifacts in-repo (the repo is the durable audit record).
+
+Practical options:
+
+- Store a smaller derivative (summary, sample, or compressed version) in `outputs/`.
+- If you need the full artifact, use Git LFS for the large file(s).
+- Record what you did in `metadata.yml` so a reviewer understands what is complete vs summarized.
 
 ## Definition of done
 
