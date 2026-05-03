@@ -7,7 +7,7 @@ execute:
 
 ## Objective
 
-Bring an existing GitHub repository into a Foundry Code Repository using a ZIP download/import workflow, so you can run and version your work inside the Foundry enclave.
+Bring an existing GitHub repository into a Foundry **Code Repository** using a ZIP download/import workflow, so you can run and version your work inside the Foundry enclave.
 
 This chapter is a prerequisite for:
 
@@ -34,7 +34,12 @@ That chapter’s workflow creates a new GitHub repository based on:
 
 - Template repo: `MVR-GIS/repo-generic-python`
 
-In Foundry, you will typically import *your new repo* (created from the template), not the template itself.
+In Foundry, you will typically import **your new repo** (created from the template), not the template itself.
+
+Why this matters:
+
+- the template includes the standard project structure (`notebooks/`, `src/`, `outputs/`, etc.)
+- it also includes repository-local tooling that downstream chapters rely on (example: the Threads export extractor in `tools/`)
 
 ## Key steps (overview)
 
@@ -42,7 +47,7 @@ In Foundry, you will typically import *your new repo* (created from the template
 2. Download a ZIP of the repo from GitHub (“big green code button”).
 3. Create (or open) a Foundry Code Repository in your Foundry Project.
 4. Import/upload the ZIP contents into the Foundry Code Repository.
-5. Verify the repo structure appears as expected.
+5. Verify inside **Foundry Code Workspace** that the repo structure and tooling are present and runnable.
 
 ## Step 1 — Create your analysis repo in GitHub (outside Foundry)
 
@@ -51,6 +56,10 @@ Follow:
 - `repo-create-generic-python-repo.qmd`
 
 When you’re done, you should have a GitHub repository you own/control (example: `MVR-GIS/my-analysis-project`).
+
+Recommendation:
+
+- record the commit SHA you intend to import (or create a tag/release) so you can prove which exact version entered the enclave
 
 ## Step 2 — Download the repo ZIP from GitHub
 
@@ -64,7 +73,7 @@ Notes:
 - If your Foundry enclave environment cannot access GitHub directly, you may need to move the ZIP through an approved transfer mechanism. Follow your organization’s policy.
 - Prefer a tagged release ZIP if you need stronger provenance. Otherwise, record the commit SHA you downloaded for traceability.
 
-## Step 3 — Create/open a Foundry Code Repository
+## Step 3 — Create/open a Foundry Code Repository (Project-scoped)
 
 In Foundry (inside the correct Project):
 
@@ -84,16 +93,53 @@ Required outcome:
 
 - The Code Repository file tree inside Foundry matches the GitHub repository contents at the commit you downloaded.
 
-## Step 5 — Verify repository structure in Foundry
+## Step 5 — Verify repository structure and tooling (inside Foundry Code Workspace)
 
-At minimum, verify you see the expected top-level folders/files (as defined by your analysis repo), such as:
+This verification step must occur inside the **Foundry Code Workspace** UI for the Code Repository you just imported.
+
+### 5.1 Open the repo in Code Workspace
+
+1. In Foundry, open your Project.
+2. Open the Code Repository you imported.
+3. Open it in **Code Workspace** so you can browse files and run commands (if enabled in your environment).
+
+### 5.2 Confirm the expected files/folders exist
+
+At minimum, verify you see the expected top-level folders/files, such as:
 
 - `notebooks/`
 - `src/`
-- `data/` (if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)
+- `data/` *(if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)*
 - `outputs/`
 - `README.md`
-- `environment.yml` (if applicable)
+- `environment.yml`
+
+Also verify the presence of the Threads workflow tooling (required for `fnd-threads.qmd`):
+
+- `tools/`
+  - `foundry_threads.py`
+  - `__init__.py` *(so `python -m tools.foundry_threads` works)*
+- `pytest.ini` *(supports consistent test imports)*
+- `tests/` *(if your repo includes tests; recommended)*
+
+### 5.3 Quick “tool exists” sanity check (optional but recommended)
+
+If your Foundry Code Workspace environment supports running Python in a terminal:
+
+From the repository root, run:
+
+```bash
+python -m tools.foundry_threads --help
+```
+
+Expected outcome:
+
+- Help text prints without import errors (confirms the repo-local tool is present and importable)
+
+If you cannot run a terminal in Code Workspace (or Python execution is constrained), you can still verify:
+
+- the file tree includes the required tool files listed above
+- the `README.md` documents how the tool should be run in your environment
 
 ## Offline / no-internet guidance (Foundry enclave)
 
@@ -110,8 +156,10 @@ Recommendations:
 You are ready to proceed when:
 
 - the GitHub repo ZIP has been imported into a Foundry Code Repository
-- you can browse the repo file tree in Foundry
+- you can browse the repo file tree in Foundry Code Workspace
 - you recorded provenance:
   - GitHub repo URL
   - commit SHA (or tag/release) corresponding to the ZIP you imported
 - permissions/groups are set so collaborators can access the Code Repo (as intended)
+- (recommended) you confirmed the Threads tool is present:
+  - `python -m tools.foundry_threads --help` runs successfully, or the required files exist in the repo tree

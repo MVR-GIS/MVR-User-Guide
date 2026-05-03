@@ -1386,7 +1386,7 @@
     "href": "fnd-load-repo.html#which-repo-should-i-import",
     "title": "23  Load a repo into Foundry (ZIP import)",
     "section": "23.3 Which repo should I import?",
-    "text": "23.3 Which repo should I import?\nFor USACE data science work, we recommend starting from the approved lightweight Python analysis template described in:\n\nrepo-create-generic-python-repo.qmd\n\nThat chapter’s workflow creates a new GitHub repository based on:\n\nTemplate repo: MVR-GIS/repo-generic-python\n\nIn Foundry, you will typically import your new repo (created from the template), not the template itself.",
+    "text": "23.3 Which repo should I import?\nFor USACE data science work, we recommend starting from the approved lightweight Python analysis template described in:\n\nrepo-create-generic-python-repo.qmd\n\nThat chapter’s workflow creates a new GitHub repository based on:\n\nTemplate repo: MVR-GIS/repo-generic-python\n\nIn Foundry, you will typically import your new repo (created from the template), not the template itself.\nWhy this matters:\n\nthe template includes the standard project structure (notebooks/, src/, outputs/, etc.)\nit also includes repository-local tooling that downstream chapters rely on (example: the Threads export extractor in tools/)",
     "crumbs": [
       "Foundry",
       "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
@@ -1397,7 +1397,7 @@
     "href": "fnd-load-repo.html#key-steps-overview",
     "title": "23  Load a repo into Foundry (ZIP import)",
     "section": "23.4 Key steps (overview)",
-    "text": "23.4 Key steps (overview)\n\nCreate your analysis repo in GitHub from the approved template (external step).\nDownload a ZIP of the repo from GitHub (“big green code button”).\nCreate (or open) a Foundry Code Repository in your Foundry Project.\nImport/upload the ZIP contents into the Foundry Code Repository.\nVerify the repo structure appears as expected.",
+    "text": "23.4 Key steps (overview)\n\nCreate your analysis repo in GitHub from the approved template (external step).\nDownload a ZIP of the repo from GitHub (“big green code button”).\nCreate (or open) a Foundry Code Repository in your Foundry Project.\nImport/upload the ZIP contents into the Foundry Code Repository.\nVerify inside Foundry Code Workspace that the repo structure and tooling are present and runnable.",
     "crumbs": [
       "Foundry",
       "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
@@ -1408,7 +1408,7 @@
     "href": "fnd-load-repo.html#step-1-create-your-analysis-repo-in-github-outside-foundry",
     "title": "23  Load a repo into Foundry (ZIP import)",
     "section": "23.5 Step 1 — Create your analysis repo in GitHub (outside Foundry)",
-    "text": "23.5 Step 1 — Create your analysis repo in GitHub (outside Foundry)\nFollow:\n\nrepo-create-generic-python-repo.qmd\n\nWhen you’re done, you should have a GitHub repository you own/control (example: MVR-GIS/my-analysis-project).",
+    "text": "23.5 Step 1 — Create your analysis repo in GitHub (outside Foundry)\nFollow:\n\nrepo-create-generic-python-repo.qmd\n\nWhen you’re done, you should have a GitHub repository you own/control (example: MVR-GIS/my-analysis-project).\nRecommendation:\n\nrecord the commit SHA you intend to import (or create a tag/release) so you can prove which exact version entered the enclave",
     "crumbs": [
       "Foundry",
       "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
@@ -1474,7 +1474,7 @@
     "href": "fnd-load-repo.html#definition-of-done",
     "title": "23  Load a repo into Foundry (ZIP import)",
     "section": "23.11 Definition of done",
-    "text": "23.11 Definition of done\nYou are ready to proceed when:\n\nthe GitHub repo ZIP has been imported into a Foundry Code Repository\nyou can browse the repo file tree in Foundry\nyou recorded provenance:\n\nGitHub repo URL\ncommit SHA (or tag/release) corresponding to the ZIP you imported\n\npermissions/groups are set so collaborators can access the Code Repo (as intended)",
+    "text": "23.11 Definition of done\nYou are ready to proceed when:\n\nthe GitHub repo ZIP has been imported into a Foundry Code Repository\nyou can browse the repo file tree in Foundry Code Workspace\nyou recorded provenance:\n\nGitHub repo URL\ncommit SHA (or tag/release) corresponding to the ZIP you imported\n\npermissions/groups are set so collaborators can access the Code Repo (as intended)\n(recommended) you confirmed the Threads tool is present:\n\npython -m tools.foundry_threads --help runs successfully, or the required files exist in the repo tree",
     "crumbs": [
       "Foundry",
       "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
@@ -1665,6 +1665,28 @@
     "crumbs": [
       "Foundry",
       "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-3-createopen-a-foundry-code-repository-project-scoped",
+    "href": "fnd-load-repo.html#step-3-createopen-a-foundry-code-repository-project-scoped",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "23.7 Step 3 — Create/open a Foundry Code Repository (Project-scoped)",
+    "text": "23.7 Step 3 — Create/open a Foundry Code Repository (Project-scoped)\nIn Foundry (inside the correct Project):\n\nCreate a new Code Repository (or open an existing one).\nName it consistently with the GitHub repo you’re importing (recommended).\nConfirm the Code Repo is in the correct Project and has the right permissions/groups (per fnd-getting-started.qmd).",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace",
+    "href": "fnd-load-repo.html#step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "23.9 Step 5 — Verify repository structure and tooling (inside Foundry Code Workspace)",
+    "text": "23.9 Step 5 — Verify repository structure and tooling (inside Foundry Code Workspace)\nThis verification step must occur inside the Foundry Code Workspace UI for the Code Repository you just imported.\n\n5.1 Open the repo in Code Workspace\n\nIn Foundry, open your Project.\nOpen the Code Repository you imported.\nOpen it in Code Workspace so you can browse files and run commands (if enabled in your environment).\n\n\n\n5.2 Confirm the expected files/folders exist\nAt minimum, verify you see the expected top-level folders/files, such as:\n\nnotebooks/\nsrc/\ndata/ (if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)\noutputs/\nREADME.md\nenvironment.yml\n\nAlso verify the presence of the Threads workflow tooling (required for fnd-threads.qmd):\n\ntools/\n\nfoundry_threads.py\n__init__.py (so python -m tools.foundry_threads works)\n\npytest.ini (supports consistent test imports)\ntests/ (if your repo includes tests; recommended)\n\n\n\n5.3 Quick “tool exists” sanity check (optional but recommended)\nIf your Foundry Code Workspace environment supports running Python in a terminal:\nFrom the repository root, run:\npython -m tools.foundry_threads --help\nExpected outcome:\n\nHelp text prints without import errors (confirms the repo-local tool is present and importable)\n\nIf you cannot run a terminal in Code Workspace (or Python execution is constrained), you can still verify:\n\nthe file tree includes the required tool files listed above\nthe README.md documents how the tool should be run in your environment",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
     ]
   }
 ]

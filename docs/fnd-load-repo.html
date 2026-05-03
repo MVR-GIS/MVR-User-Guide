@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -517,7 +552,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fnd-threads.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Initiate a reproducible Threads workflow</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span></span></a>
   </div>
 </li>
       </ul>
@@ -555,9 +590,14 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#key-steps-overview" id="toc-key-steps-overview" class="nav-link" data-scroll-target="#key-steps-overview"><span class="header-section-number">23.4</span> Key steps (overview)</a></li>
   <li><a href="#step-1-create-your-analysis-repo-in-github-outside-foundry" id="toc-step-1-create-your-analysis-repo-in-github-outside-foundry" class="nav-link" data-scroll-target="#step-1-create-your-analysis-repo-in-github-outside-foundry"><span class="header-section-number">23.5</span> Step 1 — Create your analysis repo in GitHub (outside Foundry)</a></li>
   <li><a href="#step-2-download-the-repo-zip-from-github" id="toc-step-2-download-the-repo-zip-from-github" class="nav-link" data-scroll-target="#step-2-download-the-repo-zip-from-github"><span class="header-section-number">23.6</span> Step 2 — Download the repo ZIP from GitHub</a></li>
-  <li><a href="#step-3-createopen-a-foundry-code-repository" id="toc-step-3-createopen-a-foundry-code-repository" class="nav-link" data-scroll-target="#step-3-createopen-a-foundry-code-repository"><span class="header-section-number">23.7</span> Step 3 — Create/open a Foundry Code Repository</a></li>
+  <li><a href="#step-3-createopen-a-foundry-code-repository-project-scoped" id="toc-step-3-createopen-a-foundry-code-repository-project-scoped" class="nav-link" data-scroll-target="#step-3-createopen-a-foundry-code-repository-project-scoped"><span class="header-section-number">23.7</span> Step 3 — Create/open a Foundry Code Repository (Project-scoped)</a></li>
   <li><a href="#step-4-import-the-zip-contents-into-the-foundry-code-repository" id="toc-step-4-import-the-zip-contents-into-the-foundry-code-repository" class="nav-link" data-scroll-target="#step-4-import-the-zip-contents-into-the-foundry-code-repository"><span class="header-section-number">23.8</span> Step 4 — Import the ZIP contents into the Foundry Code Repository</a></li>
-  <li><a href="#step-5-verify-repository-structure-in-foundry" id="toc-step-5-verify-repository-structure-in-foundry" class="nav-link" data-scroll-target="#step-5-verify-repository-structure-in-foundry"><span class="header-section-number">23.9</span> Step 5 — Verify repository structure in Foundry</a></li>
+  <li><a href="#step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace" id="toc-step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace" class="nav-link" data-scroll-target="#step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace"><span class="header-section-number">23.9</span> Step 5 — Verify repository structure and tooling (inside Foundry Code Workspace)</a>
+  <ul class="collapse">
+  <li><a href="#open-the-repo-in-code-workspace" id="toc-open-the-repo-in-code-workspace" class="nav-link" data-scroll-target="#open-the-repo-in-code-workspace">5.1 Open the repo in Code Workspace</a></li>
+  <li><a href="#confirm-the-expected-filesfolders-exist" id="toc-confirm-the-expected-filesfolders-exist" class="nav-link" data-scroll-target="#confirm-the-expected-filesfolders-exist">5.2 Confirm the expected files/folders exist</a></li>
+  <li><a href="#quick-tool-exists-sanity-check-optional-but-recommended" id="toc-quick-tool-exists-sanity-check-optional-but-recommended" class="nav-link" data-scroll-target="#quick-tool-exists-sanity-check-optional-but-recommended">5.3 Quick “tool exists” sanity check (optional but recommended)</a></li>
+  </ul></li>
   <li><a href="#offline-no-internet-guidance-foundry-enclave" id="toc-offline-no-internet-guidance-foundry-enclave" class="nav-link" data-scroll-target="#offline-no-internet-guidance-foundry-enclave"><span class="header-section-number">23.10</span> Offline / no-internet guidance (Foundry enclave)</a></li>
   <li><a href="#definition-of-done" id="toc-definition-of-done" class="nav-link" data-scroll-target="#definition-of-done"><span class="header-section-number">23.11</span> Definition of done</a></li>
   </ul>
@@ -588,7 +628,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="objective" class="level2" data-number="23.1">
 <h2 data-number="23.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">23.1</span> Objective</h2>
-<p>Bring an existing GitHub repository into a Foundry Code Repository using a ZIP download/import workflow, so you can run and version your work inside the Foundry enclave.</p>
+<p>Bring an existing GitHub repository into a Foundry <strong>Code Repository</strong> using a ZIP download/import workflow, so you can run and version your work inside the Foundry enclave.</p>
 <p>This chapter is a prerequisite for:</p>
 <ul>
 <li><code>fnd-threads.qmd</code> (Initiate a reproducible Threads workflow)</li>
@@ -616,7 +656,12 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Template repo: <code>MVR-GIS/repo-generic-python</code></li>
 </ul>
-<p>In Foundry, you will typically import <em>your new repo</em> (created from the template), not the template itself.</p>
+<p>In Foundry, you will typically import <strong>your new repo</strong> (created from the template), not the template itself.</p>
+<p>Why this matters:</p>
+<ul>
+<li>the template includes the standard project structure (<code>notebooks/</code>, <code>src/</code>, <code>outputs/</code>, etc.)</li>
+<li>it also includes repository-local tooling that downstream chapters rely on (example: the Threads export extractor in <code>tools/</code>)</li>
+</ul>
 </section>
 <section id="key-steps-overview" class="level2" data-number="23.4">
 <h2 data-number="23.4" class="anchored" data-anchor-id="key-steps-overview"><span class="header-section-number">23.4</span> Key steps (overview)</h2>
@@ -625,7 +670,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Download a ZIP of the repo from GitHub (“big green code button”).</li>
 <li>Create (or open) a Foundry Code Repository in your Foundry Project.</li>
 <li>Import/upload the ZIP contents into the Foundry Code Repository.</li>
-<li>Verify the repo structure appears as expected.</li>
+<li>Verify inside <strong>Foundry Code Workspace</strong> that the repo structure and tooling are present and runnable.</li>
 </ol>
 </section>
 <section id="step-1-create-your-analysis-repo-in-github-outside-foundry" class="level2" data-number="23.5">
@@ -635,6 +680,10 @@ ul.task-list li input[type="checkbox"] {
 <li><code>repo-create-generic-python-repo.qmd</code></li>
 </ul>
 <p>When you’re done, you should have a GitHub repository you own/control (example: <code>MVR-GIS/my-analysis-project</code>).</p>
+<p>Recommendation:</p>
+<ul>
+<li>record the commit SHA you intend to import (or create a tag/release) so you can prove which exact version entered the enclave</li>
+</ul>
 </section>
 <section id="step-2-download-the-repo-zip-from-github" class="level2" data-number="23.6">
 <h2 data-number="23.6" class="anchored" data-anchor-id="step-2-download-the-repo-zip-from-github"><span class="header-section-number">23.6</span> Step 2 — Download the repo ZIP from GitHub</h2>
@@ -650,8 +699,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Prefer a tagged release ZIP if you need stronger provenance. Otherwise, record the commit SHA you downloaded for traceability.</li>
 </ul>
 </section>
-<section id="step-3-createopen-a-foundry-code-repository" class="level2" data-number="23.7">
-<h2 data-number="23.7" class="anchored" data-anchor-id="step-3-createopen-a-foundry-code-repository"><span class="header-section-number">23.7</span> Step 3 — Create/open a Foundry Code Repository</h2>
+<section id="step-3-createopen-a-foundry-code-repository-project-scoped" class="level2" data-number="23.7">
+<h2 data-number="23.7" class="anchored" data-anchor-id="step-3-createopen-a-foundry-code-repository-project-scoped"><span class="header-section-number">23.7</span> Step 3 — Create/open a Foundry Code Repository (Project-scoped)</h2>
 <p>In Foundry (inside the correct Project):</p>
 <ol type="1">
 <li>Create a new Code Repository (or open an existing one).</li>
@@ -672,17 +721,54 @@ ul.task-list li input[type="checkbox"] {
 <li>The Code Repository file tree inside Foundry matches the GitHub repository contents at the commit you downloaded.</li>
 </ul>
 </section>
-<section id="step-5-verify-repository-structure-in-foundry" class="level2" data-number="23.9">
-<h2 data-number="23.9" class="anchored" data-anchor-id="step-5-verify-repository-structure-in-foundry"><span class="header-section-number">23.9</span> Step 5 — Verify repository structure in Foundry</h2>
-<p>At minimum, verify you see the expected top-level folders/files (as defined by your analysis repo), such as:</p>
+<section id="step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace" class="level2" data-number="23.9">
+<h2 data-number="23.9" class="anchored" data-anchor-id="step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace"><span class="header-section-number">23.9</span> Step 5 — Verify repository structure and tooling (inside Foundry Code Workspace)</h2>
+<p>This verification step must occur inside the <strong>Foundry Code Workspace</strong> UI for the Code Repository you just imported.</p>
+<section id="open-the-repo-in-code-workspace" class="level3">
+<h3 class="anchored" data-anchor-id="open-the-repo-in-code-workspace">5.1 Open the repo in Code Workspace</h3>
+<ol type="1">
+<li>In Foundry, open your Project.</li>
+<li>Open the Code Repository you imported.</li>
+<li>Open it in <strong>Code Workspace</strong> so you can browse files and run commands (if enabled in your environment).</li>
+</ol>
+</section>
+<section id="confirm-the-expected-filesfolders-exist" class="level3">
+<h3 class="anchored" data-anchor-id="confirm-the-expected-filesfolders-exist">5.2 Confirm the expected files/folders exist</h3>
+<p>At minimum, verify you see the expected top-level folders/files, such as:</p>
 <ul>
 <li><code>notebooks/</code></li>
 <li><code>src/</code></li>
-<li><code>data/</code> (if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)</li>
+<li><code>data/</code> <em>(if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)</em></li>
 <li><code>outputs/</code></li>
 <li><code>README.md</code></li>
-<li><code>environment.yml</code> (if applicable)</li>
+<li><code>environment.yml</code></li>
 </ul>
+<p>Also verify the presence of the Threads workflow tooling (required for <code>fnd-threads.qmd</code>):</p>
+<ul>
+<li><code>tools/</code>
+<ul>
+<li><code>foundry_threads.py</code></li>
+<li><code>__init__.py</code> <em>(so <code>python -m tools.foundry_threads</code> works)</em></li>
+</ul></li>
+<li><code>pytest.ini</code> <em>(supports consistent test imports)</em></li>
+<li><code>tests/</code> <em>(if your repo includes tests; recommended)</em></li>
+</ul>
+</section>
+<section id="quick-tool-exists-sanity-check-optional-but-recommended" class="level3">
+<h3 class="anchored" data-anchor-id="quick-tool-exists-sanity-check-optional-but-recommended">5.3 Quick “tool exists” sanity check (optional but recommended)</h3>
+<p>If your Foundry Code Workspace environment supports running Python in a terminal:</p>
+<p>From the repository root, run:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> tools.foundry_threads <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Expected outcome:</p>
+<ul>
+<li>Help text prints without import errors (confirms the repo-local tool is present and importable)</li>
+</ul>
+<p>If you cannot run a terminal in Code Workspace (or Python execution is constrained), you can still verify:</p>
+<ul>
+<li>the file tree includes the required tool files listed above</li>
+<li>the <code>README.md</code> documents how the tool should be run in your environment</li>
+</ul>
+</section>
 </section>
 <section id="offline-no-internet-guidance-foundry-enclave" class="level2" data-number="23.10">
 <h2 data-number="23.10" class="anchored" data-anchor-id="offline-no-internet-guidance-foundry-enclave"><span class="header-section-number">23.10</span> Offline / no-internet guidance (Foundry enclave)</h2>
@@ -699,13 +785,17 @@ ul.task-list li input[type="checkbox"] {
 <p>You are ready to proceed when:</p>
 <ul>
 <li>the GitHub repo ZIP has been imported into a Foundry Code Repository</li>
-<li>you can browse the repo file tree in Foundry</li>
+<li>you can browse the repo file tree in Foundry Code Workspace</li>
 <li>you recorded provenance:
 <ul>
 <li>GitHub repo URL</li>
 <li>commit SHA (or tag/release) corresponding to the ZIP you imported</li>
 </ul></li>
 <li>permissions/groups are set so collaborators can access the Code Repo (as intended)</li>
+<li>(recommended) you confirmed the Threads tool is present:
+<ul>
+<li><code>python -m tools.foundry_threads --help</code> runs successfully, or the required files exist in the repo tree</li>
+</ul></li>
 </ul>
 
 
