@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>24&nbsp; Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling) – MVR Geospatial Data Science User Guide</title>
+<title>25&nbsp; Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling) – MVR Geospatial Data Science User Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -290,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-getting-started.html">Foundry</a></li><li class="breadcrumb-item"><a href="./fnd-threads.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-getting-started.html">Foundry</a></li><li class="breadcrumb-item"><a href="./fnd-threads.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -545,14 +545,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./fnd-code-workspace.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./fnd-load-repo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Load a repo into Foundry (ZIP import)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Load a repo into Foundry (ZIP import)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fnd-threads.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span></span></a>
   </div>
 </li>
       </ul>
@@ -584,12 +590,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">24.1</span> Objective</a></li>
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">24.2</span> Prerequisites</a></li>
-  <li><a href="#what-is-a-reproducible-threads-session-in-this-context" id="toc-what-is-a-reproducible-threads-session-in-this-context" class="nav-link" data-scroll-target="#what-is-a-reproducible-threads-session-in-this-context"><span class="header-section-number">24.3</span> What is a “reproducible Threads session” in this context?</a></li>
-  <li><a href="#key-idea-save-often-platforms-glitch" id="toc-key-idea-save-often-platforms-glitch" class="nav-link" data-scroll-target="#key-idea-save-often-platforms-glitch"><span class="header-section-number">24.4</span> Key idea: save often (platforms glitch)</a></li>
-  <li><a href="#where-artifacts-live-in-the-repository" id="toc-where-artifacts-live-in-the-repository" class="nav-link" data-scroll-target="#where-artifacts-live-in-the-repository"><span class="header-section-number">24.5</span> Where artifacts live in the repository</a></li>
-  <li><a href="#step-by-step-inside-foundry-code-workspace" id="toc-step-by-step-inside-foundry-code-workspace" class="nav-link" data-scroll-target="#step-by-step-inside-foundry-code-workspace"><span class="header-section-number">24.6</span> Step-by-step (inside Foundry Code Workspace)</a>
+  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">25.1</span> Objective</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">25.2</span> Prerequisites</a></li>
+  <li><a href="#what-is-a-reproducible-threads-session-in-this-context" id="toc-what-is-a-reproducible-threads-session-in-this-context" class="nav-link" data-scroll-target="#what-is-a-reproducible-threads-session-in-this-context"><span class="header-section-number">25.3</span> What is a “reproducible Threads session” in this context?</a></li>
+  <li><a href="#key-idea-save-often-platforms-glitch" id="toc-key-idea-save-often-platforms-glitch" class="nav-link" data-scroll-target="#key-idea-save-often-platforms-glitch"><span class="header-section-number">25.4</span> Key idea: save often (platforms glitch)</a></li>
+  <li><a href="#where-artifacts-live-in-the-repository" id="toc-where-artifacts-live-in-the-repository" class="nav-link" data-scroll-target="#where-artifacts-live-in-the-repository"><span class="header-section-number">25.5</span> Where artifacts live in the repository</a></li>
+  <li><a href="#step-by-step-inside-foundry-code-workspace" id="toc-step-by-step-inside-foundry-code-workspace" class="nav-link" data-scroll-target="#step-by-step-inside-foundry-code-workspace"><span class="header-section-number">25.6</span> Step-by-step (inside Foundry Code Workspace)</a>
   <ul class="collapse">
   <li><a href="#step-1-open-your-foundry-code-repository-in-code-workspace" id="toc-step-1-open-your-foundry-code-repository-in-code-workspace" class="nav-link" data-scroll-target="#step-1-open-your-foundry-code-repository-in-code-workspace">Step 1 — Open your Foundry Code Repository in Code Workspace</a></li>
   <li><a href="#step-2-export-the-threads-chat-session-to-json" id="toc-step-2-export-the-threads-chat-session-to-json" class="nav-link" data-scroll-target="#step-2-export-the-threads-chat-session-to-json">Step 2 — Export the Threads chat session to JSON</a></li>
@@ -598,14 +604,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#step-5-multi-topic-days-optional" id="toc-step-5-multi-topic-days-optional" class="nav-link" data-scroll-target="#step-5-multi-topic-days-optional">Step 5 — Multi-topic days (optional)</a></li>
   <li><a href="#step-6-preserve-the-audit-trail-commit-in-code-workspace" id="toc-step-6-preserve-the-audit-trail-commit-in-code-workspace" class="nav-link" data-scroll-target="#step-6-preserve-the-audit-trail-commit-in-code-workspace">Step 6 — Preserve the audit trail (commit in Code Workspace)</a></li>
   </ul></li>
-  <li><a href="#offline-no-internet-constraints" id="toc-offline-no-internet-constraints" class="nav-link" data-scroll-target="#offline-no-internet-constraints"><span class="header-section-number">24.7</span> Offline / no-internet constraints</a></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting"><span class="header-section-number">24.8</span> Troubleshooting</a>
+  <li><a href="#offline-no-internet-constraints" id="toc-offline-no-internet-constraints" class="nav-link" data-scroll-target="#offline-no-internet-constraints"><span class="header-section-number">25.7</span> Offline / no-internet constraints</a></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting"><span class="header-section-number">25.8</span> Troubleshooting</a>
   <ul class="collapse">
   <li><a href="#i-cant-find-threads_export.json-from-code-workspace" id="toc-i-cant-find-threads_export.json-from-code-workspace" class="nav-link" data-scroll-target="#i-cant-find-threads_export.json-from-code-workspace">I can’t find <code>threads_export.json</code> from Code Workspace</a></li>
   <li><a href="#python--m-tools.foundry_threads-fails" id="toc-python--m-tools.foundry_threads-fails" class="nav-link" data-scroll-target="#python--m-tools.foundry_threads-fails"><code>python -m tools.foundry_threads</code> fails</a></li>
   <li><a href="#im-not-sure-what-im-allowed-to-paste-into-threads" id="toc-im-not-sure-what-im-allowed-to-paste-into-threads" class="nav-link" data-scroll-target="#im-not-sure-what-im-allowed-to-paste-into-threads">I’m not sure what I’m allowed to paste into Threads</a></li>
   </ul></li>
-  <li><a href="#definition-of-done" id="toc-definition-of-done" class="nav-link" data-scroll-target="#definition-of-done"><span class="header-section-number">24.9</span> Definition of done</a></li>
+  <li><a href="#definition-of-done" id="toc-definition-of-done" class="nav-link" data-scroll-target="#definition-of-done"><span class="header-section-number">25.9</span> Definition of done</a></li>
   </ul>
 </nav>
     </div>
@@ -613,9 +619,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-getting-started.html">Foundry</a></li><li class="breadcrumb-item"><a href="./fnd-threads.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-getting-started.html">Foundry</a></li><li class="breadcrumb-item"><a href="./fnd-threads.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span></h1>
+<h1 class="title"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Initiate a reproducible Threads workflow (Foundry Code Workspace + Python tooling)</span></h1>
 </div>
 
 
@@ -632,13 +638,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="objective" class="level2" data-number="24.1">
-<h2 data-number="24.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">24.1</span> Objective</h2>
+<section id="objective" class="level2" data-number="25.1">
+<h2 data-number="25.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">25.1</span> Objective</h2>
 <p>Capture a Foundry Threads chat session history and preserve outputs in a <strong>reviewable, auditable</strong> way inside a Foundry enclave (assume offline / no-internet execution).</p>
 <p>This chapter focuses on <strong>workflow and structure</strong> and assumes you will do the work inside the <strong>Foundry Code Workspace</strong> UI (not a local machine workflow).</p>
 </section>
-<section id="prerequisites" class="level2" data-number="24.2">
-<h2 data-number="24.2" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">24.2</span> Prerequisites</h2>
+<section id="prerequisites" class="level2" data-number="25.2">
+<h2 data-number="25.2" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">25.2</span> Prerequisites</h2>
 <p>Complete these first:</p>
 <ul>
 <li><code>fnd-getting-started.qmd</code>
@@ -660,8 +666,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p><strong>Important:</strong> This workflow assumes your analysis repo was created from the template <code>MVR-GIS/repo-generic-python</code>, which includes the tooling used below: - <code>python -m tools.foundry_threads</code></p>
 </section>
-<section id="what-is-a-reproducible-threads-session-in-this-context" class="level2" data-number="24.3">
-<h2 data-number="24.3" class="anchored" data-anchor-id="what-is-a-reproducible-threads-session-in-this-context"><span class="header-section-number">24.3</span> What is a “reproducible Threads session” in this context?</h2>
+<section id="what-is-a-reproducible-threads-session-in-this-context" class="level2" data-number="25.3">
+<h2 data-number="25.3" class="anchored" data-anchor-id="what-is-a-reproducible-threads-session-in-this-context"><span class="header-section-number">25.3</span> What is a “reproducible Threads session” in this context?</h2>
 <p>A reproducible Threads session should leave an audit trail that includes:</p>
 <ul>
 <li>who/what: analyst, date/time window, project context</li>
@@ -678,8 +684,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>“Where are the saved artifacts?”</li>
 </ul>
 </section>
-<section id="key-idea-save-often-platforms-glitch" class="level2" data-number="24.4">
-<h2 data-number="24.4" class="anchored" data-anchor-id="key-idea-save-often-platforms-glitch"><span class="header-section-number">24.4</span> Key idea: save often (platforms glitch)</h2>
+<section id="key-idea-save-often-platforms-glitch" class="level2" data-number="25.4">
+<h2 data-number="25.4" class="anchored" data-anchor-id="key-idea-save-often-platforms-glitch"><span class="header-section-number">25.4</span> Key idea: save often (platforms glitch)</h2>
 <p>Assume export mechanisms and UIs occasionally fail or “lose” context. The safe pattern is:</p>
 <ul>
 <li>export the chat often</li>
@@ -687,8 +693,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>commit at reasonable milestones (and/or end of day)</li>
 </ul>
 </section>
-<section id="where-artifacts-live-in-the-repository" class="level2" data-number="24.5">
-<h2 data-number="24.5" class="anchored" data-anchor-id="where-artifacts-live-in-the-repository"><span class="header-section-number">24.5</span> Where artifacts live in the repository</h2>
+<section id="where-artifacts-live-in-the-repository" class="level2" data-number="25.5">
+<h2 data-number="25.5" class="anchored" data-anchor-id="where-artifacts-live-in-the-repository"><span class="header-section-number">25.5</span> Where artifacts live in the repository</h2>
 <p>This workflow stores session artifacts under a platform-agnostic development folder:</p>
 <ul>
 <li><code>dev/</code>
@@ -722,8 +728,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 </section>
-<section id="step-by-step-inside-foundry-code-workspace" class="level2" data-number="24.6">
-<h2 data-number="24.6" class="anchored" data-anchor-id="step-by-step-inside-foundry-code-workspace"><span class="header-section-number">24.6</span> Step-by-step (inside Foundry Code Workspace)</h2>
+<section id="step-by-step-inside-foundry-code-workspace" class="level2" data-number="25.6">
+<h2 data-number="25.6" class="anchored" data-anchor-id="step-by-step-inside-foundry-code-workspace"><span class="header-section-number">25.6</span> Step-by-step (inside Foundry Code Workspace)</h2>
 <p>These steps assume you are working inside the <strong>Foundry Code Workspace UI</strong> for your Project.</p>
 <section id="step-1-open-your-foundry-code-repository-in-code-workspace" class="level3">
 <h3 class="anchored" data-anchor-id="step-1-open-your-foundry-code-repository-in-code-workspace">Step 1 — Open your Foundry Code Repository in Code Workspace</h3>
@@ -817,8 +823,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="offline-no-internet-constraints" class="level2" data-number="24.7">
-<h2 data-number="24.7" class="anchored" data-anchor-id="offline-no-internet-constraints"><span class="header-section-number">24.7</span> Offline / no-internet constraints</h2>
+<section id="offline-no-internet-constraints" class="level2" data-number="25.7">
+<h2 data-number="25.7" class="anchored" data-anchor-id="offline-no-internet-constraints"><span class="header-section-number">25.7</span> Offline / no-internet constraints</h2>
 <p>Design your workflow so it does not require:</p>
 <ul>
 <li>downloading packages at run time</li>
@@ -827,8 +833,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>If you reference external documentation, treat it as “background reading” rather than a dependency for completing the workflow.</p>
 </section>
-<section id="troubleshooting" class="level2" data-number="24.8">
-<h2 data-number="24.8" class="anchored" data-anchor-id="troubleshooting"><span class="header-section-number">24.8</span> Troubleshooting</h2>
+<section id="troubleshooting" class="level2" data-number="25.8">
+<h2 data-number="25.8" class="anchored" data-anchor-id="troubleshooting"><span class="header-section-number">25.8</span> Troubleshooting</h2>
 <section id="i-cant-find-threads_export.json-from-code-workspace" class="level3">
 <h3 class="anchored" data-anchor-id="i-cant-find-threads_export.json-from-code-workspace">I can’t find <code>threads_export.json</code> from Code Workspace</h3>
 <ul>
@@ -858,8 +864,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="definition-of-done" class="level2" data-number="24.9">
-<h2 data-number="24.9" class="anchored" data-anchor-id="definition-of-done"><span class="header-section-number">24.9</span> Definition of done</h2>
+<section id="definition-of-done" class="level2" data-number="25.9">
+<h2 data-number="25.9" class="anchored" data-anchor-id="definition-of-done"><span class="header-section-number">25.9</span> Definition of done</h2>
 <p>You are done when:</p>
 <ul>
 <li>the session transcript exists in-repo:

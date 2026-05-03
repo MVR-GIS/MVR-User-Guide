@@ -1,0 +1,171 @@
+---
+execute:
+  eval: false
+---
+
+# Foundry Getting Started (Army Vantage) — Code Workspaces (VS Code)
+
+## Objective
+
+Help USACE geospatial data scientists get productive quickly in Army Vantage’s **Code Workspaces** experience (VS Code in the browser), focusing on:
+
+- opening a Code Repository in a Code Workspace
+- running Python (scripts + notebooks)
+- making reviewable changes (commits) inside the enclave
+
+This chapter intentionally avoids repo import mechanics (see `fnd-load-repo.qmd`).
+
+## Prerequisites
+
+- You can sign in to Army Vantage.
+- You have access to a Project with a Code Repository you can open in a Code Workspace.
+  - If you need to create/import a repository first, follow: `fnd-load-repo.qmd`.
+
+## Mental model (for daily work)
+
+For our workflow, Army Vantage Code Workspaces is:
+
+- a **browser-based VS Code IDE** attached to a Foundry **Code Repository**
+- your primary place to:
+  - edit files
+  - run Python
+  - view outputs/logs
+  - commit changes (audit trail)
+
+Assume constrained networking unless explicitly confirmed otherwise.
+
+## Code Workspaces tour (what you should know on day 1)
+
+Inside a Code Workspace, you’ll typically rely on these VS Code areas:
+
+- **Explorer** (file tree): browse and edit your repo
+- **Search**: find code/text across the repo
+- **Terminal**: run commands (`python`, `pytest`, etc.) if enabled
+- **Run / Debug**: run scripts (if enabled/configured)
+- **Source Control**: view diffs + commit changes
+- **Extensions** (if exposed): may be limited by platform policy
+
+If you are new to VS Code:
+- learn two shortcuts early:
+  - Command Palette (VS Code): search for actions/settings
+  - Search in files: find symbols and text quickly
+
+## Step-by-step: start a working Python session (inside Code Workspace)
+
+### Step 1 — Open your Code Repository in a Code Workspace
+
+1. In Army Vantage, open your **Project**.
+2. Open the **Code Repository** for your analysis work.
+3. Launch **Code Workspace** (VS Code).
+
+Outcome:
+- you see the repo file tree in the Explorer panel.
+
+### Step 2 — Identify the “repo root” (important for every command)
+
+In the Explorer panel, locate the repository root folder (top of the file tree). This is where you should see project files like:
+
+- `README.md`
+- `environment.yml` (if using the `repo-generic-python` template)
+- `notebooks/`, `src/`, `outputs/`
+
+Operational rule:
+- When later chapters say “run from repo root,” they mean “run with your terminal working directory set to this folder.”
+
+### Step 3 — Confirm Python is available in the Workspace runtime
+
+Open a terminal in Code Workspace (if your environment allows it) and run:
+
+```bash
+python --version
+```
+
+If Python is not available, you have three common paths (platform-dependent):
+
+- your workspace is not configured with a Python runtime
+- you need to select a pre-provided interpreter/environment
+- you need platform support to enable the correct runtime image / environment
+
+Do not attempt ad-hoc internet installs in an enclave unless explicitly approved.
+
+### Step 4 — Open and run a notebook (fastest “hello world”)
+
+1. In Explorer, open a notebook in `notebooks/` (or create a new one).
+2. Run a minimal cell:
+
+```python
+import sys
+sys.version
+```
+
+If prompted to select a kernel/interpreter:
+- choose the intended Python environment for the repo (platform-provided).
+
+### Step 5 — Run a Python script from the terminal (repeatable workflows)
+
+From the repo root in the terminal:
+
+```bash
+python -c "print('hello from code workspace')"
+```
+
+Then, when you start using repository tooling (example from later chapters):
+
+```bash
+python -m tools.foundry_threads --help
+```
+
+### Step 6 — Make a small edit and commit (audit trail baseline)
+
+In Code Workspace:
+
+1. Open `README.md`.
+2. Make a small change (example: add a one-line note under “Daily workflow”).
+3. Open the Source Control panel.
+4. Review the diff.
+5. Write a clear commit message.
+6. Commit.
+
+Outcome:
+- you have verified end-to-end: edit → diff → commit inside the enclave.
+
+## Practical tips for USACE geospatial workflows
+
+- Prefer storing data in Foundry datasets; keep the repo for:
+  - code
+  - configuration
+  - small reviewable outputs
+  - AI session logs (per `fnd-threads.qmd`)
+- Keep outputs deterministic and reviewable:
+  - `.md`, `.csv`, `.yml`, `.json` where possible
+- Use “save often” patterns for anything interactive (Threads sessions, notebooks).
+
+## Common troubleshooting (Code Workspace)
+
+### I can’t open a terminal
+
+Some deployments restrict terminal access. If terminal is unavailable:
+
+- rely on notebook execution where possible
+- coordinate with platform administrators for the approved execution path
+
+### My Python kernel/interpreter is wrong
+
+Symptoms:
+- imports fail unexpectedly
+- version mismatch
+
+Fix:
+- select the correct kernel/interpreter in the notebook UI
+- ensure you are using the environment intended for the repository
+
+### I can’t commit changes
+
+- verify you have write permissions on the Code Repository
+- verify the repo is not in a read-only state
+- coordinate with the Project owner/admin to adjust access
+
+## Where we go next
+
+- `fnd-load-repo.qmd` — if you still need to import a GitHub repo ZIP into a Foundry Code Repository
+- `fnd-threads.qmd` — capture Threads session history into `dev/sessions/` using the repo-local Python tool
