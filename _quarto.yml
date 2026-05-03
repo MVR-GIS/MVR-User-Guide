@@ -56,6 +56,8 @@ book:
     - part: "Foundry"
       chapters:
         - fnd-getting-started.qmd
+        - fnd-load-repo.qmd
+        - fnd-threads.qmd
   appendices:
     - ref-references.qmd
 

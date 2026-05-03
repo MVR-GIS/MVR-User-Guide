@@ -1,0 +1,117 @@
+---
+execute:
+  eval: false
+---
+
+# Load a repo into Foundry (ZIP import)
+
+## Objective
+
+Bring an existing GitHub repository into a Foundry Code Repository using a ZIP download/import workflow, so you can run and version your work inside the Foundry enclave.
+
+This chapter is a prerequisite for:
+
+- `fnd-threads.qmd` (Initiate a reproducible Threads workflow)
+
+## Prerequisites
+
+Before you start, complete:
+
+- `fnd-getting-started.qmd` (login, create a project, tagging for discovery, groups/permissions, etc.)
+
+You also need:
+
+- access to create a Code Repository in your Foundry Project
+- access to the GitHub repository you will import
+
+## Which repo should I import?
+
+For USACE data science work, we recommend starting from the approved lightweight Python analysis template described in:
+
+- `repo-create-generic-python-repo.qmd`
+
+That chapter’s workflow creates a new GitHub repository based on:
+
+- Template repo: `MVR-GIS/repo-generic-python`
+
+In Foundry, you will typically import *your new repo* (created from the template), not the template itself.
+
+## Key steps (overview)
+
+1. Create your analysis repo in GitHub from the approved template (external step).
+2. Download a ZIP of the repo from GitHub (“big green code button”).
+3. Create (or open) a Foundry Code Repository in your Foundry Project.
+4. Import/upload the ZIP contents into the Foundry Code Repository.
+5. Verify the repo structure appears as expected.
+
+## Step 1 — Create your analysis repo in GitHub (outside Foundry)
+
+Follow:
+
+- `repo-create-generic-python-repo.qmd`
+
+When you’re done, you should have a GitHub repository you own/control (example: `MVR-GIS/my-analysis-project`).
+
+## Step 2 — Download the repo ZIP from GitHub
+
+1. Open your analysis repo in GitHub.
+2. Click **Code** (green button).
+3. Click **Download ZIP**.
+4. Save the ZIP somewhere you can access for import to Foundry.
+
+Notes:
+
+- If your Foundry enclave environment cannot access GitHub directly, you may need to move the ZIP through an approved transfer mechanism. Follow your organization’s policy.
+- Prefer a tagged release ZIP if you need stronger provenance. Otherwise, record the commit SHA you downloaded for traceability.
+
+## Step 3 — Create/open a Foundry Code Repository
+
+In Foundry (inside the correct Project):
+
+1. Create a new Code Repository (or open an existing one).
+2. Name it consistently with the GitHub repo you’re importing (recommended).
+3. Confirm the Code Repo is in the correct Project and has the right permissions/groups (per `fnd-getting-started.qmd`).
+
+## Step 4 — Import the ZIP contents into the Foundry Code Repository
+
+Import mechanics vary by Foundry configuration (UI features and permissions). Use the import option available in your environment, such as:
+
+- Upload/import from a ZIP archive
+- Upload folder contents via the UI
+- A “bootstrap” repository import step (if configured)
+
+Required outcome:
+
+- The Code Repository file tree inside Foundry matches the GitHub repository contents at the commit you downloaded.
+
+## Step 5 — Verify repository structure in Foundry
+
+At minimum, verify you see the expected top-level folders/files (as defined by your analysis repo), such as:
+
+- `notebooks/`
+- `src/`
+- `data/` (if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)
+- `outputs/`
+- `README.md`
+- `environment.yml` (if applicable)
+
+## Offline / no-internet guidance (Foundry enclave)
+
+Assume no external network access from runtime environments unless your platform team confirms otherwise.
+
+Recommendations:
+
+- Do not rely on `pip install ...` or `conda env create ...` fetching packages from the internet during normal execution.
+- Prefer platform-provided Python environments or curated package sets where available.
+- If dependency installation is required, coordinate with your Foundry administrators on the approved mechanism (mirrors, curated channels, base images, etc.).
+
+## Definition of done
+
+You are ready to proceed when:
+
+- the GitHub repo ZIP has been imported into a Foundry Code Repository
+- you can browse the repo file tree in Foundry
+- you recorded provenance:
+  - GitHub repo URL
+  - commit SHA (or tag/release) corresponding to the ZIP you imported
+- permissions/groups are set so collaborators can access the Code Repo (as intended)
