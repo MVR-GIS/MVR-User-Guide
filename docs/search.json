@@ -1347,5 +1347,291 @@
       "Unstructured Data",
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exporting Chunks (Gemini JSONL + Foundry Parquet)</span>"
     ]
+  },
+  {
+    "objectID": "fnd-load-repo.html",
+    "href": "fnd-load-repo.html",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "",
+    "text": "23.1 Objective\nBring an existing GitHub repository into a Foundry Code Repository using a ZIP download/import workflow, so you can run and version your work inside the Foundry enclave.\nThis chapter is a prerequisite for:",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#objective",
+    "href": "fnd-load-repo.html#objective",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "",
+    "text": "fnd-threads.qmd (Initiate a reproducible Threads workflow)",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#prerequisites",
+    "href": "fnd-load-repo.html#prerequisites",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "23.2 Prerequisites",
+    "text": "23.2 Prerequisites\nBefore you start, complete:\n\nfnd-getting-started.qmd (login, create a project, tagging for discovery, groups/permissions, etc.)\n\nYou also need:\n\naccess to create a Code Repository in your Foundry Project\naccess to the GitHub repository you will import",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#which-repo-should-i-import",
+    "href": "fnd-load-repo.html#which-repo-should-i-import",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "23.3 Which repo should I import?",
+    "text": "23.3 Which repo should I import?\nFor USACE data science work, we recommend starting from the approved lightweight Python analysis template described in:\n\nrepo-create-generic-python-repo.qmd\n\nThat chapter’s workflow creates a new GitHub repository based on:\n\nTemplate repo: MVR-GIS/repo-generic-python\n\nIn Foundry, you will typically import your new repo (created from the template), not the template itself.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#key-steps-overview",
+    "href": "fnd-load-repo.html#key-steps-overview",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "23.4 Key steps (overview)",
+    "text": "23.4 Key steps (overview)\n\nCreate your analysis repo in GitHub from the approved template (external step).\nDownload a ZIP of the repo from GitHub (“big green code button”).\nCreate (or open) a Foundry Code Repository in your Foundry Project.\nImport/upload the ZIP contents into the Foundry Code Repository.\nVerify the repo structure appears as expected.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-1-create-your-analysis-repo-in-github-outside-foundry",
+    "href": "fnd-load-repo.html#step-1-create-your-analysis-repo-in-github-outside-foundry",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "23.5 Step 1 — Create your analysis repo in GitHub (outside Foundry)",
+    "text": "23.5 Step 1 — Create your analysis repo in GitHub (outside Foundry)\nFollow:\n\nrepo-create-generic-python-repo.qmd\n\nWhen you’re done, you should have a GitHub repository you own/control (example: MVR-GIS/my-analysis-project).",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-2-download-the-repo-zip-from-github",
+    "href": "fnd-load-repo.html#step-2-download-the-repo-zip-from-github",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "23.6 Step 2 — Download the repo ZIP from GitHub",
+    "text": "23.6 Step 2 — Download the repo ZIP from GitHub\n\nOpen your analysis repo in GitHub.\nClick Code (green button).\nClick Download ZIP.\nSave the ZIP somewhere you can access for import to Foundry.\n\nNotes:\n\nIf your Foundry enclave environment cannot access GitHub directly, you may need to move the ZIP through an approved transfer mechanism. Follow your organization’s policy.\nPrefer a tagged release ZIP if you need stronger provenance. Otherwise, record the commit SHA you downloaded for traceability.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-3-createopen-a-foundry-code-repository",
+    "href": "fnd-load-repo.html#step-3-createopen-a-foundry-code-repository",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "23.7 Step 3 — Create/open a Foundry Code Repository",
+    "text": "23.7 Step 3 — Create/open a Foundry Code Repository\nIn Foundry (inside the correct Project):\n\nCreate a new Code Repository (or open an existing one).\nName it consistently with the GitHub repo you’re importing (recommended).\nConfirm the Code Repo is in the correct Project and has the right permissions/groups (per fnd-getting-started.qmd).",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-4-import-the-zip-contents-into-the-foundry-code-repository",
+    "href": "fnd-load-repo.html#step-4-import-the-zip-contents-into-the-foundry-code-repository",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "23.8 Step 4 — Import the ZIP contents into the Foundry Code Repository",
+    "text": "23.8 Step 4 — Import the ZIP contents into the Foundry Code Repository\nImport mechanics vary by Foundry configuration (UI features and permissions). Use the import option available in your environment, such as:\n\nUpload/import from a ZIP archive\nUpload folder contents via the UI\nA “bootstrap” repository import step (if configured)\n\nRequired outcome:\n\nThe Code Repository file tree inside Foundry matches the GitHub repository contents at the commit you downloaded.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-5-verify-repository-structure-in-foundry",
+    "href": "fnd-load-repo.html#step-5-verify-repository-structure-in-foundry",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "23.9 Step 5 — Verify repository structure in Foundry",
+    "text": "23.9 Step 5 — Verify repository structure in Foundry\nAt minimum, verify you see the expected top-level folders/files (as defined by your analysis repo), such as:\n\nnotebooks/\nsrc/\ndata/ (if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)\noutputs/\nREADME.md\nenvironment.yml (if applicable)",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#offline-no-internet-guidance-foundry-enclave",
+    "href": "fnd-load-repo.html#offline-no-internet-guidance-foundry-enclave",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "23.10 Offline / no-internet guidance (Foundry enclave)",
+    "text": "23.10 Offline / no-internet guidance (Foundry enclave)\nAssume no external network access from runtime environments unless your platform team confirms otherwise.\nRecommendations:\n\nDo not rely on pip install ... or conda env create ... fetching packages from the internet during normal execution.\nPrefer platform-provided Python environments or curated package sets where available.\nIf dependency installation is required, coordinate with your Foundry administrators on the approved mechanism (mirrors, curated channels, base images, etc.).",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#definition-of-done",
+    "href": "fnd-load-repo.html#definition-of-done",
+    "title": "23  Load a repo into Foundry (ZIP import)",
+    "section": "23.11 Definition of done",
+    "text": "23.11 Definition of done\nYou are ready to proceed when:\n\nthe GitHub repo ZIP has been imported into a Foundry Code Repository\nyou can browse the repo file tree in Foundry\nyou recorded provenance:\n\nGitHub repo URL\ncommit SHA (or tag/release) corresponding to the ZIP you imported\n\npermissions/groups are set so collaborators can access the Code Repo (as intended)",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Load a repo into Foundry (ZIP import)</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html",
+    "href": "fnd-threads.html",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "",
+    "text": "24.1 Objective\nInitiate a reproducible workflow for capturing a Threads chat session history and saving outputs in a reviewable, auditable way inside a Foundry enclave (assume offline / no-internet execution).\nThis chapter focuses on workflow and structure, not on account onboarding or Foundry project setup.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#prerequisites",
+    "href": "fnd-threads.html#prerequisites",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.2 Prerequisites",
+    "text": "24.2 Prerequisites\nComplete these first:\n\nfnd-getting-started.qmd\n\nlogin\ncreate a Project\ntagging for discovery\ngroups/permissions\nany required platform conventions\n\nfnd-load-repo.qmd\n\nimport your GitHub analysis repository into a Foundry Code Repository using ZIP import\n\n\nYou should also already have a GitHub analysis repo created from:\n\nrepo-create-generic-python-repo.qmd",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#what-is-a-reproducible-threads-session-in-this-context",
+    "href": "fnd-threads.html#what-is-a-reproducible-threads-session-in-this-context",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.3 What is a “reproducible Threads session” in this context?",
+    "text": "24.3 What is a “reproducible Threads session” in this context?\nA reproducible Threads session should leave an audit trail that includes:\n\nwho/what: analyst, date/time window, project context\ninputs: the prompt(s), any system/context constraints, and referenced datasets\nconfiguration: model/tool settings as allowed by your environment\noutputs: generated text, extracted entities/tables, files produced\nprovenance: dataset RIDs/paths (or equivalent identifiers), code version/commit, and run identifier\n\nYour goal is that a reviewer can answer:\n\n“What question was asked?”\n“What data and code were used?”\n“What did the assistant produce?”\n“Where are the saved artifacts?”",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#key-steps-overview",
+    "href": "fnd-threads.html#key-steps-overview",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.4 Key steps (overview)",
+    "text": "24.4 Key steps (overview)\n\nEnsure your Foundry Code Repo is imported and ready.\nCreate a standard session folder for the Threads run.\nCapture session metadata (who/what/why, dataset references, config).\nCapture the session transcript (prompts + responses) in a stable format.\nSave outputs (and any derived artifacts) with deterministic naming.\nCommit changes to the Code Repo (or save to an approved dataset/artifact location) to preserve an audit trail.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#recommended-repository-structure-for-threads-sessions",
+    "href": "fnd-threads.html#recommended-repository-structure-for-threads-sessions",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.5 Recommended repository structure for Threads sessions",
+    "text": "24.5 Recommended repository structure for Threads sessions\nUse a stable location inside the repo for session artifacts. Recommended pattern (create if missing):\n\nthreads/\n\nsessions/\n\n&lt;YYYY-MM-DD&gt;_&lt;short-topic-slug&gt;/\n\nREADME.md\nmetadata.yml\ntranscript.md\noutputs/\n\n\n\n\nNotes:\n\nKeep “session history” in plain text formats (.md, .yml, .json) to maximize portability and diffability.\nAvoid proprietary binary formats for primary records.\nIf outputs are large, store summaries in-repo and write full outputs to an approved Foundry dataset/artifact location (recording identifiers in metadata.yml).",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#step-1-create-a-new-session-folder",
+    "href": "fnd-threads.html#step-1-create-a-new-session-folder",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.6 Step 1 — Create a new session folder",
+    "text": "24.6 Step 1 — Create a new session folder\nCreate a new folder under:\n\nthreads/sessions/\n\nNaming convention:\n\nYYYY-MM-DD_short-topic-slug\n\nExample:\n\n2026-05-03_real-estate-permits-qaqc",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#step-2-record-metadata-first-before-you-chat",
+    "href": "fnd-threads.html#step-2-record-metadata-first-before-you-chat",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.7 Step 2 — Record metadata first (before you chat)",
+    "text": "24.7 Step 2 — Record metadata first (before you chat)\nCreate metadata.yml with, at minimum:\n\nsession name\ndate\nauthor\npurpose / question\ndatasets referenced (identifiers, not copies)\nconstraints (offline/no-internet, sensitive handling notes)\ncode provenance (commit SHA if available)\n\nRecommendation:\n\ninclude a section that explicitly states what is out of scope or what was not done (helps reviewers).",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#step-3-run-the-threads-session",
+    "href": "fnd-threads.html#step-3-run-the-threads-session",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.8 Step 3 — Run the Threads session",
+    "text": "24.8 Step 3 — Run the Threads session\nConduct the Threads chat session following your organization’s policy on:\n\nwhat data can be pasted into chat\nhow sensitive data is handled\nwhat model/tooling is approved\n\nDuring the session, keep a scratchpad of:\n\neach prompt you send\neach key response you receive\nany action items or decisions",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#step-4-save-the-transcript-stable-reviewable",
+    "href": "fnd-threads.html#step-4-save-the-transcript-stable-reviewable",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.9 Step 4 — Save the transcript (stable + reviewable)",
+    "text": "24.9 Step 4 — Save the transcript (stable + reviewable)\nCreate transcript.md and capture:\n\nthe prompts (verbatim)\nthe responses (verbatim)\n\nIf your platform provides an export function, prefer that over manual copy/paste, but ensure:\n\nthe format is plain text / markdown\ntimestamps (if present) are consistent and not misleading\nyou remove/redact sensitive data per policy",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#step-5-save-outputs-and-keep-them-traceable",
+    "href": "fnd-threads.html#step-5-save-outputs-and-keep-them-traceable",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.10 Step 5 — Save outputs (and keep them traceable)",
+    "text": "24.10 Step 5 — Save outputs (and keep them traceable)\nPut any derived artifacts in outputs/, such as:\n\na cleaned “final answer” version of the response\nextracted tables as CSV\nchecklists or SOP steps as markdown\n\nNaming guidance:\n\nkeep names deterministic and descriptive\navoid spaces; use hyphens\n\nExamples:\n\noutputs/final-summary.md\noutputs/extracted-entities.csv\noutputs/recommended-workflow-checklist.md",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#step-6-preserve-an-audit-trail",
+    "href": "fnd-threads.html#step-6-preserve-an-audit-trail",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.11 Step 6 — Preserve an audit trail",
+    "text": "24.11 Step 6 — Preserve an audit trail\nMinimum viable audit trail:\n\nmetadata.yml exists and references:\n\ndatasets used (identifiers)\nwhere outputs are stored\nthe repo version / commit (or a note that this is not available)\n\ntranscript.md is present\noutputs are saved under outputs/\n\nPreferred:\n\ncommit the session folder to the Foundry Code Repo with a clear commit message, or\npublish the artifacts to an approved Foundry location and link to them from the session README/metadata",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#offline-no-internet-constraints",
+    "href": "fnd-threads.html#offline-no-internet-constraints",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.12 Offline / no-internet constraints",
+    "text": "24.12 Offline / no-internet constraints\nDesign your workflow so it does not require:\n\ndownloading packages at run time\ncalling external APIs\nembedding links as “required steps” unless internal and accessible\n\nIf you reference external documentation, treat it as “background reading” rather than a dependency for completing the workflow.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#troubleshooting",
+    "href": "fnd-threads.html#troubleshooting",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.13 Troubleshooting",
+    "text": "24.13 Troubleshooting\n\nI can’t import the repo ZIP into Foundry\n\nRe-check fnd-load-repo.qmd\nConfirm you have permissions to create or modify a Code Repository in the target Project\nConfirm you are using an approved transfer path for moving the ZIP into the enclave\n\n\n\nI’m not sure what I’m allowed to paste into Threads\n\nStop and confirm policy with your platform/data governance point of contact\nPrefer referencing datasets by identifier rather than pasting raw records\n\n\n\nOutputs are too large to store in the repo\n\nStore summaries and metadata in-repo\nStore large artifacts in an approved Foundry dataset/artifact location\nRecord exact identifiers/paths in metadata.yml",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-threads.html#definition-of-done",
+    "href": "fnd-threads.html#definition-of-done",
+    "title": "24  Initiate a reproducible Threads workflow",
+    "section": "24.14 Definition of done",
+    "text": "24.14 Definition of done\nYou are done when:\n\na new session folder exists under threads/sessions/\nmetadata.yml exists and includes:\n\npurpose/question\ndataset identifiers (if any)\nconstraints (offline/no-internet)\nwhere outputs were saved\n\ntranscript.md contains a complete prompt/response record (redacted as needed)\noutputs are saved and referenced\nthe work is preserved in a way a reviewer can retrieve later (commit and/or published artifacts)",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Initiate a reproducible Threads workflow</span>"
+    ]
   }
 ]

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>22&nbsp; Foundry Getting Started – MVR Geospatial Data Science User Guide</title>
+<title>23&nbsp; Load a repo into Foundry (ZIP import) – MVR Geospatial Data Science User Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -255,7 +255,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-getting-started.html">Foundry</a></li><li class="breadcrumb-item"><a href="./fnd-getting-started.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Foundry Getting Started</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-getting-started.html">Foundry</a></li><li class="breadcrumb-item"><a href="./fnd-load-repo.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Load a repo into Foundry (ZIP import)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -504,13 +504,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fnd-getting-started.html" class="sidebar-item-text sidebar-link active">
+  <a href="./fnd-getting-started.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Foundry Getting Started</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fnd-load-repo.html" class="sidebar-item-text sidebar-link">
+  <a href="./fnd-load-repo.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Load a repo into Foundry (ZIP import)</span></span></a>
   </div>
 </li>
@@ -544,16 +544,32 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">23.1</span> Objective</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">23.2</span> Prerequisites</a></li>
+  <li><a href="#which-repo-should-i-import" id="toc-which-repo-should-i-import" class="nav-link" data-scroll-target="#which-repo-should-i-import"><span class="header-section-number">23.3</span> Which repo should I import?</a></li>
+  <li><a href="#key-steps-overview" id="toc-key-steps-overview" class="nav-link" data-scroll-target="#key-steps-overview"><span class="header-section-number">23.4</span> Key steps (overview)</a></li>
+  <li><a href="#step-1-create-your-analysis-repo-in-github-outside-foundry" id="toc-step-1-create-your-analysis-repo-in-github-outside-foundry" class="nav-link" data-scroll-target="#step-1-create-your-analysis-repo-in-github-outside-foundry"><span class="header-section-number">23.5</span> Step 1 — Create your analysis repo in GitHub (outside Foundry)</a></li>
+  <li><a href="#step-2-download-the-repo-zip-from-github" id="toc-step-2-download-the-repo-zip-from-github" class="nav-link" data-scroll-target="#step-2-download-the-repo-zip-from-github"><span class="header-section-number">23.6</span> Step 2 — Download the repo ZIP from GitHub</a></li>
+  <li><a href="#step-3-createopen-a-foundry-code-repository" id="toc-step-3-createopen-a-foundry-code-repository" class="nav-link" data-scroll-target="#step-3-createopen-a-foundry-code-repository"><span class="header-section-number">23.7</span> Step 3 — Create/open a Foundry Code Repository</a></li>
+  <li><a href="#step-4-import-the-zip-contents-into-the-foundry-code-repository" id="toc-step-4-import-the-zip-contents-into-the-foundry-code-repository" class="nav-link" data-scroll-target="#step-4-import-the-zip-contents-into-the-foundry-code-repository"><span class="header-section-number">23.8</span> Step 4 — Import the ZIP contents into the Foundry Code Repository</a></li>
+  <li><a href="#step-5-verify-repository-structure-in-foundry" id="toc-step-5-verify-repository-structure-in-foundry" class="nav-link" data-scroll-target="#step-5-verify-repository-structure-in-foundry"><span class="header-section-number">23.9</span> Step 5 — Verify repository structure in Foundry</a></li>
+  <li><a href="#offline-no-internet-guidance-foundry-enclave" id="toc-offline-no-internet-guidance-foundry-enclave" class="nav-link" data-scroll-target="#offline-no-internet-guidance-foundry-enclave"><span class="header-section-number">23.10</span> Offline / no-internet guidance (Foundry enclave)</a></li>
+  <li><a href="#definition-of-done" id="toc-definition-of-done" class="nav-link" data-scroll-target="#definition-of-done"><span class="header-section-number">23.11</span> Definition of done</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-getting-started.html">Foundry</a></li><li class="breadcrumb-item"><a href="./fnd-getting-started.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Foundry Getting Started</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-getting-started.html">Foundry</a></li><li class="breadcrumb-item"><a href="./fnd-load-repo.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Load a repo into Foundry (ZIP import)</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Foundry Getting Started</span></h1>
+<h1 class="title"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Load a repo into Foundry (ZIP import)</span></h1>
 </div>
 
 
@@ -570,8 +586,130 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="objective" class="level2" data-number="23.1">
+<h2 data-number="23.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">23.1</span> Objective</h2>
+<p>Bring an existing GitHub repository into a Foundry Code Repository using a ZIP download/import workflow, so you can run and version your work inside the Foundry enclave.</p>
+<p>This chapter is a prerequisite for:</p>
+<ul>
+<li><code>fnd-threads.qmd</code> (Initiate a reproducible Threads workflow)</li>
+</ul>
+</section>
+<section id="prerequisites" class="level2" data-number="23.2">
+<h2 data-number="23.2" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">23.2</span> Prerequisites</h2>
+<p>Before you start, complete:</p>
+<ul>
+<li><code>fnd-getting-started.qmd</code> (login, create a project, tagging for discovery, groups/permissions, etc.)</li>
+</ul>
+<p>You also need:</p>
+<ul>
+<li>access to create a Code Repository in your Foundry Project</li>
+<li>access to the GitHub repository you will import</li>
+</ul>
+</section>
+<section id="which-repo-should-i-import" class="level2" data-number="23.3">
+<h2 data-number="23.3" class="anchored" data-anchor-id="which-repo-should-i-import"><span class="header-section-number">23.3</span> Which repo should I import?</h2>
+<p>For USACE data science work, we recommend starting from the approved lightweight Python analysis template described in:</p>
+<ul>
+<li><code>repo-create-generic-python-repo.qmd</code></li>
+</ul>
+<p>That chapter’s workflow creates a new GitHub repository based on:</p>
+<ul>
+<li>Template repo: <code>MVR-GIS/repo-generic-python</code></li>
+</ul>
+<p>In Foundry, you will typically import <em>your new repo</em> (created from the template), not the template itself.</p>
+</section>
+<section id="key-steps-overview" class="level2" data-number="23.4">
+<h2 data-number="23.4" class="anchored" data-anchor-id="key-steps-overview"><span class="header-section-number">23.4</span> Key steps (overview)</h2>
+<ol type="1">
+<li>Create your analysis repo in GitHub from the approved template (external step).</li>
+<li>Download a ZIP of the repo from GitHub (“big green code button”).</li>
+<li>Create (or open) a Foundry Code Repository in your Foundry Project.</li>
+<li>Import/upload the ZIP contents into the Foundry Code Repository.</li>
+<li>Verify the repo structure appears as expected.</li>
+</ol>
+</section>
+<section id="step-1-create-your-analysis-repo-in-github-outside-foundry" class="level2" data-number="23.5">
+<h2 data-number="23.5" class="anchored" data-anchor-id="step-1-create-your-analysis-repo-in-github-outside-foundry"><span class="header-section-number">23.5</span> Step 1 — Create your analysis repo in GitHub (outside Foundry)</h2>
+<p>Follow:</p>
+<ul>
+<li><code>repo-create-generic-python-repo.qmd</code></li>
+</ul>
+<p>When you’re done, you should have a GitHub repository you own/control (example: <code>MVR-GIS/my-analysis-project</code>).</p>
+</section>
+<section id="step-2-download-the-repo-zip-from-github" class="level2" data-number="23.6">
+<h2 data-number="23.6" class="anchored" data-anchor-id="step-2-download-the-repo-zip-from-github"><span class="header-section-number">23.6</span> Step 2 — Download the repo ZIP from GitHub</h2>
+<ol type="1">
+<li>Open your analysis repo in GitHub.</li>
+<li>Click <strong>Code</strong> (green button).</li>
+<li>Click <strong>Download ZIP</strong>.</li>
+<li>Save the ZIP somewhere you can access for import to Foundry.</li>
+</ol>
+<p>Notes:</p>
+<ul>
+<li>If your Foundry enclave environment cannot access GitHub directly, you may need to move the ZIP through an approved transfer mechanism. Follow your organization’s policy.</li>
+<li>Prefer a tagged release ZIP if you need stronger provenance. Otherwise, record the commit SHA you downloaded for traceability.</li>
+</ul>
+</section>
+<section id="step-3-createopen-a-foundry-code-repository" class="level2" data-number="23.7">
+<h2 data-number="23.7" class="anchored" data-anchor-id="step-3-createopen-a-foundry-code-repository"><span class="header-section-number">23.7</span> Step 3 — Create/open a Foundry Code Repository</h2>
+<p>In Foundry (inside the correct Project):</p>
+<ol type="1">
+<li>Create a new Code Repository (or open an existing one).</li>
+<li>Name it consistently with the GitHub repo you’re importing (recommended).</li>
+<li>Confirm the Code Repo is in the correct Project and has the right permissions/groups (per <code>fnd-getting-started.qmd</code>).</li>
+</ol>
+</section>
+<section id="step-4-import-the-zip-contents-into-the-foundry-code-repository" class="level2" data-number="23.8">
+<h2 data-number="23.8" class="anchored" data-anchor-id="step-4-import-the-zip-contents-into-the-foundry-code-repository"><span class="header-section-number">23.8</span> Step 4 — Import the ZIP contents into the Foundry Code Repository</h2>
+<p>Import mechanics vary by Foundry configuration (UI features and permissions). Use the import option available in your environment, such as:</p>
+<ul>
+<li>Upload/import from a ZIP archive</li>
+<li>Upload folder contents via the UI</li>
+<li>A “bootstrap” repository import step (if configured)</li>
+</ul>
+<p>Required outcome:</p>
+<ul>
+<li>The Code Repository file tree inside Foundry matches the GitHub repository contents at the commit you downloaded.</li>
+</ul>
+</section>
+<section id="step-5-verify-repository-structure-in-foundry" class="level2" data-number="23.9">
+<h2 data-number="23.9" class="anchored" data-anchor-id="step-5-verify-repository-structure-in-foundry"><span class="header-section-number">23.9</span> Step 5 — Verify repository structure in Foundry</h2>
+<p>At minimum, verify you see the expected top-level folders/files (as defined by your analysis repo), such as:</p>
+<ul>
+<li><code>notebooks/</code></li>
+<li><code>src/</code></li>
+<li><code>data/</code> (if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)</li>
+<li><code>outputs/</code></li>
+<li><code>README.md</code></li>
+<li><code>environment.yml</code> (if applicable)</li>
+</ul>
+</section>
+<section id="offline-no-internet-guidance-foundry-enclave" class="level2" data-number="23.10">
+<h2 data-number="23.10" class="anchored" data-anchor-id="offline-no-internet-guidance-foundry-enclave"><span class="header-section-number">23.10</span> Offline / no-internet guidance (Foundry enclave)</h2>
+<p>Assume no external network access from runtime environments unless your platform team confirms otherwise.</p>
+<p>Recommendations:</p>
+<ul>
+<li>Do not rely on <code>pip install ...</code> or <code>conda env create ...</code> fetching packages from the internet during normal execution.</li>
+<li>Prefer platform-provided Python environments or curated package sets where available.</li>
+<li>If dependency installation is required, coordinate with your Foundry administrators on the approved mechanism (mirrors, curated channels, base images, etc.).</li>
+</ul>
+</section>
+<section id="definition-of-done" class="level2" data-number="23.11">
+<h2 data-number="23.11" class="anchored" data-anchor-id="definition-of-done"><span class="header-section-number">23.11</span> Definition of done</h2>
+<p>You are ready to proceed when:</p>
+<ul>
+<li>the GitHub repo ZIP has been imported into a Foundry Code Repository</li>
+<li>you can browse the repo file tree in Foundry</li>
+<li>you recorded provenance:
+<ul>
+<li>GitHub repo URL</li>
+<li>commit SHA (or tag/release) corresponding to the ZIP you imported</li>
+</ul></li>
+<li>permissions/groups are set so collaborators can access the Code Repo (as intended)</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
