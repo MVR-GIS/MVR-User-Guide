@@ -1452,7 +1452,7 @@
     "href": "fnd-load-repo.html",
     "title": "24  Load a repo into Foundry",
     "section": "",
-    "text": "24.1 Objective\nBring an existing GitHub repository into a Foundry Code Repository using a ZIP download/import workflow, so you can run and version your work inside the Foundry enclave.\nThis chapter is a prerequisite for:",
+    "text": "24.1 Objective\nBring an existing GitHub repository into a Foundry Code Repository so you can run it in a Foundry Code Workspace VS Code session to document your work inside the Foundry enclave.\nThis chapter is a prerequisite for:",
     "crumbs": [
       "Foundry",
       "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
@@ -1496,7 +1496,7 @@
     "href": "fnd-load-repo.html#key-steps-overview",
     "title": "24  Load a repo into Foundry",
     "section": "24.4 Key steps (overview)",
-    "text": "24.4 Key steps (overview)\n\nCreate your analysis repo in GitHub from the approved template (external step).\nDownload a ZIP of the repo from GitHub (“big green code button”).\nCreate (or open) a Foundry Code Repository in your Foundry Project.\nImport/upload the ZIP contents into the Foundry Code Repository.\nVerify inside Foundry Code Workspace that the repo structure and tooling are present and runnable.",
+    "text": "24.4 Key steps (overview)\n\nCreate your analysis repo in GitHub from the approved template (external step).\nCreate an empty Foundry Code Repository.",
     "crumbs": [
       "Foundry",
       "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
@@ -1561,8 +1561,8 @@
     "objectID": "fnd-load-repo.html#offline-no-internet-guidance-foundry-enclave",
     "href": "fnd-load-repo.html#offline-no-internet-guidance-foundry-enclave",
     "title": "24  Load a repo into Foundry",
-    "section": "24.10 Offline / no-internet guidance (Foundry enclave)",
-    "text": "24.10 Offline / no-internet guidance (Foundry enclave)\nAssume no external network access from runtime environments unless your platform team confirms otherwise.\nRecommendations:\n\nDo not rely on pip install ... or conda env create ... fetching packages from the internet during normal execution.\nPrefer platform-provided Python environments or curated package sets where available.\nIf dependency installation is required, coordinate with your Foundry administrators on the approved mechanism (mirrors, curated channels, base images, etc.).",
+    "section": "24.12 Offline / no-internet guidance (Foundry enclave)",
+    "text": "24.12 Offline / no-internet guidance (Foundry enclave)\nAssume no external network access from runtime environments unless your platform team confirms otherwise.\nRecommendations:\n\nDo not rely on pip install ... or conda env create ... fetching packages from the internet during normal execution.\nPrefer platform-provided Python environments or curated package sets where available.\nIf dependency installation is required, coordinate with your Foundry administrators on the approved mechanism (mirrors, curated channels, base images, etc.).",
     "crumbs": [
       "Foundry",
       "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
@@ -1572,8 +1572,8 @@
     "objectID": "fnd-load-repo.html#definition-of-done",
     "href": "fnd-load-repo.html#definition-of-done",
     "title": "24  Load a repo into Foundry",
-    "section": "24.11 Definition of done",
-    "text": "24.11 Definition of done\nYou are ready to proceed when:\n\nthe GitHub repo ZIP has been imported into a Foundry Code Repository\nyou can browse the repo file tree in Foundry Code Workspace\nyou recorded provenance:\n\nGitHub repo URL\ncommit SHA (or tag/release) corresponding to the ZIP you imported\n\npermissions/groups are set so collaborators can access the Code Repo (as intended)\n(recommended) you confirmed the Threads tool is present:\n\npython -m tools.foundry_threads --help runs successfully, or the required files exist in the repo tree",
+    "section": "24.12 Definition of done",
+    "text": "24.12 Definition of done\nYou are ready to proceed when:\n\nthe GitHub repo has been imported into a Foundry Code Repository\nyou can browse the repo file tree in Foundry Code Workspace\nyou recorded provenance:\n\nGitHub repo URL\ncommit SHA (or tag/release) corresponding to the push you imported\n\npermissions/groups are set so collaborators can access the Code Repo (as intended)\n(recommended) you confirmed the Threads tool is present:\n\npython -m tools.foundry_threads --help runs successfully, or the required files exist in the repo tree",
     "crumbs": [
       "Foundry",
       "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
@@ -1676,6 +1676,94 @@
     "crumbs": [
       "Foundry",
       "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#initial-configuration",
+    "href": "fnd-load-repo.html#initial-configuration",
+    "title": "24  Load a repo into Foundry",
+    "section": "24.5 Initial Configuration",
+    "text": "24.5 Initial Configuration\nFollow these steps once to ensure you have a working environment.\n\nInstall DoD Certificates\nInstalRoot is the app that DoD uses to ensure secure communication. - Use USACE App Portal to install InstallRoot. - Open the InstallRoot app and click the “Install Certificates” button to install the required certificates.\n\n\nTell Git to use the Windows credential store\ngit config --global http.sslBackend schannel\n\n\nInstall the Palantir extension for Visual Studio Code\nThe Palantir extension for VS Code is used to clone a repository stored in Foundry Code Repositories. See install instructions here. - Download the extension .visx file. - On the VS Code Extensions tab, use the “three dot” menu, and select “Install from VSIX…” - In the Open dialog, navigate to the palantir extension .vsix file and click the “Install” button.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-1-in-githib-create-your-analysis-repo",
+    "href": "fnd-load-repo.html#step-1-in-githib-create-your-analysis-repo",
+    "title": "24  Load a repo into Foundry",
+    "section": "24.6 Step 1 — In Githib, Create your analysis repo",
+    "text": "24.6 Step 1 — In Githib, Create your analysis repo\n\nFollow the instructions: repo-create-generic-python-repo.qmd\nWhen you’re done, you should have a GitHub repository you own/control (example: &lt;OWNER&gt;/&lt;my-analysis-project&gt;).",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-2---in-vs-code-on-you-computer-clone-this-repo-locally",
+    "href": "fnd-load-repo.html#step-2---in-vs-code-on-you-computer-clone-this-repo-locally",
+    "title": "24  Load a repo into Foundry",
+    "section": "24.7 Step 2 - In VS Code on you computer, clone this repo locally",
+    "text": "24.7 Step 2 - In VS Code on you computer, clone this repo locally\n\nOpen VS Code on your computer.\nCopy the Repository URL you created in the previous step: Go to your repository (e.g., on GitHub) and copy the clone URL.\nIn VS Code, open the Command Palette: (Press Ctrl + Shift + P). Run the Clone Command: Type Git: Clone and select it from the list.\nPaste the repo URL: Enter the repository URL at GitHub when prompted and press Enter.\nSelect a Destination: A file explorer window will open. Select or create the parent folder where you want the new repository folder to live. VS Code will automatically create a new subfolder named after the repository inside this location. Choose to open in a new session.\nOr, in a Git bash terminal use the following command:\n\ngit clone https://github.com/&lt;OWNER&gt;/&lt;REPO&gt; &lt;PARENT-FOLDER-NAME&gt;\n\nYou will now see your newly cloned repo in your VS Code session running on your computer.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-3---in-palantir-foundry-code-repositories-create-a-new-empty-repository",
+    "href": "fnd-load-repo.html#step-3---in-palantir-foundry-code-repositories-create-a-new-empty-repository",
+    "title": "24  Load a repo into Foundry",
+    "section": "24.8 Step 3 - In Palantir Foundry Code Repositories, create a new empty repository",
+    "text": "24.8 Step 3 - In Palantir Foundry Code Repositories, create a new empty repository\n\nOpen a web browser and log into Army Vantage (Palantir Foundry).\nGo to the Code Repositories platform app.\nCreate a new empty repository. Give it the same name as the repo you just created in Github.\nClick the “Work Locally” button and copy the URL to the repository.\nThis  should be structured something like: https://&lt;your-id&gt;:&lt;giant-string-1&gt;@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt;",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-4---in-vs-code-on-your-computer-add-foundry-as-a-remote",
+    "href": "fnd-load-repo.html#step-4---in-vs-code-on-your-computer-add-foundry-as-a-remote",
+    "title": "24  Load a repo into Foundry",
+    "section": "24.9 Step 4 - In VS Code on your computer, add Foundry as a remote",
+    "text": "24.9 Step 4 - In VS Code on your computer, add Foundry as a remote\n\nIn the local version of your repo, we need to add the Palantir Foundry Code Repository repo you created in the last step as a remote.\nUse the following git command to add your Foundry repo as a remote. Replace the  with the URL you copied from Foundry in the last step.\n\ngit remote add foundry &lt;foundry-repo-url&gt;\n\nUse the git remote -v command to check that the remote was added correctly.\n\ngit remote -v\nfoundry https://&lt;your-id&gt;:&lt;giant-string-1&gt;@@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt; (fetch)\nfoundry https://&lt;your-id&gt;:&lt;giant-string-1&gt;@@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt; (push)\norigin  https://github.com/&lt;OWNER&gt;/&lt;your-repo-name&gt;.git (fetch)\norigin  https://github.com/&lt;OWNER&gt;/&lt;your-repo-name&gt;.git (push)\n\nPush your local branches (e.g., main) to the Foundry remote:\n\ngit push foundry main\n\nIf you have branches other than main, push them as well.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-5---verify-in-foundry",
+    "href": "fnd-load-repo.html#step-5---verify-in-foundry",
+    "title": "24  Load a repo into Foundry",
+    "section": "24.10 Step 5 - Verify in Foundry",
+    "text": "24.10 Step 5 - Verify in Foundry\n\nOpen the new Code Repository in Foundry to confirm your code and history have been imported.\n\nRequired outcome:\n\nThe Code Repository file tree inside Foundry matches the GitHub repository contents at the commit you downloaded.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#step-6-verify-repository-structure-and-tooling-inside-foundry-code-workspace",
+    "href": "fnd-load-repo.html#step-6-verify-repository-structure-and-tooling-inside-foundry-code-workspace",
+    "title": "24  Load a repo into Foundry",
+    "section": "24.11 Step 6 — Verify repository structure and tooling (inside Foundry Code Workspace)",
+    "text": "24.11 Step 6 — Verify repository structure and tooling (inside Foundry Code Workspace)\nThis verification step must occur inside the Foundry Code Workspace UI for the Code Repository you just imported.\n\n6.1 Open the repo in Code Workspace\n\nIn Foundry, open your Project.\nOpen the Code Repository you imported.\nOpen it in Code Workspace so you can browse files and run commands (if enabled in your environment).\n\n\n\n6.2 Confirm the expected files/folders exist\nAt minimum, verify you see the expected top-level folders/files, such as:\n\nnotebooks/\nsrc/\ndata/ (if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)\noutputs/\nREADME.md\nenvironment.yml\n\nAlso verify the presence of the Threads workflow tooling (required for fnd-threads.qmd):\n\ntools/\n\nfoundry_threads.py\n__init__.py (so python -m tools.foundry_threads works)\n\npytest.ini (supports consistent test imports)\ntests/ (if your repo includes tests; recommended)\n\n\n\n6.3 Quick “tool exists” sanity check\nIf your Foundry Code Workspace environment supports running Python in a terminal:\nFrom the repository root, run:\npython -m tools.foundry_threads --help\nExpected outcome:\n\nHelp text prints without import errors (confirms the repo-local tool is present and importable)\n\nIf you cannot run a terminal in Code Workspace (or Python execution is constrained), you can still verify:\n\nthe file tree includes the required tool files listed above\nthe README.md documents how the tool should be run in your environment\n\nRecommendations:\n\nDo not rely on pip install ... or conda env create ... fetching packages from the internet during normal execution.\nPrefer platform-provided Python environments or curated package sets where available.\nIf dependency installation is required, coordinate with your Foundry administrators on the approved mechanism (mirrors, curated channels, base images, etc.).",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+    ]
+  },
+  {
+    "objectID": "fnd-load-repo.html#push-changes-out-of-foundry-to-local-repo",
+    "href": "fnd-load-repo.html#push-changes-out-of-foundry-to-local-repo",
+    "title": "24  Load a repo into Foundry",
+    "section": "24.13 Push changes out of Foundry to local repo",
+    "text": "24.13 Push changes out of Foundry to local repo\n\nFetch changes from Foundry - This retrieves all branches and updates from Foundry:\n\ngit fetch foundry\n\nPull Changes to your local branch - Update your local branch (e.g., main) with changes from Foundry:\n\ngit pull foundry main\n\nRepeat for other branches by replacing main with the branch you want to update.\nResolve any merge conflicts - If there are conflicts, Git will prompt you to resolve them locally.",
+    "crumbs": [
+      "Foundry",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
     ]
   }
 ]

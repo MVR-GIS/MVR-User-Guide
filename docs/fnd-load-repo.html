@@ -594,18 +594,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">24.2</span> Prerequisites</a></li>
   <li><a href="#which-repo-should-i-import" id="toc-which-repo-should-i-import" class="nav-link" data-scroll-target="#which-repo-should-i-import"><span class="header-section-number">24.3</span> Which repo should I import?</a></li>
   <li><a href="#key-steps-overview" id="toc-key-steps-overview" class="nav-link" data-scroll-target="#key-steps-overview"><span class="header-section-number">24.4</span> Key steps (overview)</a></li>
-  <li><a href="#step-1-create-your-analysis-repo-in-github-outside-foundry" id="toc-step-1-create-your-analysis-repo-in-github-outside-foundry" class="nav-link" data-scroll-target="#step-1-create-your-analysis-repo-in-github-outside-foundry"><span class="header-section-number">24.5</span> Step 1 — Create your analysis repo in GitHub (outside Foundry)</a></li>
-  <li><a href="#step-2-download-the-repo-zip-from-github" id="toc-step-2-download-the-repo-zip-from-github" class="nav-link" data-scroll-target="#step-2-download-the-repo-zip-from-github"><span class="header-section-number">24.6</span> Step 2 — Download the repo ZIP from GitHub</a></li>
-  <li><a href="#step-3-createopen-a-foundry-code-repository-project-scoped" id="toc-step-3-createopen-a-foundry-code-repository-project-scoped" class="nav-link" data-scroll-target="#step-3-createopen-a-foundry-code-repository-project-scoped"><span class="header-section-number">24.7</span> Step 3 — Create/open a Foundry Code Repository (Project-scoped)</a></li>
-  <li><a href="#step-4-import-the-zip-contents-into-the-foundry-code-repository" id="toc-step-4-import-the-zip-contents-into-the-foundry-code-repository" class="nav-link" data-scroll-target="#step-4-import-the-zip-contents-into-the-foundry-code-repository"><span class="header-section-number">24.8</span> Step 4 — Import the ZIP contents into the Foundry Code Repository</a></li>
-  <li><a href="#step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace" id="toc-step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace" class="nav-link" data-scroll-target="#step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace"><span class="header-section-number">24.9</span> Step 5 — Verify repository structure and tooling (inside Foundry Code Workspace)</a>
+  <li><a href="#initial-configuration" id="toc-initial-configuration" class="nav-link" data-scroll-target="#initial-configuration"><span class="header-section-number">24.5</span> Initial Configuration</a>
   <ul class="collapse">
-  <li><a href="#open-the-repo-in-code-workspace" id="toc-open-the-repo-in-code-workspace" class="nav-link" data-scroll-target="#open-the-repo-in-code-workspace">5.1 Open the repo in Code Workspace</a></li>
-  <li><a href="#confirm-the-expected-filesfolders-exist" id="toc-confirm-the-expected-filesfolders-exist" class="nav-link" data-scroll-target="#confirm-the-expected-filesfolders-exist">5.2 Confirm the expected files/folders exist</a></li>
-  <li><a href="#quick-tool-exists-sanity-check-optional-but-recommended" id="toc-quick-tool-exists-sanity-check-optional-but-recommended" class="nav-link" data-scroll-target="#quick-tool-exists-sanity-check-optional-but-recommended">5.3 Quick “tool exists” sanity check (optional but recommended)</a></li>
+  <li><a href="#install-dod-certificates" id="toc-install-dod-certificates" class="nav-link" data-scroll-target="#install-dod-certificates">Install DoD Certificates</a></li>
+  <li><a href="#tell-git-to-use-the-windows-credential-store" id="toc-tell-git-to-use-the-windows-credential-store" class="nav-link" data-scroll-target="#tell-git-to-use-the-windows-credential-store">Tell Git to use the Windows credential store</a></li>
+  <li><a href="#install-the-palantir-extension-for-visual-studio-code" id="toc-install-the-palantir-extension-for-visual-studio-code" class="nav-link" data-scroll-target="#install-the-palantir-extension-for-visual-studio-code">Install the Palantir extension for Visual Studio Code</a></li>
   </ul></li>
-  <li><a href="#offline-no-internet-guidance-foundry-enclave" id="toc-offline-no-internet-guidance-foundry-enclave" class="nav-link" data-scroll-target="#offline-no-internet-guidance-foundry-enclave"><span class="header-section-number">24.10</span> Offline / no-internet guidance (Foundry enclave)</a></li>
-  <li><a href="#definition-of-done" id="toc-definition-of-done" class="nav-link" data-scroll-target="#definition-of-done"><span class="header-section-number">24.11</span> Definition of done</a></li>
+  <li><a href="#step-1-in-githib-create-your-analysis-repo" id="toc-step-1-in-githib-create-your-analysis-repo" class="nav-link" data-scroll-target="#step-1-in-githib-create-your-analysis-repo"><span class="header-section-number">24.6</span> Step 1 — In Githib, Create your analysis repo</a></li>
+  <li><a href="#step-2---in-vs-code-on-you-computer-clone-this-repo-locally" id="toc-step-2---in-vs-code-on-you-computer-clone-this-repo-locally" class="nav-link" data-scroll-target="#step-2---in-vs-code-on-you-computer-clone-this-repo-locally"><span class="header-section-number">24.7</span> Step 2 - In VS Code on you computer, clone this repo locally</a></li>
+  <li><a href="#step-3---in-palantir-foundry-code-repositories-create-a-new-empty-repository" id="toc-step-3---in-palantir-foundry-code-repositories-create-a-new-empty-repository" class="nav-link" data-scroll-target="#step-3---in-palantir-foundry-code-repositories-create-a-new-empty-repository"><span class="header-section-number">24.8</span> Step 3 - In Palantir Foundry Code Repositories, create a new empty repository</a></li>
+  <li><a href="#step-4---in-vs-code-on-your-computer-add-foundry-as-a-remote" id="toc-step-4---in-vs-code-on-your-computer-add-foundry-as-a-remote" class="nav-link" data-scroll-target="#step-4---in-vs-code-on-your-computer-add-foundry-as-a-remote"><span class="header-section-number">24.9</span> Step 4 - In VS Code on your computer, add Foundry as a remote</a></li>
+  <li><a href="#step-5---verify-in-foundry" id="toc-step-5---verify-in-foundry" class="nav-link" data-scroll-target="#step-5---verify-in-foundry"><span class="header-section-number">24.10</span> Step 5 - Verify in Foundry</a></li>
+  <li><a href="#step-6-verify-repository-structure-and-tooling-inside-foundry-code-workspace" id="toc-step-6-verify-repository-structure-and-tooling-inside-foundry-code-workspace" class="nav-link" data-scroll-target="#step-6-verify-repository-structure-and-tooling-inside-foundry-code-workspace"><span class="header-section-number">24.11</span> Step 6 — Verify repository structure and tooling (inside Foundry Code Workspace)</a>
+  <ul class="collapse">
+  <li><a href="#open-the-repo-in-code-workspace" id="toc-open-the-repo-in-code-workspace" class="nav-link" data-scroll-target="#open-the-repo-in-code-workspace">6.1 Open the repo in Code Workspace</a></li>
+  <li><a href="#confirm-the-expected-filesfolders-exist" id="toc-confirm-the-expected-filesfolders-exist" class="nav-link" data-scroll-target="#confirm-the-expected-filesfolders-exist">6.2 Confirm the expected files/folders exist</a></li>
+  <li><a href="#quick-tool-exists-sanity-check" id="toc-quick-tool-exists-sanity-check" class="nav-link" data-scroll-target="#quick-tool-exists-sanity-check">6.3 Quick “tool exists” sanity check</a></li>
+  </ul></li>
+  <li><a href="#definition-of-done" id="toc-definition-of-done" class="nav-link" data-scroll-target="#definition-of-done"><span class="header-section-number">24.12</span> Definition of done</a></li>
+  <li><a href="#push-changes-out-of-foundry-to-local-repo" id="toc-push-changes-out-of-foundry-to-local-repo" class="nav-link" data-scroll-target="#push-changes-out-of-foundry-to-local-repo"><span class="header-section-number">24.13</span> Push changes out of Foundry to local repo</a></li>
   </ul>
 </nav>
     </div>
@@ -634,7 +641,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="objective" class="level2" data-number="24.1">
 <h2 data-number="24.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">24.1</span> Objective</h2>
-<p>Bring an existing GitHub repository into a Foundry <strong>Code Repository</strong> using a ZIP download/import workflow, so you can run and version your work inside the Foundry enclave.</p>
+<p>Bring an existing GitHub repository into a Foundry <strong>Code Repository</strong> so you can run it in a Foundry <strong>Code Workspace</strong> VS Code session to document your work inside the Foundry enclave.</p>
 <p>This chapter is a prerequisite for:</p>
 <ul>
 <li><code>fnd-threads.qmd</code> (Initiate a reproducible Threads workflow)</li>
@@ -673,65 +680,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="24.4" class="anchored" data-anchor-id="key-steps-overview"><span class="header-section-number">24.4</span> Key steps (overview)</h2>
 <ol type="1">
 <li>Create your analysis repo in GitHub from the approved template (external step).</li>
-<li>Download a ZIP of the repo from GitHub (“big green code button”).</li>
-<li>Create (or open) a Foundry Code Repository in your Foundry Project.</li>
-<li>Import/upload the ZIP contents into the Foundry Code Repository.</li>
-<li>Verify inside <strong>Foundry Code Workspace</strong> that the repo structure and tooling are present and runnable.</li>
+<li>Create an empty Foundry Code Repository.</li>
+<li></li>
 </ol>
 </section>
-<section id="step-1-create-your-analysis-repo-in-github-outside-foundry" class="level2" data-number="24.5">
-<h2 data-number="24.5" class="anchored" data-anchor-id="step-1-create-your-analysis-repo-in-github-outside-foundry"><span class="header-section-number">24.5</span> Step 1 — Create your analysis repo in GitHub (outside Foundry)</h2>
-<p>Follow:</p>
-<ul>
-<li><code>repo-create-generic-python-repo.qmd</code></li>
-</ul>
-<p>When you’re done, you should have a GitHub repository you own/control (example: <code>MVR-GIS/my-analysis-project</code>).</p>
-<p>Recommendation:</p>
-<ul>
-<li>record the commit SHA you intend to import (or create a tag/release) so you can prove which exact version entered the enclave</li>
-</ul>
+<section id="initial-configuration" class="level2" data-number="24.5">
+<h2 data-number="24.5" class="anchored" data-anchor-id="initial-configuration"><span class="header-section-number">24.5</span> Initial Configuration</h2>
+<p>Follow these steps once to ensure you have a working environment.</p>
+<section id="install-dod-certificates" class="level3">
+<h3 class="anchored" data-anchor-id="install-dod-certificates">Install DoD Certificates</h3>
+<p><code>InstalRoot</code> is the app that DoD uses to ensure secure communication. - Use USACE App Portal to install <code>InstallRoot</code>. - Open the <code>InstallRoot</code> app and click the “Install Certificates” button to install the required certificates.</p>
 </section>
-<section id="step-2-download-the-repo-zip-from-github" class="level2" data-number="24.6">
-<h2 data-number="24.6" class="anchored" data-anchor-id="step-2-download-the-repo-zip-from-github"><span class="header-section-number">24.6</span> Step 2 — Download the repo ZIP from GitHub</h2>
-<ol type="1">
-<li>Open your analysis repo in GitHub.</li>
-<li>Click <strong>Code</strong> (green button).</li>
-<li>Click <strong>Download ZIP</strong>.</li>
-<li>Save the ZIP somewhere you can access for import to Foundry.</li>
-</ol>
-<p>Notes:</p>
+<section id="tell-git-to-use-the-windows-credential-store" class="level3">
+<h3 class="anchored" data-anchor-id="tell-git-to-use-the-windows-credential-store">Tell Git to use the Windows credential store</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> http.sslBackend schannel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="install-the-palantir-extension-for-visual-studio-code" class="level3">
+<h3 class="anchored" data-anchor-id="install-the-palantir-extension-for-visual-studio-code">Install the Palantir extension for Visual Studio Code</h3>
+<p>The Palantir extension for VS Code is used to clone a repository stored in Foundry Code Repositories. See <a href="https://vantage.army.mil/docs/foundry/palantir-extension-for-visual-studio-code/overview/">install instructions here.</a> - Download the extension <code>.visx</code> file. - On the VS Code Extensions tab, use the “three dot” menu, and select “Install from VSIX…” - In the Open dialog, navigate to the palantir extension <code>.vsix</code> file and click the “Install” button.</p>
+<hr>
+</section>
+</section>
+<section id="step-1-in-githib-create-your-analysis-repo" class="level2" data-number="24.6">
+<h2 data-number="24.6" class="anchored" data-anchor-id="step-1-in-githib-create-your-analysis-repo"><span class="header-section-number">24.6</span> Step 1 — In Githib, Create your analysis repo</h2>
 <ul>
-<li>If your Foundry enclave environment cannot access GitHub directly, you may need to move the ZIP through an approved transfer mechanism. Follow your organization’s policy.</li>
-<li>Prefer a tagged release ZIP if you need stronger provenance. Otherwise, record the commit SHA you downloaded for traceability.</li>
+<li>Follow the instructions: <code>repo-create-generic-python-repo.qmd</code></li>
+<li>When you’re done, you should have a GitHub repository you own/control (example: <code>&lt;OWNER&gt;/&lt;my-analysis-project&gt;</code>).</li>
 </ul>
 </section>
-<section id="step-3-createopen-a-foundry-code-repository-project-scoped" class="level2" data-number="24.7">
-<h2 data-number="24.7" class="anchored" data-anchor-id="step-3-createopen-a-foundry-code-repository-project-scoped"><span class="header-section-number">24.7</span> Step 3 — Create/open a Foundry Code Repository (Project-scoped)</h2>
-<p>In Foundry (inside the correct Project):</p>
-<ol type="1">
-<li>Create a new Code Repository (or open an existing one).</li>
-<li>Name it consistently with the GitHub repo you’re importing (recommended).</li>
-<li>Confirm the Code Repo is in the correct Project and has the right permissions/groups (per <code>fnd-getting-started.qmd</code>).</li>
-</ol>
-</section>
-<section id="step-4-import-the-zip-contents-into-the-foundry-code-repository" class="level2" data-number="24.8">
-<h2 data-number="24.8" class="anchored" data-anchor-id="step-4-import-the-zip-contents-into-the-foundry-code-repository"><span class="header-section-number">24.8</span> Step 4 — Import the ZIP contents into the Foundry Code Repository</h2>
-<p>Import mechanics vary by Foundry configuration (UI features and permissions). Use the import option available in your environment, such as:</p>
+<section id="step-2---in-vs-code-on-you-computer-clone-this-repo-locally" class="level2" data-number="24.7">
+<h2 data-number="24.7" class="anchored" data-anchor-id="step-2---in-vs-code-on-you-computer-clone-this-repo-locally"><span class="header-section-number">24.7</span> Step 2 - In VS Code on you computer, clone this repo locally</h2>
 <ul>
-<li>Upload/import from a ZIP archive</li>
-<li>Upload folder contents via the UI</li>
-<li>A “bootstrap” repository import step (if configured)</li>
+<li>Open VS Code on your computer.</li>
+<li>Copy the Repository URL you created in the previous step: Go to your repository (e.g., on GitHub) and copy the clone URL.</li>
+<li>In VS Code, open the Command Palette: (Press Ctrl + Shift + P). Run the Clone Command: Type <code>Git: Clone</code> and select it from the list.</li>
+<li>Paste the repo URL: Enter the repository URL at GitHub when prompted and press Enter.</li>
+<li>Select a Destination: A file explorer window will open. Select or create the parent folder where you want the new repository folder to live. VS Code will automatically create a new subfolder named after the repository inside this location. Choose to open in a new session.</li>
+<li>Or, in a Git bash terminal use the following command:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/<span class="op">&lt;</span>OWNER<span class="op">&gt;</span>/<span class="op">&lt;</span>REPO<span class="op">&gt;</span> <span class="op">&lt;</span>PARENT-FOLDER-NAME<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>You will now see your newly cloned repo in your VS Code session running on your computer.</li>
+</ul>
+</section>
+<section id="step-3---in-palantir-foundry-code-repositories-create-a-new-empty-repository" class="level2" data-number="24.8">
+<h2 data-number="24.8" class="anchored" data-anchor-id="step-3---in-palantir-foundry-code-repositories-create-a-new-empty-repository"><span class="header-section-number">24.8</span> Step 3 - In Palantir Foundry Code Repositories, create a new empty repository</h2>
+<ul>
+<li>Open a web browser and log into Army Vantage (Palantir Foundry).</li>
+<li>Go to the <code>Code Repositories</code> platform app.</li>
+<li>Create a new empty repository. Give it the same name as the repo you just created in Github.</li>
+<li>Click the “Work Locally” button and copy the URL to the repository.</li>
+<li>This <foundry-repo-url> should be structured something like: <code>https://&lt;your-id&gt;:&lt;giant-string-1&gt;@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt;</code></foundry-repo-url></li>
+</ul>
+</section>
+<section id="step-4---in-vs-code-on-your-computer-add-foundry-as-a-remote" class="level2" data-number="24.9">
+<h2 data-number="24.9" class="anchored" data-anchor-id="step-4---in-vs-code-on-your-computer-add-foundry-as-a-remote"><span class="header-section-number">24.9</span> Step 4 - In VS Code on your computer, add Foundry as a remote</h2>
+<ul>
+<li>In the local version of your repo, we need to add the Palantir Foundry Code Repository repo you created in the last step as a <code>remote</code>.</li>
+<li>Use the following <code>git</code> command to add your Foundry repo as a <code>remote</code>. Replace the <foundry-repo-url> with the URL you copied from Foundry in the last step.</foundry-repo-url></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add foundry <span class="op">&lt;</span>foundry-repo-url<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Use the <code>git remote -v</code> command to check that the <code>remote</code> was added correctly.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote <span class="at">-v</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">foundry</span> https://<span class="op">&lt;</span>your-id<span class="op">&gt;</span>:<span class="op">&lt;</span>giant-string-1<span class="op">&gt;</span>@@vantage.army.mil/stemma/git/ri.stemma.main.repository.<span class="op">&lt;</span>giant-string-2<span class="op">&gt;</span>/<span class="op">&lt;</span>your-repo-name<span class="op">&gt;</span> <span class="er">(</span><span class="ex">fetch</span><span class="kw">)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">foundry</span> https://<span class="op">&lt;</span>your-id<span class="op">&gt;</span>:<span class="op">&lt;</span>giant-string-1<span class="op">&gt;</span>@@vantage.army.mil/stemma/git/ri.stemma.main.repository.<span class="op">&lt;</span>giant-string-2<span class="op">&gt;</span>/<span class="op">&lt;</span>your-repo-name<span class="op">&gt;</span> <span class="er">(</span><span class="ex">push</span><span class="kw">)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">origin</span>  https://github.com/<span class="op">&lt;</span>OWNER<span class="op">&gt;</span>/<span class="op">&lt;</span>your-repo-name<span class="op">&gt;</span>.git <span class="er">(</span><span class="ex">fetch</span><span class="kw">)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">origin</span>  https://github.com/<span class="op">&lt;</span>OWNER<span class="op">&gt;</span>/<span class="op">&lt;</span>your-repo-name<span class="op">&gt;</span>.git <span class="er">(</span><span class="ex">push</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Push your local branches (e.g., main) to the Foundry remote:</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push foundry main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>If you have branches other than <code>main</code>, push them as well.</li>
+</ul>
+</section>
+<section id="step-5---verify-in-foundry" class="level2" data-number="24.10">
+<h2 data-number="24.10" class="anchored" data-anchor-id="step-5---verify-in-foundry"><span class="header-section-number">24.10</span> Step 5 - Verify in Foundry</h2>
+<ul>
+<li>Open the new Code Repository in Foundry to confirm your code and history have been imported.</li>
 </ul>
 <p>Required outcome:</p>
 <ul>
 <li>The Code Repository file tree inside Foundry matches the GitHub repository contents at the commit you downloaded.</li>
 </ul>
 </section>
-<section id="step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace" class="level2" data-number="24.9">
-<h2 data-number="24.9" class="anchored" data-anchor-id="step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace"><span class="header-section-number">24.9</span> Step 5 — Verify repository structure and tooling (inside Foundry Code Workspace)</h2>
+<section id="step-6-verify-repository-structure-and-tooling-inside-foundry-code-workspace" class="level2" data-number="24.11">
+<h2 data-number="24.11" class="anchored" data-anchor-id="step-6-verify-repository-structure-and-tooling-inside-foundry-code-workspace"><span class="header-section-number">24.11</span> Step 6 — Verify repository structure and tooling (inside Foundry Code Workspace)</h2>
 <p>This verification step must occur inside the <strong>Foundry Code Workspace</strong> UI for the Code Repository you just imported.</p>
 <section id="open-the-repo-in-code-workspace" class="level3">
-<h3 class="anchored" data-anchor-id="open-the-repo-in-code-workspace">5.1 Open the repo in Code Workspace</h3>
+<h3 class="anchored" data-anchor-id="open-the-repo-in-code-workspace">6.1 Open the repo in Code Workspace</h3>
 <ol type="1">
 <li>In Foundry, open your Project.</li>
 <li>Open the Code Repository you imported.</li>
@@ -739,7 +778,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 <section id="confirm-the-expected-filesfolders-exist" class="level3">
-<h3 class="anchored" data-anchor-id="confirm-the-expected-filesfolders-exist">5.2 Confirm the expected files/folders exist</h3>
+<h3 class="anchored" data-anchor-id="confirm-the-expected-filesfolders-exist">6.2 Confirm the expected files/folders exist</h3>
 <p>At minimum, verify you see the expected top-level folders/files, such as:</p>
 <ul>
 <li><code>notebooks/</code></li>
@@ -760,11 +799,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>tests/</code> <em>(if your repo includes tests; recommended)</em></li>
 </ul>
 </section>
-<section id="quick-tool-exists-sanity-check-optional-but-recommended" class="level3">
-<h3 class="anchored" data-anchor-id="quick-tool-exists-sanity-check-optional-but-recommended">5.3 Quick “tool exists” sanity check (optional but recommended)</h3>
+<section id="quick-tool-exists-sanity-check" class="level3">
+<h3 class="anchored" data-anchor-id="quick-tool-exists-sanity-check">6.3 Quick “tool exists” sanity check</h3>
 <p>If your Foundry Code Workspace environment supports running Python in a terminal:</p>
 <p>From the repository root, run:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> tools.foundry_threads <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> tools.foundry_threads <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Expected outcome:</p>
 <ul>
 <li>Help text prints without import errors (confirms the repo-local tool is present and importable)</li>
@@ -774,11 +813,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>the file tree includes the required tool files listed above</li>
 <li>the <code>README.md</code> documents how the tool should be run in your environment</li>
 </ul>
-</section>
-</section>
-<section id="offline-no-internet-guidance-foundry-enclave" class="level2" data-number="24.10">
-<h2 data-number="24.10" class="anchored" data-anchor-id="offline-no-internet-guidance-foundry-enclave"><span class="header-section-number">24.10</span> Offline / no-internet guidance (Foundry enclave)</h2>
-<p>Assume no external network access from runtime environments unless your platform team confirms otherwise.</p>
 <p>Recommendations:</p>
 <ul>
 <li>Do not rely on <code>pip install ...</code> or <code>conda env create ...</code> fetching packages from the internet during normal execution.</li>
@@ -786,22 +820,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>If dependency installation is required, coordinate with your Foundry administrators on the approved mechanism (mirrors, curated channels, base images, etc.).</li>
 </ul>
 </section>
-<section id="definition-of-done" class="level2" data-number="24.11">
-<h2 data-number="24.11" class="anchored" data-anchor-id="definition-of-done"><span class="header-section-number">24.11</span> Definition of done</h2>
+</section>
+<section id="definition-of-done" class="level2" data-number="24.12">
+<h2 data-number="24.12" class="anchored" data-anchor-id="definition-of-done"><span class="header-section-number">24.12</span> Definition of done</h2>
 <p>You are ready to proceed when:</p>
 <ul>
-<li>the GitHub repo ZIP has been imported into a Foundry Code Repository</li>
+<li>the GitHub repo has been imported into a Foundry Code Repository</li>
 <li>you can browse the repo file tree in Foundry Code Workspace</li>
 <li>you recorded provenance:
 <ul>
 <li>GitHub repo URL</li>
-<li>commit SHA (or tag/release) corresponding to the ZIP you imported</li>
+<li>commit SHA (or tag/release) corresponding to the push you imported</li>
 </ul></li>
 <li>permissions/groups are set so collaborators can access the Code Repo (as intended)</li>
 <li>(recommended) you confirmed the Threads tool is present:
 <ul>
 <li><code>python -m tools.foundry_threads --help</code> runs successfully, or the required files exist in the repo tree</li>
 </ul></li>
+</ul>
+<hr>
+</section>
+<section id="push-changes-out-of-foundry-to-local-repo" class="level2" data-number="24.13">
+<h2 data-number="24.13" class="anchored" data-anchor-id="push-changes-out-of-foundry-to-local-repo"><span class="header-section-number">24.13</span> Push changes out of Foundry to local repo</h2>
+<ul>
+<li>Fetch changes from Foundry - This retrieves all branches and updates from Foundry:</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch foundry</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Pull Changes to your local branch - Update your local branch (e.g., main) with changes from Foundry:</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull foundry main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Repeat for other branches by replacing <code>main</code> with the branch you want to update.</li>
+<li>Resolve any merge conflicts - If there are conflicts, Git will prompt you to resolve them locally.</li>
 </ul>
 
 

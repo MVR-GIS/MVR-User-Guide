@@ -7,7 +7,7 @@ execute:
 
 ## Objective
 
-Bring an existing GitHub repository into a Foundry **Code Repository** using a ZIP download/import workflow, so you can run and version your work inside the Foundry enclave.
+Bring an existing GitHub repository into a Foundry **Code Repository** so you can run it in a Foundry **Code Workspace** VS Code session to document your work inside the Foundry enclave.
 
 This chapter is a prerequisite for:
 
@@ -44,66 +44,105 @@ Why this matters:
 ## Key steps (overview)
 
 1. Create your analysis repo in GitHub from the approved template (external step).
-2. Download a ZIP of the repo from GitHub (“big green code button”).
-3. Create (or open) a Foundry Code Repository in your Foundry Project.
-4. Import/upload the ZIP contents into the Foundry Code Repository.
-5. Verify inside **Foundry Code Workspace** that the repo structure and tooling are present and runnable.
+3. Create an empty Foundry Code Repository.
+4. 
 
-## Step 1 — Create your analysis repo in GitHub (outside Foundry)
+## Initial Configuration
+Follow these steps once to ensure you have a working environment. 
 
-Follow:
+### Install DoD Certificates
+`InstalRoot` is the app that DoD uses to ensure secure communication. 
+- Use USACE App Portal to install `InstallRoot`.
+- Open the `InstallRoot` app and click the "Install Certificates" button to install the required certificates. 
 
-- `repo-create-generic-python-repo.qmd`
+### Tell Git to use the Windows credential store
 
-When you’re done, you should have a GitHub repository you own/control (example: `MVR-GIS/my-analysis-project`).
+```bash
+git config --global http.sslBackend schannel
+```
 
-Recommendation:
+### Install the Palantir extension for Visual Studio Code
+The Palantir extension for VS Code is used to clone a repository stored in Foundry Code Repositories. See [install instructions here.](https://vantage.army.mil/docs/foundry/palantir-extension-for-visual-studio-code/overview/) 
+- Download the extension `.visx` file.
+- On the VS Code Extensions tab, use the "three dot" menu, and select "Install from VSIX..."
+- In the Open dialog, navigate to the palantir extension `.vsix` file and click the "Install" button. 
 
-- record the commit SHA you intend to import (or create a tag/release) so you can prove which exact version entered the enclave
+---
 
-## Step 2 — Download the repo ZIP from GitHub
+## Step 1 — In Githib, Create your analysis repo
 
-1. Open your analysis repo in GitHub.
-2. Click **Code** (green button).
-3. Click **Download ZIP**.
-4. Save the ZIP somewhere you can access for import to Foundry.
+- Follow the instructions: `repo-create-generic-python-repo.qmd`
+- When you’re done, you should have a GitHub repository you own/control (example: `<OWNER>/<my-analysis-project>`).
 
-Notes:
+## Step 2 - In VS Code on you computer, clone this repo locally
 
-- If your Foundry enclave environment cannot access GitHub directly, you may need to move the ZIP through an approved transfer mechanism. Follow your organization’s policy.
-- Prefer a tagged release ZIP if you need stronger provenance. Otherwise, record the commit SHA you downloaded for traceability.
+- Open VS Code on your computer. 
+- Copy the Repository URL you created in the previous step: Go to your repository (e.g., on GitHub) and copy the clone URL.
+- In VS Code, open the Command Palette: (Press Ctrl + Shift + P). Run the Clone Command: Type `Git: Clone` and select it from the list. 
+- Paste the repo URL: Enter the repository URL at GitHub when prompted and press Enter. 
+- Select a Destination: A file explorer window will open. Select or create the parent folder where you want the new repository folder to live. VS Code will automatically create a new subfolder named after the repository inside this location. Choose to open in a new session. 
+- Or, in a Git bash terminal use the following command: 
 
-## Step 3 — Create/open a Foundry Code Repository (Project-scoped)
+```bash
+git clone https://github.com/<OWNER>/<REPO> <PARENT-FOLDER-NAME>
+```
 
-In Foundry (inside the correct Project):
+- You will now see your newly cloned repo in your VS Code session running on your computer. 
 
-1. Create a new Code Repository (or open an existing one).
-2. Name it consistently with the GitHub repo you’re importing (recommended).
-3. Confirm the Code Repo is in the correct Project and has the right permissions/groups (per `fnd-getting-started.qmd`).
+## Step 3 - In Palantir Foundry Code Repositories, create a new empty repository
 
-## Step 4 — Import the ZIP contents into the Foundry Code Repository
+- Open a web browser and log into Army Vantage (Palantir Foundry). 
+- Go to the `Code Repositories` platform app. 
+- Create a new empty repository. Give it the same name as the repo you just created in Github. 
+- Click the "Work Locally" button and copy the URL to the repository. 
+- This <foundry-repo-url> should be structured something like: `https://<your-id>:<giant-string-1>@vantage.army.mil/stemma/git/ri.stemma.main.repository.<giant-string-2>/<your-repo-name>`
 
-Import mechanics vary by Foundry configuration (UI features and permissions). Use the import option available in your environment, such as:
+## Step 4 - In VS Code on your computer, add Foundry as a remote
 
-- Upload/import from a ZIP archive
-- Upload folder contents via the UI
-- A “bootstrap” repository import step (if configured)
+- In the local version of your repo, we need to add the Palantir Foundry Code Repository repo you created in the last step as a `remote`. 
+- Use the following `git` command to add your Foundry repo as a `remote`. Replace the <foundry-repo-url> with the URL you copied from Foundry in the last step. 
+
+```bash
+git remote add foundry <foundry-repo-url>
+```
+
+- Use the `git remote -v` command to check that the `remote` was added correctly. 
+
+```bash
+git remote -v
+foundry https://<your-id>:<giant-string-1>@@vantage.army.mil/stemma/git/ri.stemma.main.repository.<giant-string-2>/<your-repo-name> (fetch)
+foundry https://<your-id>:<giant-string-1>@@vantage.army.mil/stemma/git/ri.stemma.main.repository.<giant-string-2>/<your-repo-name> (push)
+origin  https://github.com/<OWNER>/<your-repo-name>.git (fetch)
+origin  https://github.com/<OWNER>/<your-repo-name>.git (push)
+```
+
+- Push your local branches (e.g., main) to the Foundry remote:
+
+```bash
+git push foundry main
+```
+
+- If you have branches other than `main`, push them as well.
+
+## Step 5 - Verify in Foundry
+
+- Open the new Code Repository in Foundry to confirm your code and history have been imported.
 
 Required outcome:
 
 - The Code Repository file tree inside Foundry matches the GitHub repository contents at the commit you downloaded.
 
-## Step 5 — Verify repository structure and tooling (inside Foundry Code Workspace)
+## Step 6 — Verify repository structure and tooling (inside Foundry Code Workspace)
 
 This verification step must occur inside the **Foundry Code Workspace** UI for the Code Repository you just imported.
 
-### 5.1 Open the repo in Code Workspace
+### 6.1 Open the repo in Code Workspace
 
 1. In Foundry, open your Project.
 2. Open the Code Repository you imported.
 3. Open it in **Code Workspace** so you can browse files and run commands (if enabled in your environment).
 
-### 5.2 Confirm the expected files/folders exist
+### 6.2 Confirm the expected files/folders exist
 
 At minimum, verify you see the expected top-level folders/files, such as:
 
@@ -122,7 +161,7 @@ Also verify the presence of the Threads workflow tooling (required for `fnd-thre
 - `pytest.ini` *(supports consistent test imports)*
 - `tests/` *(if your repo includes tests; recommended)*
 
-### 5.3 Quick “tool exists” sanity check (optional but recommended)
+### 6.3 Quick “tool exists” sanity check
 
 If your Foundry Code Workspace environment supports running Python in a terminal:
 
@@ -141,10 +180,6 @@ If you cannot run a terminal in Code Workspace (or Python execution is constrain
 - the file tree includes the required tool files listed above
 - the `README.md` documents how the tool should be run in your environment
 
-## Offline / no-internet guidance (Foundry enclave)
-
-Assume no external network access from runtime environments unless your platform team confirms otherwise.
-
 Recommendations:
 
 - Do not rely on `pip install ...` or `conda env create ...` fetching packages from the internet during normal execution.
@@ -155,11 +190,31 @@ Recommendations:
 
 You are ready to proceed when:
 
-- the GitHub repo ZIP has been imported into a Foundry Code Repository
+- the GitHub repo has been imported into a Foundry Code Repository
 - you can browse the repo file tree in Foundry Code Workspace
 - you recorded provenance:
   - GitHub repo URL
-  - commit SHA (or tag/release) corresponding to the ZIP you imported
+  - commit SHA (or tag/release) corresponding to the push you imported
 - permissions/groups are set so collaborators can access the Code Repo (as intended)
 - (recommended) you confirmed the Threads tool is present:
   - `python -m tools.foundry_threads --help` runs successfully, or the required files exist in the repo tree
+
+---
+
+## Push changes out of Foundry to local repo
+
+- Fetch changes from Foundry - This retrieves all branches and updates from Foundry:
+
+```bash
+git fetch foundry
+```
+
+- Pull Changes to your local branch - Update your local branch (e.g., main) with changes from Foundry:
+
+```bash
+git pull foundry main
+```
+
+- Repeat for other branches by replacing `main` with the branch you want to update.
+- Resolve any merge conflicts - If there are conflicts, Git will prompt you to resolve them locally.
+
