@@ -3,169 +3,89 @@ execute:
   eval: false
 ---
 
-# Foundry Code Workspaces
+# Code Workspaces
 
 ## Objective
 
-Help USACE geospatial data scientists get productive quickly in Army Vantage’s **Code Workspaces** experience (VS Code in the browser), focusing on:
-
-- opening a Code Repository in a Code Workspace
-- running Python (scripts + notebooks)
-- making reviewable changes (commits) inside the enclave
-
-This chapter intentionally avoids repo import mechanics (see `fnd-load-repo.qmd`).
+Create a Foundry **Code Workspace** VS Code session to document your work inside the Foundry enclave.
 
 ## Prerequisites
 
-- You can sign in to Army Vantage.
-- You have access to a Project with a Code Repository you can open in a Code Workspace.
-  - If you need to create/import a repository first, follow: `fnd-load-repo.qmd`.
+Before you start, complete:
 
-## Mental model (for daily work)
+- `fnd-getting-started.qmd` (login, create a project, tagging for discovery, groups/permissions, etc.)
 
-For our workflow, Army Vantage Code Workspaces is:
+You also need:
 
-- a **browser-based VS Code IDE** attached to a Foundry **Code Repository**
-- your primary place to:
-  - edit files
-  - run Python
-  - view outputs/logs
-  - commit changes (audit trail)
+- access to create a Code Repository in your Foundry Project
+- VS Code installed locally
+- DoD Certificates installed locally
+- Palantir extension for VS Code
 
-Assume constrained networking unless explicitly confirmed otherwise.
+## Can I import an existing repo I developed?
 
-## Code Workspaces tour (what you should know on day 1)
+**BLUF:** Yes, but you won't be able to run it in the Palantir Foundry Code Workspaces VS Code environment unless it meets specific requirements. 
 
-Inside a Code Workspace, you’ll typically rely on these VS Code areas:
+- For a repo to be able to run inside a Foundry VS Code session, it must meet a set of deployment requirements. 
+- These requirements are described in [Palantir documentation](https://vantage.army.mil/documentation/static/foundry/transforms-python/project-structure#default-bootstrapped-repository). 
+- Users are advised to begin with one of the Palantir maintained VS Code project templates. 
+- Once created in Code Workspaces, follow the instructions below to clone it locally for use outside Palantir. 
 
-- **Explorer** (file tree): browse and edit your repo
-- **Search**: find code/text across the repo
-- **Terminal**: run commands (`python`, `pytest`, etc.) if enabled
-- **Run / Debug**: run scripts (if enabled/configured)
-- **Source Control**: view diffs + commit changes
-- **Extensions** (if exposed): may be limited by platform policy
+## Key steps (overview)
 
-If you are new to VS Code:
-- learn two shortcuts early:
-  - Command Palette (VS Code): search for actions/settings
-  - Search in files: find symbols and text quickly
+1. Open an existing project in Foundry.
+2. Create a Foundry Code Repository using a template (e.g., Functions, Pipelines).
+3. Open this repo in a Code Workspaces VS Code session. 
+4. Clone this repo to your computer.
 
-## Step-by-step: start a working Python session (inside Code Workspace)
+---
 
-### Step 1 — Open your Code Repository in a Code Workspace
+## Initial Configuration
+Follow these steps once to ensure you have a working environment. 
 
-1. In Army Vantage, open your **Project**.
-2. Open the **Code Repository** for your analysis work.
-3. Launch **Code Workspace** (VS Code).
+### Install DoD Certificates
+`InstalRoot` is the app that DoD uses to ensure secure communication. 
+- Use USACE App Portal to install `InstallRoot`.
+- Open the `InstallRoot` app and click the "Install Certificates" button to install the required certificates. 
 
-Outcome:
-- you see the repo file tree in the Explorer panel.
-
-### Step 2 — Identify the “repo root” (important for every command)
-
-In the Explorer panel, locate the repository root folder (top of the file tree). This is where you should see project files like:
-
-- `README.md`
-- `environment.yml` (if using the `repo-generic-python` template)
-- `notebooks/`, `src/`, `outputs/`
-
-Operational rule:
-- When later chapters say “run from repo root,” they mean “run with your terminal working directory set to this folder.”
-
-### Step 3 — Confirm Python is available in the Workspace runtime
-
-Open a terminal in Code Workspace (if your environment allows it) and run:
+### Tell Git to use the Windows credential store
 
 ```bash
-python --version
+git config --global http.sslBackend schannel
 ```
 
-If Python is not available, you have three common paths (platform-dependent):
+### Install the Palantir extension for Visual Studio Code
+The Palantir extension for VS Code is used to clone a repository stored in Foundry Code Repositories. See [install instructions here.](https://vantage.army.mil/docs/foundry/palantir-extension-for-visual-studio-code/overview/) 
+- Download the extension `.visx` file.
+- On the VS Code Extensions tab, use the "three dot" menu, and select "Install from VSIX..."
+- In the Open dialog, navigate to the palantir extension `.vsix` file and click the "Install" button. 
 
-- your workspace is not configured with a Python runtime
-- you need to select a pre-provided interpreter/environment
-- you need platform support to enable the correct runtime image / environment
+---
 
-Do not attempt ad-hoc internet installs in an enclave unless explicitly approved.
+## Step-by-Step
 
-### Step 4 — Open and run a notebook (fastest “hello world”)
+### Step 1 - In Palantir Foundry Code Repositories, create a new repository
 
-1. In Explorer, open a notebook in `notebooks/` (or create a new one).
-2. Run a minimal cell:
+- Open a web browser and log into Army Vantage (Palantir Foundry). 
+- Go to the `Code Repositories` platform app. 
+- Create a new repository using one of the existing templates (e.g., Functions, Transforms). 
+- Choose to run this repo in VS Code.  
+- Click the "Work Locally" button and copy the URL to the repository. 
+- This <foundry-repo-url> should be structured something like: `https://<your-id>:<giant-string-1>@vantage.army.mil/stemma/git/ri.stemma.main.repository.<giant-string-2>/<your-repo-name>`
 
-```python
-import sys
-sys.version
-```
+### Step 2 - In VS Code on your computer, use the Palantir extension to clone the repo
 
-If prompted to select a kernel/interpreter:
-- choose the intended Python environment for the repo (platform-provided).
+- Open a new empty session in VS Code.
+- In the Palantir extension, click the "Clone Repository" button. 
+- When prompted, paste the <foundry-repo-url> you copied in the previous step. 
+- This should trigger the clone operation. You should now see the repo you created in Foundry. 
 
-### Step 5 — Run a Python script from the terminal (repeatable workflows)
+### Step 3 - Make changes to your repo and commit as usual
 
-From the repo root in the terminal:
+- Make changes and commit. 
+- Use standard VS Code tools to push to Foundry. 
+- If you have branches other than `main`, push them as well.
 
-```bash
-python -c "print('hello from code workspace')"
-```
+### Step 4 - Verify in Foundry
 
-Then, when you start using repository tooling (example from later chapters):
-
-```bash
-python -m tools.foundry_threads --help
-```
-
-### Step 6 — Make a small edit and commit (audit trail baseline)
-
-In Code Workspace:
-
-1. Open `README.md`.
-2. Make a small change (example: add a one-line note under “Daily workflow”).
-3. Open the Source Control panel.
-4. Review the diff.
-5. Write a clear commit message.
-6. Commit.
-
-Outcome:
-- you have verified end-to-end: edit → diff → commit inside the enclave.
-
-## Practical tips for USACE geospatial workflows
-
-- Prefer storing data in Foundry datasets; keep the repo for:
-  - code
-  - configuration
-  - small reviewable outputs
-  - AI session logs (per `fnd-threads.qmd`)
-- Keep outputs deterministic and reviewable:
-  - `.md`, `.csv`, `.yml`, `.json` where possible
-- Use “save often” patterns for anything interactive (Threads sessions, notebooks).
-
-## Common troubleshooting (Code Workspace)
-
-### I can’t open a terminal
-
-Some deployments restrict terminal access. If terminal is unavailable:
-
-- rely on notebook execution where possible
-- coordinate with platform administrators for the approved execution path
-
-### My Python kernel/interpreter is wrong
-
-Symptoms:
-- imports fail unexpectedly
-- version mismatch
-
-Fix:
-- select the correct kernel/interpreter in the notebook UI
-- ensure you are using the environment intended for the repository
-
-### I can’t commit changes
-
-- verify you have write permissions on the Code Repository
-- verify the repo is not in a read-only state
-- coordinate with the Project owner/admin to adjust access
-
-## Where we go next
-
-- `fnd-load-repo.qmd` — if you still need to import a GitHub repo ZIP into a Foundry Code Repository
-- `fnd-threads.qmd` — capture Threads session history into `dev/sessions/` using the repo-local Python tool
+- Open the new Code Repository in Foundry to confirm your code and history have been imported.

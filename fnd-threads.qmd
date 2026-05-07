@@ -7,9 +7,7 @@ execute:
 
 ## Objective
 
-Capture a Foundry Threads chat session history and preserve outputs in a **reviewable, auditable** way inside a Foundry enclave (assume offline / no-internet execution).
-
-This chapter focuses on **workflow and structure** and assumes you will do the work inside the **Foundry Code Workspace** UI (not a local machine workflow).
+Capture a Foundry Threads chat session history and preserve outputs in a **reviewable, auditable** repo on a local machine.
 
 ## Prerequisites
 
@@ -22,10 +20,7 @@ Complete these first:
   - groups/permissions
   - any required platform conventions
 
-- `fnd-load-repo.qmd`
-  - import your GitHub analysis repository into a Foundry Code Repository using ZIP import
-
-You should also already have a GitHub analysis repo created from:
+You should also already have a GitHub analysis repo created from this template repo:
 
 - `repo-create-generic-python-repo.qmd`
 
@@ -67,7 +62,7 @@ This workflow stores session artifacts under a platform-agnostic development fol
     - `YYYY-MM-DD[_topic].md`
     - `.raw/`
       - `YYYY-MM-DD[_topic].threads_export.json`
-    - `.backups/` *(gitignored local backups)*
+    - `.backups/` 
 
 Notes:
 
@@ -80,39 +75,31 @@ Notes:
   - `dev/sessions/.backups/`
   - These are meant to prevent loss during active work and are typically **not committed** to avoid repo bloat.
 
-## Step-by-step (inside Foundry Code Workspace)
 
-These steps assume you are working inside the **Foundry Code Workspace UI** for your Project.
+## Step-by-step 
 
-### Step 1 — Open your Foundry Code Repository in Code Workspace
+### Step 1 — Open your repo on your local computer
 
-1. In Foundry, navigate to your Project.
-2. Open the **Code Repository** you imported (per `fnd-load-repo.qmd`).
-3. Open it in **Code Workspace** so you can:
-   - view/edit files
-   - run terminal commands (if enabled in your environment)
-   - commit changes (using the Code Repo’s commit UI)
+1. Use VS Code installed on your computer.
+2. Open your repo. 
+
 
 ### Step 2 — Export the Threads chat session to JSON
 
-In Foundry Threads (in the same enclave environment):
+In Foundry Threads:
 
-1. Use the Threads UI export/save option.
-2. Export the chat in **JSON** format.
-3. Save the export as:
+1. Perform you chat session.
+2. Use the Threads UI export/save option.
+3. Export the chat in **JSON** format.
+4. Save the export as:
 
 - `threads_export.json`
+- a local downloads file
 
-**Where to save it:**
-Save it somewhere your Foundry Code Workspace runtime can read. In many environments, this is your workspace's default downloads area or a user-accessible file location exposed to the workspace.
-
-If you are unsure where exports land in your configuration:
-- do one export
-- then search for the file name `threads_export.json` from within the Code Workspace file browser / terminal (if available)
 
 ### Step 3 — Run the extractor (creates/updates the auditable artifacts)
 
-In Foundry Code Workspace:
+In your local VS Code repo:
 
 1. Ensure the repo environment is available (per your platform’s Python environment conventions).
 2. From the repo root, run:
@@ -156,11 +143,9 @@ This produces:
 - `dev/sessions/YYYY-MM-DD_data_validation.md`
 - `dev/sessions/.raw/YYYY-MM-DD_data_validation.threads_export.json`
 
-### Step 6 — Preserve the audit trail (commit in Code Workspace)
+### Step 6 — Preserve the audit trail
 
-In Foundry Code Workspace, commit the updated files to the Code Repository.
-
-Minimum expected committed artifacts:
+In your repo commit the updated files. Minimum expected committed artifacts:
 
 - `dev/sessions/YYYY-MM-DD*.md`
 - `dev/sessions/.raw/*.threads_export.json`
@@ -176,37 +161,6 @@ Commit message guidance:
 - include date and a short purpose
 - example: `Update Threads session log (2026-05-03)`
 
-## Offline / no-internet constraints
-
-Design your workflow so it does not require:
-
-- downloading packages at run time
-- calling external APIs
-- embedding links as “required steps” unless internal and accessible
-
-If you reference external documentation, treat it as “background reading” rather than a dependency for completing the workflow.
-
-## Troubleshooting
-
-### I can’t find `threads_export.json` from Code Workspace
-
-- Confirm the export completed successfully in Threads.
-- Re-export and explicitly name the file `threads_export.json`.
-- Use Code Workspace search (or terminal) to locate the file.
-- If exports are saved to a location not visible to Code Workspace in your configuration, coordinate with your Foundry administrators for the approved way to move the export file into the Code Workspace environment.
-
-### `python -m tools.foundry_threads` fails
-
-- Confirm your repo was created from `MVR-GIS/repo-generic-python` (the tool lives in that template).
-- Confirm you are running from the repository root in Code Workspace.
-- Confirm your Python environment is active/available in the Code Workspace runtime.
-- If dependency errors mention YAML:
-  - confirm the environment includes PyYAML per the template’s `environment.yml`.
-
-### I’m not sure what I’m allowed to paste into Threads
-
-- Stop and confirm policy with your platform/data governance point of contact.
-- Prefer referencing datasets by identifier rather than pasting raw records.
 
 ## Definition of done
 
@@ -217,4 +171,4 @@ You are done when:
 - the raw export is preserved in-repo:
   - `dev/sessions/.raw/YYYY-MM-DD[_topic].threads_export.json`
 - the transcript includes YAML front matter metadata (title/date/user/model/hash)
-- the files are committed to the Foundry Code Repository so a reviewer can retrieve them later
+- the files are committed so a reviewer can retrieve them later

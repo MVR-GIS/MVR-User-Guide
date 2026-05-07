@@ -57,7 +57,6 @@ book:
       chapters:
         - fnd-getting-started.qmd
         - fnd-code-workspace.qmd
-        - fnd-load-repo.qmd
         - fnd-threads.qmd
   appendices:
     - ref-references.qmd

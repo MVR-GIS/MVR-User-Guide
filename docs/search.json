@@ -1351,419 +1351,309 @@
   {
     "objectID": "fnd-code-workspace.html",
     "href": "fnd-code-workspace.html",
-    "title": "23  Foundry Code Workspaces",
+    "title": "23  Code Workspaces",
     "section": "",
-    "text": "23.1 Objective\nHelp USACE geospatial data scientists get productive quickly in Army Vantage’s Code Workspaces experience (VS Code in the browser), focusing on:\nThis chapter intentionally avoids repo import mechanics (see fnd-load-repo.qmd).",
+    "text": "23.1 Objective\nCreate a Foundry Code Workspace VS Code session to document your work inside the Foundry enclave.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
-    ]
-  },
-  {
-    "objectID": "fnd-code-workspace.html#objective",
-    "href": "fnd-code-workspace.html#objective",
-    "title": "23  Foundry Code Workspaces",
-    "section": "",
-    "text": "opening a Code Repository in a Code Workspace\nrunning Python (scripts + notebooks)\nmaking reviewable changes (commits) inside the enclave",
-    "crumbs": [
-      "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
     "objectID": "fnd-code-workspace.html#prerequisites",
     "href": "fnd-code-workspace.html#prerequisites",
-    "title": "23  Foundry Code Workspaces",
+    "title": "23  Code Workspaces",
     "section": "23.2 Prerequisites",
-    "text": "23.2 Prerequisites\n\nYou can sign in to Army Vantage.\nYou have access to a Project with a Code Repository you can open in a Code Workspace.\n\nIf you need to create/import a repository first, follow: fnd-load-repo.qmd.",
+    "text": "23.2 Prerequisites\nBefore you start, complete:\n\nfnd-getting-started.qmd (login, create a project, tagging for discovery, groups/permissions, etc.)\n\nYou also need:\n\naccess to create a Code Repository in your Foundry Project\nVS Code installed locally\nDoD Certificates installed locally\nPalantir extension for VS Code",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-code-workspace.html#mental-model-for-daily-work",
-    "href": "fnd-code-workspace.html#mental-model-for-daily-work",
-    "title": "23  Foundry Code Workspaces",
-    "section": "23.3 Mental model (for daily work)",
-    "text": "23.3 Mental model (for daily work)\nFor our workflow, Army Vantage Code Workspaces is:\n\na browser-based VS Code IDE attached to a Foundry Code Repository\nyour primary place to:\n\nedit files\nrun Python\nview outputs/logs\ncommit changes (audit trail)\n\n\nAssume constrained networking unless explicitly confirmed otherwise.",
+    "objectID": "fnd-code-workspace.html#can-i-import-an-existing-repo-i-developed",
+    "href": "fnd-code-workspace.html#can-i-import-an-existing-repo-i-developed",
+    "title": "23  Code Workspaces",
+    "section": "23.3 Can I import an existing repo I developed?",
+    "text": "23.3 Can I import an existing repo I developed?\nBLUF: Yes, but you won’t be able to run it in the Palantir Foundry Code Workspaces VS Code environment unless it meets specific requirements.\n\nFor a repo to be able to run inside a Foundry VS Code session, it must meet a set of deployment requirements.\nThese requirements are described in Palantir documentation.\nUsers are advised to begin with one of the Palantir maintained VS Code project templates.\nOnce created in Code Workspaces, follow the instructions below to clone it locally for use outside Palantir.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-code-workspace.html#code-workspaces-tour-what-you-should-know-on-day-1",
-    "href": "fnd-code-workspace.html#code-workspaces-tour-what-you-should-know-on-day-1",
-    "title": "23  Foundry Code Workspaces",
-    "section": "23.4 Code Workspaces tour (what you should know on day 1)",
-    "text": "23.4 Code Workspaces tour (what you should know on day 1)\nInside a Code Workspace, you’ll typically rely on these VS Code areas:\n\nExplorer (file tree): browse and edit your repo\nSearch: find code/text across the repo\nTerminal: run commands (python, pytest, etc.) if enabled\nRun / Debug: run scripts (if enabled/configured)\nSource Control: view diffs + commit changes\nExtensions (if exposed): may be limited by platform policy\n\nIf you are new to VS Code: - learn two shortcuts early: - Command Palette (VS Code): search for actions/settings - Search in files: find symbols and text quickly",
+    "objectID": "fnd-code-workspace.html#key-steps-overview",
+    "href": "fnd-code-workspace.html#key-steps-overview",
+    "title": "23  Code Workspaces",
+    "section": "23.4 Key steps (overview)",
+    "text": "23.4 Key steps (overview)\n\nOpen an existing project in Foundry.\nCreate a Foundry Code Repository using a template (e.g., Functions, Pipelines).\nOpen this repo in a Code Workspaces VS Code session.\nClone this repo to your computer.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-code-workspace.html#step-by-step-start-a-working-python-session-inside-code-workspace",
-    "href": "fnd-code-workspace.html#step-by-step-start-a-working-python-session-inside-code-workspace",
-    "title": "23  Foundry Code Workspaces",
-    "section": "23.5 Step-by-step: start a working Python session (inside Code Workspace)",
-    "text": "23.5 Step-by-step: start a working Python session (inside Code Workspace)\n\nStep 1 — Open your Code Repository in a Code Workspace\n\nIn Army Vantage, open your Project.\nOpen the Code Repository for your analysis work.\nLaunch Code Workspace (VS Code).\n\nOutcome: - you see the repo file tree in the Explorer panel.\n\n\nStep 2 — Identify the “repo root” (important for every command)\nIn the Explorer panel, locate the repository root folder (top of the file tree). This is where you should see project files like:\n\nREADME.md\nenvironment.yml (if using the repo-generic-python template)\nnotebooks/, src/, outputs/\n\nOperational rule: - When later chapters say “run from repo root,” they mean “run with your terminal working directory set to this folder.”\n\n\nStep 3 — Confirm Python is available in the Workspace runtime\nOpen a terminal in Code Workspace (if your environment allows it) and run:\npython --version\nIf Python is not available, you have three common paths (platform-dependent):\n\nyour workspace is not configured with a Python runtime\nyou need to select a pre-provided interpreter/environment\nyou need platform support to enable the correct runtime image / environment\n\nDo not attempt ad-hoc internet installs in an enclave unless explicitly approved.\n\n\nStep 4 — Open and run a notebook (fastest “hello world”)\n\nIn Explorer, open a notebook in notebooks/ (or create a new one).\nRun a minimal cell:\n\nimport sys\nsys.version\nIf prompted to select a kernel/interpreter: - choose the intended Python environment for the repo (platform-provided).\n\n\nStep 5 — Run a Python script from the terminal (repeatable workflows)\nFrom the repo root in the terminal:\npython -c \"print('hello from code workspace')\"\nThen, when you start using repository tooling (example from later chapters):\npython -m tools.foundry_threads --help\n\n\nStep 6 — Make a small edit and commit (audit trail baseline)\nIn Code Workspace:\n\nOpen README.md.\nMake a small change (example: add a one-line note under “Daily workflow”).\nOpen the Source Control panel.\nReview the diff.\nWrite a clear commit message.\nCommit.\n\nOutcome: - you have verified end-to-end: edit → diff → commit inside the enclave.",
+    "objectID": "fnd-code-workspace.html#initial-configuration",
+    "href": "fnd-code-workspace.html#initial-configuration",
+    "title": "23  Code Workspaces",
+    "section": "23.5 Initial Configuration",
+    "text": "23.5 Initial Configuration\nFollow these steps once to ensure you have a working environment.\n\nInstall DoD Certificates\nInstalRoot is the app that DoD uses to ensure secure communication. - Use USACE App Portal to install InstallRoot. - Open the InstallRoot app and click the “Install Certificates” button to install the required certificates.\n\n\nTell Git to use the Windows credential store\ngit config --global http.sslBackend schannel\n\n\nInstall the Palantir extension for Visual Studio Code\nThe Palantir extension for VS Code is used to clone a repository stored in Foundry Code Repositories. See install instructions here. - Download the extension .visx file. - On the VS Code Extensions tab, use the “three dot” menu, and select “Install from VSIX…” - In the Open dialog, navigate to the palantir extension .vsix file and click the “Install” button.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-code-workspace.html#practical-tips-for-usace-geospatial-workflows",
-    "href": "fnd-code-workspace.html#practical-tips-for-usace-geospatial-workflows",
-    "title": "23  Foundry Code Workspaces",
-    "section": "23.6 Practical tips for USACE geospatial workflows",
-    "text": "23.6 Practical tips for USACE geospatial workflows\n\nPrefer storing data in Foundry datasets; keep the repo for:\n\ncode\nconfiguration\nsmall reviewable outputs\nAI session logs (per fnd-threads.qmd)\n\nKeep outputs deterministic and reviewable:\n\n.md, .csv, .yml, .json where possible\n\nUse “save often” patterns for anything interactive (Threads sessions, notebooks).",
+    "objectID": "fnd-code-workspace.html#step-1-in-githib-create-your-analysis-repo",
+    "href": "fnd-code-workspace.html#step-1-in-githib-create-your-analysis-repo",
+    "title": "23  Code Workspaces",
+    "section": "23.6 Step 1 — In Githib, Create your analysis repo",
+    "text": "23.6 Step 1 — In Githib, Create your analysis repo\n\nFollow the instructions: repo-create-generic-python-repo.qmd\nWhen you’re done, you should have a GitHub repository you own/control (example: &lt;OWNER&gt;/&lt;my-analysis-project&gt;).",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-code-workspace.html#common-troubleshooting-code-workspace",
-    "href": "fnd-code-workspace.html#common-troubleshooting-code-workspace",
-    "title": "23  Foundry Code Workspaces",
-    "section": "23.7 Common troubleshooting (Code Workspace)",
-    "text": "23.7 Common troubleshooting (Code Workspace)\n\nI can’t open a terminal\nSome deployments restrict terminal access. If terminal is unavailable:\n\nrely on notebook execution where possible\ncoordinate with platform administrators for the approved execution path\n\n\n\nMy Python kernel/interpreter is wrong\nSymptoms: - imports fail unexpectedly - version mismatch\nFix: - select the correct kernel/interpreter in the notebook UI - ensure you are using the environment intended for the repository\n\n\nI can’t commit changes\n\nverify you have write permissions on the Code Repository\nverify the repo is not in a read-only state\ncoordinate with the Project owner/admin to adjust access",
+    "objectID": "fnd-code-workspace.html#step-2---in-vs-code-on-you-computer-clone-this-repo-locally",
+    "href": "fnd-code-workspace.html#step-2---in-vs-code-on-you-computer-clone-this-repo-locally",
+    "title": "23  Code Workspaces",
+    "section": "23.7 Step 2 - In VS Code on you computer, clone this repo locally",
+    "text": "23.7 Step 2 - In VS Code on you computer, clone this repo locally\n\nOpen VS Code on your computer.\nCopy the Repository URL you created in the previous step: Go to your repository (e.g., on GitHub) and copy the clone URL.\nIn VS Code, open the Command Palette: (Press Ctrl + Shift + P). Run the Clone Command: Type Git: Clone and select it from the list.\nPaste the repo URL: Enter the repository URL at GitHub when prompted and press Enter.\nSelect a Destination: A file explorer window will open. Select or create the parent folder where you want the new repository folder to live. VS Code will automatically create a new subfolder named after the repository inside this location. Choose to open in a new session.\nOr, in a Git bash terminal use the following command:\n\ngit clone https://github.com/&lt;OWNER&gt;/&lt;REPO&gt; &lt;PARENT-FOLDER-NAME&gt;\n\nYou will now see your newly cloned repo in your VS Code session running on your computer.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-code-workspace.html#where-we-go-next",
-    "href": "fnd-code-workspace.html#where-we-go-next",
-    "title": "23  Foundry Code Workspaces",
-    "section": "23.8 Where we go next",
-    "text": "23.8 Where we go next\n\nfnd-load-repo.qmd — if you still need to import a GitHub repo ZIP into a Foundry Code Repository\nfnd-threads.qmd — capture Threads session history into dev/sessions/ using the repo-local Python tool",
+    "objectID": "fnd-code-workspace.html#step-3---in-palantir-foundry-code-repositories-create-a-new-empty-repository",
+    "href": "fnd-code-workspace.html#step-3---in-palantir-foundry-code-repositories-create-a-new-empty-repository",
+    "title": "23  Code Workspaces",
+    "section": "23.8 Step 3 - In Palantir Foundry Code Repositories, create a new empty repository",
+    "text": "23.8 Step 3 - In Palantir Foundry Code Repositories, create a new empty repository\n\nOpen a web browser and log into Army Vantage (Palantir Foundry).\nGo to the Code Repositories platform app.\nCreate a new empty repository. Give it the same name as the repo you just created in Github.\nClick the “Work Locally” button and copy the URL to the repository.\nThis  should be structured something like: https://&lt;your-id&gt;:&lt;giant-string-1&gt;@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt;",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Foundry Code Workspaces</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-load-repo.html",
-    "href": "fnd-load-repo.html",
-    "title": "24  Load a repo into Foundry",
-    "section": "",
-    "text": "24.1 Objective\nBring an existing GitHub repository into a Foundry Code Repository so you can run it in a Foundry Code Workspace VS Code session to document your work inside the Foundry enclave.\nThis chapter is a prerequisite for:",
+    "objectID": "fnd-code-workspace.html#step-4---in-vs-code-on-your-computer-add-foundry-as-a-remote",
+    "href": "fnd-code-workspace.html#step-4---in-vs-code-on-your-computer-add-foundry-as-a-remote",
+    "title": "23  Code Workspaces",
+    "section": "23.9 Step 4 - In VS Code on your computer, add Foundry as a remote",
+    "text": "23.9 Step 4 - In VS Code on your computer, add Foundry as a remote\n\nIn the local version of your repo, we need to add the Palantir Foundry Code Repository repo you created in the last step as a remote.\nUse the following git command to add your Foundry repo as a remote. Replace the  with the URL you copied from Foundry in the last step.\n\ngit remote add foundry &lt;foundry-repo-url&gt;\n\nUse the git remote -v command to check that the remote was added correctly.\n\ngit remote -v\nfoundry https://&lt;your-id&gt;:&lt;giant-string-1&gt;@@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt; (fetch)\nfoundry https://&lt;your-id&gt;:&lt;giant-string-1&gt;@@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt; (push)\norigin  https://github.com/&lt;OWNER&gt;/&lt;your-repo-name&gt;.git (fetch)\norigin  https://github.com/&lt;OWNER&gt;/&lt;your-repo-name&gt;.git (push)\n\nPush your local branches (e.g., main) to the Foundry remote:\n\ngit push foundry main\n\nIf you have branches other than main, push them as well.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-load-repo.html#objective",
-    "href": "fnd-load-repo.html#objective",
-    "title": "24  Load a repo into Foundry",
-    "section": "",
-    "text": "fnd-threads.qmd (Initiate a reproducible Threads workflow)",
+    "objectID": "fnd-code-workspace.html#step-5---verify-in-foundry",
+    "href": "fnd-code-workspace.html#step-5---verify-in-foundry",
+    "title": "23  Code Workspaces",
+    "section": "23.10 Step 5 - Verify in Foundry",
+    "text": "23.10 Step 5 - Verify in Foundry\n\nOpen the new Code Repository in Foundry to confirm your code and history have been imported.\n\nRequired outcome:\n\nThe Code Repository file tree inside Foundry matches the GitHub repository contents at the commit you downloaded.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-load-repo.html#prerequisites",
-    "href": "fnd-load-repo.html#prerequisites",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.2 Prerequisites",
-    "text": "24.2 Prerequisites\nBefore you start, complete:\n\nfnd-getting-started.qmd (login, create a project, tagging for discovery, groups/permissions, etc.)\n\nYou also need:\n\naccess to create a Code Repository in your Foundry Project\naccess to the GitHub repository you will import",
+    "objectID": "fnd-code-workspace.html#step-6-verify-repository-structure-and-tooling-inside-foundry-code-workspace",
+    "href": "fnd-code-workspace.html#step-6-verify-repository-structure-and-tooling-inside-foundry-code-workspace",
+    "title": "23  Code Workspaces",
+    "section": "23.11 Step 6 — Verify repository structure and tooling (inside Foundry Code Workspace)",
+    "text": "23.11 Step 6 — Verify repository structure and tooling (inside Foundry Code Workspace)\nThis verification step must occur inside the Foundry Code Workspace UI for the Code Repository you just imported.\n\n6.1 Open the repo in Code Workspace\n\nIn Foundry, open your Project.\nOpen the Code Repository you imported.\nOpen it in Code Workspace so you can browse files and run commands (if enabled in your environment).\n\n\n\n6.2 Confirm the expected files/folders exist\nAt minimum, verify you see the expected top-level folders/files, such as:\n\nnotebooks/\nsrc/\ndata/ (if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)\noutputs/\nREADME.md\nenvironment.yml\n\nAlso verify the presence of the Threads workflow tooling (required for fnd-threads.qmd):\n\ntools/\n\nfoundry_threads.py\n__init__.py (so python -m tools.foundry_threads works)\n\npytest.ini (supports consistent test imports)\ntests/ (if your repo includes tests; recommended)\n\n\n\n6.3 Quick “tool exists” sanity check\nIf your Foundry Code Workspace environment supports running Python in a terminal:\nFrom the repository root, run:\npython -m tools.foundry_threads --help\nExpected outcome:\n\nHelp text prints without import errors (confirms the repo-local tool is present and importable)\n\nIf you cannot run a terminal in Code Workspace (or Python execution is constrained), you can still verify:\n\nthe file tree includes the required tool files listed above\nthe README.md documents how the tool should be run in your environment\n\nRecommendations:\n\nDo not rely on pip install ... or conda env create ... fetching packages from the internet during normal execution.\nPrefer platform-provided Python environments or curated package sets where available.\nIf dependency installation is required, coordinate with your Foundry administrators on the approved mechanism (mirrors, curated channels, base images, etc.).",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-load-repo.html#which-repo-should-i-import",
-    "href": "fnd-load-repo.html#which-repo-should-i-import",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.3 Which repo should I import?",
-    "text": "24.3 Which repo should I import?\nFor USACE data science work, we recommend starting from the approved lightweight Python analysis template described in:\n\nrepo-create-generic-python-repo.qmd\n\nThat chapter’s workflow creates a new GitHub repository based on:\n\nTemplate repo: MVR-GIS/repo-generic-python\n\nIn Foundry, you will typically import your new repo (created from the template), not the template itself.\nWhy this matters:\n\nthe template includes the standard project structure (notebooks/, src/, outputs/, etc.)\nit also includes repository-local tooling that downstream chapters rely on (example: the Threads export extractor in tools/)",
+    "objectID": "fnd-code-workspace.html#definition-of-done",
+    "href": "fnd-code-workspace.html#definition-of-done",
+    "title": "23  Code Workspaces",
+    "section": "23.12 Definition of done",
+    "text": "23.12 Definition of done\nYou are ready to proceed when:\n\nthe GitHub repo has been imported into a Foundry Code Repository\nyou can browse the repo file tree in Foundry Code Workspace\nyou recorded provenance:\n\nGitHub repo URL\ncommit SHA (or tag/release) corresponding to the push you imported\n\npermissions/groups are set so collaborators can access the Code Repo (as intended)\n(recommended) you confirmed the Threads tool is present:\n\npython -m tools.foundry_threads --help runs successfully, or the required files exist in the repo tree",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-load-repo.html#key-steps-overview",
-    "href": "fnd-load-repo.html#key-steps-overview",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.4 Key steps (overview)",
-    "text": "24.4 Key steps (overview)\n\nCreate your analysis repo in GitHub from the approved template (external step).\nCreate an empty Foundry Code Repository.",
+    "objectID": "fnd-code-workspace.html#push-changes-out-of-foundry-to-local-repo",
+    "href": "fnd-code-workspace.html#push-changes-out-of-foundry-to-local-repo",
+    "title": "23  Code Workspaces",
+    "section": "23.13 Push changes out of Foundry to local repo",
+    "text": "23.13 Push changes out of Foundry to local repo\n\nFetch changes from Foundry - This retrieves all branches and updates from Foundry:\n\ngit fetch foundry\n\nPull Changes to your local branch - Update your local branch (e.g., main) with changes from Foundry:\n\ngit pull foundry main\n\nRepeat for other branches by replacing main with the branch you want to update.\nResolve any merge conflicts - If there are conflicts, Git will prompt you to resolve them locally.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
-    ]
-  },
-  {
-    "objectID": "fnd-load-repo.html#step-1-create-your-analysis-repo-in-github-outside-foundry",
-    "href": "fnd-load-repo.html#step-1-create-your-analysis-repo-in-github-outside-foundry",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.5 Step 1 — Create your analysis repo in GitHub (outside Foundry)",
-    "text": "24.5 Step 1 — Create your analysis repo in GitHub (outside Foundry)\nFollow:\n\nrepo-create-generic-python-repo.qmd\n\nWhen you’re done, you should have a GitHub repository you own/control (example: MVR-GIS/my-analysis-project).\nRecommendation:\n\nrecord the commit SHA you intend to import (or create a tag/release) so you can prove which exact version entered the enclave",
-    "crumbs": [
-      "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
-    ]
-  },
-  {
-    "objectID": "fnd-load-repo.html#step-2-download-the-repo-zip-from-github",
-    "href": "fnd-load-repo.html#step-2-download-the-repo-zip-from-github",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.6 Step 2 — Download the repo ZIP from GitHub",
-    "text": "24.6 Step 2 — Download the repo ZIP from GitHub\n\nOpen your analysis repo in GitHub.\nClick Code (green button).\nClick Download ZIP.\nSave the ZIP somewhere you can access for import to Foundry.\n\nNotes:\n\nIf your Foundry enclave environment cannot access GitHub directly, you may need to move the ZIP through an approved transfer mechanism. Follow your organization’s policy.\nPrefer a tagged release ZIP if you need stronger provenance. Otherwise, record the commit SHA you downloaded for traceability.",
-    "crumbs": [
-      "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
-    ]
-  },
-  {
-    "objectID": "fnd-load-repo.html#step-3-createopen-a-foundry-code-repository-project-scoped",
-    "href": "fnd-load-repo.html#step-3-createopen-a-foundry-code-repository-project-scoped",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.7 Step 3 — Create/open a Foundry Code Repository (Project-scoped)",
-    "text": "24.7 Step 3 — Create/open a Foundry Code Repository (Project-scoped)\nIn Foundry (inside the correct Project):\n\nCreate a new Code Repository (or open an existing one).\nName it consistently with the GitHub repo you’re importing (recommended).\nConfirm the Code Repo is in the correct Project and has the right permissions/groups (per fnd-getting-started.qmd).",
-    "crumbs": [
-      "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
-    ]
-  },
-  {
-    "objectID": "fnd-load-repo.html#step-4-import-the-zip-contents-into-the-foundry-code-repository",
-    "href": "fnd-load-repo.html#step-4-import-the-zip-contents-into-the-foundry-code-repository",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.8 Step 4 — Import the ZIP contents into the Foundry Code Repository",
-    "text": "24.8 Step 4 — Import the ZIP contents into the Foundry Code Repository\nImport mechanics vary by Foundry configuration (UI features and permissions). Use the import option available in your environment, such as:\n\nUpload/import from a ZIP archive\nUpload folder contents via the UI\nA “bootstrap” repository import step (if configured)\n\nRequired outcome:\n\nThe Code Repository file tree inside Foundry matches the GitHub repository contents at the commit you downloaded.",
-    "crumbs": [
-      "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
-    ]
-  },
-  {
-    "objectID": "fnd-load-repo.html#step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace",
-    "href": "fnd-load-repo.html#step-5-verify-repository-structure-and-tooling-inside-foundry-code-workspace",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.9 Step 5 — Verify repository structure and tooling (inside Foundry Code Workspace)",
-    "text": "24.9 Step 5 — Verify repository structure and tooling (inside Foundry Code Workspace)\nThis verification step must occur inside the Foundry Code Workspace UI for the Code Repository you just imported.\n\n5.1 Open the repo in Code Workspace\n\nIn Foundry, open your Project.\nOpen the Code Repository you imported.\nOpen it in Code Workspace so you can browse files and run commands (if enabled in your environment).\n\n\n\n5.2 Confirm the expected files/folders exist\nAt minimum, verify you see the expected top-level folders/files, such as:\n\nnotebooks/\nsrc/\ndata/ (if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)\noutputs/\nREADME.md\nenvironment.yml\n\nAlso verify the presence of the Threads workflow tooling (required for fnd-threads.qmd):\n\ntools/\n\nfoundry_threads.py\n__init__.py (so python -m tools.foundry_threads works)\n\npytest.ini (supports consistent test imports)\ntests/ (if your repo includes tests; recommended)\n\n\n\n5.3 Quick “tool exists” sanity check (optional but recommended)\nIf your Foundry Code Workspace environment supports running Python in a terminal:\nFrom the repository root, run:\npython -m tools.foundry_threads --help\nExpected outcome:\n\nHelp text prints without import errors (confirms the repo-local tool is present and importable)\n\nIf you cannot run a terminal in Code Workspace (or Python execution is constrained), you can still verify:\n\nthe file tree includes the required tool files listed above\nthe README.md documents how the tool should be run in your environment",
-    "crumbs": [
-      "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
-    ]
-  },
-  {
-    "objectID": "fnd-load-repo.html#offline-no-internet-guidance-foundry-enclave",
-    "href": "fnd-load-repo.html#offline-no-internet-guidance-foundry-enclave",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.12 Offline / no-internet guidance (Foundry enclave)",
-    "text": "24.12 Offline / no-internet guidance (Foundry enclave)\nAssume no external network access from runtime environments unless your platform team confirms otherwise.\nRecommendations:\n\nDo not rely on pip install ... or conda env create ... fetching packages from the internet during normal execution.\nPrefer platform-provided Python environments or curated package sets where available.\nIf dependency installation is required, coordinate with your Foundry administrators on the approved mechanism (mirrors, curated channels, base images, etc.).",
-    "crumbs": [
-      "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
-    ]
-  },
-  {
-    "objectID": "fnd-load-repo.html#definition-of-done",
-    "href": "fnd-load-repo.html#definition-of-done",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.12 Definition of done",
-    "text": "24.12 Definition of done\nYou are ready to proceed when:\n\nthe GitHub repo has been imported into a Foundry Code Repository\nyou can browse the repo file tree in Foundry Code Workspace\nyou recorded provenance:\n\nGitHub repo URL\ncommit SHA (or tag/release) corresponding to the push you imported\n\npermissions/groups are set so collaborators can access the Code Repo (as intended)\n(recommended) you confirmed the Threads tool is present:\n\npython -m tools.foundry_threads --help runs successfully, or the required files exist in the repo tree",
-    "crumbs": [
-      "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html",
     "href": "fnd-threads.html",
-    "title": "25  Reproducible Threads workflow",
+    "title": "24  Reproducible Threads workflow",
     "section": "",
-    "text": "25.1 Objective\nCapture a Foundry Threads chat session history and preserve outputs in a reviewable, auditable way inside a Foundry enclave (assume offline / no-internet execution).\nThis chapter focuses on workflow and structure and assumes you will do the work inside the Foundry Code Workspace UI (not a local machine workflow).",
+    "text": "24.1 Objective\nCapture a Foundry Threads chat session history and preserve outputs in a reviewable, auditable repo on a local machine.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#prerequisites",
     "href": "fnd-threads.html#prerequisites",
-    "title": "25  Reproducible Threads workflow",
-    "section": "25.2 Prerequisites",
-    "text": "25.2 Prerequisites\nComplete these first:\n\nfnd-getting-started.qmd\n\nlogin\ncreate a Project\ntagging for discovery\ngroups/permissions\nany required platform conventions\n\nfnd-load-repo.qmd\n\nimport your GitHub analysis repository into a Foundry Code Repository using ZIP import\n\n\nYou should also already have a GitHub analysis repo created from:\n\nrepo-create-generic-python-repo.qmd\n\nImportant: This workflow assumes your analysis repo was created from the template MVR-GIS/repo-generic-python, which includes the tooling used below: - python -m tools.foundry_threads",
+    "title": "24  Reproducible Threads workflow",
+    "section": "24.2 Prerequisites",
+    "text": "24.2 Prerequisites\nComplete these first:\n\nfnd-getting-started.qmd\n\nlogin\ncreate a Project\ntagging for discovery\ngroups/permissions\nany required platform conventions\n\n\nYou should also already have a GitHub analysis repo created from this template repo:\n\nrepo-create-generic-python-repo.qmd\n\nImportant: This workflow assumes your analysis repo was created from the template MVR-GIS/repo-generic-python, which includes the tooling used below: - python -m tools.foundry_threads",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#what-is-a-reproducible-threads-session-in-this-context",
     "href": "fnd-threads.html#what-is-a-reproducible-threads-session-in-this-context",
-    "title": "25  Reproducible Threads workflow",
-    "section": "25.3 What is a “reproducible Threads session” in this context?",
-    "text": "25.3 What is a “reproducible Threads session” in this context?\nA reproducible Threads session should leave an audit trail that includes:\n\nwho/what: analyst, date/time window, project context\ninputs: the prompt(s), any system/context constraints, and referenced datasets\nconfiguration: model/tool settings as allowed by your environment\noutputs: generated text, extracted entities/tables, files produced\nprovenance: dataset RIDs/paths (or equivalent identifiers), code version/commit, and run identifier\n\nYour goal is that a reviewer can answer:\n\n“What question was asked?”\n“What data and code were used?”\n“What did the assistant produce?”\n“Where are the saved artifacts?”",
+    "title": "24  Reproducible Threads workflow",
+    "section": "24.3 What is a “reproducible Threads session” in this context?",
+    "text": "24.3 What is a “reproducible Threads session” in this context?\nA reproducible Threads session should leave an audit trail that includes:\n\nwho/what: analyst, date/time window, project context\ninputs: the prompt(s), any system/context constraints, and referenced datasets\nconfiguration: model/tool settings as allowed by your environment\noutputs: generated text, extracted entities/tables, files produced\nprovenance: dataset RIDs/paths (or equivalent identifiers), code version/commit, and run identifier\n\nYour goal is that a reviewer can answer:\n\n“What question was asked?”\n“What data and code were used?”\n“What did the assistant produce?”\n“Where are the saved artifacts?”",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#key-idea-save-often-platforms-glitch",
     "href": "fnd-threads.html#key-idea-save-often-platforms-glitch",
-    "title": "25  Reproducible Threads workflow",
-    "section": "25.4 Key idea: save often (platforms glitch)",
-    "text": "25.4 Key idea: save often (platforms glitch)\nAssume export mechanisms and UIs occasionally fail or “lose” context. The safe pattern is:\n\nexport the chat often\nre-run the extractor often\ncommit at reasonable milestones (and/or end of day)",
+    "title": "24  Reproducible Threads workflow",
+    "section": "24.4 Key idea: save often (platforms glitch)",
+    "text": "24.4 Key idea: save often (platforms glitch)\nAssume export mechanisms and UIs occasionally fail or “lose” context. The safe pattern is:\n\nexport the chat often\nre-run the extractor often\ncommit at reasonable milestones (and/or end of day)",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#where-artifacts-live-in-the-repository",
     "href": "fnd-threads.html#where-artifacts-live-in-the-repository",
-    "title": "25  Reproducible Threads workflow",
-    "section": "25.5 Where artifacts live in the repository",
-    "text": "25.5 Where artifacts live in the repository\nThis workflow stores session artifacts under a platform-agnostic development folder:\n\ndev/\n\nsessions/\n\nYYYY-MM-DD[_topic].md\n.raw/\n\nYYYY-MM-DD[_topic].threads_export.json\n\n.backups/ (gitignored local backups)\n\n\n\nNotes:\n\nThe primary human-readable record is the session markdown file:\n\ndev/sessions/YYYY-MM-DD[_topic].md\n\nThe tool inserts structured metadata as YAML front matter at the top of the .md file (instead of writing a separate metadata.yml file).\nThe raw export JSON is preserved in:\n\ndev/sessions/.raw/\n\nBackups are written to:\n\ndev/sessions/.backups/\nThese are meant to prevent loss during active work and are typically not committed to avoid repo bloat.",
+    "title": "24  Reproducible Threads workflow",
+    "section": "24.5 Where artifacts live in the repository",
+    "text": "24.5 Where artifacts live in the repository\nThis workflow stores session artifacts under a platform-agnostic development folder:\n\ndev/\n\nsessions/\n\nYYYY-MM-DD[_topic].md\n.raw/\n\nYYYY-MM-DD[_topic].threads_export.json\n\n.backups/\n\n\n\nNotes:\n\nThe primary human-readable record is the session markdown file:\n\ndev/sessions/YYYY-MM-DD[_topic].md\n\nThe tool inserts structured metadata as YAML front matter at the top of the .md file (instead of writing a separate metadata.yml file).\nThe raw export JSON is preserved in:\n\ndev/sessions/.raw/\n\nBackups are written to:\n\ndev/sessions/.backups/\nThese are meant to prevent loss during active work and are typically not committed to avoid repo bloat.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#step-by-step-inside-foundry-code-workspace",
     "href": "fnd-threads.html#step-by-step-inside-foundry-code-workspace",
-    "title": "25  Reproducible Threads workflow",
-    "section": "25.6 Step-by-step (inside Foundry Code Workspace)",
-    "text": "25.6 Step-by-step (inside Foundry Code Workspace)\nThese steps assume you are working inside the Foundry Code Workspace UI for your Project.\n\nStep 1 — Open your Foundry Code Repository in Code Workspace\n\nIn Foundry, navigate to your Project.\nOpen the Code Repository you imported (per fnd-load-repo.qmd).\nOpen it in Code Workspace so you can:\n\nview/edit files\nrun terminal commands (if enabled in your environment)\ncommit changes (using the Code Repo’s commit UI)\n\n\n\n\nStep 2 — Export the Threads chat session to JSON\nIn Foundry Threads (in the same enclave environment):\n\nUse the Threads UI export/save option.\nExport the chat in JSON format.\nSave the export as:\n\n\nthreads_export.json\n\nWhere to save it: Save it somewhere your Foundry Code Workspace runtime can read. In many environments, this is your workspace’s default downloads area or a user-accessible file location exposed to the workspace.\nIf you are unsure where exports land in your configuration: - do one export - then search for the file name threads_export.json from within the Code Workspace file browser / terminal (if available)\n\n\nStep 3 — Run the extractor (creates/updates the auditable artifacts)\nIn Foundry Code Workspace:\n\nEnsure the repo environment is available (per your platform’s Python environment conventions).\nFrom the repo root, run:\n\npython -m tools.foundry_threads\nThis will:\n\nwrite/update the session transcript:\n\ndev/sessions/YYYY-MM-DD.md\n\nwrite/update the raw export copy:\n\ndev/sessions/.raw/YYYY-MM-DD.threads_export.json\n\nif you re-run and a transcript already exists, create a backup:\n\ndev/sessions/.backups/YYYY-MM-DD_backup_&lt;timestamp&gt;.md\n\n\n\n\nStep 4 — Save often (recommended)\nRepeat throughout the day:\n\nExport again from Threads to threads_export.json\nRe-run:\n\npython -m tools.foundry_threads\nThis creates an incremental, durable audit record in the repo even if the UI glitches.\n\n\nStep 5 — Multi-topic days (optional)\nIf you have multiple distinct sessions/topics in the same day, add --topic:\npython -m tools.foundry_threads --topic data_validation\nThis produces:\n\ndev/sessions/YYYY-MM-DD_data_validation.md\ndev/sessions/.raw/YYYY-MM-DD_data_validation.threads_export.json\n\n\n\nStep 6 — Preserve the audit trail (commit in Code Workspace)\nIn Foundry Code Workspace, commit the updated files to the Code Repository.\nMinimum expected committed artifacts:\n\ndev/sessions/YYYY-MM-DD*.md\ndev/sessions/.raw/*.threads_export.json\n\nNotes:\n\nThe .md file is what most reviewers will read.\nThe .raw JSON is preserved for audit integrity and re-derivation.\ndev/sessions/.backups/ is typically not committed (local scratch safety).\n\nCommit message guidance:\n\ninclude date and a short purpose\nexample: Update Threads session log (2026-05-03)",
+    "title": "24  Reproducible Threads workflow",
+    "section": "24.6 Step-by-step (inside Foundry Code Workspace)",
+    "text": "24.6 Step-by-step (inside Foundry Code Workspace)\nThese steps assume you are working inside the Foundry Code Workspace UI for your Project.\n\nStep 1 — Open your Foundry Code Repository in Code Workspace\n\nIn Foundry, navigate to your Project.\nOpen the Code Repository you imported (per fnd-load-repo.qmd).\nOpen it in Code Workspace so you can:\n\nview/edit files\nrun terminal commands (if enabled in your environment)\ncommit changes (using the Code Repo’s commit UI)\n\n\n\n\nStep 2 — Export the Threads chat session to JSON\nIn Foundry Threads (in the same enclave environment):\n\nUse the Threads UI export/save option.\nExport the chat in JSON format.\nSave the export as:\n\n\nthreads_export.json\n\nWhere to save it: Save it somewhere your Foundry Code Workspace runtime can read. In many environments, this is your workspace’s default downloads area or a user-accessible file location exposed to the workspace.\nIf you are unsure where exports land in your configuration: - do one export - then search for the file name threads_export.json from within the Code Workspace file browser / terminal (if available)\n\n\nStep 3 — Run the extractor (creates/updates the auditable artifacts)\nIn Foundry Code Workspace:\n\nEnsure the repo environment is available (per your platform’s Python environment conventions).\nFrom the repo root, run:\n\npython -m tools.foundry_threads\nThis will:\n\nwrite/update the session transcript:\n\ndev/sessions/YYYY-MM-DD.md\n\nwrite/update the raw export copy:\n\ndev/sessions/.raw/YYYY-MM-DD.threads_export.json\n\nif you re-run and a transcript already exists, create a backup:\n\ndev/sessions/.backups/YYYY-MM-DD_backup_&lt;timestamp&gt;.md\n\n\n\n\nStep 4 — Save often (recommended)\nRepeat throughout the day:\n\nExport again from Threads to threads_export.json\nRe-run:\n\npython -m tools.foundry_threads\nThis creates an incremental, durable audit record in the repo even if the UI glitches.\n\n\nStep 5 — Multi-topic days (optional)\nIf you have multiple distinct sessions/topics in the same day, add --topic:\npython -m tools.foundry_threads --topic data_validation\nThis produces:\n\ndev/sessions/YYYY-MM-DD_data_validation.md\ndev/sessions/.raw/YYYY-MM-DD_data_validation.threads_export.json\n\n\n\nStep 6 — Preserve the audit trail (commit in Code Workspace)\nIn Foundry Code Workspace, commit the updated files to the Code Repository.\nMinimum expected committed artifacts:\n\ndev/sessions/YYYY-MM-DD*.md\ndev/sessions/.raw/*.threads_export.json\n\nNotes:\n\nThe .md file is what most reviewers will read.\nThe .raw JSON is preserved for audit integrity and re-derivation.\ndev/sessions/.backups/ is typically not committed (local scratch safety).\n\nCommit message guidance:\n\ninclude date and a short purpose\nexample: Update Threads session log (2026-05-03)",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#offline-no-internet-constraints",
     "href": "fnd-threads.html#offline-no-internet-constraints",
-    "title": "25  Reproducible Threads workflow",
-    "section": "25.7 Offline / no-internet constraints",
-    "text": "25.7 Offline / no-internet constraints\nDesign your workflow so it does not require:\n\ndownloading packages at run time\ncalling external APIs\nembedding links as “required steps” unless internal and accessible\n\nIf you reference external documentation, treat it as “background reading” rather than a dependency for completing the workflow.",
+    "title": "24  Reproducible Threads workflow",
+    "section": "24.7 Offline / no-internet constraints",
+    "text": "24.7 Offline / no-internet constraints\nDesign your workflow so it does not require:\n\ndownloading packages at run time\ncalling external APIs\nembedding links as “required steps” unless internal and accessible\n\nIf you reference external documentation, treat it as “background reading” rather than a dependency for completing the workflow.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#troubleshooting",
     "href": "fnd-threads.html#troubleshooting",
-    "title": "25  Reproducible Threads workflow",
-    "section": "25.8 Troubleshooting",
-    "text": "25.8 Troubleshooting\n\nI can’t find threads_export.json from Code Workspace\n\nConfirm the export completed successfully in Threads.\nRe-export and explicitly name the file threads_export.json.\nUse Code Workspace search (or terminal) to locate the file.\nIf exports are saved to a location not visible to Code Workspace in your configuration, coordinate with your Foundry administrators for the approved way to move the export file into the Code Workspace environment.\n\n\n\npython -m tools.foundry_threads fails\n\nConfirm your repo was created from MVR-GIS/repo-generic-python (the tool lives in that template).\nConfirm you are running from the repository root in Code Workspace.\nConfirm your Python environment is active/available in the Code Workspace runtime.\nIf dependency errors mention YAML:\n\nconfirm the environment includes PyYAML per the template’s environment.yml.\n\n\n\n\nI’m not sure what I’m allowed to paste into Threads\n\nStop and confirm policy with your platform/data governance point of contact.\nPrefer referencing datasets by identifier rather than pasting raw records.",
+    "title": "24  Reproducible Threads workflow",
+    "section": "24.8 Troubleshooting",
+    "text": "24.8 Troubleshooting\n\nI can’t find threads_export.json from Code Workspace\n\nConfirm the export completed successfully in Threads.\nRe-export and explicitly name the file threads_export.json.\nUse Code Workspace search (or terminal) to locate the file.\nIf exports are saved to a location not visible to Code Workspace in your configuration, coordinate with your Foundry administrators for the approved way to move the export file into the Code Workspace environment.\n\n\n\npython -m tools.foundry_threads fails\n\nConfirm your repo was created from MVR-GIS/repo-generic-python (the tool lives in that template).\nConfirm you are running from the repository root in Code Workspace.\nConfirm your Python environment is active/available in the Code Workspace runtime.\nIf dependency errors mention YAML:\n\nconfirm the environment includes PyYAML per the template’s environment.yml.\n\n\n\n\nI’m not sure what I’m allowed to paste into Threads\n\nStop and confirm policy with your platform/data governance point of contact.\nPrefer referencing datasets by identifier rather than pasting raw records.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
     "objectID": "fnd-threads.html#definition-of-done",
     "href": "fnd-threads.html#definition-of-done",
-    "title": "25  Reproducible Threads workflow",
-    "section": "25.9 Definition of done",
-    "text": "25.9 Definition of done\nYou are done when:\n\nthe session transcript exists in-repo:\n\ndev/sessions/YYYY-MM-DD[_topic].md\n\nthe raw export is preserved in-repo:\n\ndev/sessions/.raw/YYYY-MM-DD[_topic].threads_export.json\n\nthe transcript includes YAML front matter metadata (title/date/user/model/hash)\nthe files are committed to the Foundry Code Repository so a reviewer can retrieve them later",
+    "title": "24  Reproducible Threads workflow",
+    "section": "24.7 Definition of done",
+    "text": "24.7 Definition of done\nYou are done when:\n\nthe session transcript exists in-repo:\n\ndev/sessions/YYYY-MM-DD[_topic].md\n\nthe raw export is preserved in-repo:\n\ndev/sessions/.raw/YYYY-MM-DD[_topic].threads_export.json\n\nthe transcript includes YAML front matter metadata (title/date/user/model/hash)\nthe files are committed so a reviewer can retrieve them later",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
-    "objectID": "fnd-load-repo.html#initial-configuration",
-    "href": "fnd-load-repo.html#initial-configuration",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.5 Initial Configuration",
-    "text": "24.5 Initial Configuration\nFollow these steps once to ensure you have a working environment.\n\nInstall DoD Certificates\nInstalRoot is the app that DoD uses to ensure secure communication. - Use USACE App Portal to install InstallRoot. - Open the InstallRoot app and click the “Install Certificates” button to install the required certificates.\n\n\nTell Git to use the Windows credential store\ngit config --global http.sslBackend schannel\n\n\nInstall the Palantir extension for Visual Studio Code\nThe Palantir extension for VS Code is used to clone a repository stored in Foundry Code Repositories. See install instructions here. - Download the extension .visx file. - On the VS Code Extensions tab, use the “three dot” menu, and select “Install from VSIX…” - In the Open dialog, navigate to the palantir extension .vsix file and click the “Install” button.",
+    "objectID": "fnd-threads.html#step-by-step",
+    "href": "fnd-threads.html#step-by-step",
+    "title": "24  Reproducible Threads workflow",
+    "section": "24.6 Step-by-step",
+    "text": "24.6 Step-by-step\n\nStep 1 — Open your repo on your local computer\n\nUse VS Code installed on your computer.\nOpen your repo.\n\n\n\nStep 2 — Export the Threads chat session to JSON\nIn Foundry Threads:\n\nPerform you chat session.\nUse the Threads UI export/save option.\nExport the chat in JSON format.\nSave the export as:\n\n\nthreads_export.json\na local downloads file\n\n\n\nStep 3 — Run the extractor (creates/updates the auditable artifacts)\nIn your local VS Code repo:\n\nEnsure the repo environment is available (per your platform’s Python environment conventions).\nFrom the repo root, run:\n\npython -m tools.foundry_threads\nThis will:\n\nwrite/update the session transcript:\n\ndev/sessions/YYYY-MM-DD.md\n\nwrite/update the raw export copy:\n\ndev/sessions/.raw/YYYY-MM-DD.threads_export.json\n\nif you re-run and a transcript already exists, create a backup:\n\ndev/sessions/.backups/YYYY-MM-DD_backup_&lt;timestamp&gt;.md\n\n\n\n\nStep 4 — Save often (recommended)\nRepeat throughout the day:\n\nExport again from Threads to threads_export.json\nRe-run:\n\npython -m tools.foundry_threads\nThis creates an incremental, durable audit record in the repo even if the UI glitches.\n\n\nStep 5 — Multi-topic days (optional)\nIf you have multiple distinct sessions/topics in the same day, add --topic:\npython -m tools.foundry_threads --topic data_validation\nThis produces:\n\ndev/sessions/YYYY-MM-DD_data_validation.md\ndev/sessions/.raw/YYYY-MM-DD_data_validation.threads_export.json\n\n\n\nStep 6 — Preserve the audit trail\nIn your repo commit the updated files. Minimum expected committed artifacts:\n\ndev/sessions/YYYY-MM-DD*.md\ndev/sessions/.raw/*.threads_export.json\n\nNotes:\n\nThe .md file is what most reviewers will read.\nThe .raw JSON is preserved for audit integrity and re-derivation.\ndev/sessions/.backups/ is typically not committed (local scratch safety).\n\nCommit message guidance:\n\ninclude date and a short purpose\nexample: Update Threads session log (2026-05-03)",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Reproducible Threads workflow</span>"
     ]
   },
   {
-    "objectID": "fnd-load-repo.html#step-1-in-githib-create-your-analysis-repo",
-    "href": "fnd-load-repo.html#step-1-in-githib-create-your-analysis-repo",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.6 Step 1 — In Githib, Create your analysis repo",
-    "text": "24.6 Step 1 — In Githib, Create your analysis repo\n\nFollow the instructions: repo-create-generic-python-repo.qmd\nWhen you’re done, you should have a GitHub repository you own/control (example: &lt;OWNER&gt;/&lt;my-analysis-project&gt;).",
+    "objectID": "fnd-code-workspace.html#step-1---in-palantir-foundry-code-repositories-create-a-new-repository",
+    "href": "fnd-code-workspace.html#step-1---in-palantir-foundry-code-repositories-create-a-new-repository",
+    "title": "23  Code Workspaces",
+    "section": "23.6 Step 1 - In Palantir Foundry Code Repositories, create a new repository",
+    "text": "23.6 Step 1 - In Palantir Foundry Code Repositories, create a new repository\n\nOpen a web browser and log into Army Vantage (Palantir Foundry).\nGo to the Code Repositories platform app.\nCreate a new repository using one of the existing templates (e.g., Functions, Transforms).\nChoose to run this repo in VS Code.\n\nClick the “Work Locally” button and copy the URL to the repository.\nThis  should be structured something like: https://&lt;your-id&gt;:&lt;giant-string-1&gt;@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt;",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-load-repo.html#step-2---in-vs-code-on-you-computer-clone-this-repo-locally",
-    "href": "fnd-load-repo.html#step-2---in-vs-code-on-you-computer-clone-this-repo-locally",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.7 Step 2 - In VS Code on you computer, clone this repo locally",
-    "text": "24.7 Step 2 - In VS Code on you computer, clone this repo locally\n\nOpen VS Code on your computer.\nCopy the Repository URL you created in the previous step: Go to your repository (e.g., on GitHub) and copy the clone URL.\nIn VS Code, open the Command Palette: (Press Ctrl + Shift + P). Run the Clone Command: Type Git: Clone and select it from the list.\nPaste the repo URL: Enter the repository URL at GitHub when prompted and press Enter.\nSelect a Destination: A file explorer window will open. Select or create the parent folder where you want the new repository folder to live. VS Code will automatically create a new subfolder named after the repository inside this location. Choose to open in a new session.\nOr, in a Git bash terminal use the following command:\n\ngit clone https://github.com/&lt;OWNER&gt;/&lt;REPO&gt; &lt;PARENT-FOLDER-NAME&gt;\n\nYou will now see your newly cloned repo in your VS Code session running on your computer.",
+    "objectID": "fnd-code-workspace.html#step-2---in-vs-code-on-your-computer-use-the-palantir-extension-to-clone-the-repo",
+    "href": "fnd-code-workspace.html#step-2---in-vs-code-on-your-computer-use-the-palantir-extension-to-clone-the-repo",
+    "title": "23  Code Workspaces",
+    "section": "23.7 Step 2 - In VS Code on your computer, use the Palantir extension to clone the repo",
+    "text": "23.7 Step 2 - In VS Code on your computer, use the Palantir extension to clone the repo\n\nOpen a new empty session in VS Code.\nIn the Palantir extension, click the “Clone Repository” button.\nWhen prompted, paste the  you copied in the previous step.\nThis should trigger the clone operation. You should now see the repo you created in Foundry.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-load-repo.html#step-3---in-palantir-foundry-code-repositories-create-a-new-empty-repository",
-    "href": "fnd-load-repo.html#step-3---in-palantir-foundry-code-repositories-create-a-new-empty-repository",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.8 Step 3 - In Palantir Foundry Code Repositories, create a new empty repository",
-    "text": "24.8 Step 3 - In Palantir Foundry Code Repositories, create a new empty repository\n\nOpen a web browser and log into Army Vantage (Palantir Foundry).\nGo to the Code Repositories platform app.\nCreate a new empty repository. Give it the same name as the repo you just created in Github.\nClick the “Work Locally” button and copy the URL to the repository.\nThis  should be structured something like: https://&lt;your-id&gt;:&lt;giant-string-1&gt;@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt;",
+    "objectID": "fnd-code-workspace.html#step-3---make-changes-to-your-repo-and-commit-as-usual",
+    "href": "fnd-code-workspace.html#step-3---make-changes-to-your-repo-and-commit-as-usual",
+    "title": "23  Code Workspaces",
+    "section": "23.8 Step 3 - Make changes to your repo and commit as usual",
+    "text": "23.8 Step 3 - Make changes to your repo and commit as usual\n\nMake changes and commit.\nUse standard VS Code tools to push to Foundry.\nIf you have branches other than main, push them as well.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-load-repo.html#step-4---in-vs-code-on-your-computer-add-foundry-as-a-remote",
-    "href": "fnd-load-repo.html#step-4---in-vs-code-on-your-computer-add-foundry-as-a-remote",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.9 Step 4 - In VS Code on your computer, add Foundry as a remote",
-    "text": "24.9 Step 4 - In VS Code on your computer, add Foundry as a remote\n\nIn the local version of your repo, we need to add the Palantir Foundry Code Repository repo you created in the last step as a remote.\nUse the following git command to add your Foundry repo as a remote. Replace the  with the URL you copied from Foundry in the last step.\n\ngit remote add foundry &lt;foundry-repo-url&gt;\n\nUse the git remote -v command to check that the remote was added correctly.\n\ngit remote -v\nfoundry https://&lt;your-id&gt;:&lt;giant-string-1&gt;@@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt; (fetch)\nfoundry https://&lt;your-id&gt;:&lt;giant-string-1&gt;@@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt; (push)\norigin  https://github.com/&lt;OWNER&gt;/&lt;your-repo-name&gt;.git (fetch)\norigin  https://github.com/&lt;OWNER&gt;/&lt;your-repo-name&gt;.git (push)\n\nPush your local branches (e.g., main) to the Foundry remote:\n\ngit push foundry main\n\nIf you have branches other than main, push them as well.",
+    "objectID": "fnd-code-workspace.html#step-4---verify-in-foundry",
+    "href": "fnd-code-workspace.html#step-4---verify-in-foundry",
+    "title": "23  Code Workspaces",
+    "section": "23.9 Step 4 - Verify in Foundry",
+    "text": "23.9 Step 4 - Verify in Foundry\n\nOpen the new Code Repository in Foundry to confirm your code and history have been imported.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   },
   {
-    "objectID": "fnd-load-repo.html#step-5---verify-in-foundry",
-    "href": "fnd-load-repo.html#step-5---verify-in-foundry",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.10 Step 5 - Verify in Foundry",
-    "text": "24.10 Step 5 - Verify in Foundry\n\nOpen the new Code Repository in Foundry to confirm your code and history have been imported.\n\nRequired outcome:\n\nThe Code Repository file tree inside Foundry matches the GitHub repository contents at the commit you downloaded.",
+    "objectID": "fnd-code-workspace.html#step-by-step",
+    "href": "fnd-code-workspace.html#step-by-step",
+    "title": "23  Code Workspaces",
+    "section": "23.6 Step-by-Step",
+    "text": "23.6 Step-by-Step\n\nStep 1 - In Palantir Foundry Code Repositories, create a new repository\n\nOpen a web browser and log into Army Vantage (Palantir Foundry).\nGo to the Code Repositories platform app.\nCreate a new repository using one of the existing templates (e.g., Functions, Transforms).\nChoose to run this repo in VS Code.\n\nClick the “Work Locally” button and copy the URL to the repository.\nThis  should be structured something like: https://&lt;your-id&gt;:&lt;giant-string-1&gt;@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt;\n\n\n\nStep 2 - In VS Code on your computer, use the Palantir extension to clone the repo\n\nOpen a new empty session in VS Code.\nIn the Palantir extension, click the “Clone Repository” button.\nWhen prompted, paste the  you copied in the previous step.\nThis should trigger the clone operation. You should now see the repo you created in Foundry.\n\n\n\nStep 3 - Make changes to your repo and commit as usual\n\nMake changes and commit.\nUse standard VS Code tools to push to Foundry.\nIf you have branches other than main, push them as well.\n\n\n\nStep 4 - Verify in Foundry\n\nOpen the new Code Repository in Foundry to confirm your code and history have been imported.",
     "crumbs": [
       "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
-    ]
-  },
-  {
-    "objectID": "fnd-load-repo.html#step-6-verify-repository-structure-and-tooling-inside-foundry-code-workspace",
-    "href": "fnd-load-repo.html#step-6-verify-repository-structure-and-tooling-inside-foundry-code-workspace",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.11 Step 6 — Verify repository structure and tooling (inside Foundry Code Workspace)",
-    "text": "24.11 Step 6 — Verify repository structure and tooling (inside Foundry Code Workspace)\nThis verification step must occur inside the Foundry Code Workspace UI for the Code Repository you just imported.\n\n6.1 Open the repo in Code Workspace\n\nIn Foundry, open your Project.\nOpen the Code Repository you imported.\nOpen it in Code Workspace so you can browse files and run commands (if enabled in your environment).\n\n\n\n6.2 Confirm the expected files/folders exist\nAt minimum, verify you see the expected top-level folders/files, such as:\n\nnotebooks/\nsrc/\ndata/ (if your policy allows storing local data in-repo; often data should be in Foundry Datasets instead)\noutputs/\nREADME.md\nenvironment.yml\n\nAlso verify the presence of the Threads workflow tooling (required for fnd-threads.qmd):\n\ntools/\n\nfoundry_threads.py\n__init__.py (so python -m tools.foundry_threads works)\n\npytest.ini (supports consistent test imports)\ntests/ (if your repo includes tests; recommended)\n\n\n\n6.3 Quick “tool exists” sanity check\nIf your Foundry Code Workspace environment supports running Python in a terminal:\nFrom the repository root, run:\npython -m tools.foundry_threads --help\nExpected outcome:\n\nHelp text prints without import errors (confirms the repo-local tool is present and importable)\n\nIf you cannot run a terminal in Code Workspace (or Python execution is constrained), you can still verify:\n\nthe file tree includes the required tool files listed above\nthe README.md documents how the tool should be run in your environment\n\nRecommendations:\n\nDo not rely on pip install ... or conda env create ... fetching packages from the internet during normal execution.\nPrefer platform-provided Python environments or curated package sets where available.\nIf dependency installation is required, coordinate with your Foundry administrators on the approved mechanism (mirrors, curated channels, base images, etc.).",
-    "crumbs": [
-      "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
-    ]
-  },
-  {
-    "objectID": "fnd-load-repo.html#push-changes-out-of-foundry-to-local-repo",
-    "href": "fnd-load-repo.html#push-changes-out-of-foundry-to-local-repo",
-    "title": "24  Load a repo into Foundry",
-    "section": "24.13 Push changes out of Foundry to local repo",
-    "text": "24.13 Push changes out of Foundry to local repo\n\nFetch changes from Foundry - This retrieves all branches and updates from Foundry:\n\ngit fetch foundry\n\nPull Changes to your local branch - Update your local branch (e.g., main) with changes from Foundry:\n\ngit pull foundry main\n\nRepeat for other branches by replacing main with the branch you want to update.\nResolve any merge conflicts - If there are conflicts, Git will prompt you to resolve them locally.",
-    "crumbs": [
-      "Foundry",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Load a repo into Foundry</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Code Workspaces</span>"
     ]
   }
 ]

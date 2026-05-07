@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>23&nbsp; Foundry Code Workspaces – MVR Geospatial Data Science User Guide</title>
+<title>23&nbsp; Code Workspaces – MVR Geospatial Data Science User Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -290,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-getting-started.html">Foundry</a></li><li class="breadcrumb-item"><a href="./fnd-code-workspace.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Foundry Code Workspaces</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-getting-started.html">Foundry</a></li><li class="breadcrumb-item"><a href="./fnd-code-workspace.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Code Workspaces</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -546,19 +546,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fnd-code-workspace.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Foundry Code Workspaces</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./fnd-load-repo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Load a repo into Foundry</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Code Workspaces</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./fnd-threads.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Reproducible Threads workflow</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Reproducible Threads workflow</span></span></a>
   </div>
 </li>
       </ul>
@@ -592,25 +586,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">23.1</span> Objective</a></li>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">23.2</span> Prerequisites</a></li>
-  <li><a href="#mental-model-for-daily-work" id="toc-mental-model-for-daily-work" class="nav-link" data-scroll-target="#mental-model-for-daily-work"><span class="header-section-number">23.3</span> Mental model (for daily work)</a></li>
-  <li><a href="#code-workspaces-tour-what-you-should-know-on-day-1" id="toc-code-workspaces-tour-what-you-should-know-on-day-1" class="nav-link" data-scroll-target="#code-workspaces-tour-what-you-should-know-on-day-1"><span class="header-section-number">23.4</span> Code Workspaces tour (what you should know on day 1)</a></li>
-  <li><a href="#step-by-step-start-a-working-python-session-inside-code-workspace" id="toc-step-by-step-start-a-working-python-session-inside-code-workspace" class="nav-link" data-scroll-target="#step-by-step-start-a-working-python-session-inside-code-workspace"><span class="header-section-number">23.5</span> Step-by-step: start a working Python session (inside Code Workspace)</a>
+  <li><a href="#can-i-import-an-existing-repo-i-developed" id="toc-can-i-import-an-existing-repo-i-developed" class="nav-link" data-scroll-target="#can-i-import-an-existing-repo-i-developed"><span class="header-section-number">23.3</span> Can I import an existing repo I developed?</a></li>
+  <li><a href="#key-steps-overview" id="toc-key-steps-overview" class="nav-link" data-scroll-target="#key-steps-overview"><span class="header-section-number">23.4</span> Key steps (overview)</a></li>
+  <li><a href="#initial-configuration" id="toc-initial-configuration" class="nav-link" data-scroll-target="#initial-configuration"><span class="header-section-number">23.5</span> Initial Configuration</a>
   <ul class="collapse">
-  <li><a href="#step-1-open-your-code-repository-in-a-code-workspace" id="toc-step-1-open-your-code-repository-in-a-code-workspace" class="nav-link" data-scroll-target="#step-1-open-your-code-repository-in-a-code-workspace">Step 1 — Open your Code Repository in a Code Workspace</a></li>
-  <li><a href="#step-2-identify-the-repo-root-important-for-every-command" id="toc-step-2-identify-the-repo-root-important-for-every-command" class="nav-link" data-scroll-target="#step-2-identify-the-repo-root-important-for-every-command">Step 2 — Identify the “repo root” (important for every command)</a></li>
-  <li><a href="#step-3-confirm-python-is-available-in-the-workspace-runtime" id="toc-step-3-confirm-python-is-available-in-the-workspace-runtime" class="nav-link" data-scroll-target="#step-3-confirm-python-is-available-in-the-workspace-runtime">Step 3 — Confirm Python is available in the Workspace runtime</a></li>
-  <li><a href="#step-4-open-and-run-a-notebook-fastest-hello-world" id="toc-step-4-open-and-run-a-notebook-fastest-hello-world" class="nav-link" data-scroll-target="#step-4-open-and-run-a-notebook-fastest-hello-world">Step 4 — Open and run a notebook (fastest “hello world”)</a></li>
-  <li><a href="#step-5-run-a-python-script-from-the-terminal-repeatable-workflows" id="toc-step-5-run-a-python-script-from-the-terminal-repeatable-workflows" class="nav-link" data-scroll-target="#step-5-run-a-python-script-from-the-terminal-repeatable-workflows">Step 5 — Run a Python script from the terminal (repeatable workflows)</a></li>
-  <li><a href="#step-6-make-a-small-edit-and-commit-audit-trail-baseline" id="toc-step-6-make-a-small-edit-and-commit-audit-trail-baseline" class="nav-link" data-scroll-target="#step-6-make-a-small-edit-and-commit-audit-trail-baseline">Step 6 — Make a small edit and commit (audit trail baseline)</a></li>
+  <li><a href="#install-dod-certificates" id="toc-install-dod-certificates" class="nav-link" data-scroll-target="#install-dod-certificates">Install DoD Certificates</a></li>
+  <li><a href="#tell-git-to-use-the-windows-credential-store" id="toc-tell-git-to-use-the-windows-credential-store" class="nav-link" data-scroll-target="#tell-git-to-use-the-windows-credential-store">Tell Git to use the Windows credential store</a></li>
+  <li><a href="#install-the-palantir-extension-for-visual-studio-code" id="toc-install-the-palantir-extension-for-visual-studio-code" class="nav-link" data-scroll-target="#install-the-palantir-extension-for-visual-studio-code">Install the Palantir extension for Visual Studio Code</a></li>
   </ul></li>
-  <li><a href="#practical-tips-for-usace-geospatial-workflows" id="toc-practical-tips-for-usace-geospatial-workflows" class="nav-link" data-scroll-target="#practical-tips-for-usace-geospatial-workflows"><span class="header-section-number">23.6</span> Practical tips for USACE geospatial workflows</a></li>
-  <li><a href="#common-troubleshooting-code-workspace" id="toc-common-troubleshooting-code-workspace" class="nav-link" data-scroll-target="#common-troubleshooting-code-workspace"><span class="header-section-number">23.7</span> Common troubleshooting (Code Workspace)</a>
+  <li><a href="#step-by-step" id="toc-step-by-step" class="nav-link" data-scroll-target="#step-by-step"><span class="header-section-number">23.6</span> Step-by-Step</a>
   <ul class="collapse">
-  <li><a href="#i-cant-open-a-terminal" id="toc-i-cant-open-a-terminal" class="nav-link" data-scroll-target="#i-cant-open-a-terminal">I can’t open a terminal</a></li>
-  <li><a href="#my-python-kernelinterpreter-is-wrong" id="toc-my-python-kernelinterpreter-is-wrong" class="nav-link" data-scroll-target="#my-python-kernelinterpreter-is-wrong">My Python kernel/interpreter is wrong</a></li>
-  <li><a href="#i-cant-commit-changes" id="toc-i-cant-commit-changes" class="nav-link" data-scroll-target="#i-cant-commit-changes">I can’t commit changes</a></li>
+  <li><a href="#step-1---in-palantir-foundry-code-repositories-create-a-new-repository" id="toc-step-1---in-palantir-foundry-code-repositories-create-a-new-repository" class="nav-link" data-scroll-target="#step-1---in-palantir-foundry-code-repositories-create-a-new-repository">Step 1 - In Palantir Foundry Code Repositories, create a new repository</a></li>
+  <li><a href="#step-2---in-vs-code-on-your-computer-use-the-palantir-extension-to-clone-the-repo" id="toc-step-2---in-vs-code-on-your-computer-use-the-palantir-extension-to-clone-the-repo" class="nav-link" data-scroll-target="#step-2---in-vs-code-on-your-computer-use-the-palantir-extension-to-clone-the-repo">Step 2 - In VS Code on your computer, use the Palantir extension to clone the repo</a></li>
+  <li><a href="#step-3---make-changes-to-your-repo-and-commit-as-usual" id="toc-step-3---make-changes-to-your-repo-and-commit-as-usual" class="nav-link" data-scroll-target="#step-3---make-changes-to-your-repo-and-commit-as-usual">Step 3 - Make changes to your repo and commit as usual</a></li>
+  <li><a href="#step-4---verify-in-foundry" id="toc-step-4---verify-in-foundry" class="nav-link" data-scroll-target="#step-4---verify-in-foundry">Step 4 - Verify in Foundry</a></li>
   </ul></li>
-  <li><a href="#where-we-go-next" id="toc-where-we-go-next" class="nav-link" data-scroll-target="#where-we-go-next"><span class="header-section-number">23.8</span> Where we go next</a></li>
   </ul>
 </nav>
     </div>
@@ -618,9 +608,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-getting-started.html">Foundry</a></li><li class="breadcrumb-item"><a href="./fnd-code-workspace.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Foundry Code Workspaces</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fnd-getting-started.html">Foundry</a></li><li class="breadcrumb-item"><a href="./fnd-code-workspace.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Code Workspaces</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Foundry Code Workspaces</span></h1>
+<h1 class="title"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Code Workspaces</span></h1>
 </div>
 
 
@@ -639,165 +629,98 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="objective" class="level2" data-number="23.1">
 <h2 data-number="23.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">23.1</span> Objective</h2>
-<p>Help USACE geospatial data scientists get productive quickly in Army Vantage’s <strong>Code Workspaces</strong> experience (VS Code in the browser), focusing on:</p>
-<ul>
-<li>opening a Code Repository in a Code Workspace</li>
-<li>running Python (scripts + notebooks)</li>
-<li>making reviewable changes (commits) inside the enclave</li>
-</ul>
-<p>This chapter intentionally avoids repo import mechanics (see <code>fnd-load-repo.qmd</code>).</p>
+<p>Create a Foundry <strong>Code Workspace</strong> VS Code session to document your work inside the Foundry enclave.</p>
 </section>
 <section id="prerequisites" class="level2" data-number="23.2">
 <h2 data-number="23.2" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">23.2</span> Prerequisites</h2>
+<p>Before you start, complete:</p>
 <ul>
-<li>You can sign in to Army Vantage.</li>
-<li>You have access to a Project with a Code Repository you can open in a Code Workspace.
+<li><code>fnd-getting-started.qmd</code> (login, create a project, tagging for discovery, groups/permissions, etc.)</li>
+</ul>
+<p>You also need:</p>
 <ul>
-<li>If you need to create/import a repository first, follow: <code>fnd-load-repo.qmd</code>.</li>
-</ul></li>
+<li>access to create a Code Repository in your Foundry Project</li>
+<li>VS Code installed locally</li>
+<li>DoD Certificates installed locally</li>
+<li>Palantir extension for VS Code</li>
 </ul>
 </section>
-<section id="mental-model-for-daily-work" class="level2" data-number="23.3">
-<h2 data-number="23.3" class="anchored" data-anchor-id="mental-model-for-daily-work"><span class="header-section-number">23.3</span> Mental model (for daily work)</h2>
-<p>For our workflow, Army Vantage Code Workspaces is:</p>
+<section id="can-i-import-an-existing-repo-i-developed" class="level2" data-number="23.3">
+<h2 data-number="23.3" class="anchored" data-anchor-id="can-i-import-an-existing-repo-i-developed"><span class="header-section-number">23.3</span> Can I import an existing repo I developed?</h2>
+<p><strong>BLUF:</strong> Yes, but you won’t be able to run it in the Palantir Foundry Code Workspaces VS Code environment unless it meets specific requirements.</p>
 <ul>
-<li>a <strong>browser-based VS Code IDE</strong> attached to a Foundry <strong>Code Repository</strong></li>
-<li>your primary place to:
-<ul>
-<li>edit files</li>
-<li>run Python</li>
-<li>view outputs/logs</li>
-<li>commit changes (audit trail)</li>
-</ul></li>
+<li>For a repo to be able to run inside a Foundry VS Code session, it must meet a set of deployment requirements.</li>
+<li>These requirements are described in <a href="https://vantage.army.mil/documentation/static/foundry/transforms-python/project-structure#default-bootstrapped-repository">Palantir documentation</a>.</li>
+<li>Users are advised to begin with one of the Palantir maintained VS Code project templates.</li>
+<li>Once created in Code Workspaces, follow the instructions below to clone it locally for use outside Palantir.</li>
 </ul>
-<p>Assume constrained networking unless explicitly confirmed otherwise.</p>
 </section>
-<section id="code-workspaces-tour-what-you-should-know-on-day-1" class="level2" data-number="23.4">
-<h2 data-number="23.4" class="anchored" data-anchor-id="code-workspaces-tour-what-you-should-know-on-day-1"><span class="header-section-number">23.4</span> Code Workspaces tour (what you should know on day 1)</h2>
-<p>Inside a Code Workspace, you’ll typically rely on these VS Code areas:</p>
-<ul>
-<li><strong>Explorer</strong> (file tree): browse and edit your repo</li>
-<li><strong>Search</strong>: find code/text across the repo</li>
-<li><strong>Terminal</strong>: run commands (<code>python</code>, <code>pytest</code>, etc.) if enabled</li>
-<li><strong>Run / Debug</strong>: run scripts (if enabled/configured)</li>
-<li><strong>Source Control</strong>: view diffs + commit changes</li>
-<li><strong>Extensions</strong> (if exposed): may be limited by platform policy</li>
-</ul>
-<p>If you are new to VS Code: - learn two shortcuts early: - Command Palette (VS Code): search for actions/settings - Search in files: find symbols and text quickly</p>
-</section>
-<section id="step-by-step-start-a-working-python-session-inside-code-workspace" class="level2" data-number="23.5">
-<h2 data-number="23.5" class="anchored" data-anchor-id="step-by-step-start-a-working-python-session-inside-code-workspace"><span class="header-section-number">23.5</span> Step-by-step: start a working Python session (inside Code Workspace)</h2>
-<section id="step-1-open-your-code-repository-in-a-code-workspace" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-open-your-code-repository-in-a-code-workspace">Step 1 — Open your Code Repository in a Code Workspace</h3>
+<section id="key-steps-overview" class="level2" data-number="23.4">
+<h2 data-number="23.4" class="anchored" data-anchor-id="key-steps-overview"><span class="header-section-number">23.4</span> Key steps (overview)</h2>
 <ol type="1">
-<li>In Army Vantage, open your <strong>Project</strong>.</li>
-<li>Open the <strong>Code Repository</strong> for your analysis work.</li>
-<li>Launch <strong>Code Workspace</strong> (VS Code).</li>
+<li>Open an existing project in Foundry.</li>
+<li>Create a Foundry Code Repository using a template (e.g., Functions, Pipelines).</li>
+<li>Open this repo in a Code Workspaces VS Code session.</li>
+<li>Clone this repo to your computer.</li>
 </ol>
-<p>Outcome: - you see the repo file tree in the Explorer panel.</p>
+<hr>
 </section>
-<section id="step-2-identify-the-repo-root-important-for-every-command" class="level3">
-<h3 class="anchored" data-anchor-id="step-2-identify-the-repo-root-important-for-every-command">Step 2 — Identify the “repo root” (important for every command)</h3>
-<p>In the Explorer panel, locate the repository root folder (top of the file tree). This is where you should see project files like:</p>
+<section id="initial-configuration" class="level2" data-number="23.5">
+<h2 data-number="23.5" class="anchored" data-anchor-id="initial-configuration"><span class="header-section-number">23.5</span> Initial Configuration</h2>
+<p>Follow these steps once to ensure you have a working environment.</p>
+<section id="install-dod-certificates" class="level3">
+<h3 class="anchored" data-anchor-id="install-dod-certificates">Install DoD Certificates</h3>
+<p><code>InstalRoot</code> is the app that DoD uses to ensure secure communication. - Use USACE App Portal to install <code>InstallRoot</code>. - Open the <code>InstallRoot</code> app and click the “Install Certificates” button to install the required certificates.</p>
+</section>
+<section id="tell-git-to-use-the-windows-credential-store" class="level3">
+<h3 class="anchored" data-anchor-id="tell-git-to-use-the-windows-credential-store">Tell Git to use the Windows credential store</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> http.sslBackend schannel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="install-the-palantir-extension-for-visual-studio-code" class="level3">
+<h3 class="anchored" data-anchor-id="install-the-palantir-extension-for-visual-studio-code">Install the Palantir extension for Visual Studio Code</h3>
+<p>The Palantir extension for VS Code is used to clone a repository stored in Foundry Code Repositories. See <a href="https://vantage.army.mil/docs/foundry/palantir-extension-for-visual-studio-code/overview/">install instructions here.</a> - Download the extension <code>.visx</code> file. - On the VS Code Extensions tab, use the “three dot” menu, and select “Install from VSIX…” - In the Open dialog, navigate to the palantir extension <code>.vsix</code> file and click the “Install” button.</p>
+<hr>
+</section>
+</section>
+<section id="step-by-step" class="level2" data-number="23.6">
+<h2 data-number="23.6" class="anchored" data-anchor-id="step-by-step"><span class="header-section-number">23.6</span> Step-by-Step</h2>
+<section id="step-1---in-palantir-foundry-code-repositories-create-a-new-repository" class="level3">
+<h3 class="anchored" data-anchor-id="step-1---in-palantir-foundry-code-repositories-create-a-new-repository">Step 1 - In Palantir Foundry Code Repositories, create a new repository</h3>
 <ul>
-<li><code>README.md</code></li>
-<li><code>environment.yml</code> (if using the <code>repo-generic-python</code> template)</li>
-<li><code>notebooks/</code>, <code>src/</code>, <code>outputs/</code></li>
-</ul>
-<p>Operational rule: - When later chapters say “run from repo root,” they mean “run with your terminal working directory set to this folder.”</p>
-</section>
-<section id="step-3-confirm-python-is-available-in-the-workspace-runtime" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-confirm-python-is-available-in-the-workspace-runtime">Step 3 — Confirm Python is available in the Workspace runtime</h3>
-<p>Open a terminal in Code Workspace (if your environment allows it) and run:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If Python is not available, you have three common paths (platform-dependent):</p>
-<ul>
-<li>your workspace is not configured with a Python runtime</li>
-<li>you need to select a pre-provided interpreter/environment</li>
-<li>you need platform support to enable the correct runtime image / environment</li>
-</ul>
-<p>Do not attempt ad-hoc internet installs in an enclave unless explicitly approved.</p>
-</section>
-<section id="step-4-open-and-run-a-notebook-fastest-hello-world" class="level3">
-<h3 class="anchored" data-anchor-id="step-4-open-and-run-a-notebook-fastest-hello-world">Step 4 — Open and run a notebook (fastest “hello world”)</h3>
-<ol type="1">
-<li>In Explorer, open a notebook in <code>notebooks/</code> (or create a new one).</li>
-<li>Run a minimal cell:</li>
-</ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sys.version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If prompted to select a kernel/interpreter: - choose the intended Python environment for the repo (platform-provided).</p>
-</section>
-<section id="step-5-run-a-python-script-from-the-terminal-repeatable-workflows" class="level3">
-<h3 class="anchored" data-anchor-id="step-5-run-a-python-script-from-the-terminal-repeatable-workflows">Step 5 — Run a Python script from the terminal (repeatable workflows)</h3>
-<p>From the repo root in the terminal:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-c</span> <span class="st">"print('hello from code workspace')"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Then, when you start using repository tooling (example from later chapters):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> tools.foundry_threads <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="step-6-make-a-small-edit-and-commit-audit-trail-baseline" class="level3">
-<h3 class="anchored" data-anchor-id="step-6-make-a-small-edit-and-commit-audit-trail-baseline">Step 6 — Make a small edit and commit (audit trail baseline)</h3>
-<p>In Code Workspace:</p>
-<ol type="1">
-<li>Open <code>README.md</code>.</li>
-<li>Make a small change (example: add a one-line note under “Daily workflow”).</li>
-<li>Open the Source Control panel.</li>
-<li>Review the diff.</li>
-<li>Write a clear commit message.</li>
-<li>Commit.</li>
-</ol>
-<p>Outcome: - you have verified end-to-end: edit → diff → commit inside the enclave.</p>
-</section>
-</section>
-<section id="practical-tips-for-usace-geospatial-workflows" class="level2" data-number="23.6">
-<h2 data-number="23.6" class="anchored" data-anchor-id="practical-tips-for-usace-geospatial-workflows"><span class="header-section-number">23.6</span> Practical tips for USACE geospatial workflows</h2>
-<ul>
-<li>Prefer storing data in Foundry datasets; keep the repo for:
-<ul>
-<li>code</li>
-<li>configuration</li>
-<li>small reviewable outputs</li>
-<li>AI session logs (per <code>fnd-threads.qmd</code>)</li>
-</ul></li>
-<li>Keep outputs deterministic and reviewable:
-<ul>
-<li><code>.md</code>, <code>.csv</code>, <code>.yml</code>, <code>.json</code> where possible</li>
-</ul></li>
-<li>Use “save often” patterns for anything interactive (Threads sessions, notebooks).</li>
+<li>Open a web browser and log into Army Vantage (Palantir Foundry).</li>
+<li>Go to the <code>Code Repositories</code> platform app.</li>
+<li>Create a new repository using one of the existing templates (e.g., Functions, Transforms).</li>
+<li>Choose to run this repo in VS Code.<br>
+</li>
+<li>Click the “Work Locally” button and copy the URL to the repository.</li>
+<li>This <foundry-repo-url> should be structured something like: <code>https://&lt;your-id&gt;:&lt;giant-string-1&gt;@vantage.army.mil/stemma/git/ri.stemma.main.repository.&lt;giant-string-2&gt;/&lt;your-repo-name&gt;</code></foundry-repo-url></li>
 </ul>
 </section>
-<section id="common-troubleshooting-code-workspace" class="level2" data-number="23.7">
-<h2 data-number="23.7" class="anchored" data-anchor-id="common-troubleshooting-code-workspace"><span class="header-section-number">23.7</span> Common troubleshooting (Code Workspace)</h2>
-<section id="i-cant-open-a-terminal" class="level3">
-<h3 class="anchored" data-anchor-id="i-cant-open-a-terminal">I can’t open a terminal</h3>
-<p>Some deployments restrict terminal access. If terminal is unavailable:</p>
+<section id="step-2---in-vs-code-on-your-computer-use-the-palantir-extension-to-clone-the-repo" class="level3">
+<h3 class="anchored" data-anchor-id="step-2---in-vs-code-on-your-computer-use-the-palantir-extension-to-clone-the-repo">Step 2 - In VS Code on your computer, use the Palantir extension to clone the repo</h3>
 <ul>
-<li>rely on notebook execution where possible</li>
-<li>coordinate with platform administrators for the approved execution path</li>
+<li>Open a new empty session in VS Code.</li>
+<li>In the Palantir extension, click the “Clone Repository” button.</li>
+<li>When prompted, paste the <foundry-repo-url> you copied in the previous step.</foundry-repo-url></li>
+<li>This should trigger the clone operation. You should now see the repo you created in Foundry.</li>
 </ul>
 </section>
-<section id="my-python-kernelinterpreter-is-wrong" class="level3">
-<h3 class="anchored" data-anchor-id="my-python-kernelinterpreter-is-wrong">My Python kernel/interpreter is wrong</h3>
-<p>Symptoms: - imports fail unexpectedly - version mismatch</p>
-<p>Fix: - select the correct kernel/interpreter in the notebook UI - ensure you are using the environment intended for the repository</p>
-</section>
-<section id="i-cant-commit-changes" class="level3">
-<h3 class="anchored" data-anchor-id="i-cant-commit-changes">I can’t commit changes</h3>
+<section id="step-3---make-changes-to-your-repo-and-commit-as-usual" class="level3">
+<h3 class="anchored" data-anchor-id="step-3---make-changes-to-your-repo-and-commit-as-usual">Step 3 - Make changes to your repo and commit as usual</h3>
 <ul>
-<li>verify you have write permissions on the Code Repository</li>
-<li>verify the repo is not in a read-only state</li>
-<li>coordinate with the Project owner/admin to adjust access</li>
+<li>Make changes and commit.</li>
+<li>Use standard VS Code tools to push to Foundry.</li>
+<li>If you have branches other than <code>main</code>, push them as well.</li>
 </ul>
 </section>
-</section>
-<section id="where-we-go-next" class="level2" data-number="23.8">
-<h2 data-number="23.8" class="anchored" data-anchor-id="where-we-go-next"><span class="header-section-number">23.8</span> Where we go next</h2>
+<section id="step-4---verify-in-foundry" class="level3">
+<h3 class="anchored" data-anchor-id="step-4---verify-in-foundry">Step 4 - Verify in Foundry</h3>
 <ul>
-<li><code>fnd-load-repo.qmd</code> — if you still need to import a GitHub repo ZIP into a Foundry Code Repository</li>
-<li><code>fnd-threads.qmd</code> — capture Threads session history into <code>dev/sessions/</code> using the repo-local Python tool</li>
+<li>Open the new Code Repository in Foundry to confirm your code and history have been imported.</li>
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
