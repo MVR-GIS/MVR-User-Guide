@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>13&nbsp; AI Workflows – MVR Geospatial Data Science User Guide</title>
+<title>13&nbsp; Using Ollama for Development – MVR Geospatial Data Science User Guide</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,14 +74,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c27fdc8e5b00b532d2d5a75ada188648.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-b9e11ad5a37ead2aabff839d95ae3857.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-c27fdc8e5b00b532d2d5a75ada188648.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ffc4c3fc79587ee79da4865b6a08975e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-acff971833d9769290026d534105daaa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-ffc4c3fc79587ee79da4865b6a08975e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -290,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ai-reproducibleai.html">AI Workflows</a></li><li class="breadcrumb-item"><a href="./ai-workflows.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">AI Workflows</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ai-reproducibleai.html">AI Workflows</a></li><li class="breadcrumb-item"><a href="./ai-ollama-dev.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Using Ollama for Development</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -441,8 +444,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ai-workflows.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">AI Workflows</span></span></a>
+  <a href="./ai-ollama-dev.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Using Ollama for Development</span></span></a>
   </div>
 </li>
       </ul>
@@ -579,16 +582,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">13.1</span> Overview</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">13.2</span> Prerequisites</a></li>
+  <li><a href="#architecture" id="toc-architecture" class="nav-link" data-scroll-target="#architecture"><span class="header-section-number">13.3</span> Architecture</a>
+  <ul class="collapse">
+  <li><a href="#component-roles" id="toc-component-roles" class="nav-link" data-scroll-target="#component-roles">Component Roles</a></li>
+  </ul></li>
+  <li><a href="#create-the-ollama-container" id="toc-create-the-ollama-container" class="nav-link" data-scroll-target="#create-the-ollama-container"><span class="header-section-number">13.4</span> Create the Ollama Container</a></li>
+  <li><a href="#verify-the-ollama-api" id="toc-verify-the-ollama-api" class="nav-link" data-scroll-target="#verify-the-ollama-api"><span class="header-section-number">13.5</span> Verify the Ollama API</a></li>
+  <li><a href="#download-a-model" id="toc-download-a-model" class="nav-link" data-scroll-target="#download-a-model"><span class="header-section-number">13.6</span> Download a Model</a></li>
+  <li><a href="#test-model-inference" id="toc-test-model-inference" class="nav-link" data-scroll-target="#test-model-inference"><span class="header-section-number">13.7</span> Test Model Inference</a></li>
+  <li><a href="#install-continue" id="toc-install-continue" class="nav-link" data-scroll-target="#install-continue"><span class="header-section-number">13.8</span> Install Continue</a></li>
+  <li><a href="#configure-continue" id="toc-configure-continue" class="nav-link" data-scroll-target="#configure-continue"><span class="header-section-number">13.9</span> Configure Continue</a></li>
+  <li><a href="#test-continue" id="toc-test-continue" class="nav-link" data-scroll-target="#test-continue"><span class="header-section-number">13.10</span> Test Continue</a></li>
+  <li><a href="#install-aider" id="toc-install-aider" class="nav-link" data-scroll-target="#install-aider"><span class="header-section-number">13.11</span> Install Aider</a></li>
+  <li><a href="#configure-aider" id="toc-configure-aider" class="nav-link" data-scroll-target="#configure-aider"><span class="header-section-number">13.12</span> Configure Aider</a></li>
+  <li><a href="#test-aider" id="toc-test-aider" class="nav-link" data-scroll-target="#test-aider"><span class="header-section-number">13.13</span> Test Aider</a></li>
+  <li><a href="#recommended-workflow" id="toc-recommended-workflow" class="nav-link" data-scroll-target="#recommended-workflow"><span class="header-section-number">13.14</span> Recommended Workflow</a>
+  <ul class="collapse">
+  <li><a href="#continue-1" id="toc-continue-1" class="nav-link" data-scroll-target="#continue-1">Continue</a></li>
+  <li><a href="#aider" id="toc-aider" class="nav-link" data-scroll-target="#aider">Aider</a></li>
+  <li><a href="#ollama-1" id="toc-ollama-1" class="nav-link" data-scroll-target="#ollama-1">Ollama</a></li>
+  </ul></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting"><span class="header-section-number">13.15</span> Troubleshooting</a>
+  <ul class="collapse">
+  <li><a href="#ollama-api-not-available" id="toc-ollama-api-not-available" class="nav-link" data-scroll-target="#ollama-api-not-available">Ollama API Not Available</a></li>
+  <li><a href="#model-not-found" id="toc-model-not-found" class="nav-link" data-scroll-target="#model-not-found">Model Not Found</a></li>
+  <li><a href="#continue-cannot-connect" id="toc-continue-cannot-connect" class="nav-link" data-scroll-target="#continue-cannot-connect">Continue Cannot Connect</a></li>
+  <li><a href="#aider-cannot-connect" id="toc-aider-cannot-connect" class="nav-link" data-scroll-target="#aider-cannot-connect">Aider Cannot Connect</a></li>
+  </ul></li>
+  <li><a href="#current-limitations" id="toc-current-limitations" class="nav-link" data-scroll-target="#current-limitations"><span class="header-section-number">13.16</span> Current Limitations</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ai-reproducibleai.html">AI Workflows</a></li><li class="breadcrumb-item"><a href="./ai-workflows.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">AI Workflows</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ai-reproducibleai.html">AI Workflows</a></li><li class="breadcrumb-item"><a href="./ai-ollama-dev.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Using Ollama for Development</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">AI Workflows</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Using Ollama for Development</span></h1>
 </div>
 
 
@@ -605,28 +643,302 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'dplyr' was built under R version 4.5.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
+<section id="overview" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">13.1</span> Overview</h2>
+<p>This chapter describes how to configure a local large language model (LLM) development environment using Ollama, Podman, Positron, Continue, and Aider.</p>
+<p>The workflow described in this chapter allows developers to use AI-assisted development without connecting source code to external AI services. All inference is performed locally on the developer workstation.</p>
+<p>This workflow is intended to support:</p>
+<ul>
+<li>R package development</li>
+<li>Python development</li>
+<li>Shiny application development</li>
+<li>Quarto documentation development</li>
+<li>Software architecture analysis</li>
+<li>API refactoring</li>
+<li>Technical documentation generation</li>
+</ul>
+</section>
+<section id="prerequisites" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">13.2</span> Prerequisites</h2>
+<p>Before continuing, complete the following chapters:</p>
+<ul>
+<li>Positron Getting Started</li>
+<li>Podman Desktop</li>
+<li>Podman Desktop Getting Started</li>
+</ul>
+<p>You should also verify that:</p>
+<ul>
+<li>Podman Desktop is installed and functioning.</li>
+<li>Podman can run Linux containers.</li>
+<li>Positron is installed.</li>
+<li>Git is installed and configured.</li>
+</ul>
+</section>
+<section id="architecture" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="architecture"><span class="header-section-number">13.3</span> Architecture</h2>
+<p>The development environment consists of the following components:</p>
+<pre class="text"><code>Positron
+├── Continue
+└── Local source code repositories
 
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
+Terminal
+└── Aider
 
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-</div>
+Podman
+└── Ollama
+
+Ollama
+└── Local LLM Models</code></pre>
+<section id="component-roles" class="level3">
+<h3 class="anchored" data-anchor-id="component-roles">Component Roles</h3>
+<section id="positron" class="level4">
+<h4 class="anchored" data-anchor-id="positron">Positron</h4>
+<p><a href="https://positron.posit.co/welcome.html">Positron</a> serves as the primary Integrated Development Environment (IDE) for:</p>
+<ul>
+<li>R development</li>
+<li>Python development</li>
+<li>Quarto documentation</li>
+<li>Git repo maintanence operations</li>
+</ul>
+<p>This approach depends on VS Code <a href="https://positron.posit.co/extensions.html">Extensions for Positron</a> described in the next sections.</p>
+</section>
+<section id="continue" class="level4">
+<h4 class="anchored" data-anchor-id="continue">Continue</h4>
+<p><a href="https://open-vsx.org/extension/Continue/continue">Continue - open-source AI code agent</a> provides:</p>
+<ul>
+<li>Code explanation</li>
+<li>Code generation</li>
+<li>Documentation assistance</li>
+<li>Architectural discussions</li>
+<li>Interactive development support</li>
+</ul>
+<p>Continue operates directly in a chat window inside Positron.</p>
+</section>
+<section id="aider-composer" class="level4">
+<h4 class="anchored" data-anchor-id="aider-composer">Aider Composer</h4>
+<p><a href="https://open-vsx.org/extension/lee2py/aider-composer">Aider Composer</a> provides:</p>
+<ul>
+<li>Multi-file refactoring</li>
+<li>Repository-wide code modifications</li>
+<li>Git-aware code changes</li>
+<li>Feature implementation assistance</li>
+</ul>
+<p>Aider is executed from a terminal within the repository.</p>
+</section>
+<section id="ollama" class="level4">
+<h4 class="anchored" data-anchor-id="ollama">Ollama</h4>
+<p><a href="https://ollama.com/">Ollama</a> provides local LLM inference. Both Continue and Aider communicate with Ollama through a local HTTP API.</p>
+</section>
+</section>
+</section>
+<section id="create-the-ollama-container" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="create-the-ollama-container"><span class="header-section-number">13.4</span> Create the Ollama Container</h2>
+<p>Open a terminal and create the Ollama container.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podman</span> run <span class="at">-d</span> <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> ollama <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-p</span> 11434:11434 <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-v</span> ollama:/root/.ollama <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--restart</span><span class="op">=</span>always <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ollama/ollama</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify that the container is running.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podman</span> ps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Example output:</p>
+<pre class="text"><code>CONTAINER ID  IMAGE                  STATUS
+xxxxxxxxxxxx  ollama/ollama:latest   Up</code></pre>
+</section>
+<section id="verify-the-ollama-api" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="verify-the-ollama-api"><span class="header-section-number">13.5</span> Verify the Ollama API</h2>
+<p>Test that the Ollama service is available.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:11434/api/tags</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A JSON response indicates that the service is functioning correctly.</p>
+</section>
+<section id="download-a-model" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="download-a-model"><span class="header-section-number">13.6</span> Download a Model</h2>
+<p>Enter the container.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podman</span> exec <span class="at">-it</span> ollama bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Download a model.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull qwen3:8b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Model downloads may take several hours depending on network conditions.</p>
+<p>List installed models.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Example output:</p>
+<pre class="text"><code>NAME       SIZE
+qwen3:8b   ...</code></pre>
+</section>
+<section id="test-model-inference" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="test-model-inference"><span class="header-section-number">13.7</span> Test Model Inference</h2>
+<p>Verify that the model can generate responses.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:11434/api/generate <span class="at">-d</span> <span class="st">'{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">  "model":"qwen3:8b",</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="st">  "prompt":"Write an R function that buffers sf geometries.",</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="st">  "stream":false</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A successful response confirms that local inference is functioning.</p>
+<hr>
+</section>
+<section id="install-continue" class="level2" data-number="13.8">
+<h2 data-number="13.8" class="anchored" data-anchor-id="install-continue"><span class="header-section-number">13.8</span> Install Continue</h2>
+<p>Open Positron.</p>
+<p>Open the Extensions panel.</p>
+<p>Search for:</p>
+<pre class="text"><code>Continue</code></pre>
+<p>Install the extension.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Install Positron Extensions</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>latest_version_url <span class="ot">&lt;-</span> <span class="st">"https://open-vsx.org/api/Continue/continue/win32-x64/1.3.38/file/Continue.continue-1.3.38@win32-x64.vsix"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>latest_version_filename <span class="ot">&lt;-</span> <span class="fu">basename</span>(<span class="fu">file.path</span>(latest_version_url))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>downloaded_vsix <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(latest_version_filename, <span class="at">fileext =</span> <span class="st">".vsix"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> latest_version_url,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> downloaded_vsix,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"curl"</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"wb"</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">extra =</span> <span class="st">"-L"</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">"positron --install-extension"</span>, <span class="fu">shQuote</span>(downloaded_vsix))</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Restart Positron if prompted.</p>
+</section>
+<section id="configure-continue" class="level2" data-number="13.9">
+<h2 data-number="13.9" class="anchored" data-anchor-id="configure-continue"><span class="header-section-number">13.9</span> Configure Continue</h2>
+<p>Configure Continue to use the local Ollama service.</p>
+<p>Example configuration:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> local-ollama</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">models</span><span class="kw">:</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> qwen3</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> openai</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">apiBase</span><span class="kw">:</span><span class="at"> http://localhost:11434/v1</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">apiKey</span><span class="kw">:</span><span class="at"> dummy</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">model</span><span class="kw">:</span><span class="at"> qwen3:8b</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The exact configuration format may change as Continue evolves.</p>
+<p>Refer to the Continue documentation for the current configuration schema.</p>
+</section>
+<section id="test-continue" class="level2" data-number="13.10">
+<h2 data-number="13.10" class="anchored" data-anchor-id="test-continue"><span class="header-section-number">13.10</span> Test Continue</h2>
+<p>Open an R source file.</p>
+<p>Select a function.</p>
+<p>Ask Continue:</p>
+<blockquote class="blockquote">
+<p>Explain this function and identify opportunities for improvement.</p>
+</blockquote>
+<p>Verify that:</p>
+<ul>
+<li>The model responds.</li>
+<li>The selected code is included in the response.</li>
+<li>No network errors are displayed.</li>
+</ul>
+<hr>
+</section>
+<section id="install-aider" class="level2" data-number="13.11">
+<h2 data-number="13.11" class="anchored" data-anchor-id="install-aider"><span class="header-section-number">13.11</span> Install Aider</h2>
+<p>Install Aider using the method appropriate for your workstation.</p>
+<p>Verify installation.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="configure-aider" class="level2" data-number="13.12">
+<h2 data-number="13.12" class="anchored" data-anchor-id="configure-aider"><span class="header-section-number">13.12</span> Configure Aider</h2>
+<p>Configure Aider to use the local Ollama endpoint.</p>
+<p>Example configuration:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model</span><span class="kw">:</span><span class="at"> openai/qwen3</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">openai-api-base</span><span class="kw">:</span><span class="at"> http://localhost:11434/v1</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">openai-api-key</span><span class="kw">:</span><span class="at"> dummy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Refer to the Aider documentation for the current configuration format.</p>
+</section>
+<section id="test-aider" class="level2" data-number="13.13">
+<h2 data-number="13.13" class="anchored" data-anchor-id="test-aider"><span class="header-section-number">13.13</span> Test Aider</h2>
+<p>Open a terminal within a Git repository.</p>
+<p>Start Aider.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Test a simple refactoring request.</p>
+<p>Example:</p>
+<blockquote class="blockquote">
+<p>Rename function <code>calc_buffer()</code> to <code>compute_buffer()</code> throughout the repository.</p>
+</blockquote>
+<p>Verify that:</p>
+<ul>
+<li>Aider identifies affected files.</li>
+<li>Proposed changes are displayed.</li>
+<li>Git changes are correctly generated.</li>
+</ul>
+</section>
+<section id="recommended-workflow" class="level2" data-number="13.14">
+<h2 data-number="13.14" class="anchored" data-anchor-id="recommended-workflow"><span class="header-section-number">13.14</span> Recommended Workflow</h2>
+<section id="continue-1" class="level3">
+<h3 class="anchored" data-anchor-id="continue-1">Continue</h3>
+<p>Use Continue for:</p>
+<ul>
+<li>Understanding existing code</li>
+<li>Reviewing architecture</li>
+<li>Drafting documentation</li>
+<li>Planning refactors</li>
+<li>Exploring implementation options</li>
+</ul>
+</section>
+<section id="aider" class="level3">
+<h3 class="anchored" data-anchor-id="aider">Aider</h3>
+<p>Use Aider for:</p>
+<ul>
+<li>Multi-file edits</li>
+<li>API migrations</li>
+<li>Large refactorings</li>
+<li>Coordinated code changes</li>
+<li>Repository-wide updates</li>
+</ul>
+</section>
+<section id="ollama-1" class="level3">
+<h3 class="anchored" data-anchor-id="ollama-1">Ollama</h3>
+<p>Use Ollama as the shared local inference service for both tools.</p>
+</section>
+</section>
+<section id="troubleshooting" class="level2" data-number="13.15">
+<h2 data-number="13.15" class="anchored" data-anchor-id="troubleshooting"><span class="header-section-number">13.15</span> Troubleshooting</h2>
+<section id="ollama-api-not-available" class="level3">
+<h3 class="anchored" data-anchor-id="ollama-api-not-available">Ollama API Not Available</h3>
+<p>Verify:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podman</span> ps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:11434/api/tags</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Restart the container if necessary.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podman</span> restart ollama</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="model-not-found" class="level3">
+<h3 class="anchored" data-anchor-id="model-not-found">Model Not Found</h3>
+<p>List installed models.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podman</span> exec <span class="at">-it</span> ollama ollama list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Download the required model if it is not present.</p>
+</section>
+<section id="continue-cannot-connect" class="level3">
+<h3 class="anchored" data-anchor-id="continue-cannot-connect">Continue Cannot Connect</h3>
+<p>Verify:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:11434/v1/models</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Review Continue configuration settings.</p>
+</section>
+<section id="aider-cannot-connect" class="level3">
+<h3 class="anchored" data-anchor-id="aider-cannot-connect">Aider Cannot Connect</h3>
+<p>Verify:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:11434/v1/models</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Review Aider configuration settings.</p>
+</section>
+</section>
+<section id="current-limitations" class="level2" data-number="13.16">
+<h2 data-number="13.16" class="anchored" data-anchor-id="current-limitations"><span class="header-section-number">13.16</span> Current Limitations</h2>
+<p>This workflow is currently under evaluation.</p>
+<p>Known areas requiring additional testing include:</p>
+<ul>
+<li>GPU acceleration through Podman</li>
+<li>Large-model performance</li>
+<li>Continue integration details</li>
+<li>Aider integration details</li>
+<li>Repository-scale refactoring performance</li>
+</ul>
+<p>Future revisions of this chapter will be updated as testing progresses.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -693,13 +1005,14 @@ Attaching package: 'dplyr'</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

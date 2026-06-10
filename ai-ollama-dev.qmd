@@ -1,0 +1,386 @@
+# Using Ollama for Development
+
+## Overview
+
+This chapter describes how to configure a local large language model (LLM) development environment using Ollama, Podman, Positron, Continue, and Aider.
+
+The workflow described in this chapter allows developers to use AI-assisted development without connecting source code to external AI services. All inference is performed locally on the developer workstation.
+
+This workflow is intended to support:
+
+* R package development
+* Python development
+* Shiny application development
+* Quarto documentation development
+* Software architecture analysis
+* API refactoring
+* Technical documentation generation
+
+## Prerequisites
+
+Before continuing, complete the following chapters:
+
+* Positron Getting Started
+* Podman Desktop
+* Podman Desktop Getting Started
+
+You should also verify that:
+
+* Podman Desktop is installed and functioning.
+* Podman can run Linux containers.
+* Positron is installed.
+* Git is installed and configured.
+
+## Architecture
+
+The development environment consists of the following components:
+
+```text
+Positron
+├── Continue
+└── Local source code repositories
+
+Terminal
+└── Aider
+
+Podman
+└── Ollama
+
+Ollama
+└── Local LLM Models
+```
+
+### Component Roles
+
+#### Positron
+
+[Positron](https://positron.posit.co/welcome.html) serves as the primary Integrated Development Environment (IDE) for:
+
+* R development
+* Python development
+* Quarto documentation
+* Git repo maintanence operations
+
+This approach depends on VS Code [Extensions for Positron](https://positron.posit.co/extensions.html) described in the next sections. 
+
+#### Continue
+
+[Continue - open-source AI code agent](https://open-vsx.org/extension/Continue/continue) provides:
+
+* Code explanation
+* Code generation
+* Documentation assistance
+* Architectural discussions
+* Interactive development support
+
+Continue operates directly in a chat window inside Positron.
+
+#### Aider Composer
+
+[Aider Composer](https://open-vsx.org/extension/lee2py/aider-composer) provides:
+
+* Multi-file refactoring
+* Repository-wide code modifications
+* Git-aware code changes
+* Feature implementation assistance
+
+Aider is executed from a terminal within the repository.
+
+#### Ollama
+
+[Ollama](https://ollama.com/) provides local LLM inference. Both Continue and Aider communicate with Ollama through a local HTTP API.
+
+## Create the Ollama Container
+
+Open a terminal and create the Ollama container.
+
+```bash
+podman run -d \
+  --name ollama \
+  -p 11434:11434 \
+  -v ollama:/root/.ollama \
+  --restart=always \
+  ollama/ollama
+```
+
+Verify that the container is running.
+
+```bash
+podman ps
+```
+
+Example output:
+
+```text
+CONTAINER ID  IMAGE                  STATUS
+xxxxxxxxxxxx  ollama/ollama:latest   Up
+```
+
+## Verify the Ollama API
+
+Test that the Ollama service is available.
+
+```bash
+curl http://localhost:11434/api/tags
+```
+
+A JSON response indicates that the service is functioning correctly.
+
+## Download a Model
+
+Enter the container.
+
+```bash
+podman exec -it ollama bash
+```
+
+Download a model.
+
+```bash
+ollama pull qwen3:8b
+```
+
+Model downloads may take several hours depending on network conditions.
+
+List installed models.
+
+```bash
+ollama list
+```
+
+Example output:
+
+```text
+NAME       SIZE
+qwen3:8b   ...
+```
+
+## Test Model Inference
+
+Verify that the model can generate responses.
+
+```bash
+curl http://localhost:11434/api/generate -d '{
+  "model":"qwen3:8b",
+  "prompt":"Write an R function that buffers sf geometries.",
+  "stream":false
+}'
+```
+
+A successful response confirms that local inference is functioning.
+
+***
+
+## Install Continue
+
+Open Positron.
+
+Open the Extensions panel.
+
+Search for:
+
+```text
+Continue
+```
+
+Install the extension.
+
+```r
+## Install Positron Extensions
+latest_version_url <- "https://open-vsx.org/api/Continue/continue/win32-x64/1.3.38/file/Continue.continue-1.3.38@win32-x64.vsix"
+latest_version_filename <- basename(file.path(latest_version_url))
+
+downloaded_vsix <- tempfile(latest_version_filename, fileext = ".vsix")
+  
+download.file(
+  url = latest_version_url,
+  destfile = downloaded_vsix,
+  method = "curl",
+  mode = "wb",
+  extra = "-L"
+)
+
+system(
+  paste("positron --install-extension", shQuote(downloaded_vsix))
+)
+```
+
+Restart Positron if prompted.
+
+## Configure Continue
+
+Configure Continue to use the local Ollama service.
+
+Example configuration:
+
+```yaml
+name: local-ollama
+
+models:
+  - name: qwen3
+    provider: openai
+    apiBase: http://localhost:11434/v1
+    apiKey: dummy
+    model: qwen3:8b
+```
+
+The exact configuration format may change as Continue evolves.
+
+Refer to the Continue documentation for the current configuration schema.
+
+## Test Continue
+
+Open an R source file.
+
+Select a function.
+
+Ask Continue:
+
+> Explain this function and identify opportunities for improvement.
+
+Verify that:
+
+* The model responds.
+* The selected code is included in the response.
+* No network errors are displayed.
+
+
+***
+
+## Install Aider
+
+Install Aider using the method appropriate for your workstation.
+
+Verify installation.
+
+```bash
+aider --version
+```
+
+## Configure Aider
+
+Configure Aider to use the local Ollama endpoint.
+
+Example configuration:
+
+```yaml
+model: openai/qwen3
+openai-api-base: http://localhost:11434/v1
+openai-api-key: dummy
+```
+
+Refer to the Aider documentation for the current configuration format.
+
+## Test Aider
+
+Open a terminal within a Git repository.
+
+Start Aider.
+
+```bash
+aider
+```
+
+Test a simple refactoring request.
+
+Example:
+
+> Rename function `calc_buffer()` to `compute_buffer()` throughout the repository.
+
+Verify that:
+
+* Aider identifies affected files.
+* Proposed changes are displayed.
+* Git changes are correctly generated.
+
+## Recommended Workflow
+
+### Continue
+
+Use Continue for:
+
+* Understanding existing code
+* Reviewing architecture
+* Drafting documentation
+* Planning refactors
+* Exploring implementation options
+
+### Aider
+
+Use Aider for:
+
+* Multi-file edits
+* API migrations
+* Large refactorings
+* Coordinated code changes
+* Repository-wide updates
+
+### Ollama
+
+Use Ollama as the shared local inference service for both tools.
+
+## Troubleshooting
+
+### Ollama API Not Available
+
+Verify:
+
+```bash
+podman ps
+```
+
+Verify:
+
+```bash
+curl http://localhost:11434/api/tags
+```
+
+Restart the container if necessary.
+
+```bash
+podman restart ollama
+```
+
+### Model Not Found
+
+List installed models.
+
+```bash
+podman exec -it ollama ollama list
+```
+
+Download the required model if it is not present.
+
+### Continue Cannot Connect
+
+Verify:
+
+```bash
+curl http://localhost:11434/v1/models
+```
+
+Review Continue configuration settings.
+
+### Aider Cannot Connect
+
+Verify:
+
+```bash
+curl http://localhost:11434/v1/models
+```
+
+Review Aider configuration settings.
+
+## Current Limitations
+
+This workflow is currently under evaluation.
+
+Known areas requiring additional testing include:
+
+* GPU acceleration through Podman
+* Large-model performance
+* Continue integration details
+* Aider integration details
+* Repository-scale refactoring performance
+
+Future revisions of this chapter will be updated as testing progresses.

@@ -38,7 +38,7 @@ book:
     - part: "AI Workflows"
       chapters:
         - ai-reproducibleai.qmd
-        - ai-workflows.qmd
+        - ai-ollama-dev.qmd
     - part: "Data Governance"
       chapters:
         - gov-open-source-software.qmd
