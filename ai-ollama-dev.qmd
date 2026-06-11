@@ -126,7 +126,7 @@ Confirm that the Podman machine is running before continuing.
 
 ## Install NVIDIA Container Toolkit in the Podman Machine
 
-GPU access inside Podman containers requires NVIDIA container tooling inside the Linux environment that backs Podman.
+GPU access inside Podman containers requires NVIDIA container tooling inside the Linux environment that backs Podman. In the current Fedora-based Podman machine environment, install the toolkit with:
 
 In PowerShell, run:
 
@@ -273,8 +273,6 @@ In PowerShell, run:
       -Method Post `
       -ContentType "application/json" `
       -Body $body
-
-A successful response confirms that local inference is functioning.
 
 To confirm that inference is using the GPU, monitor GPU activity on the host while a prompt is running:
 
@@ -545,6 +543,7 @@ Known areas requiring additional testing include:
 * Continue integration details
 * Aider integration details
 * Repository-scale refactoring performance
+* Large-model performance
 * Validation on additional Windows workstation configurations
 * Validation on non-Windows host operating systems
 
@@ -553,4 +552,5 @@ GPU acceleration with Podman has been validated for a Windows workstation using:
 * WSL2-backed Podman machine
 * NVIDIA GPU
 * NVIDIA container toolkit installed in the Podman machine
+* GPU enablement
 * CDI device configuration generated with `nvidia-ctk`

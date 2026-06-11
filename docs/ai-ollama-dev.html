@@ -769,7 +769,7 @@ podman info</code></pre>
 </section>
 <section id="install-nvidia-container-toolkit-in-the-podman-machine" class="level2" data-number="13.6">
 <h2 data-number="13.6" class="anchored" data-anchor-id="install-nvidia-container-toolkit-in-the-podman-machine"><span class="header-section-number">13.6</span> Install NVIDIA Container Toolkit in the Podman Machine</h2>
-<p>GPU access inside Podman containers requires NVIDIA container tooling inside the Linux environment that backs Podman.</p>
+<p>GPU access inside Podman containers requires NVIDIA container tooling inside the Linux environment that backs Podman. In the current Fedora-based Podman machine environment, install the toolkit with:</p>
 <p>In PowerShell, run:</p>
 <pre><code>podman machine ssh "dnf install -y golang-github-nvidia-container-toolkit"</code></pre>
 <p>Verify that <code>nvidia-ctk</code> is available:</p>
@@ -873,7 +873,6 @@ Invoke-RestMethod `
   -Method Post `
   -ContentType "application/json" `
   -Body $body</code></pre>
-<p>A successful response confirms that local inference is functioning.</p>
 <p>To confirm that inference is using the GPU, monitor GPU activity on the host while a prompt is running:</p>
 <pre><code>nvidia-smi</code></pre>
 <p>During active inference, GPU memory usage should increase and the Ollama inference process should be visible. A successful response confirms that local inference is functioning.</p>
@@ -1074,6 +1073,7 @@ Invoke-RestMethod `
 <li>Continue integration details</li>
 <li>Aider integration details</li>
 <li>Repository-scale refactoring performance</li>
+<li>Large-model performance</li>
 <li>Validation on additional Windows workstation configurations</li>
 <li>Validation on non-Windows host operating systems</li>
 </ul>
@@ -1082,6 +1082,7 @@ Invoke-RestMethod `
 <li>WSL2-backed Podman machine</li>
 <li>NVIDIA GPU</li>
 <li>NVIDIA container toolkit installed in the Podman machine</li>
+<li>GPU enablement</li>
 <li>CDI device configuration generated with <code>nvidia-ctk</code></li>
 </ul>
 

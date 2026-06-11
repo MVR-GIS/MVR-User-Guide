@@ -1023,7 +1023,7 @@
     "href": "ai-ollama-dev.html#install-nvidia-container-toolkit-in-the-podman-machine",
     "title": "13  Using Ollama for Development",
     "section": "13.6 Install NVIDIA Container Toolkit in the Podman Machine",
-    "text": "13.6 Install NVIDIA Container Toolkit in the Podman Machine\nGPU access inside Podman containers requires NVIDIA container tooling inside the Linux environment that backs Podman.\nIn PowerShell, run:\npodman machine ssh \"dnf install -y golang-github-nvidia-container-toolkit\"\nVerify that nvidia-ctk is available:\npodman machine ssh \"command -v nvidia-ctk\"\nExpected output should include:\n/usr/bin/nvidia-ctk",
+    "text": "13.6 Install NVIDIA Container Toolkit in the Podman Machine\nGPU access inside Podman containers requires NVIDIA container tooling inside the Linux environment that backs Podman. In the current Fedora-based Podman machine environment, install the toolkit with:\nIn PowerShell, run:\npodman machine ssh \"dnf install -y golang-github-nvidia-container-toolkit\"\nVerify that nvidia-ctk is available:\npodman machine ssh \"command -v nvidia-ctk\"\nExpected output should include:\n/usr/bin/nvidia-ctk",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1089,7 +1089,7 @@
     "href": "ai-ollama-dev.html#test-model-inference",
     "title": "13  Using Ollama for Development",
     "section": "13.12 Test Model Inference",
-    "text": "13.12 Test Model Inference\nVerify that the model can generate responses.\nIn Git Bash, run:\ncurl http://localhost:11434/api/generate -d '{\n  \"model\":\"qwen3:8b\",\n  \"prompt\":\"Write an R function that buffers sf geometries.\",\n  \"stream\":false\n}'\nIn PowerShell, run:\n$body = @{\n  model  = \"qwen3:8b\"\n  prompt = \"Write an R function that buffers sf geometries.\"\n  stream = $false\n} | ConvertTo-Json\n\nInvoke-RestMethod `\n  -Uri \"http://localhost:11434/api/generate\" `\n  -Method Post `\n  -ContentType \"application/json\" `\n  -Body $body\nA successful response confirms that local inference is functioning.\nTo confirm that inference is using the GPU, monitor GPU activity on the host while a prompt is running:\nnvidia-smi\nDuring active inference, GPU memory usage should increase and the Ollama inference process should be visible. A successful response confirms that local inference is functioning.",
+    "text": "13.12 Test Model Inference\nVerify that the model can generate responses.\nIn Git Bash, run:\ncurl http://localhost:11434/api/generate -d '{\n  \"model\":\"qwen3:8b\",\n  \"prompt\":\"Write an R function that buffers sf geometries.\",\n  \"stream\":false\n}'\nIn PowerShell, run:\n$body = @{\n  model  = \"qwen3:8b\"\n  prompt = \"Write an R function that buffers sf geometries.\"\n  stream = $false\n} | ConvertTo-Json\n\nInvoke-RestMethod `\n  -Uri \"http://localhost:11434/api/generate\" `\n  -Method Post `\n  -ContentType \"application/json\" `\n  -Body $body\nTo confirm that inference is using the GPU, monitor GPU activity on the host while a prompt is running:\nnvidia-smi\nDuring active inference, GPU memory usage should increase and the Ollama inference process should be visible. A successful response confirms that local inference is functioning.",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1188,7 +1188,7 @@
     "href": "ai-ollama-dev.html#current-limitations",
     "title": "13  Using Ollama for Development",
     "section": "13.21 Current Limitations",
-    "text": "13.21 Current Limitations\nThis workflow is currently under evaluation.\nKnown areas requiring additional testing include:\n\nContinue integration details\nAider integration details\nRepository-scale refactoring performance\nValidation on additional Windows workstation configurations\nValidation on non-Windows host operating systems\n\nGPU acceleration with Podman has been validated for a Windows workstation using:\n\nWSL2-backed Podman machine\nNVIDIA GPU\nNVIDIA container toolkit installed in the Podman machine\nCDI device configuration generated with nvidia-ctk",
+    "text": "13.21 Current Limitations\nThis workflow is currently under evaluation.\nKnown areas requiring additional testing include:\n\nContinue integration details\nAider integration details\nRepository-scale refactoring performance\nLarge-model performance\nValidation on additional Windows workstation configurations\nValidation on non-Windows host operating systems\n\nGPU acceleration with Podman has been validated for a Windows workstation using:\n\nWSL2-backed Podman machine\nNVIDIA GPU\nNVIDIA container toolkit installed in the Podman machine\nGPU enablement\nCDI device configuration generated with nvidia-ctk",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
