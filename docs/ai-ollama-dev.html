@@ -593,30 +593,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#component-roles" id="toc-component-roles" class="nav-link" data-scroll-target="#component-roles">Component Roles</a></li>
   </ul></li>
-  <li><a href="#create-the-ollama-container" id="toc-create-the-ollama-container" class="nav-link" data-scroll-target="#create-the-ollama-container"><span class="header-section-number">13.4</span> Create the Ollama Container</a></li>
-  <li><a href="#verify-the-ollama-api" id="toc-verify-the-ollama-api" class="nav-link" data-scroll-target="#verify-the-ollama-api"><span class="header-section-number">13.5</span> Verify the Ollama API</a></li>
-  <li><a href="#download-a-model" id="toc-download-a-model" class="nav-link" data-scroll-target="#download-a-model"><span class="header-section-number">13.6</span> Download a Model</a></li>
-  <li><a href="#test-model-inference" id="toc-test-model-inference" class="nav-link" data-scroll-target="#test-model-inference"><span class="header-section-number">13.7</span> Test Model Inference</a></li>
-  <li><a href="#install-continue" id="toc-install-continue" class="nav-link" data-scroll-target="#install-continue"><span class="header-section-number">13.8</span> Install Continue</a></li>
-  <li><a href="#configure-continue" id="toc-configure-continue" class="nav-link" data-scroll-target="#configure-continue"><span class="header-section-number">13.9</span> Configure Continue</a></li>
-  <li><a href="#test-continue" id="toc-test-continue" class="nav-link" data-scroll-target="#test-continue"><span class="header-section-number">13.10</span> Test Continue</a></li>
-  <li><a href="#install-aider" id="toc-install-aider" class="nav-link" data-scroll-target="#install-aider"><span class="header-section-number">13.11</span> Install Aider</a></li>
-  <li><a href="#configure-aider" id="toc-configure-aider" class="nav-link" data-scroll-target="#configure-aider"><span class="header-section-number">13.12</span> Configure Aider</a></li>
-  <li><a href="#test-aider" id="toc-test-aider" class="nav-link" data-scroll-target="#test-aider"><span class="header-section-number">13.13</span> Test Aider</a></li>
-  <li><a href="#recommended-workflow" id="toc-recommended-workflow" class="nav-link" data-scroll-target="#recommended-workflow"><span class="header-section-number">13.14</span> Recommended Workflow</a>
+  <li><a href="#verify-host-gpu-availability" id="toc-verify-host-gpu-availability" class="nav-link" data-scroll-target="#verify-host-gpu-availability"><span class="header-section-number">13.4</span> Verify Host GPU Availability</a></li>
+  <li><a href="#verify-the-podman-machine" id="toc-verify-the-podman-machine" class="nav-link" data-scroll-target="#verify-the-podman-machine"><span class="header-section-number">13.5</span> Verify the Podman Machine</a></li>
+  <li><a href="#install-nvidia-container-toolkit-in-the-podman-machine" id="toc-install-nvidia-container-toolkit-in-the-podman-machine" class="nav-link" data-scroll-target="#install-nvidia-container-toolkit-in-the-podman-machine"><span class="header-section-number">13.6</span> Install NVIDIA Container Toolkit in the Podman Machine</a></li>
+  <li><a href="#generate-the-nvidia-cdi-configuration" id="toc-generate-the-nvidia-cdi-configuration" class="nav-link" data-scroll-target="#generate-the-nvidia-cdi-configuration"><span class="header-section-number">13.7</span> Generate the NVIDIA CDI Configuration</a></li>
+  <li><a href="#create-the-ollama-container" id="toc-create-the-ollama-container" class="nav-link" data-scroll-target="#create-the-ollama-container"><span class="header-section-number">13.8</span> Create the Ollama Container</a></li>
+  <li><a href="#verify-gpu-access-inside-the-container" id="toc-verify-gpu-access-inside-the-container" class="nav-link" data-scroll-target="#verify-gpu-access-inside-the-container"><span class="header-section-number">13.9</span> Verify GPU Access Inside the Container</a></li>
+  <li><a href="#verify-the-ollama-api" id="toc-verify-the-ollama-api" class="nav-link" data-scroll-target="#verify-the-ollama-api"><span class="header-section-number">13.10</span> Verify the Ollama API</a></li>
+  <li><a href="#download-a-model" id="toc-download-a-model" class="nav-link" data-scroll-target="#download-a-model"><span class="header-section-number">13.11</span> Download a Model</a></li>
+  <li><a href="#test-model-inference" id="toc-test-model-inference" class="nav-link" data-scroll-target="#test-model-inference"><span class="header-section-number">13.12</span> Test Model Inference</a></li>
+  <li><a href="#install-continue" id="toc-install-continue" class="nav-link" data-scroll-target="#install-continue"><span class="header-section-number">13.13</span> Install Continue</a></li>
+  <li><a href="#configure-continue" id="toc-configure-continue" class="nav-link" data-scroll-target="#configure-continue"><span class="header-section-number">13.14</span> Configure Continue</a></li>
+  <li><a href="#test-continue" id="toc-test-continue" class="nav-link" data-scroll-target="#test-continue"><span class="header-section-number">13.15</span> Test Continue</a></li>
+  <li><a href="#install-aider" id="toc-install-aider" class="nav-link" data-scroll-target="#install-aider"><span class="header-section-number">13.16</span> Install Aider</a></li>
+  <li><a href="#configure-aider" id="toc-configure-aider" class="nav-link" data-scroll-target="#configure-aider"><span class="header-section-number">13.17</span> Configure Aider</a></li>
+  <li><a href="#test-aider" id="toc-test-aider" class="nav-link" data-scroll-target="#test-aider"><span class="header-section-number">13.18</span> Test Aider</a></li>
+  <li><a href="#recommended-workflow" id="toc-recommended-workflow" class="nav-link" data-scroll-target="#recommended-workflow"><span class="header-section-number">13.19</span> Recommended Workflow</a>
   <ul class="collapse">
   <li><a href="#continue-1" id="toc-continue-1" class="nav-link" data-scroll-target="#continue-1">Continue</a></li>
   <li><a href="#aider" id="toc-aider" class="nav-link" data-scroll-target="#aider">Aider</a></li>
   <li><a href="#ollama-1" id="toc-ollama-1" class="nav-link" data-scroll-target="#ollama-1">Ollama</a></li>
   </ul></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting"><span class="header-section-number">13.15</span> Troubleshooting</a>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting"><span class="header-section-number">13.20</span> Troubleshooting</a>
   <ul class="collapse">
   <li><a href="#ollama-api-not-available" id="toc-ollama-api-not-available" class="nav-link" data-scroll-target="#ollama-api-not-available">Ollama API Not Available</a></li>
+  <li><a href="#gpu-device-not-available-in-podman" id="toc-gpu-device-not-available-in-podman" class="nav-link" data-scroll-target="#gpu-device-not-available-in-podman">GPU Device Not Available in Podman</a></li>
   <li><a href="#model-not-found" id="toc-model-not-found" class="nav-link" data-scroll-target="#model-not-found">Model Not Found</a></li>
   <li><a href="#continue-cannot-connect" id="toc-continue-cannot-connect" class="nav-link" data-scroll-target="#continue-cannot-connect">Continue Cannot Connect</a></li>
   <li><a href="#aider-cannot-connect" id="toc-aider-cannot-connect" class="nav-link" data-scroll-target="#aider-cannot-connect">Aider Cannot Connect</a></li>
+  <li><a href="#bash-and-powershell-command-differences" id="toc-bash-and-powershell-command-differences" class="nav-link" data-scroll-target="#bash-and-powershell-command-differences">Bash and PowerShell Command Differences</a></li>
   </ul></li>
-  <li><a href="#current-limitations" id="toc-current-limitations" class="nav-link" data-scroll-target="#current-limitations"><span class="header-section-number">13.16</span> Current Limitations</a></li>
+  <li><a href="#current-limitations" id="toc-current-limitations" class="nav-link" data-scroll-target="#current-limitations"><span class="header-section-number">13.21</span> Current Limitations</a></li>
   </ul>
 </nav>
     </div>
@@ -673,11 +680,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Positron is installed.</li>
 <li>Git is installed and configured.</li>
 </ul>
+<p>This workflow assumes the following platform for GPU-accelerated local inference:</p>
+<ul>
+<li>Windows host workstation</li>
+<li>NVIDIA GPU with current Windows NVIDIA drivers</li>
+<li>Podman machine running on WSL2</li>
+<li>Git Bash or another Bash-compatible shell for Bash examples</li>
+</ul>
+<p>If the workstation does not provide an NVIDIA GPU, or if Podman GPU integration is not configured, Ollama may run in CPU-only mode and model responses may be significantly slower.</p>
 </section>
 <section id="architecture" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="architecture"><span class="header-section-number">13.3</span> Architecture</h2>
 <p>The development environment consists of the following components:</p>
-<pre class="text"><code>Positron
+<pre><code>Positron
 ├── Continue
 └── Local source code repositories
 
@@ -731,94 +746,182 @@ Ollama
 </section>
 </section>
 </section>
-<section id="create-the-ollama-container" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="create-the-ollama-container"><span class="header-section-number">13.4</span> Create the Ollama Container</h2>
-<p>Open a terminal and create the Ollama container.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podman</span> run <span class="at">-d</span> <span class="dt">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> ollama <span class="dt">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-p</span> 11434:11434 <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-v</span> ollama:/root/.ollama <span class="dt">\</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--restart</span><span class="op">=</span>always <span class="dt">\</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ollama/ollama</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Verify that the container is running.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podman</span> ps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="verify-host-gpu-availability" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="verify-host-gpu-availability"><span class="header-section-number">13.4</span> Verify Host GPU Availability</h2>
+<p>Before configuring the container, verify that the Windows host can see the NVIDIA GPU.</p>
+<p>In PowerShell, run:</p>
+<pre><code>nvidia-smi</code></pre>
+<p>A successful result should show:</p>
+<ul>
+<li>the installed NVIDIA GPU,</li>
+<li>driver version information,</li>
+<li>available GPU memory.</li>
+</ul>
+<p>If this command fails, resolve the host GPU driver installation before continuing.</p>
+</section>
+<section id="verify-the-podman-machine" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="verify-the-podman-machine"><span class="header-section-number">13.5</span> Verify the Podman Machine</h2>
+<p>This workflow depends on the Podman machine running as a Linux environment on WSL2.</p>
+<p>In PowerShell, run:</p>
+<pre><code>podman machine list
+podman info</code></pre>
+<p>Confirm that the Podman machine is running before continuing.</p>
+</section>
+<section id="install-nvidia-container-toolkit-in-the-podman-machine" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="install-nvidia-container-toolkit-in-the-podman-machine"><span class="header-section-number">13.6</span> Install NVIDIA Container Toolkit in the Podman Machine</h2>
+<p>GPU access inside Podman containers requires NVIDIA container tooling inside the Linux environment that backs Podman.</p>
+<p>In PowerShell, run:</p>
+<pre><code>podman machine ssh "dnf install -y golang-github-nvidia-container-toolkit"</code></pre>
+<p>Verify that <code>nvidia-ctk</code> is available:</p>
+<pre><code>podman machine ssh "command -v nvidia-ctk"</code></pre>
+<p>Expected output should include:</p>
+<pre><code>/usr/bin/nvidia-ctk</code></pre>
+</section>
+<section id="generate-the-nvidia-cdi-configuration" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="generate-the-nvidia-cdi-configuration"><span class="header-section-number">13.7</span> Generate the NVIDIA CDI Configuration</h2>
+<p>Podman uses Container Device Interface (CDI) device definitions to expose the host GPU to Linux containers.</p>
+<p>Generate the CDI configuration:</p>
+<pre><code>podman machine ssh "mkdir -p /etc/cdi &amp;&amp; nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml"</code></pre>
+<p>Verify that Podman can resolve the GPU CDI device:</p>
+<pre><code>podman machine ssh "nvidia-ctk cdi list"</code></pre>
+<p>Expected output should include:</p>
+<pre><code>nvidia.com/gpu=all</code></pre>
+<p>If <code>nvidia.com/gpu=all</code> is not present, do not continue. Resolve CDI configuration before creating the Ollama container.</p>
+</section>
+<section id="create-the-ollama-container" class="level2" data-number="13.8">
+<h2 data-number="13.8" class="anchored" data-anchor-id="create-the-ollama-container"><span class="header-section-number">13.8</span> Create the Ollama Container</h2>
+<p>Remove any previous Ollama container before creating the GPU-enabled container.</p>
+<p>In PowerShell, run:</p>
+<pre><code>podman rm -f ollama</code></pre>
+<p>In Git Bash, run:</p>
+<pre><code>podman run -d \
+  --name ollama \
+  -p 11434:11434 \
+  -v ollama:/root/.ollama \
+  --device nvidia.com/gpu=all \
+  --security-opt=label=disable \
+  --restart=always \
+  ollama/ollama</code></pre>
+<p>In PowerShell, use:</p>
+<pre><code>podman run -d `
+  --name ollama `
+  -p 11434:11434 `
+  -v ollama:/root/.ollama `
+  --device nvidia.com/gpu=all `
+  --security-opt=label=disable `
+  --restart=always `
+  ollama/ollama</code></pre>
+<p>Verify that the container is running:</p>
+<pre><code>podman ps</code></pre>
 <p>Example output:</p>
-<pre class="text"><code>CONTAINER ID  IMAGE                  STATUS
+<pre><code>CONTAINER ID  IMAGE                  STATUS
 xxxxxxxxxxxx  ollama/ollama:latest   Up</code></pre>
 </section>
-<section id="verify-the-ollama-api" class="level2" data-number="13.5">
-<h2 data-number="13.5" class="anchored" data-anchor-id="verify-the-ollama-api"><span class="header-section-number">13.5</span> Verify the Ollama API</h2>
+<section id="verify-gpu-access-inside-the-container" class="level2" data-number="13.9">
+<h2 data-number="13.9" class="anchored" data-anchor-id="verify-gpu-access-inside-the-container"><span class="header-section-number">13.9</span> Verify GPU Access Inside the Container</h2>
+<p>Confirm that the running Ollama container can access the GPU.</p>
+<p>In Git Bash or PowerShell, run:</p>
+<pre><code>podman exec -it ollama bash -lc "nvidia-smi"</code></pre>
+<p>A successful result should show:</p>
+<ul>
+<li>the NVIDIA GPU,</li>
+<li>nonzero or available GPU memory,</li>
+<li>and, during active inference, the Ollama inference process.</li>
+</ul>
+<p>If <code>nvidia-smi</code> does not work inside the container, do not continue to model setup. Recheck the Podman machine CDI configuration.</p>
+</section>
+<section id="verify-the-ollama-api" class="level2" data-number="13.10">
+<h2 data-number="13.10" class="anchored" data-anchor-id="verify-the-ollama-api"><span class="header-section-number">13.10</span> Verify the Ollama API</h2>
 <p>Test that the Ollama service is available.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:11434/api/tags</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In Git Bash, run:</p>
+<pre><code>curl http://localhost:11434/api/tags</code></pre>
+<p>In PowerShell, run:</p>
+<pre><code>Invoke-RestMethod -Uri "http://localhost:11434/api/tags" -Method Get</code></pre>
 <p>A JSON response indicates that the service is functioning correctly.</p>
 </section>
-<section id="download-a-model" class="level2" data-number="13.6">
-<h2 data-number="13.6" class="anchored" data-anchor-id="download-a-model"><span class="header-section-number">13.6</span> Download a Model</h2>
-<p>Enter the container.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podman</span> exec <span class="at">-it</span> ollama bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Download a model.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull qwen3:8b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="download-a-model" class="level2" data-number="13.11">
+<h2 data-number="13.11" class="anchored" data-anchor-id="download-a-model"><span class="header-section-number">13.11</span> Download a Model</h2>
+<p>Enter the container:</p>
+<pre><code>podman exec -it ollama bash</code></pre>
+<p>Download a model:</p>
+<pre><code>ollama pull qwen3:8b</code></pre>
 <p>Model downloads may take several hours depending on network conditions.</p>
-<p>List installed models.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>List installed models:</p>
+<pre><code>ollama list</code></pre>
 <p>Example output:</p>
-<pre class="text"><code>NAME       SIZE
+<pre><code>NAME       SIZE
 qwen3:8b   ...</code></pre>
 </section>
-<section id="test-model-inference" class="level2" data-number="13.7">
-<h2 data-number="13.7" class="anchored" data-anchor-id="test-model-inference"><span class="header-section-number">13.7</span> Test Model Inference</h2>
+<section id="test-model-inference" class="level2" data-number="13.12">
+<h2 data-number="13.12" class="anchored" data-anchor-id="test-model-inference"><span class="header-section-number">13.12</span> Test Model Inference</h2>
 <p>Verify that the model can generate responses.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:11434/api/generate <span class="at">-d</span> <span class="st">'{</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">  "model":"qwen3:8b",</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="st">  "prompt":"Write an R function that buffers sf geometries.",</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="st">  "stream":false</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In Git Bash, run:</p>
+<pre><code>curl http://localhost:11434/api/generate -d '{
+  "model":"qwen3:8b",
+  "prompt":"Write an R function that buffers sf geometries.",
+  "stream":false
+}'</code></pre>
+<p>In PowerShell, run:</p>
+<pre><code>$body = @{
+  model  = "qwen3:8b"
+  prompt = "Write an R function that buffers sf geometries."
+  stream = $false
+} | ConvertTo-Json
+
+Invoke-RestMethod `
+  -Uri "http://localhost:11434/api/generate" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body $body</code></pre>
 <p>A successful response confirms that local inference is functioning.</p>
+<p>To confirm that inference is using the GPU, monitor GPU activity on the host while a prompt is running:</p>
+<pre><code>nvidia-smi</code></pre>
+<p>During active inference, GPU memory usage should increase and the Ollama inference process should be visible. A successful response confirms that local inference is functioning.</p>
 <hr>
 </section>
-<section id="install-continue" class="level2" data-number="13.8">
-<h2 data-number="13.8" class="anchored" data-anchor-id="install-continue"><span class="header-section-number">13.8</span> Install Continue</h2>
+<section id="install-continue" class="level2" data-number="13.13">
+<h2 data-number="13.13" class="anchored" data-anchor-id="install-continue"><span class="header-section-number">13.13</span> Install Continue</h2>
 <p>Open Positron.</p>
 <p>Open the Extensions panel.</p>
 <p>Search for:</p>
 <pre class="text"><code>Continue</code></pre>
 <p>Install the extension.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Install Positron Extensions</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>latest_version_url <span class="ot">&lt;-</span> <span class="st">"https://open-vsx.org/api/Continue/continue/win32-x64/1.3.38/file/Continue.continue-1.3.38@win32-x64.vsix"</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>latest_version_filename <span class="ot">&lt;-</span> <span class="fu">basename</span>(<span class="fu">file.path</span>(latest_version_url))</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>downloaded_vsix <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(latest_version_filename, <span class="at">fileext =</span> <span class="st">".vsix"</span>)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> latest_version_url,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> downloaded_vsix,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"curl"</span>,</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"wb"</span>,</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">extra =</span> <span class="st">"-L"</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">"positron --install-extension"</span>, <span class="fu">shQuote</span>(downloaded_vsix))</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Install Positron Extensions</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>latest_version_url <span class="ot">&lt;-</span> <span class="st">"https://open-vsx.org/api/Continue/continue/win32-x64/1.3.38/file/Continue.continue-1.3.38@win32-x64.vsix"</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>latest_version_filename <span class="ot">&lt;-</span> <span class="fu">basename</span>(<span class="fu">file.path</span>(latest_version_url))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>downloaded_vsix <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(latest_version_filename, <span class="at">fileext =</span> <span class="st">".vsix"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> latest_version_url,</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> downloaded_vsix,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"curl"</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"wb"</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">extra =</span> <span class="st">"-L"</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">"positron --install-extension"</span>, <span class="fu">shQuote</span>(downloaded_vsix))</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Restart Positron if prompted.</p>
 </section>
-<section id="configure-continue" class="level2" data-number="13.9">
-<h2 data-number="13.9" class="anchored" data-anchor-id="configure-continue"><span class="header-section-number">13.9</span> Configure Continue</h2>
+<section id="configure-continue" class="level2" data-number="13.14">
+<h2 data-number="13.14" class="anchored" data-anchor-id="configure-continue"><span class="header-section-number">13.14</span> Configure Continue</h2>
 <p>Configure Continue to use the local Ollama service.</p>
 <p>Example configuration:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> local-ollama</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">models</span><span class="kw">:</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> qwen3</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> openai</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">apiBase</span><span class="kw">:</span><span class="at"> http://localhost:11434/v1</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">apiKey</span><span class="kw">:</span><span class="at"> dummy</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">model</span><span class="kw">:</span><span class="at"> qwen3:8b</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> local-ollama</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">models</span><span class="kw">:</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> qwen3</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> openai</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">apiBase</span><span class="kw">:</span><span class="at"> http://localhost:11434/v1</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">apiKey</span><span class="kw">:</span><span class="at"> dummy</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">model</span><span class="kw">:</span><span class="at"> qwen3:8b</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The exact configuration format may change as Continue evolves.</p>
 <p>Refer to the Continue documentation for the current configuration schema.</p>
 </section>
-<section id="test-continue" class="level2" data-number="13.10">
-<h2 data-number="13.10" class="anchored" data-anchor-id="test-continue"><span class="header-section-number">13.10</span> Test Continue</h2>
+<section id="test-continue" class="level2" data-number="13.15">
+<h2 data-number="13.15" class="anchored" data-anchor-id="test-continue"><span class="header-section-number">13.15</span> Test Continue</h2>
 <p>Open an R source file.</p>
 <p>Select a function.</p>
 <p>Ask Continue:</p>
@@ -833,26 +936,26 @@ qwen3:8b   ...</code></pre>
 </ul>
 <hr>
 </section>
-<section id="install-aider" class="level2" data-number="13.11">
-<h2 data-number="13.11" class="anchored" data-anchor-id="install-aider"><span class="header-section-number">13.11</span> Install Aider</h2>
+<section id="install-aider" class="level2" data-number="13.16">
+<h2 data-number="13.16" class="anchored" data-anchor-id="install-aider"><span class="header-section-number">13.16</span> Install Aider</h2>
 <p>Install Aider using the method appropriate for your workstation.</p>
 <p>Verify installation.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="configure-aider" class="level2" data-number="13.12">
-<h2 data-number="13.12" class="anchored" data-anchor-id="configure-aider"><span class="header-section-number">13.12</span> Configure Aider</h2>
+<section id="configure-aider" class="level2" data-number="13.17">
+<h2 data-number="13.17" class="anchored" data-anchor-id="configure-aider"><span class="header-section-number">13.17</span> Configure Aider</h2>
 <p>Configure Aider to use the local Ollama endpoint.</p>
 <p>Example configuration:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model</span><span class="kw">:</span><span class="at"> openai/qwen3</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">openai-api-base</span><span class="kw">:</span><span class="at"> http://localhost:11434/v1</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">openai-api-key</span><span class="kw">:</span><span class="at"> dummy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model</span><span class="kw">:</span><span class="at"> openai/qwen3</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">openai-api-base</span><span class="kw">:</span><span class="at"> http://localhost:11434/v1</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">openai-api-key</span><span class="kw">:</span><span class="at"> dummy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Refer to the Aider documentation for the current configuration format.</p>
 </section>
-<section id="test-aider" class="level2" data-number="13.13">
-<h2 data-number="13.13" class="anchored" data-anchor-id="test-aider"><span class="header-section-number">13.13</span> Test Aider</h2>
+<section id="test-aider" class="level2" data-number="13.18">
+<h2 data-number="13.18" class="anchored" data-anchor-id="test-aider"><span class="header-section-number">13.18</span> Test Aider</h2>
 <p>Open a terminal within a Git repository.</p>
 <p>Start Aider.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Test a simple refactoring request.</p>
 <p>Example:</p>
 <blockquote class="blockquote">
@@ -865,8 +968,8 @@ qwen3:8b   ...</code></pre>
 <li>Git changes are correctly generated.</li>
 </ul>
 </section>
-<section id="recommended-workflow" class="level2" data-number="13.14">
-<h2 data-number="13.14" class="anchored" data-anchor-id="recommended-workflow"><span class="header-section-number">13.14</span> Recommended Workflow</h2>
+<section id="recommended-workflow" class="level2" data-number="13.19">
+<h2 data-number="13.19" class="anchored" data-anchor-id="recommended-workflow"><span class="header-section-number">13.19</span> Recommended Workflow</h2>
 <section id="continue-1" class="level3">
 <h3 class="anchored" data-anchor-id="continue-1">Continue</h3>
 <p>Use Continue for:</p>
@@ -892,50 +995,95 @@ qwen3:8b   ...</code></pre>
 <section id="ollama-1" class="level3">
 <h3 class="anchored" data-anchor-id="ollama-1">Ollama</h3>
 <p>Use Ollama as the shared local inference service for both tools.</p>
+<hr>
 </section>
 </section>
-<section id="troubleshooting" class="level2" data-number="13.15">
-<h2 data-number="13.15" class="anchored" data-anchor-id="troubleshooting"><span class="header-section-number">13.15</span> Troubleshooting</h2>
+<section id="troubleshooting" class="level2" data-number="13.20">
+<h2 data-number="13.20" class="anchored" data-anchor-id="troubleshooting"><span class="header-section-number">13.20</span> Troubleshooting</h2>
 <section id="ollama-api-not-available" class="level3">
 <h3 class="anchored" data-anchor-id="ollama-api-not-available">Ollama API Not Available</h3>
-<p>Verify:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podman</span> ps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Verify:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:11434/api/tags</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Restart the container if necessary.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podman</span> restart ollama</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify that the container is running:</p>
+<pre><code>podman ps</code></pre>
+<p>Verify that the API is reachable.</p>
+<p>In Git Bash:</p>
+<pre><code>curl http://localhost:11434/api/tags</code></pre>
+<p>In PowerShell:</p>
+<pre><code>Invoke-RestMethod -Uri "http://localhost:11434/api/tags" -Method Get</code></pre>
+<p>Restart the container if necessary:</p>
+<pre><code>podman restart ollama</code></pre>
+</section>
+<section id="gpu-device-not-available-in-podman" class="level3">
+<h3 class="anchored" data-anchor-id="gpu-device-not-available-in-podman">GPU Device Not Available in Podman</h3>
+<p>Verify that the host GPU is available:</p>
+<pre><code>nvidia-smi</code></pre>
+<p>Verify that the Podman machine can resolve the CDI device:</p>
+<pre><code>podman machine ssh "nvidia-ctk cdi list"</code></pre>
+<p>Expected output should include:</p>
+<pre><code>nvidia.com/gpu=all</code></pre>
+<p>If the CDI device is missing, regenerate the CDI configuration:</p>
+<pre><code>podman machine ssh "mkdir -p /etc/cdi &amp;&amp; nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml"</code></pre>
+<p>Verify GPU visibility inside the container:</p>
+<pre><code>podman exec -it ollama bash -lc "nvidia-smi"</code></pre>
+<p>If the container cannot run <code>nvidia-smi</code>, recreate the Ollama container with:</p>
+<ul>
+<li><code>--device nvidia.com/gpu=all</code></li>
+<li><code>--security-opt=label=disable</code></li>
+</ul>
 </section>
 <section id="model-not-found" class="level3">
 <h3 class="anchored" data-anchor-id="model-not-found">Model Not Found</h3>
-<p>List installed models.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">podman</span> exec <span class="at">-it</span> ollama ollama list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>List installed models:</p>
+<pre><code>podman exec -it ollama ollama list</code></pre>
 <p>Download the required model if it is not present.</p>
 </section>
 <section id="continue-cannot-connect" class="level3">
 <h3 class="anchored" data-anchor-id="continue-cannot-connect">Continue Cannot Connect</h3>
-<p>Verify:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:11434/v1/models</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify API compatibility:</p>
+<p>In Git Bash:</p>
+<pre><code>curl http://localhost:11434/v1/models</code></pre>
+<p>In PowerShell:</p>
+<pre><code>Invoke-RestMethod -Uri "http://localhost:11434/v1/models" -Method Get</code></pre>
 <p>Review Continue configuration settings.</p>
 </section>
 <section id="aider-cannot-connect" class="level3">
 <h3 class="anchored" data-anchor-id="aider-cannot-connect">Aider Cannot Connect</h3>
-<p>Verify:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:11434/v1/models</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify API compatibility:</p>
+<p>In Git Bash:</p>
+<pre><code>curl http://localhost:11434/v1/models</code></pre>
+<p>In PowerShell:</p>
+<pre><code>Invoke-RestMethod -Uri "http://localhost:11434/v1/models" -Method Get</code></pre>
 <p>Review Aider configuration settings.</p>
 </section>
+<section id="bash-and-powershell-command-differences" class="level3">
+<h3 class="anchored" data-anchor-id="bash-and-powershell-command-differences">Bash and PowerShell Command Differences</h3>
+<p>Several commands in this chapter use Bash syntax.</p>
+<p>On Windows workstations:</p>
+<ul>
+<li>Use Git Bash for Bash-style <code>curl</code> examples and multi-line commands with <code>\</code>.</li>
+<li>Use PowerShell-specific examples where provided.</li>
+<li>Do not assume that <code>curl</code> in PowerShell behaves the same as <code>curl</code> in Bash.</li>
+</ul>
+<hr>
 </section>
-<section id="current-limitations" class="level2" data-number="13.16">
-<h2 data-number="13.16" class="anchored" data-anchor-id="current-limitations"><span class="header-section-number">13.16</span> Current Limitations</h2>
+</section>
+<section id="current-limitations" class="level2" data-number="13.21">
+<h2 data-number="13.21" class="anchored" data-anchor-id="current-limitations"><span class="header-section-number">13.21</span> Current Limitations</h2>
 <p>This workflow is currently under evaluation.</p>
 <p>Known areas requiring additional testing include:</p>
 <ul>
-<li>GPU acceleration through Podman</li>
-<li>Large-model performance</li>
 <li>Continue integration details</li>
 <li>Aider integration details</li>
 <li>Repository-scale refactoring performance</li>
+<li>Validation on additional Windows workstation configurations</li>
+<li>Validation on non-Windows host operating systems</li>
 </ul>
-<p>Future revisions of this chapter will be updated as testing progresses.</p>
+<p>GPU acceleration with Podman has been validated for a Windows workstation using:</p>
+<ul>
+<li>WSL2-backed Podman machine</li>
+<li>NVIDIA GPU</li>
+<li>NVIDIA container toolkit installed in the Podman machine</li>
+<li>CDI device configuration generated with <code>nvidia-ctk</code></li>
+</ul>
 
 
 </section>

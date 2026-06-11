@@ -31,24 +31,31 @@ You should also verify that:
 * Positron is installed.
 * Git is installed and configured.
 
+This workflow assumes the following platform for GPU-accelerated local inference:
+
+* Windows host workstation
+* NVIDIA GPU with current Windows NVIDIA drivers
+* Podman machine running on WSL2
+* Git Bash or another Bash-compatible shell for Bash examples
+
+If the workstation does not provide an NVIDIA GPU, or if Podman GPU integration is not configured, Ollama may run in CPU-only mode and model responses may be significantly slower.
+
 ## Architecture
 
 The development environment consists of the following components:
 
-```text
-Positron
-├── Continue
-└── Local source code repositories
-
-Terminal
-└── Aider
-
-Podman
-└── Ollama
-
-Ollama
-└── Local LLM Models
-```
+    Positron
+    ├── Continue
+    └── Local source code repositories
+    
+    Terminal
+    └── Aider
+    
+    Podman
+    └── Ollama
+    
+    Ollama
+    └── Local LLM Models
 
 ### Component Roles
 
@@ -61,7 +68,7 @@ Ollama
 * Quarto documentation
 * Git repo maintanence operations
 
-This approach depends on VS Code [Extensions for Positron](https://positron.posit.co/extensions.html) described in the next sections. 
+This approach depends on VS Code [Extensions for Positron](https://positron.posit.co/extensions.html) described in the next sections.
 
 #### Continue
 
@@ -90,86 +97,195 @@ Aider is executed from a terminal within the repository.
 
 [Ollama](https://ollama.com/) provides local LLM inference. Both Continue and Aider communicate with Ollama through a local HTTP API.
 
+## Verify Host GPU Availability
+
+Before configuring the container, verify that the Windows host can see the NVIDIA GPU.
+
+In PowerShell, run:
+
+    nvidia-smi
+
+A successful result should show:
+
+* the installed NVIDIA GPU,
+* driver version information,
+* available GPU memory.
+
+If this command fails, resolve the host GPU driver installation before continuing.
+
+## Verify the Podman Machine
+
+This workflow depends on the Podman machine running as a Linux environment on WSL2.
+
+In PowerShell, run:
+
+    podman machine list
+    podman info
+
+Confirm that the Podman machine is running before continuing.
+
+## Install NVIDIA Container Toolkit in the Podman Machine
+
+GPU access inside Podman containers requires NVIDIA container tooling inside the Linux environment that backs Podman.
+
+In PowerShell, run:
+
+    podman machine ssh "dnf install -y golang-github-nvidia-container-toolkit"
+
+Verify that `nvidia-ctk` is available:
+
+    podman machine ssh "command -v nvidia-ctk"
+
+Expected output should include:
+
+    /usr/bin/nvidia-ctk
+
+## Generate the NVIDIA CDI Configuration
+
+Podman uses Container Device Interface (CDI) device definitions to expose the host GPU to Linux containers.
+
+Generate the CDI configuration:
+
+    podman machine ssh "mkdir -p /etc/cdi && nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml"
+
+Verify that Podman can resolve the GPU CDI device:
+
+    podman machine ssh "nvidia-ctk cdi list"
+
+Expected output should include:
+
+    nvidia.com/gpu=all
+
+If `nvidia.com/gpu=all` is not present, do not continue. Resolve CDI configuration before creating the Ollama container.
+
 ## Create the Ollama Container
 
-Open a terminal and create the Ollama container.
+Remove any previous Ollama container before creating the GPU-enabled container.
 
-```bash
-podman run -d \
-  --name ollama \
-  -p 11434:11434 \
-  -v ollama:/root/.ollama \
-  --restart=always \
-  ollama/ollama
-```
+In PowerShell, run:
 
-Verify that the container is running.
+    podman rm -f ollama
 
-```bash
-podman ps
-```
+In Git Bash, run:
+
+    podman run -d \
+      --name ollama \
+      -p 11434:11434 \
+      -v ollama:/root/.ollama \
+      --device nvidia.com/gpu=all \
+      --security-opt=label=disable \
+      --restart=always \
+      ollama/ollama
+
+In PowerShell, use:
+
+    podman run -d `
+      --name ollama `
+      -p 11434:11434 `
+      -v ollama:/root/.ollama `
+      --device nvidia.com/gpu=all `
+      --security-opt=label=disable `
+      --restart=always `
+      ollama/ollama
+
+Verify that the container is running:
+
+    podman ps
 
 Example output:
 
-```text
-CONTAINER ID  IMAGE                  STATUS
-xxxxxxxxxxxx  ollama/ollama:latest   Up
-```
+    CONTAINER ID  IMAGE                  STATUS
+    xxxxxxxxxxxx  ollama/ollama:latest   Up
+
+## Verify GPU Access Inside the Container
+
+Confirm that the running Ollama container can access the GPU.
+
+In Git Bash or PowerShell, run:
+
+    podman exec -it ollama bash -lc "nvidia-smi"
+
+A successful result should show:
+
+* the NVIDIA GPU,
+* nonzero or available GPU memory,
+* and, during active inference, the Ollama inference process.
+
+If `nvidia-smi` does not work inside the container, do not continue to model setup. Recheck the Podman machine CDI configuration.
 
 ## Verify the Ollama API
 
 Test that the Ollama service is available.
 
-```bash
-curl http://localhost:11434/api/tags
-```
+In Git Bash, run:
+
+    curl http://localhost:11434/api/tags
+
+In PowerShell, run:
+
+    Invoke-RestMethod -Uri "http://localhost:11434/api/tags" -Method Get
 
 A JSON response indicates that the service is functioning correctly.
 
 ## Download a Model
 
-Enter the container.
+Enter the container:
 
-```bash
-podman exec -it ollama bash
-```
+    podman exec -it ollama bash
 
-Download a model.
+Download a model:
 
-```bash
-ollama pull qwen3:8b
-```
+    ollama pull qwen3:8b
 
 Model downloads may take several hours depending on network conditions.
 
-List installed models.
+List installed models:
 
-```bash
-ollama list
-```
+    ollama list
 
 Example output:
 
-```text
-NAME       SIZE
-qwen3:8b   ...
-```
+    NAME       SIZE
+    qwen3:8b   ...
 
 ## Test Model Inference
 
 Verify that the model can generate responses.
 
-```bash
-curl http://localhost:11434/api/generate -d '{
-  "model":"qwen3:8b",
-  "prompt":"Write an R function that buffers sf geometries.",
-  "stream":false
-}'
-```
+In Git Bash, run:
+
+    curl http://localhost:11434/api/generate -d '{
+      "model":"qwen3:8b",
+      "prompt":"Write an R function that buffers sf geometries.",
+      "stream":false
+    }'
+
+In PowerShell, run:
+
+    $body = @{
+      model  = "qwen3:8b"
+      prompt = "Write an R function that buffers sf geometries."
+      stream = $false
+    } | ConvertTo-Json
+    
+    Invoke-RestMethod `
+      -Uri "http://localhost:11434/api/generate" `
+      -Method Post `
+      -ContentType "application/json" `
+      -Body $body
 
 A successful response confirms that local inference is functioning.
 
+To confirm that inference is using the GPU, monitor GPU activity on the host while a prompt is running:
+
+    nvidia-smi
+
+During active inference, GPU memory usage should increase and the Ollama inference process should be visible.
+A successful response confirms that local inference is functioning.
+
+
 ***
+
 
 ## Install Continue
 
@@ -319,57 +435,106 @@ Use Aider for:
 
 Use Ollama as the shared local inference service for both tools.
 
+
+***
+
+
 ## Troubleshooting
 
 ### Ollama API Not Available
 
-Verify:
+Verify that the container is running:
 
-```bash
-podman ps
-```
+    podman ps
 
-Verify:
+Verify that the API is reachable.
 
-```bash
-curl http://localhost:11434/api/tags
-```
+In Git Bash:
 
-Restart the container if necessary.
+    curl http://localhost:11434/api/tags
 
-```bash
-podman restart ollama
-```
+In PowerShell:
+
+    Invoke-RestMethod -Uri "http://localhost:11434/api/tags" -Method Get
+
+Restart the container if necessary:
+
+    podman restart ollama
+
+### GPU Device Not Available in Podman
+
+Verify that the host GPU is available:
+
+    nvidia-smi
+
+Verify that the Podman machine can resolve the CDI device:
+
+    podman machine ssh "nvidia-ctk cdi list"
+
+Expected output should include:
+
+    nvidia.com/gpu=all
+
+If the CDI device is missing, regenerate the CDI configuration:
+
+    podman machine ssh "mkdir -p /etc/cdi && nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml"
+
+Verify GPU visibility inside the container:
+
+    podman exec -it ollama bash -lc "nvidia-smi"
+
+If the container cannot run `nvidia-smi`, recreate the Ollama container with:
+
+* `--device nvidia.com/gpu=all`
+* `--security-opt=label=disable`
 
 ### Model Not Found
 
-List installed models.
+List installed models:
 
-```bash
-podman exec -it ollama ollama list
-```
+    podman exec -it ollama ollama list
 
 Download the required model if it is not present.
 
 ### Continue Cannot Connect
 
-Verify:
+Verify API compatibility:
 
-```bash
-curl http://localhost:11434/v1/models
-```
+In Git Bash:
+
+    curl http://localhost:11434/v1/models
+
+In PowerShell:
+
+    Invoke-RestMethod -Uri "http://localhost:11434/v1/models" -Method Get
 
 Review Continue configuration settings.
 
 ### Aider Cannot Connect
 
-Verify:
+Verify API compatibility:
 
-```bash
-curl http://localhost:11434/v1/models
-```
+In Git Bash:
+
+    curl http://localhost:11434/v1/models
+
+In PowerShell:
+
+    Invoke-RestMethod -Uri "http://localhost:11434/v1/models" -Method Get
 
 Review Aider configuration settings.
+
+### Bash and PowerShell Command Differences
+
+Several commands in this chapter use Bash syntax.
+
+On Windows workstations:
+
+* Use Git Bash for Bash-style `curl` examples and multi-line commands with `\`.
+* Use PowerShell-specific examples where provided.
+* Do not assume that `curl` in PowerShell behaves the same as `curl` in Bash.
+
+***
 
 ## Current Limitations
 
@@ -377,10 +542,15 @@ This workflow is currently under evaluation.
 
 Known areas requiring additional testing include:
 
-* GPU acceleration through Podman
-* Large-model performance
 * Continue integration details
 * Aider integration details
 * Repository-scale refactoring performance
+* Validation on additional Windows workstation configurations
+* Validation on non-Windows host operating systems
 
-Future revisions of this chapter will be updated as testing progresses.
+GPU acceleration with Podman has been validated for a Windows workstation using:
+
+* WSL2-backed Podman machine
+* NVIDIA GPU
+* NVIDIA container toolkit installed in the Podman machine
+* CDI device configuration generated with `nvidia-ctk`

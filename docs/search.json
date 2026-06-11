@@ -979,7 +979,7 @@
     "href": "ai-ollama-dev.html#prerequisites",
     "title": "13  Using Ollama for Development",
     "section": "13.2 Prerequisites",
-    "text": "13.2 Prerequisites\nBefore continuing, complete the following chapters:\n\nPositron Getting Started\nPodman Desktop\nPodman Desktop Getting Started\n\nYou should also verify that:\n\nPodman Desktop is installed and functioning.\nPodman can run Linux containers.\nPositron is installed.\nGit is installed and configured.",
+    "text": "13.2 Prerequisites\nBefore continuing, complete the following chapters:\n\nPositron Getting Started\nPodman Desktop\nPodman Desktop Getting Started\n\nYou should also verify that:\n\nPodman Desktop is installed and functioning.\nPodman can run Linux containers.\nPositron is installed.\nGit is installed and configured.\n\nThis workflow assumes the following platform for GPU-accelerated local inference:\n\nWindows host workstation\nNVIDIA GPU with current Windows NVIDIA drivers\nPodman machine running on WSL2\nGit Bash or another Bash-compatible shell for Bash examples\n\nIf the workstation does not provide an NVIDIA GPU, or if Podman GPU integration is not configured, Ollama may run in CPU-only mode and model responses may be significantly slower.",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -997,11 +997,66 @@
     ]
   },
   {
+    "objectID": "ai-ollama-dev.html#verify-host-gpu-availability",
+    "href": "ai-ollama-dev.html#verify-host-gpu-availability",
+    "title": "13  Using Ollama for Development",
+    "section": "13.4 Verify Host GPU Availability",
+    "text": "13.4 Verify Host GPU Availability\nBefore configuring the container, verify that the Windows host can see the NVIDIA GPU.\nIn PowerShell, run:\nnvidia-smi\nA successful result should show:\n\nthe installed NVIDIA GPU,\ndriver version information,\navailable GPU memory.\n\nIf this command fails, resolve the host GPU driver installation before continuing.",
+    "crumbs": [
+      "AI Workflows",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
+    ]
+  },
+  {
+    "objectID": "ai-ollama-dev.html#verify-the-podman-machine",
+    "href": "ai-ollama-dev.html#verify-the-podman-machine",
+    "title": "13  Using Ollama for Development",
+    "section": "13.5 Verify the Podman Machine",
+    "text": "13.5 Verify the Podman Machine\nThis workflow depends on the Podman machine running as a Linux environment on WSL2.\nIn PowerShell, run:\npodman machine list\npodman info\nConfirm that the Podman machine is running before continuing.",
+    "crumbs": [
+      "AI Workflows",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
+    ]
+  },
+  {
+    "objectID": "ai-ollama-dev.html#install-nvidia-container-toolkit-in-the-podman-machine",
+    "href": "ai-ollama-dev.html#install-nvidia-container-toolkit-in-the-podman-machine",
+    "title": "13  Using Ollama for Development",
+    "section": "13.6 Install NVIDIA Container Toolkit in the Podman Machine",
+    "text": "13.6 Install NVIDIA Container Toolkit in the Podman Machine\nGPU access inside Podman containers requires NVIDIA container tooling inside the Linux environment that backs Podman.\nIn PowerShell, run:\npodman machine ssh \"dnf install -y golang-github-nvidia-container-toolkit\"\nVerify that nvidia-ctk is available:\npodman machine ssh \"command -v nvidia-ctk\"\nExpected output should include:\n/usr/bin/nvidia-ctk",
+    "crumbs": [
+      "AI Workflows",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
+    ]
+  },
+  {
+    "objectID": "ai-ollama-dev.html#generate-the-nvidia-cdi-configuration",
+    "href": "ai-ollama-dev.html#generate-the-nvidia-cdi-configuration",
+    "title": "13  Using Ollama for Development",
+    "section": "13.7 Generate the NVIDIA CDI Configuration",
+    "text": "13.7 Generate the NVIDIA CDI Configuration\nPodman uses Container Device Interface (CDI) device definitions to expose the host GPU to Linux containers.\nGenerate the CDI configuration:\npodman machine ssh \"mkdir -p /etc/cdi && nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml\"\nVerify that Podman can resolve the GPU CDI device:\npodman machine ssh \"nvidia-ctk cdi list\"\nExpected output should include:\nnvidia.com/gpu=all\nIf nvidia.com/gpu=all is not present, do not continue. Resolve CDI configuration before creating the Ollama container.",
+    "crumbs": [
+      "AI Workflows",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
+    ]
+  },
+  {
     "objectID": "ai-ollama-dev.html#create-the-ollama-container",
     "href": "ai-ollama-dev.html#create-the-ollama-container",
     "title": "13  Using Ollama for Development",
-    "section": "13.4 Create the Ollama Container",
-    "text": "13.4 Create the Ollama Container\nOpen a terminal and create the Ollama container.\npodman run -d \\\n  --name ollama \\\n  -p 11434:11434 \\\n  -v ollama:/root/.ollama \\\n  --restart=always \\\n  ollama/ollama\nVerify that the container is running.\npodman ps\nExample output:\nCONTAINER ID  IMAGE                  STATUS\nxxxxxxxxxxxx  ollama/ollama:latest   Up",
+    "section": "13.8 Create the Ollama Container",
+    "text": "13.8 Create the Ollama Container\nRemove any previous Ollama container before creating the GPU-enabled container.\nIn PowerShell, run:\npodman rm -f ollama\nIn Git Bash, run:\npodman run -d \\\n  --name ollama \\\n  -p 11434:11434 \\\n  -v ollama:/root/.ollama \\\n  --device nvidia.com/gpu=all \\\n  --security-opt=label=disable \\\n  --restart=always \\\n  ollama/ollama\nIn PowerShell, use:\npodman run -d `\n  --name ollama `\n  -p 11434:11434 `\n  -v ollama:/root/.ollama `\n  --device nvidia.com/gpu=all `\n  --security-opt=label=disable `\n  --restart=always `\n  ollama/ollama\nVerify that the container is running:\npodman ps\nExample output:\nCONTAINER ID  IMAGE                  STATUS\nxxxxxxxxxxxx  ollama/ollama:latest   Up",
+    "crumbs": [
+      "AI Workflows",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
+    ]
+  },
+  {
+    "objectID": "ai-ollama-dev.html#verify-gpu-access-inside-the-container",
+    "href": "ai-ollama-dev.html#verify-gpu-access-inside-the-container",
+    "title": "13  Using Ollama for Development",
+    "section": "13.9 Verify GPU Access Inside the Container",
+    "text": "13.9 Verify GPU Access Inside the Container\nConfirm that the running Ollama container can access the GPU.\nIn Git Bash or PowerShell, run:\npodman exec -it ollama bash -lc \"nvidia-smi\"\nA successful result should show:\n\nthe NVIDIA GPU,\nnonzero or available GPU memory,\nand, during active inference, the Ollama inference process.\n\nIf nvidia-smi does not work inside the container, do not continue to model setup. Recheck the Podman machine CDI configuration.",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1011,8 +1066,8 @@
     "objectID": "ai-ollama-dev.html#verify-the-ollama-api",
     "href": "ai-ollama-dev.html#verify-the-ollama-api",
     "title": "13  Using Ollama for Development",
-    "section": "13.5 Verify the Ollama API",
-    "text": "13.5 Verify the Ollama API\nTest that the Ollama service is available.\ncurl http://localhost:11434/api/tags\nA JSON response indicates that the service is functioning correctly.",
+    "section": "13.10 Verify the Ollama API",
+    "text": "13.10 Verify the Ollama API\nTest that the Ollama service is available.\nIn Git Bash, run:\ncurl http://localhost:11434/api/tags\nIn PowerShell, run:\nInvoke-RestMethod -Uri \"http://localhost:11434/api/tags\" -Method Get\nA JSON response indicates that the service is functioning correctly.",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1022,8 +1077,8 @@
     "objectID": "ai-ollama-dev.html#download-a-model",
     "href": "ai-ollama-dev.html#download-a-model",
     "title": "13  Using Ollama for Development",
-    "section": "13.6 Download a Model",
-    "text": "13.6 Download a Model\nEnter the container.\npodman exec -it ollama bash\nDownload a model.\nollama pull qwen3:8b\nModel downloads may take several hours depending on network conditions.\nList installed models.\nollama list\nExample output:\nNAME       SIZE\nqwen3:8b   ...",
+    "section": "13.11 Download a Model",
+    "text": "13.11 Download a Model\nEnter the container:\npodman exec -it ollama bash\nDownload a model:\nollama pull qwen3:8b\nModel downloads may take several hours depending on network conditions.\nList installed models:\nollama list\nExample output:\nNAME       SIZE\nqwen3:8b   ...",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1033,8 +1088,8 @@
     "objectID": "ai-ollama-dev.html#test-model-inference",
     "href": "ai-ollama-dev.html#test-model-inference",
     "title": "13  Using Ollama for Development",
-    "section": "13.7 Test Model Inference",
-    "text": "13.7 Test Model Inference\nVerify that the model can generate responses.\ncurl http://localhost:11434/api/generate -d '{\n  \"model\":\"qwen3:8b\",\n  \"prompt\":\"Write an R function that buffers sf geometries.\",\n  \"stream\":false\n}'\nA successful response confirms that local inference is functioning.",
+    "section": "13.12 Test Model Inference",
+    "text": "13.12 Test Model Inference\nVerify that the model can generate responses.\nIn Git Bash, run:\ncurl http://localhost:11434/api/generate -d '{\n  \"model\":\"qwen3:8b\",\n  \"prompt\":\"Write an R function that buffers sf geometries.\",\n  \"stream\":false\n}'\nIn PowerShell, run:\n$body = @{\n  model  = \"qwen3:8b\"\n  prompt = \"Write an R function that buffers sf geometries.\"\n  stream = $false\n} | ConvertTo-Json\n\nInvoke-RestMethod `\n  -Uri \"http://localhost:11434/api/generate\" `\n  -Method Post `\n  -ContentType \"application/json\" `\n  -Body $body\nA successful response confirms that local inference is functioning.\nTo confirm that inference is using the GPU, monitor GPU activity on the host while a prompt is running:\nnvidia-smi\nDuring active inference, GPU memory usage should increase and the Ollama inference process should be visible. A successful response confirms that local inference is functioning.",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1044,8 +1099,8 @@
     "objectID": "ai-ollama-dev.html#install-continue",
     "href": "ai-ollama-dev.html#install-continue",
     "title": "13  Using Ollama for Development",
-    "section": "13.8 Install Continue",
-    "text": "13.8 Install Continue\nOpen Positron.\nOpen the Extensions panel.\nSearch for:\nContinue\nInstall the extension.\n## Install Positron Extensions\nlatest_version_url &lt;- \"https://open-vsx.org/api/Continue/continue/win32-x64/1.3.38/file/Continue.continue-1.3.38@win32-x64.vsix\"\nlatest_version_filename &lt;- basename(file.path(latest_version_url))\n\ndownloaded_vsix &lt;- tempfile(latest_version_filename, fileext = \".vsix\")\n  \ndownload.file(\n  url = latest_version_url,\n  destfile = downloaded_vsix,\n  method = \"curl\",\n  mode = \"wb\",\n  extra = \"-L\"\n)\n\nsystem(\n  paste(\"positron --install-extension\", shQuote(downloaded_vsix))\n)\nRestart Positron if prompted.",
+    "section": "13.13 Install Continue",
+    "text": "13.13 Install Continue\nOpen Positron.\nOpen the Extensions panel.\nSearch for:\nContinue\nInstall the extension.\n## Install Positron Extensions\nlatest_version_url &lt;- \"https://open-vsx.org/api/Continue/continue/win32-x64/1.3.38/file/Continue.continue-1.3.38@win32-x64.vsix\"\nlatest_version_filename &lt;- basename(file.path(latest_version_url))\n\ndownloaded_vsix &lt;- tempfile(latest_version_filename, fileext = \".vsix\")\n  \ndownload.file(\n  url = latest_version_url,\n  destfile = downloaded_vsix,\n  method = \"curl\",\n  mode = \"wb\",\n  extra = \"-L\"\n)\n\nsystem(\n  paste(\"positron --install-extension\", shQuote(downloaded_vsix))\n)\nRestart Positron if prompted.",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1055,8 +1110,8 @@
     "objectID": "ai-ollama-dev.html#configure-continue",
     "href": "ai-ollama-dev.html#configure-continue",
     "title": "13  Using Ollama for Development",
-    "section": "13.9 Configure Continue",
-    "text": "13.9 Configure Continue\nConfigure Continue to use the local Ollama service.\nExample configuration:\nname: local-ollama\n\nmodels:\n  - name: qwen3\n    provider: openai\n    apiBase: http://localhost:11434/v1\n    apiKey: dummy\n    model: qwen3:8b\nThe exact configuration format may change as Continue evolves.\nRefer to the Continue documentation for the current configuration schema.",
+    "section": "13.14 Configure Continue",
+    "text": "13.14 Configure Continue\nConfigure Continue to use the local Ollama service.\nExample configuration:\nname: local-ollama\n\nmodels:\n  - name: qwen3\n    provider: openai\n    apiBase: http://localhost:11434/v1\n    apiKey: dummy\n    model: qwen3:8b\nThe exact configuration format may change as Continue evolves.\nRefer to the Continue documentation for the current configuration schema.",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1066,8 +1121,8 @@
     "objectID": "ai-ollama-dev.html#test-continue",
     "href": "ai-ollama-dev.html#test-continue",
     "title": "13  Using Ollama for Development",
-    "section": "13.10 Test Continue",
-    "text": "13.10 Test Continue\nOpen an R source file.\nSelect a function.\nAsk Continue:\n\nExplain this function and identify opportunities for improvement.\n\nVerify that:\n\nThe model responds.\nThe selected code is included in the response.\nNo network errors are displayed.",
+    "section": "13.15 Test Continue",
+    "text": "13.15 Test Continue\nOpen an R source file.\nSelect a function.\nAsk Continue:\n\nExplain this function and identify opportunities for improvement.\n\nVerify that:\n\nThe model responds.\nThe selected code is included in the response.\nNo network errors are displayed.",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1077,8 +1132,8 @@
     "objectID": "ai-ollama-dev.html#install-aider",
     "href": "ai-ollama-dev.html#install-aider",
     "title": "13  Using Ollama for Development",
-    "section": "13.11 Install Aider",
-    "text": "13.11 Install Aider\nInstall Aider using the method appropriate for your workstation.\nVerify installation.\naider --version",
+    "section": "13.16 Install Aider",
+    "text": "13.16 Install Aider\nInstall Aider using the method appropriate for your workstation.\nVerify installation.\naider --version",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1088,8 +1143,8 @@
     "objectID": "ai-ollama-dev.html#configure-aider",
     "href": "ai-ollama-dev.html#configure-aider",
     "title": "13  Using Ollama for Development",
-    "section": "13.12 Configure Aider",
-    "text": "13.12 Configure Aider\nConfigure Aider to use the local Ollama endpoint.\nExample configuration:\nmodel: openai/qwen3\nopenai-api-base: http://localhost:11434/v1\nopenai-api-key: dummy\nRefer to the Aider documentation for the current configuration format.",
+    "section": "13.17 Configure Aider",
+    "text": "13.17 Configure Aider\nConfigure Aider to use the local Ollama endpoint.\nExample configuration:\nmodel: openai/qwen3\nopenai-api-base: http://localhost:11434/v1\nopenai-api-key: dummy\nRefer to the Aider documentation for the current configuration format.",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1099,8 +1154,8 @@
     "objectID": "ai-ollama-dev.html#test-aider",
     "href": "ai-ollama-dev.html#test-aider",
     "title": "13  Using Ollama for Development",
-    "section": "13.13 Test Aider",
-    "text": "13.13 Test Aider\nOpen a terminal within a Git repository.\nStart Aider.\naider\nTest a simple refactoring request.\nExample:\n\nRename function calc_buffer() to compute_buffer() throughout the repository.\n\nVerify that:\n\nAider identifies affected files.\nProposed changes are displayed.\nGit changes are correctly generated.",
+    "section": "13.18 Test Aider",
+    "text": "13.18 Test Aider\nOpen a terminal within a Git repository.\nStart Aider.\naider\nTest a simple refactoring request.\nExample:\n\nRename function calc_buffer() to compute_buffer() throughout the repository.\n\nVerify that:\n\nAider identifies affected files.\nProposed changes are displayed.\nGit changes are correctly generated.",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1110,8 +1165,8 @@
     "objectID": "ai-ollama-dev.html#recommended-workflow",
     "href": "ai-ollama-dev.html#recommended-workflow",
     "title": "13  Using Ollama for Development",
-    "section": "13.14 Recommended Workflow",
-    "text": "13.14 Recommended Workflow\n\nContinue\nUse Continue for:\n\nUnderstanding existing code\nReviewing architecture\nDrafting documentation\nPlanning refactors\nExploring implementation options\n\n\n\nAider\nUse Aider for:\n\nMulti-file edits\nAPI migrations\nLarge refactorings\nCoordinated code changes\nRepository-wide updates\n\n\n\nOllama\nUse Ollama as the shared local inference service for both tools.",
+    "section": "13.19 Recommended Workflow",
+    "text": "13.19 Recommended Workflow\n\nContinue\nUse Continue for:\n\nUnderstanding existing code\nReviewing architecture\nDrafting documentation\nPlanning refactors\nExploring implementation options\n\n\n\nAider\nUse Aider for:\n\nMulti-file edits\nAPI migrations\nLarge refactorings\nCoordinated code changes\nRepository-wide updates\n\n\n\nOllama\nUse Ollama as the shared local inference service for both tools.",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1121,8 +1176,8 @@
     "objectID": "ai-ollama-dev.html#troubleshooting",
     "href": "ai-ollama-dev.html#troubleshooting",
     "title": "13  Using Ollama for Development",
-    "section": "13.15 Troubleshooting",
-    "text": "13.15 Troubleshooting\n\nOllama API Not Available\nVerify:\npodman ps\nVerify:\ncurl http://localhost:11434/api/tags\nRestart the container if necessary.\npodman restart ollama\n\n\nModel Not Found\nList installed models.\npodman exec -it ollama ollama list\nDownload the required model if it is not present.\n\n\nContinue Cannot Connect\nVerify:\ncurl http://localhost:11434/v1/models\nReview Continue configuration settings.\n\n\nAider Cannot Connect\nVerify:\ncurl http://localhost:11434/v1/models\nReview Aider configuration settings.",
+    "section": "13.20 Troubleshooting",
+    "text": "13.20 Troubleshooting\n\nOllama API Not Available\nVerify that the container is running:\npodman ps\nVerify that the API is reachable.\nIn Git Bash:\ncurl http://localhost:11434/api/tags\nIn PowerShell:\nInvoke-RestMethod -Uri \"http://localhost:11434/api/tags\" -Method Get\nRestart the container if necessary:\npodman restart ollama\n\n\nGPU Device Not Available in Podman\nVerify that the host GPU is available:\nnvidia-smi\nVerify that the Podman machine can resolve the CDI device:\npodman machine ssh \"nvidia-ctk cdi list\"\nExpected output should include:\nnvidia.com/gpu=all\nIf the CDI device is missing, regenerate the CDI configuration:\npodman machine ssh \"mkdir -p /etc/cdi && nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml\"\nVerify GPU visibility inside the container:\npodman exec -it ollama bash -lc \"nvidia-smi\"\nIf the container cannot run nvidia-smi, recreate the Ollama container with:\n\n--device nvidia.com/gpu=all\n--security-opt=label=disable\n\n\n\nModel Not Found\nList installed models:\npodman exec -it ollama ollama list\nDownload the required model if it is not present.\n\n\nContinue Cannot Connect\nVerify API compatibility:\nIn Git Bash:\ncurl http://localhost:11434/v1/models\nIn PowerShell:\nInvoke-RestMethod -Uri \"http://localhost:11434/v1/models\" -Method Get\nReview Continue configuration settings.\n\n\nAider Cannot Connect\nVerify API compatibility:\nIn Git Bash:\ncurl http://localhost:11434/v1/models\nIn PowerShell:\nInvoke-RestMethod -Uri \"http://localhost:11434/v1/models\" -Method Get\nReview Aider configuration settings.\n\n\nBash and PowerShell Command Differences\nSeveral commands in this chapter use Bash syntax.\nOn Windows workstations:\n\nUse Git Bash for Bash-style curl examples and multi-line commands with \\.\nUse PowerShell-specific examples where provided.\nDo not assume that curl in PowerShell behaves the same as curl in Bash.",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
@@ -1132,8 +1187,8 @@
     "objectID": "ai-ollama-dev.html#current-limitations",
     "href": "ai-ollama-dev.html#current-limitations",
     "title": "13  Using Ollama for Development",
-    "section": "13.16 Current Limitations",
-    "text": "13.16 Current Limitations\nThis workflow is currently under evaluation.\nKnown areas requiring additional testing include:\n\nGPU acceleration through Podman\nLarge-model performance\nContinue integration details\nAider integration details\nRepository-scale refactoring performance\n\nFuture revisions of this chapter will be updated as testing progresses.",
+    "section": "13.21 Current Limitations",
+    "text": "13.21 Current Limitations\nThis workflow is currently under evaluation.\nKnown areas requiring additional testing include:\n\nContinue integration details\nAider integration details\nRepository-scale refactoring performance\nValidation on additional Windows workstation configurations\nValidation on non-Windows host operating systems\n\nGPU acceleration with Podman has been validated for a Windows workstation using:\n\nWSL2-backed Podman machine\nNVIDIA GPU\nNVIDIA container toolkit installed in the Podman machine\nCDI device configuration generated with nvidia-ctk",
     "crumbs": [
       "AI Workflows",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using Ollama for Development</span>"
