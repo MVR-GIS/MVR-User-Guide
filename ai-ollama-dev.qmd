@@ -44,20 +44,28 @@ If the workstation does not provide an NVIDIA GPU, or if Podman GPU integration 
 
 The development environment consists of the following components:
 
+    Podman
+    └── Ollama
+        └── Local LLM Models
+
     Positron
-    ├── Continue
+    ├── Continue (VS Code Extension)
     └── Local source code repositories
     
     Terminal
     └── Aider
     
-    Podman
-    └── Ollama
-    
-    Ollama
-    └── Local LLM Models
 
 ### Component Roles
+
+#### Ollama
+
+[Ollama](https://ollama.com/) provides local LLM inference. Both Continue and Aider communicate with Ollama through a local HTTP API. Runs in a local container hosted in Podman Desktop. 
+
+* No cloud services required
+* Models run locally
+* Direct file system access
+* Allows access to larger contexts (e.g., repo contents)
 
 #### Positron
 
@@ -93,9 +101,6 @@ Continue operates directly in a chat window inside Positron.
 
 Aider is executed from a terminal within the repository.
 
-#### Ollama
-
-[Ollama](https://ollama.com/) provides local LLM inference. Both Continue and Aider communicate with Ollama through a local HTTP API.
 
 ## Verify Host GPU Availability
 
@@ -287,7 +292,13 @@ A successful response confirms that local inference is functioning.
 
 ## Install Continue
 
-Open Positron, open the Extensions panel. Search for: "Continue". If found, install the extension. Otherwise, use the manual instructions here:
+Open Positron, open the Extensions panel, and search for `Continue`.
+
+If the extension is available in the Extensions panel, install it there.
+
+If the extension is not available in the Extensions panel, use the manual installation method below.
+
+This workflow has been validated on a Windows workstation using a portable user-level Positron installation suitable for IT-managed environments without administrator access.
 
 ```r
 ## Install Positron Extensions
@@ -295,8 +306,6 @@ latest_version_url <- "https://open-vsx.org/api/Continue/continue/win32-x64/1.3.
 latest_version_filename <- basename(file.path(latest_version_url))
 
 downloaded_vsix <- tempfile(latest_version_filename, fileext = ".vsix")
-
-Sys.setenv(R_LIBCURL_SSL_REVOKE_BEST_EFFORT = "TRUE")
 
 download.file(
   url = latest_version_url,
@@ -316,16 +325,17 @@ On some Windows workstations, certificate revocation checks may prevent the down
 Sys.setenv(R_LIBCURL_SSL_REVOKE_BEST_EFFORT = "TRUE")
 ```
 
-Then retry the `download.file()` step above.
-
-Restart Positron if prompted.
+Then retry the `download.file()` step above. Restart Positron if prompted. Continue may take about a minute to initialize the first time Positron starts after installation.
 
 ## Configure Continue
+
 Configure Continue to use the local Ollama service.
 
+On the validated Windows workstation configuration, the Continue configuration file is located at:
 
+    C:/Users/<username>/.continue/config.yaml
 
-Example configuration:
+A minimal local Ollama configuration that has been validated for this workflow is:
 
 ```yaml
 name: local-ollama
@@ -338,26 +348,37 @@ models:
     model: qwen3:8b
 ```
 
-The exact configuration format may change as Continue evolves.
+This configuration uses Ollama's local OpenAI-compatible API endpoint.
 
-Refer to the Continue documentation for the current configuration schema.
+The Continue configuration format may change over time. If the schema differs in a future release, consult the current Continue documentation and adapt the equivalent local Ollama settings.
 
 ## Test Continue
 
-Open an R source file.
+Open Continue inside Positron.
 
-Select a function.
+Confirm that:
 
-Ask Continue:
+* Continue opens successfully.
+* The configured local model is available.
+* No network or authentication errors are displayed.
 
-> Explain this function and identify opportunities for improvement.
+Start with a simple prompt to confirm that Continue can reach the local Ollama endpoint.
 
-Verify that:
+For example:
 
-* The model responds.
-* The selected code is included in the response.
-* No network errors are displayed.
+> Reply with the single word: connected
 
+Then test Continue against the active file context.
+
+In a source file, ask Continue:
+
+> Describe `@Current File`
+
+A successful result should confirm that:
+
+* Continue can communicate with the local Ollama service.
+* Continue can access editor context.
+* The configured local model responds correctly inside Positron.
 
 ***
 

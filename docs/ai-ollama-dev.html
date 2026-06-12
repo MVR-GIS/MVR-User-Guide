@@ -692,20 +692,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="architecture" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="architecture"><span class="header-section-number">13.3</span> Architecture</h2>
 <p>The development environment consists of the following components:</p>
-<pre><code>Positron
-├── Continue
+<pre><code>Podman
+└── Ollama
+    └── Local LLM Models
+
+Positron
+├── Continue (VS Code Extension)
 └── Local source code repositories
 
 Terminal
-└── Aider
-
-Podman
-└── Ollama
-
-Ollama
-└── Local LLM Models</code></pre>
+└── Aider</code></pre>
 <section id="component-roles" class="level3">
 <h3 class="anchored" data-anchor-id="component-roles">Component Roles</h3>
+<section id="ollama" class="level4">
+<h4 class="anchored" data-anchor-id="ollama">Ollama</h4>
+<p><a href="https://ollama.com/">Ollama</a> provides local LLM inference. Both Continue and Aider communicate with Ollama through a local HTTP API. Runs in a local container hosted in Podman Desktop.</p>
+<ul>
+<li>No cloud services required</li>
+<li>Models run locally</li>
+<li>Direct file system access</li>
+<li>Allows access to larger contexts (e.g., repo contents)</li>
+</ul>
+</section>
 <section id="positron" class="level4">
 <h4 class="anchored" data-anchor-id="positron">Positron</h4>
 <p><a href="https://positron.posit.co/welcome.html">Positron</a> serves as the primary Integrated Development Environment (IDE) for:</p>
@@ -739,10 +747,6 @@ Ollama
 <li>Feature implementation assistance</li>
 </ul>
 <p>Aider is executed from a terminal within the repository.</p>
-</section>
-<section id="ollama" class="level4">
-<h4 class="anchored" data-anchor-id="ollama">Ollama</h4>
-<p><a href="https://ollama.com/">Ollama</a> provides local LLM inference. Both Continue and Aider communicate with Ollama through a local HTTP API.</p>
 </section>
 </section>
 </section>
@@ -880,58 +884,71 @@ Invoke-RestMethod `
 </section>
 <section id="install-continue" class="level2" data-number="13.13">
 <h2 data-number="13.13" class="anchored" data-anchor-id="install-continue"><span class="header-section-number">13.13</span> Install Continue</h2>
-<p>Open Positron.</p>
-<p>Open the Extensions panel.</p>
-<p>Search for:</p>
-<pre class="text"><code>Continue</code></pre>
-<p>Install the extension.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Install Positron Extensions</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>latest_version_url <span class="ot">&lt;-</span> <span class="st">"https://open-vsx.org/api/Continue/continue/win32-x64/1.3.38/file/Continue.continue-1.3.38@win32-x64.vsix"</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>latest_version_filename <span class="ot">&lt;-</span> <span class="fu">basename</span>(<span class="fu">file.path</span>(latest_version_url))</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>downloaded_vsix <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(latest_version_filename, <span class="at">fileext =</span> <span class="st">".vsix"</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> latest_version_url,</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> downloaded_vsix,</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"curl"</span>,</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"wb"</span>,</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">extra =</span> <span class="st">"-L"</span></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(</span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">"positron --install-extension"</span>, <span class="fu">shQuote</span>(downloaded_vsix))</span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Restart Positron if prompted.</p>
+<p>Open Positron, open the Extensions panel, and search for <code>Continue</code>.</p>
+<p>If the extension is available in the Extensions panel, install it there.</p>
+<p>If the extension is not available in the Extensions panel, use the manual installation method below.</p>
+<p>This workflow has been validated on a Windows workstation using a portable user-level Positron installation suitable for IT-managed environments without administrator access.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Install Positron Extensions</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>latest_version_url <span class="ot">&lt;-</span> <span class="st">"https://open-vsx.org/api/Continue/continue/win32-x64/1.3.38/file/Continue.continue-1.3.38@win32-x64.vsix"</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>latest_version_filename <span class="ot">&lt;-</span> <span class="fu">basename</span>(<span class="fu">file.path</span>(latest_version_url))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>downloaded_vsix <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(latest_version_filename, <span class="at">fileext =</span> <span class="st">".vsix"</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> latest_version_url,</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> downloaded_vsix,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"libcurl"</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"wb"</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">"positron --install-extension"</span>, <span class="fu">shQuote</span>(downloaded_vsix))</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On some Windows workstations, certificate revocation checks may prevent the download from succeeding. If this occurs, run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">R_LIBCURL_SSL_REVOKE_BEST_EFFORT =</span> <span class="st">"TRUE"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then retry the <code>download.file()</code> step above. Restart Positron if prompted. Continue may take about a minute to initialize the first time Positron starts after installation.</p>
 </section>
 <section id="configure-continue" class="level2" data-number="13.14">
 <h2 data-number="13.14" class="anchored" data-anchor-id="configure-continue"><span class="header-section-number">13.14</span> Configure Continue</h2>
 <p>Configure Continue to use the local Ollama service.</p>
-<p>Example configuration:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> local-ollama</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">models</span><span class="kw">:</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> qwen3</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> openai</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">apiBase</span><span class="kw">:</span><span class="at"> http://localhost:11434/v1</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">apiKey</span><span class="kw">:</span><span class="at"> dummy</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">model</span><span class="kw">:</span><span class="at"> qwen3:8b</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The exact configuration format may change as Continue evolves.</p>
-<p>Refer to the Continue documentation for the current configuration schema.</p>
+<p>On the validated Windows workstation configuration, the Continue configuration file is located at:</p>
+<pre><code>C:/Users/&lt;username&gt;/.continue/config.yaml</code></pre>
+<p>A minimal local Ollama configuration that has been validated for this workflow is:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> local-ollama</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">models</span><span class="kw">:</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> qwen3</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> openai</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">apiBase</span><span class="kw">:</span><span class="at"> http://localhost:11434/v1</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">apiKey</span><span class="kw">:</span><span class="at"> dummy</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">model</span><span class="kw">:</span><span class="at"> qwen3:8b</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This configuration uses Ollama’s local OpenAI-compatible API endpoint.</p>
+<p>The Continue configuration format may change over time. If the schema differs in a future release, consult the current Continue documentation and adapt the equivalent local Ollama settings.</p>
 </section>
 <section id="test-continue" class="level2" data-number="13.15">
 <h2 data-number="13.15" class="anchored" data-anchor-id="test-continue"><span class="header-section-number">13.15</span> Test Continue</h2>
-<p>Open an R source file.</p>
-<p>Select a function.</p>
-<p>Ask Continue:</p>
-<blockquote class="blockquote">
-<p>Explain this function and identify opportunities for improvement.</p>
-</blockquote>
-<p>Verify that:</p>
+<p>Open Continue inside Positron.</p>
+<p>Confirm that:</p>
 <ul>
-<li>The model responds.</li>
-<li>The selected code is included in the response.</li>
-<li>No network errors are displayed.</li>
+<li>Continue opens successfully.</li>
+<li>The configured local model is available.</li>
+<li>No network or authentication errors are displayed.</li>
+</ul>
+<p>Start with a simple prompt to confirm that Continue can reach the local Ollama endpoint.</p>
+<p>For example:</p>
+<blockquote class="blockquote">
+<p>Reply with the single word: connected</p>
+</blockquote>
+<p>Then test Continue against the active file context.</p>
+<p>In a source file, ask Continue:</p>
+<blockquote class="blockquote">
+<p>Describe <code>@Current File</code></p>
+</blockquote>
+<p>A successful result should confirm that:</p>
+<ul>
+<li>Continue can communicate with the local Ollama service.</li>
+<li>Continue can access editor context.</li>
+<li>The configured local model responds correctly inside Positron.</li>
 </ul>
 <hr>
 </section>
@@ -939,22 +956,22 @@ Invoke-RestMethod `
 <h2 data-number="13.16" class="anchored" data-anchor-id="install-aider"><span class="header-section-number">13.16</span> Install Aider</h2>
 <p>Install Aider using the method appropriate for your workstation.</p>
 <p>Verify installation.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="configure-aider" class="level2" data-number="13.17">
 <h2 data-number="13.17" class="anchored" data-anchor-id="configure-aider"><span class="header-section-number">13.17</span> Configure Aider</h2>
 <p>Configure Aider to use the local Ollama endpoint.</p>
 <p>Example configuration:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model</span><span class="kw">:</span><span class="at"> openai/qwen3</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">openai-api-base</span><span class="kw">:</span><span class="at"> http://localhost:11434/v1</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">openai-api-key</span><span class="kw">:</span><span class="at"> dummy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model</span><span class="kw">:</span><span class="at"> openai/qwen3</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">openai-api-base</span><span class="kw">:</span><span class="at"> http://localhost:11434/v1</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">openai-api-key</span><span class="kw">:</span><span class="at"> dummy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Refer to the Aider documentation for the current configuration format.</p>
 </section>
 <section id="test-aider" class="level2" data-number="13.18">
 <h2 data-number="13.18" class="anchored" data-anchor-id="test-aider"><span class="header-section-number">13.18</span> Test Aider</h2>
 <p>Open a terminal within a Git repository.</p>
 <p>Start Aider.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Test a simple refactoring request.</p>
 <p>Example:</p>
 <blockquote class="blockquote">
@@ -1082,7 +1099,7 @@ Invoke-RestMethod `
 <li>WSL2-backed Podman machine</li>
 <li>NVIDIA GPU</li>
 <li>NVIDIA container toolkit installed in the Podman machine</li>
-<li>GPU enablement</li>
+<li>GPU visible inside the Ollama container via nvidia-smi</li>
 <li>CDI device configuration generated with <code>nvidia-ctk</code></li>
 </ul>
 
