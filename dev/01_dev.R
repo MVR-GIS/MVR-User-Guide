@@ -31,9 +31,9 @@ reproducibleai::use_instructions(
   c("chat-manual", "goals", "quarto-book", "user-manual"))
 
 # Start new chat prompt text:
-# Target repo: `MVR-GIS/MVR-User-Guide`  
-# Read `dev/instructions/CHAT_INSTRUCTIONS.md` and follow the specified instruction modules in order. 
-# Task: 
+Target repo: `MVR-GIS/MVR-User-Guide`  
+Read `dev/instructions/CHAT_INSTRUCTIONS.md` and follow the specified instruction modules in order. 
+
 
 ## Update AI Chat Artifacts
 reproducibleai::extract_copilot_chat(file.path(

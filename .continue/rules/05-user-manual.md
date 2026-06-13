@@ -1,6 +1,6 @@
 ---
 name: User Manual
-alwaysApply: true
+alwaysApply: false
 description: Describes rules for developing a user manual.
 ---
 

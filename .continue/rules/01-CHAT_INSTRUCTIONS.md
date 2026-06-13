@@ -8,13 +8,9 @@ description: This file is the entrypoint for instruction modules that govern a r
 
 This file is the entrypoint for **instruction modules** that govern a reproducible chat session for this repository.
 
-## How to start a new chat session
-In your first message, specify the target GitHub repository and direct the assistant to follow these instructions.
-
-Suggested prompt template:
-
-> Target repo: MVR-GIS/MVR-User-Guide  
-> Read `dev/instructions/CHAT_INSTRUCTIONS.md` and follow the instruction modules listed under **Selected instruction modules (read in order)**.
+## Initialize a new chat session
+[TARGET REPO]: MVR-User-Guide  
+Follow the instruction modules listed under Selected instruction modules listed below.
 
 ## Instruction model used here (base + overlays)
 We use a composable instruction system:

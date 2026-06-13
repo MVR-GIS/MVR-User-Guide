@@ -1,6 +1,6 @@
 ---
 name: Quarto Book
-alwaysApply: true
+alwaysApply: false
 description: Describes rules for developing Quarto Books. 
 ---
 
